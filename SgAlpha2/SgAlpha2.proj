@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <Import Project="MsBuild\Common.targets" />
-  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets')" />
 
   <PropertyGroup>
     <SolutionDir>$(MSBuildProjectDirectory)\</SolutionDir>
