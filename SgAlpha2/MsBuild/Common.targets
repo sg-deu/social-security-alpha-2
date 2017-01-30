@@ -19,8 +19,6 @@
 
   <Target Name="RunTests" Condition="'$(RunTests)'=='true'" Inputs="@(TestDependencies)" Outputs="$(TestSuccessFlag)">
     <Exec Command="$(NUnitExe) $(OutDir)$(TestAssembly) /result=$(OutDir)$(TestOutput)" />
-    <Error Text="here" />
-    <Error Text="$(ProjectDir)" />
     <Touch Files="$(TestSuccessFlag)" AlwaysCreate="true" />
   </Target>
 

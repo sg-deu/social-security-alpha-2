@@ -31,7 +31,7 @@ namespace FormUI.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            (result.ViewBag.Message as string).Should().Be("Your application description page. testing deliberate failure");
+            (result.ViewBag.Message as string).Should().Be("Your application description page.");
         }
 
         [Test]
