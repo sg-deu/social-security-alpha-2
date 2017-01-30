@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FormUI;
+﻿using System.Web.Mvc;
+using FluentAssertions;
 using FormUI.Controllers;
+using NUnit.Framework;
 
 namespace FormUI.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
         public void Index()
         {
             // Arrange
@@ -22,10 +18,10 @@ namespace FormUI.Tests.Controllers
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            result.Should().NotBeNull();
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             // Arrange
@@ -35,10 +31,10 @@ namespace FormUI.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            (result.ViewBag.Message as string).Should().Be("Your application description page. testing deliberate failure");
         }
 
-        [TestMethod]
+        [Test]
         public void Contact()
         {
             // Arrange
@@ -48,7 +44,7 @@ namespace FormUI.Tests.Controllers
             ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            result.Should().NotBeNull();
         }
     }
 }

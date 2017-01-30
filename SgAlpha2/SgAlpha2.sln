@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormUI", "FormUI\FormUI.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormUI.Tests", "FormUI.Tests\FormUI.Tests.csproj", "{22528CD6-C72A-462C-9299-61D202094757}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{7D2DD607-E9E9-4541-BD2D-90FD4EB464A6}"
+	ProjectSection(SolutionItems) = preProject
+		SgAlpha2.proj = SgAlpha2.proj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{8DF9BD53-F6CE-4992-91D5-AAE75E7F21CA}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Common.targets = Build\Common.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DF9BD53-F6CE-4992-91D5-AAE75E7F21CA} = {7D2DD607-E9E9-4541-BD2D-90FD4EB464A6}
 	EndGlobalSection
 EndGlobal

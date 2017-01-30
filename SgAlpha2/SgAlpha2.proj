@@ -1,0 +1,80 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://MSBuild/Community/Tasks packages\MSBuildTasks.1.5.0.214\tools\MSBuild.Community.Tasks.xsd">
+
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\packages\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+
+  <Import Project="Build\Common.targets" />
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+
+  <PropertyGroup>
+    <SolutionDir>$(MSBuildProjectDirectory)\</SolutionDir>
+    <RunTests Condition=" '$(RunTests)' == '' ">true</RunTests>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MSBuildXsd Include="lib\MSBuild\*.xsd" />
+  </ItemGroup>
+
+  <Target Name="Init">
+    <CreateProperty Value="Configuration=$(Configuration);RunTests=$(RunTests)">
+      <Output TaskParameter="Value" PropertyName="GlobalProperties" />
+    </CreateProperty>
+    <Copy SourceFiles="@(MSBuildXsd)" DestinationFolder="$(MSBuildCommunityTasksPath)" />
+  </Target>
+
+  <Target Name="SetReleaseConfiguration">
+    <CreateProperty Value="Release">
+      <Output TaskParameter="Value" PropertyName="Configuration" />
+    </CreateProperty>
+  </Target>
+
+  <Target Name="SetDebugConfiguration">
+    <CreateProperty Value="Debug">
+      <Output TaskParameter="Value" PropertyName="Configuration" />
+    </CreateProperty>
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="Init">
+    <CallTarget Targets="GenerateAssemblyInfo" />
+    <MSBuild Projects="@(ProjectsToBuild)" Properties="$(GlobalProperties)" RunEachTargetSeparately="True" StopOnFirstFailure="True" />
+  </Target>
+
+  <Target Name="Clean">
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="CleanFilesInit" Properties="Configuration=Debug" />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="CleanFilesInit" Properties="Configuration=Release" />
+  </Target>
+
+  <Target Name="CleanFilesInit">
+    <CallTarget Targets="Init" />
+    <CallTarget Targets="CleanFiles" />
+  </Target>
+  
+  <Target Name="CleanFiles">
+    <MSBuild Projects="@(ProjectsToClean)" Properties="$(GlobalProperties)" RunEachTargetSeparately="True" StopOnFirstFailure="True" Targets="Clean" />
+    <RemoveDir Directories="_output" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectsToBuild Include="FormUI\FormUI.csproj"/>
+    <ProjectsToBuild Include="FormUI.Tests\FormUI.Tests.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectsToClean Include="FormUI.Tests\FormUI.Tests.csproj"/>
+    <ProjectsToClean Include="FormUI\FormUI.csproj"/>
+  </ItemGroup>
+
+  <Target Name="GenerateAssemblyInfo" Inputs="Build\Common.targets" Outputs="AssemblyInfo.cs">
+    <AssemblyInfo
+      CodeLanguage="CS"
+      AssemblyDescription="SgAlpha2"
+      AssemblyTitle="SgAlpha2"
+      AssemblyProduct="SgAlpha2 $(Configuration) $(Version)"
+      AssemblyVersion="$(Version)"
+      OutputFile="AssemblyInfo.cs"
+      />
+  </Target>
+  
+</Project>
