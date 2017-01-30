@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{7D2DD607
 		SgAlpha2.proj = SgAlpha2.proj
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{8DF9BD53-F6CE-4992-91D5-AAE75E7F21CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MsBuild", "MsBuild", "{8DF9BD53-F6CE-4992-91D5-AAE75E7F21CA}"
 	ProjectSection(SolutionItems) = preProject
 		MsBuild\Common.targets = MsBuild\Common.targets
 	EndProjectSection
