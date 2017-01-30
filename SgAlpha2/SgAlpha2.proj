@@ -4,7 +4,7 @@
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\packages\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
   </PropertyGroup>
 
-  <Import Project="Build\Common.targets" />
+  <Import Project="MsBuild\Common.targets" />
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
 
   <PropertyGroup>
@@ -66,7 +66,7 @@
     <ProjectsToClean Include="FormUI\FormUI.csproj"/>
   </ItemGroup>
 
-  <Target Name="GenerateAssemblyInfo" Inputs="Build\Common.targets" Outputs="AssemblyInfo.cs">
+  <Target Name="GenerateAssemblyInfo" Inputs="MsBuild\Common.targets" Outputs="AssemblyInfo.cs">
     <AssemblyInfo
       CodeLanguage="CS"
       AssemblyDescription="SgAlpha2"

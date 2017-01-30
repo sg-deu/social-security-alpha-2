@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://MSBuild/Community/Tasks ..\packages\MSBuildTasks.1.5.0.214\tools\MSBuild.Community.Tasks.xsd">
+
+  <PropertyGroup>
+
+    <Version>0.0.0.1</Version>
+
+    <NUnitExe>$(MSBuildThisFileDirectory)\..\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe</NUnitExe>
+
+    <TestAssembly>$(AssemblyName).dll</TestAssembly>
+    <TestOutput>$(AssemblyName).results.xml</TestOutput>
+    <TestSuccessFlag>$(OutDir)\$(AssemblyName).success.flg</TestSuccessFlag>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <TestDependencies Include="$(OutDir)\$(AssemblyName).dll" />
+  </ItemGroup>
+
+  <Target Name="RunTests" Condition="'$(RunTests)'=='true'" Inputs="@(TestDependencies)" Outputs="$(TestSuccessFlag)">
+    <Exec Command="$(NUnitExe) $(OutDir)$(TestAssembly) /result=$(OutDir)$(TestOutput)" />
+    <Error Text="here" />
+    <Error Text="$(ProjectDir)" />
+    <Touch Files="$(TestSuccessFlag)" AlwaysCreate="true" />
+  </Target>
+
+</Project>
