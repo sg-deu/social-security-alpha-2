@@ -1,10 +1,27 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" type="text/css">
+
+    <!--[if lte IE 8]>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900" />
+        <![endif]-->
+
     <title>@ViewBag.Title - SG Alpha 2</title>
+
     @Styles.Render("~/Content/css")
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
     @Scripts.Render("~/bundles/modernizr")
 
     <script type="text/javascript">
@@ -57,8 +74,68 @@
         </div>
     </div>
 
+    <footer id="site-footer" class="site-footer">
+        <div class="wrapper">
+            <ul class="site-items grid hidden-xsmall hidden-medium"><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+            --></ul>
+
+            <ul class="site-items grid visible-xsmall visible-medium"><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+            --></ul>
+
+            <div class="grid"><!--
+                --><div class="grid__item medium--six-twelfths">
+                    <p class="site-footer__summary">
+                        mygov.scot is the place for people in Scotland to access public services that are easy to find and simple to use.  Please give us your
+                        <a href="#">feedback</a> on how we can improve this service.
+                    </p>
+                </div><!--
+
+                --><div class="grid__item medium--six-twelfths">
+                    <a data-gtm="logo-govscot" id="govscot-logo" class="site-footer__gov-logo" title="The Scottish Government" href="#">
+                        @Html.Partial("_mygovlogo")
+                    </a>
+                </div><!--
+            --></div>
+        </div>
+    </footer>
+
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
