@@ -17,16 +17,23 @@
     <MSBuildXsd Include="lib\MSBuild\*.xsd" />
   </ItemGroup>
 
-  <Target Name="RestorePackages">
+  <ItemGroup>
+    <NuGetPackageConfig Include="**\packages.config" />
+  </ItemGroup>
+
+  <Target Name="RestorePackages" Inputs="@(NuGetPackageConfig)" Outputs="packages\packages.up.to.date">
+    <Message Text="NuGet packages are not up to date - deleting and updating" />
+    <RemoveDir Directories="packages" />
     <Exec Command="lib\NuGet\NuGet.exe restore" />
+    <Copy SourceFiles="@(MSBuildXsd)" DestinationFolder="$(MSBuildCommunityTasksPath)" />
+    <Touch Files="packages\packages.up.to.date" AlwaysCreate="true" />
   </Target>
 
   <Target Name="Init">
-    <Error Text="Missing NuGet packages - try running 'b /t:RestorePackages'" Condition="!Exists('$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets')" />
+    <CallTarget Targets="RestorePackages" />
     <CreateProperty Value="Configuration=$(Configuration);RunTests=$(RunTests)">
       <Output TaskParameter="Value" PropertyName="GlobalProperties" />
     </CreateProperty>
-    <Copy SourceFiles="@(MSBuildXsd)" DestinationFolder="$(MSBuildCommunityTasksPath)" />
   </Target>
 
   <Target Name="SetReleaseConfiguration">
