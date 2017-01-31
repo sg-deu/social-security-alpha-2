@@ -37,6 +37,18 @@
 </head>
 <body class="article">
 
+    <span id="page-top"></span>
+
+    <!-- other notices -->
+    <div id="cookie-notice" class="notification hidden" aria-describedby="cookieinfo">
+        <div class="wrapper">
+            <p tabindex="0" id="cookieinfo" class="cookieinfo">This site uses cookies to make the site simpler. <a href="/cookies/">Find out more about cookies</a></p>
+            <button title="Close this notification" id="close-cookie-notification" class="button button--close close-notification">Close</button>
+        </div>
+    </div>
+
+    <div class="div-spacer"></div>
+
     <div class="wrapper header-bar">
         <div class="header-with-search-container clearfix">
 
@@ -49,12 +61,12 @@
             </div>
 
             <div class="search-box">
-                <form class="search-box__form" method="GET" action="/search/">
+                <form class="search-box__form" method="GET" action="#">
                     <label class="search-box__label hidden" for="search-box">Search</label>
                     <input name="q" required="" id="search-box" class="search-box__input" type="text" placeholder="Search mygov.scot" autocomplete="off" disabled>
                     <input type="hidden" value="sitesearch" name="cat">
 
-                    <button type="submit" title="search" class="search-box__button button button--primary" disabled>
+                    <button type="submit" title="search" class="search-box__button button button--primary">
                         <img alt="" class="search-box__icon" src="@Url.Content("~/Content/images/search-white_2x.png")">
                         <span class="hidden">Search mygov.scot</span>
                     </button>
@@ -62,10 +74,6 @@
             </div>
 
         </div>
-    </div>
-
-    <div class="wrapper">
-        <div class="header-separator header-separator--eight-twelfths"> </div>
     </div>
 
     <div id="body-wrapper">
@@ -135,7 +143,7 @@
         </div>
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>
