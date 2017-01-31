@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - SG Alpha 2</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,33 +18,43 @@
         appInsights.trackPageView();
     </script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body class="article">
+
+    <div class="wrapper header-bar">
+        <div class="header-with-search-container clearfix">
+
+            <div class="site-brand">
+                <div class="site-brand__link">
+                    <a id="mygov-logo" class="site-brand__logo" data-gtm="logo-mygov" href="#">
+                        @Html.Partial("_mygovscotlogo")
+                    </a>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+
+            <div class="search-box">
+                <form class="search-box__form" method="GET" action="/search/">
+                    <label class="search-box__label hidden" for="search-box">Search</label>
+                    <input name="q" required="" id="search-box" class="search-box__input" type="text" placeholder="Search mygov.scot" autocomplete="off" disabled>
+                    <input type="hidden" value="sitesearch" name="cat">
+
+                    <button type="submit" title="search" class="search-box__button button button--primary" disabled>
+                        <img alt="" class="search-box__icon" src="@Url.Content("~/Content/images/search-white_2x.png")">
+                        <span class="hidden">Search mygov.scot</span>
+                    </button>
+                </form>
             </div>
+
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
+    <div class="wrapper">
+        <div class="header-separator header-separator--eight-twelfths"> </div>
+    </div>
+
+    <div id="body-wrapper">
+        <div class="wrapper main">
+            @RenderBody()
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
