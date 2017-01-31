@@ -137,6 +137,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets'))" />
   </Target>
+  <ItemGroup>
+    <TestDependencies Include="..\FormUI\**" Exclude="..\FormUI\obj\**">
+      <InProject>False</InProject>
+    </TestDependencies>
+  </ItemGroup>
   <Target Name="AfterBuild">
     <CallTarget Targets="RunTests" />
   </Target>
