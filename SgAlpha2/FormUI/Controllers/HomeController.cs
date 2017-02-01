@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace FormUI.Controllers
 {
+    public static class HomeActions
+    {
+        public static string Index() { return "~/"; }
+        public static string Password() { return "~/home/password/"; }
+    }
+
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Password()
+        {
+            return Content("this resource is password protected");
         }
 
         public ActionResult About()
