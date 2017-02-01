@@ -6,6 +6,7 @@ namespace FormUI.Controllers.Bsg
     {
         public static string    Index()     { return "~/bsg"; }
         public static string    Overview()  { return "~/bsg/overview"; }
+        public static string    AboutYou()  { return "~/bsg/aboutYou"; }
     }
 
     public class BsgController : Controller
@@ -18,6 +19,12 @@ namespace FormUI.Controllers.Bsg
 
         [HttpGet]
         public ActionResult Overview()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AboutYou()
         {
             return View();
         }

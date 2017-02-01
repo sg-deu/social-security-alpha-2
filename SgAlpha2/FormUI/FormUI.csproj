@@ -209,6 +209,7 @@
     <Content Include="Content\images\icons\notification_close_white.png" />
     <Content Include="Content\images\search-white_2x.png" />
     <Content Include="Content\mygov.scot.main.css" />
+    <None Include="Controllers\Bsg\AboutYou.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
