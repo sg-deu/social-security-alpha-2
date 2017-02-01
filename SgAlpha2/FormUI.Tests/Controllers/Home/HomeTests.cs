@@ -1,12 +1,12 @@
 ﻿using System.Web.Mvc;
 using FluentAssertions;
-using FormUI.Controllers;
+using FormUI.Controllers.Home;
 using NUnit.Framework;
 
-namespace FormUI.Tests.Controllers
+namespace FormUI.Tests.Controllers.Home
 {
     [TestFixture]
-    public class HomeControllerTest
+    public class HomeTests
     {
         [Test]
         public void Index()

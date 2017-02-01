@@ -8,6 +8,7 @@ namespace FormUI.App_Start
     {
         public virtual void Init()
         {
+            FeatureFolders.Register(ViewEngines.Engines);
             //GlobalFilters.Filters.Add(new Alpha2EntryFilter());
 
             AreaRegistration.RegisterAllAreas();

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace FormUI.Controllers
+namespace FormUI.Controllers.Home
 {
     public static class HomeActions
     {

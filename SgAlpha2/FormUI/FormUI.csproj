@@ -190,17 +190,14 @@
   <ItemGroup>
     <Compile Include="App_Start\Alpha2EntryFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FeatureFolders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -238,18 +235,16 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Controllers\Web.config" />
+    <Content Include="Controllers\_ViewStart.cshtml" />
+    <Content Include="Controllers\Shared\Error.cshtml" />
+    <Content Include="Controllers\Shared\_Layout.cshtml" />
+    <Content Include="Controllers\Home\Index.cshtml" />
+    <Content Include="Controllers\Shared\Lockout.cshtml" />
+    <Content Include="Controllers\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="Views\Shared\_mygovscotlogo.cshtml" />
-    <Content Include="Views\Shared\_mygovlogo.cshtml" />
+    <Content Include="Controllers\Shared\_mygovscotlogo.cshtml" />
+    <Content Include="Controllers\Shared\_mygovlogo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
