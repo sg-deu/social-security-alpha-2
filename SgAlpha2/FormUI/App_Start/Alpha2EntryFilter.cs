@@ -35,7 +35,7 @@ namespace FormUI.App_Start
         public static Action<HttpResponseBase> Authenticate = (HttpResponseBase response) =>
         {
             var cookie = new HttpCookie(_cookieName, _cookieValue);
-            cookie.Expires = DateTime.UtcNow + TimeSpan.FromSeconds(30);
+            cookie.Expires = DateTime.UtcNow + TimeSpan.FromHours(24);
             response.Cookies.Add(cookie);
         };
 
