@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using FormUI.Controllers.Home;
@@ -13,6 +14,7 @@ namespace FormUI.App_Start
     public class Alpha2EntryFilter : IAuthenticationFilter
     {
         private const string _cookieName = "Alpha2Entry";
+        private const string _cookieValue = "allow";
 
         private static string _passwordAction = HomeActions.Password();
 
@@ -29,6 +31,13 @@ namespace FormUI.App_Start
         {
             // OnAuthentication already called by this point, so do nothing here
         }
+
+        public static Action<HttpResponseBase> Authenticate = (HttpResponseBase response) =>
+        {
+            var cookie = new HttpCookie(_cookieName, _cookieValue);
+            cookie.Expires = DateTime.UtcNow + TimeSpan.FromSeconds(30);
+            response.Cookies.Add(cookie);
+        };
 
         private bool SkipAuthentication(AuthenticationContext context)
         {
@@ -50,7 +59,7 @@ namespace FormUI.App_Start
 
         private void HandleUnauthenticated(AuthenticationContext context)
         {
-            var url = string.Format("{0}?{1}={2}", _passwordAction, "returnUrl", HttpUtility.UrlEncode(context.HttpContext.Request.Url.OriginalString));
+            var url = string.Format("{0}?{1}={2}", _passwordAction, HomeController.PasswordReturnUrlName, HttpUtility.UrlEncode(context.HttpContext.Request.Url.OriginalString));
             var redirect = new RedirectResult(url);
             context.Result = redirect;
         }
