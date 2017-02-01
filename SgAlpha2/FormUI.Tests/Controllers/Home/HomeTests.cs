@@ -11,14 +11,22 @@ namespace FormUI.Tests.Controllers.Home
         [Test]
         public void Index()
         {
-            // Arrange
-            HomeController controller = new HomeController();
+            var controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = controller.Index() as ViewResult;
 
-            // Assert
             result.Should().NotBeNull();
+        }
+
+        [Test]
+        public void Password()
+        {
+            var controller = new HomeController();
+
+            var result = controller.Password() as ViewResult;
+
+            result.Should().NotBeNull();
+            result.ViewName.Should().BeNullOrWhiteSpace();
         }
     }
 }
