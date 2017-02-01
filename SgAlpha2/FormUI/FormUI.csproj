@@ -196,6 +196,7 @@
     <Compile Include="App_Start\GlobalStartup.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
+    <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
