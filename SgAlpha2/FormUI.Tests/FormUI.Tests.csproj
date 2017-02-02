@@ -118,7 +118,9 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />
+    <Compile Include="Controllers\SetUpFixture.cs" />
     <Compile Include="Controllers\Shared\DesignContraintsTests.cs" />
+    <Compile Include="Controllers\Util\FakeStartup.cs" />
     <Compile Include="Controllers\Util\Hosting\AppDomainProxy.cs" />
     <Compile Include="Controllers\Util\Hosting\AspNetTestHost.cs" />
     <Compile Include="Controllers\Util\Hosting\CaptureResultFilter.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Controllers\Util\Http\SimulatedHttpClient.cs" />
     <Compile Include="Controllers\Util\Http\SimulatedWorkerRequest.cs" />
     <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
+    <Compile Include="Controllers\Util\WebTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
