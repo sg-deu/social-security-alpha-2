@@ -36,6 +36,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -115,6 +119,27 @@
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\Shared\DesignContraintsTests.cs" />
+    <Compile Include="Controllers\Util\Hosting\AppDomainProxy.cs" />
+    <Compile Include="Controllers\Util\Hosting\AspNetTestHost.cs" />
+    <Compile Include="Controllers\Util\Hosting\CaptureResultFilter.cs" />
+    <Compile Include="Controllers\Util\Hosting\ConsoleWriter.cs" />
+    <Compile Include="Controllers\Util\Hosting\SerializableDelegate.cs" />
+    <Compile Include="Controllers\Util\Html\DocumentWrapper.cs" />
+    <Compile Include="Controllers\Util\Html\ElementWrapper.cs" />
+    <Compile Include="Controllers\Util\Html\FormHelper.cs" />
+    <Compile Include="Controllers\Util\Html\FormScraper.cs" />
+    <Compile Include="Controllers\Util\Html\FormValue.cs" />
+    <Compile Include="Controllers\Util\Html\FormValueScraper.cs" />
+    <Compile Include="Controllers\Util\Html\ParentNodeWrapper.cs" />
+    <Compile Include="Controllers\Util\Html\SubmitValue.cs" />
+    <Compile Include="Controllers\Util\Html\TypedForm.cs" />
+    <Compile Include="Controllers\Util\Html\TypedFormExtensions.cs" />
+    <Compile Include="Controllers\Util\Http\NameValue.cs" />
+    <Compile Include="Controllers\Util\Http\Request.cs" />
+    <Compile Include="Controllers\Util\Http\Response.cs" />
+    <Compile Include="Controllers\Util\Http\SimulatedHttpClient.cs" />
+    <Compile Include="Controllers\Util\Http\SimulatedWorkerRequest.cs" />
+    <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
