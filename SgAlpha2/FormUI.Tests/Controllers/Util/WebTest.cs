@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using FormUI.Tests.Controllers.Util.Hosting;
 using FormUI.Tests.Controllers.Util.Http;
 using NUnit.Framework;
@@ -30,9 +31,10 @@ namespace FormUI.Tests.Controllers.Util
 
         protected void WebAppTest(Action<SimulatedHttpClient> test)
         {
-            _webApp.Test(http =>
+            _webApp.Test(client =>
             {
-                test(http);
+                client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
+                test(client);
             });
         }
 

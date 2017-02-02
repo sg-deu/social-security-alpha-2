@@ -88,7 +88,7 @@ namespace FormUI.Tests.Controllers.Util.Hosting
         public void Test(Action<SimulatedHttpClient> testAction)
         {
             var serializableDelegate = new SerializableDelegate<Action<SimulatedHttpClient>>(testAction);
-            _appDomainProxy.RunCodeInAppDomain(serializableDelegate, new SimulatedHttpClient());
+            _appDomainProxy.RunCodeInAppDomain(serializableDelegate, new ConsoleWriter());
         }
 
         public void Dispose()

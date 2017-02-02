@@ -13,16 +13,17 @@ namespace FormUI.Tests.Controllers.Util.Http
     [Serializable]
     public class SimulatedHttpClient : ISimulatedHttpClient
     {
-
         public static string LastResponseText { get; protected set; }
 
         private bool _expectedError;
 
-        public ConsoleWriter ConsoleWriter { get; protected set; }
+        public ConsoleWriter        ConsoleWriter   { get; protected set; }
+        public HttpCookieCollection Cookies         { get; protected set; }
 
-        public SimulatedHttpClient()
+        public SimulatedHttpClient(ConsoleWriter consoleWriter)
         {
-            ConsoleWriter = new ConsoleWriter();
+            ConsoleWriter = consoleWriter;
+            Cookies = new HttpCookieCollection();
         }
 
         public void ExpectError()
@@ -58,7 +59,7 @@ namespace FormUI.Tests.Controllers.Util.Http
             {
                 CaptureResultFilter.LastResult = null;
 
-                var workerRequest = new SimulatedWorkerRequest(request, output);
+                var workerRequest = new SimulatedWorkerRequest(request, Cookies, output);
                 HttpRuntime.ProcessRequest(workerRequest);
 
                 var responseText = output.ToString();

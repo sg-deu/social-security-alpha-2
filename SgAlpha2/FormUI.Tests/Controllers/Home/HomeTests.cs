@@ -20,14 +20,13 @@ namespace FormUI.Tests.Controllers.Home
         }
 
         [Test]
-        [Explicit("Not working with OWIN yet")]
         public void Index_Web()
         {
             WebAppTest(client =>
             {
                 var response = client.Get(HomeActions.Index());
 
-                response.Doc.Document.TextContent.Should().Contain("Welcome to Alpha 2");
+                response.Doc.Document.Body.TextContent.Should().Contain("Welcome to Alpha 2");
             });
         }
 

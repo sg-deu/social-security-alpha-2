@@ -10,8 +10,10 @@ namespace FormUI.Tests.Controllers.Util.Hosting
             codeToRun();
         }
 
-        public void RunCodeInAppDomain(SerializableDelegate<Action<SimulatedHttpClient>> codeToRun, SimulatedHttpClient client)
+        public void RunCodeInAppDomain(SerializableDelegate<Action<SimulatedHttpClient>> codeToRun, ConsoleWriter consoleWriter)
         {
+            var client = new SimulatedHttpClient(consoleWriter);
+
             try
             {
                 codeToRun.Delegate(client);
