@@ -5,10 +5,10 @@ using System.Xml;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace FormUI.Tests.Controllers.Shared
+namespace FormUI.Tests.Shared
 {
     [TestFixture]
-    public class DesignContraintsTests
+    public class FormUiContraintsTests
     {
         [Test]
         public void All_files_in_web_should_be_in_csproj()

@@ -119,7 +119,7 @@
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\SetUpFixture.cs" />
-    <Compile Include="Controllers\Shared\DesignContraintsTests.cs" />
+    <Compile Include="Shared\FormUiContraintsTests.cs" />
     <Compile Include="Controllers\Util\FakeStartup.cs" />
     <Compile Include="Controllers\Util\Hosting\AppDomainProxy.cs" />
     <Compile Include="Controllers\Util\Hosting\AspNetTestHost.cs" />
