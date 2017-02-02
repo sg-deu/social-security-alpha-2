@@ -165,6 +165,7 @@
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
     <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Home\PasswordPostModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

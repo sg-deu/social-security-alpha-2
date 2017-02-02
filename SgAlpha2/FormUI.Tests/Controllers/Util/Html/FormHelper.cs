@@ -7,29 +7,29 @@ namespace FormUI.Tests.Controllers.Util.Html
     {
         public static Func<ElementWrapper, FormScraper> NewScraper = ew => new FormScraper(ew);
 
-        public static TypedForm<T> Scrape<T>(DocumentWrapper doc)
+        public static TypedForm<T> Scrape<T>(DocumentWrapper doc, string requestUrl)
         {
-            return Scrape<T>(doc, "form");
+            return Scrape<T>(doc, requestUrl, "form");
         }
 
-        public static TypedForm<T> Scrape<T>(DocumentWrapper doc, int index)
+        public static TypedForm<T> Scrape<T>(DocumentWrapper doc, string requestUrl, int index)
         {
             var formElements = FindForms(doc, "form");
 
             if (index > formElements.Count - 1)
                 throw new Exception(string.Format("Index '{0}' is too large for collection with '{1}' forms: {2}", index, formElements.Count, ElementWrapper.FormatTags(formElements)));
 
-            return NewScraper(formElements[index]).Scrape<T>();
+            return NewScraper(formElements[index]).Scrape<T>(requestUrl);
         }
 
-        public static TypedForm<T> Scrape<T>(DocumentWrapper doc, string cssSelector)
+        public static TypedForm<T> Scrape<T>(DocumentWrapper doc, string requestUrl, string cssSelector)
         {
             var formElements = FindForms(doc, cssSelector);
 
             if (formElements.Count > 1)
                 throw new Exception("Multiple form elements found in document: " + ElementWrapper.FormatTags(formElements));
 
-            return NewScraper(formElements[0]).Scrape<T>();
+            return NewScraper(formElements[0]).Scrape<T>(requestUrl);
         }
 
         private static List<ElementWrapper> FindForms(DocumentWrapper doc, string cssSelector)

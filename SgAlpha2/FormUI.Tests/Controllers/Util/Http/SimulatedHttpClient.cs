@@ -67,6 +67,7 @@ namespace FormUI.Tests.Controllers.Util.Http
 
                 var response = new Response
                 {
+                    RequestUrl          = request.OriginalUrl,
                     StatusCode          = workerRequest.StatusCode,
                     StatusDescription   = workerRequest.StatusDescription,
                     Text                = responseText,

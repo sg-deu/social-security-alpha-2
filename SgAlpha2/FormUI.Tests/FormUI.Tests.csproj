@@ -142,6 +142,7 @@
     <Compile Include="Controllers\Util\Http\SimulatedHttpClient.cs" />
     <Compile Include="Controllers\Util\Http\SimulatedWorkerRequest.cs" />
     <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
+    <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
   </ItemGroup>
   <ItemGroup>

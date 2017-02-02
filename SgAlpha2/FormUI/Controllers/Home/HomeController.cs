@@ -27,9 +27,9 @@ namespace FormUI.Controllers.Home
         }
 
         [HttpPost]
-        public ActionResult Password(string password)
+        public ActionResult Password(PasswordPostModel model)
         {
-            if (password != PasswordValue)
+            if (model.Password != PasswordValue)
                 return Redirect(HttpContext.Request.Url.OriginalString);
 
             Alpha2EntryFilter.Authenticate(Response);

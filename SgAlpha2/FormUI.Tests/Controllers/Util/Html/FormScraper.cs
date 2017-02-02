@@ -9,10 +9,14 @@
             _element = element;
         }
 
-        public virtual TypedForm<T> Scrape<T>()
+        public virtual TypedForm<T> Scrape<T>(string documentUrl)
         {
             var method = _element.AttributeOrEmpty("method");
             var action = _element.AttributeOrEmpty("action");
+
+            if (string.IsNullOrWhiteSpace(action))
+                action = documentUrl;
+
             var form = new TypedForm<T>(_element, method, action);
             AddInputs(form);
             return form;
@@ -20,7 +24,7 @@
 
         protected virtual void AddInputs<T>(TypedForm<T> form)
         {
-            var formInputs = _element.FindAll("input, select, textarea");
+            var formInputs = _element.FindAll("input, select, textarea, button");
 
             foreach (var formInput in formInputs)
                 if (IsSubmit(formInput))
@@ -34,8 +38,8 @@
             var tagName = formInput.TagName.ToLower();
             var type = formInput.AttributeOrEmpty("type").ToLower();
 
-            return tagName == "input"
-                && (type == "submit" || type == "image");
+            return tagName == "button" ||
+                (tagName == "input" && (type == "submit" || type == "image"));
         }
 
         protected virtual void AddSubmit<T>(TypedForm<T> form, ElementWrapper inputSubmit)

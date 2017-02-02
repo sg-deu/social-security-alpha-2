@@ -20,11 +20,11 @@ namespace FormUI.Tests.Controllers.Util.Http
             {
                 var parser = NewParser();
                 var doc = parser.Parse(Text);
-                return new DocumentWrapper(doc);
+                return new DocumentWrapper(doc, RequestUrl);
             });
-
         }
 
+        public string           RequestUrl;
         public int              StatusCode;
         public string           StatusDescription;
         public string           Text;

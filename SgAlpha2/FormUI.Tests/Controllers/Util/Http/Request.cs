@@ -13,6 +13,7 @@ namespace FormUI.Tests.Controllers.Util.Http
             { "POST",   HttpStatusCode.Redirect },
         };
 
+        private string              _originalUrl;
         private string              _url;
         private string              _verb;
         private string              _query;
@@ -22,6 +23,8 @@ namespace FormUI.Tests.Controllers.Util.Http
 
         public Request(string url, string verb = "GET")
         {
+            _originalUrl = url;
+
             var indexOfQuery = url.IndexOf('?');
 
             if (indexOfQuery < 0)
@@ -44,6 +47,7 @@ namespace FormUI.Tests.Controllers.Util.Http
                 _expectedResponse = DefaultStatusCodes[_verb];
         }
 
+        public string                   OriginalUrl         { get { return _originalUrl; } }
         public string                   Url                 { get { return _url; } }
         public string                   Verb                { get { return _verb; } }
         public HttpStatusCode?          ExptectedResponse   { get { return _expectedResponse; } }
