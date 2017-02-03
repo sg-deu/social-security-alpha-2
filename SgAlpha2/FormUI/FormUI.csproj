@@ -178,11 +178,17 @@
     <Content Include="Content\images\icons\notification_close_white_2x.png" />
     <Content Include="Content\images\search-white_2x.png" />
     <Content Include="Content\mygov.scot.main.css" />
+    <Content Include="Content\sg.css">
+      <DependentUpon>sg.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\sg.min.css">
+      <DependentUpon>sg.css</DependentUpon>
+    </Content>
+    <Content Include="Content\sg.scss" />
     <Content Include="Controllers\Bsg\AboutYou.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -191,6 +197,10 @@
     <Content Include="Controllers\Bsg\Index.cshtml" />
     <Content Include="Controllers\Bsg\Web.config" />
     <Content Include="Controllers\Bsg\Overview.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
