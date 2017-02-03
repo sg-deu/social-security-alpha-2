@@ -1,13 +1,23 @@
 ﻿.sg {
 
     .form-group {
+
         label {
             font-weight: normal;
         }
 
-        p.help-block {
+        .help-block {
             color: #6f777b;
         }
+
+        .input-wrapper {
+
+            input {
+                border: 1px solid #b3b3b3;
+            }
+
+        }
+
     }
 
 }
