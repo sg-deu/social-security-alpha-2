@@ -59,11 +59,11 @@ namespace FormUI.Tests.Shared
             // This test ensures that we know about all <None/> content elements
 
             if (filesNotPackagedThatShouldBe.Count > 0)
-                Assert.Fail($"The following files are inside <None ... /> elements in the .csproj: \n\n{string.Join(", ", filesNotPackagedThatShouldBe)}\n\nPlease verify if they need to have their type changed, or if NotPackagedButShouldBe() needs modified");
+                Assert.Fail($"The following files are inside <None ... /> elements in the .csproj: \n\n{string.Join("\n", filesNotPackagedThatShouldBe)}\n\nPlease verify if they need to have their type changed, or if NotPackagedButShouldBe() needs modified");
         }
 
         [Test]
-        public void NotPackagedButShouldBe()
+        public void NotPackagedButShouldBe_VerifyElements()
         {
             Func<string, XmlElement> createElement = s =>
             {
@@ -76,6 +76,8 @@ namespace FormUI.Tests.Shared
             NotPackagedButShouldBe(createElement("<Content Include='AboutYou.cshtml' />")).Should().BeFalse(".cshtml files included as content will get deployed");
             NotPackagedButShouldBe(createElement("<Compile Include='AboutYou.cs' />")).Should().BeFalse("any compiled files are implicitly packaged in the assemblies");
             NotPackagedButShouldBe(createElement("<None Include='Scripts\\jquery.validate-vsdoc.js' />")).Should().BeFalse("vsdoc.js files can be excluded from package");
+            NotPackagedButShouldBe(createElement("<None Include='compilerconfig.json' />")).Should().BeFalse("config for Web Compiler extension does not need packaged");
+            NotPackagedButShouldBe(createElement("<None Include='compilerconfig.json.defaults' />")).Should().BeFalse("config for Web Compiler extension does not need packaged");
 
             // true means the file is incorrect in the .csproj
             NotPackagedButShouldBe(createElement("<None Include='AboutYou.cshtml' />")).Should().BeTrue(".cshtml files should not be a None element");
@@ -88,6 +90,9 @@ namespace FormUI.Tests.Shared
 
             var file = fileElement.Attributes["Include"].Value;
             file = Path.GetFileName(file).ToLower();
+
+            if (file.StartsWith("compilerconfig.json"))
+                return false;
 
             if (file.EndsWith("vsdoc.js") || file.EndsWith("intellisense.js"))
                 return false;

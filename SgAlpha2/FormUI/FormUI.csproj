@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\AboutYou.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
     <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
