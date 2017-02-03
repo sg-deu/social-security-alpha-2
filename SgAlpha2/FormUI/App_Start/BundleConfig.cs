@@ -20,6 +20,10 @@ namespace FormUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/mygov.scot.main.css",
                       "~/Content/sg.css"));
+
+            bundles.Add(new StyleBundle("~/Content/myGovCss").Include(
+                      "~/Content/mygov-assets.css",
+                      "~/Content/sg.css"));
         }
     }
 }

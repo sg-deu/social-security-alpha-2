@@ -1,0 +1,165 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="canonical" href="https://www.mygov.scot" />
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900" />
+    <![endif]-->
+
+    <title>@ViewBag.Title - SG Alpha 2</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    @Styles.Render("~/Content/myGovCss")
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!--[if lt IE 9]>
+      <script src="/assets/scripts/vendor/html5shiv/dist/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lte IE 7]>
+      <link rel="stylesheet" href="/assets/styles/ie.fec7544a.css">
+    <![endif]-->
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="/assets/styles/ie8.59b04236.css">
+    <![endif]-->
+
+</head>
+
+<body class="article">
+
+    <span id="page-top"></span>
+
+    <!-- other notices -->
+    <div id="browser-notice" class="notification hidden strong">
+        <div class="wrapper">
+            <p>You appear to be using an unsupported browser, and it may not be able to display this site properly.</p>
+            <p>You may wish to <a href="/browsers/">upgrade your browser</a>.</p>
+
+            <button title="Close this notification" id="close-unsupported-browser-notification" class="button button--close close-notification"><span>Close</span></button>
+        </div>
+    </div>
+    <div id="cookie-notice" class="notification hidden" aria-describedby="cookieinfo">
+        <div class="wrapper">
+            <p tabindex="0" id="cookieinfo" class="cookieinfo">This site uses cookies to make the site simpler. <a href="/cookies/">Find out more about cookies</a></p>
+            <button title="Close this notification" id="close-cookie-notification" class="button button--close close-notification">Close</button>
+        </div>
+    </div>
+
+    <div class="div-spacer"></div>
+
+    <div class="wrapper header-bar">
+        <div class="header-with-search-container clearfix">
+
+            <div class="site-brand">
+                <div class="site-brand__link">
+                    <a id="mygov-logo" class="site-brand__logo" data-gtm="logo-mygov" href="#">
+                        @Html.Partial("_mygovscotlogo")
+                    </a>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <form class="search-box__form" method="GET" action="#">
+                    <label class="search-box__label hidden" for="search-box">Search</label>
+                    <input name="q" required="" id="search-box" class="search-box__input" type="text" placeholder="Search mygov.scot" autocomplete="off" disabled>
+                    <input type="hidden" value="sitesearch" name="cat">
+
+                    <button type="submit" title="search" class="search-box__button button button--primary">
+                        <img alt="" class="search-box__icon" src="@Url.Content("~/Content/images/search-white_2x.png")">
+                        <span class="hidden">Search mygov.scot</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="body-wrapper">
+        <div class="wrapper main sg">
+            @RenderBody()
+        </div>
+    </div>
+
+    <footer id="site-footer" class="site-footer">
+        <div class="wrapper">
+            <ul class="site-items grid hidden-xsmall hidden-medium"><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+                --><li class="site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+            --></ul>
+
+            <ul class="site-items grid visible-xsmall visible-medium"><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+                --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="#" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+            --></ul>
+
+            <div class="grid"><!--
+                --><div class="grid__item medium--six-twelfths">
+                    <p class="site-footer__summary">
+                        mygov.scot is the place for people in Scotland to access public services that are easy to find and simple to use.  Please give us your
+                        <a href="#">feedback</a> on how we can improve this service.
+                    </p>
+                </div><!--
+
+                --><div class="grid__item medium--six-twelfths">
+                    <a data-gtm="logo-govscot" id="govscot-logo" class="site-footer__gov-logo" title="The Scottish Government" href="#">
+                        @Html.Partial("_mygovlogo")
+                    </a>
+                </div><!--
+            --></div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

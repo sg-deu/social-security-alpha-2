@@ -168,6 +168,7 @@
     <Compile Include="App_Start\GlobalStartup.cs" />
     <Compile Include="Controllers\Bsg\AboutYouModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
+    <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
     <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -183,6 +184,7 @@
     <Content Include="Content\images\icons\notification_close_white.png" />
     <Content Include="Content\images\icons\notification_close_white_2x.png" />
     <Content Include="Content\images\search-white_2x.png" />
+    <Content Include="Content\mygov-assets.css" />
     <Content Include="Content\mygov.scot.main.css" />
     <Content Include="Content\sg.css">
       <DependentUpon>sg.scss</DependentUpon>
@@ -192,6 +194,7 @@
     </Content>
     <Content Include="Content\sg.scss" />
     <Content Include="Controllers\Bsg\AboutYou.cshtml" />
+    <Content Include="Controllers\Shared\_MyGovLayout.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -207,6 +210,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Controllers\Harness\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
