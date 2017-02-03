@@ -1,6 +1,6 @@
 ﻿namespace FormUI.Controllers.Bsg
 {
-    public class AboutYou
+    public class AboutYouModel
     {
         public string NationalInsuranceNumberText { get; protected set; }
     }

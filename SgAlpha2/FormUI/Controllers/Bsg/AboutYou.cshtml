@@ -1,45 +1,41 @@
-﻿@{
+﻿@inherits WebViewPage<AboutYouModel>
+@{
     ViewBag.Title = "Best Start Grant - About You";
 }
 
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
-        <article>
 
-            <header class="article-header">
-                <h1 class="article-header__title">About You ...</h1>
-            </header>
+        <h1>About You ...</h1>
 
-            <div class="body-content">
+        <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
 
-                <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
+        <p>You must complete all fields, unless they're marked as (optional)...</p>
 
-                <p>You must complete all fields, unless they're marked as (optional)...</p>
+        <br />
 
-                <br />
+        <form>
 
-                <form class="in-article-form main-content">
+            <h2>Your Personal  Details</h2>
 
-                    <h2>Your Personal  Details</h2>
+            @Html.LabelledInputText("National Insurance number", m => m.NationalInsuranceNumberText)
+                <!--.WithHelp("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")-->
 
-                    <div class="form-group">
-                        <label for="NationalInsuranceNumberText">
-                            National Insurance number
-                        </label>
-                        <p class="help-block">
-                            It's on your National Insurance Card, benefit letter, payslip or P60.
-                            <br>
-                            For example, 'VO 12 34 56 D'.
-                        </p>
-                        <div class="input-wrapper">
-                            <input type="text" id="NationalInsuranceNumberText" class="grey form-control">
-                        </div>
-                    </div>
-
-                </form>
-
+            <div class="form-group">
+                <label for="NationalInsuranceNumberText">
+                    National Insurance number
+                </label>
+                <p class="help-block">
+                    It's on your National Insurance Card, benefit letter, payslip or P60.
+                    <br>
+                    For example, 'VO 12 34 56 D'.
+                </p>
+                <div class="input-wrapper">
+                    <input type="text" id="NationalInsuranceNumberText" class="grey form-control">
+                </div>
             </div>
 
-        </article>
+        </form>
+
     </div><!--
 --></div>

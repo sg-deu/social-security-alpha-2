@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Linq.Expressions;
+using System.Web;
 using System.Web.Mvc;
 using HtmlTags;
 
@@ -19,6 +21,12 @@ namespace FormUI.Controllers.Helpers
 
             var formGroup = new DivTag().AddClasses("form-group").Append(button);
 
+            return formGroup;
+        }
+
+        public static IHtmlString LabelledInputText<T>(this HtmlHelper<T> helper, string label, Expression<Func<T, string>> property)
+        {
+            var formGroup = new DivTag().AddClasses("form-group");
             return formGroup;
         }
     }
