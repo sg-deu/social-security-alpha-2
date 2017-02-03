@@ -186,6 +186,7 @@
     <Content Include="Content\images\search-white_2x.png" />
     <Content Include="Content\mygov-assets.css" />
     <Content Include="Content\mygov.scot.main.css" />
+    <Content Include="Content\mygov.scot.main.partial.css" />
     <Content Include="Content\sg.css">
       <DependentUpon>sg.scss</DependentUpon>
     </Content>
