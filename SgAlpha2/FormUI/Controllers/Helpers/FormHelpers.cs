@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers
 {
@@ -12,12 +13,13 @@ namespace FormUI.Controllers.Helpers
 
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper, string text)
         {
-            var html =
-                "<div class=\"form-group\">"
-                    + $"<button data-gtm=\"form-submit\" class=\"button button--primary\">{text}</button>"
-                + "</div>";
+            var button = new HtmlTag("button")
+                .AddClasses("button button--primary")
+                .Text(text);
 
-            return new MvcHtmlString(html);
+            var formGroup = new DivTag().AddClasses("form-group").Append(button);
+
+            return formGroup;
         }
     }
 }

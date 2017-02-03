@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers
 {
@@ -19,12 +20,14 @@ namespace FormUI.Controllers.Helpers
         {
             var urlHelper = helper.UrlHelper();
 
-            var html =
-                $"<a class=\"button button--primary\" title=\"Next\" href=\"{urlHelper.Content(actionUrl)}\">"
-                    + $"<span class=\"link-text\">{text}</span>"
-                  + "</a>";
+            var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
 
-            return new MvcHtmlString(html);
+            var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
+                .AddClasses("button", "button--primary")
+                .Title(text)
+                .Append(linkText);
+
+            return anchor;
         }
     }
 }
