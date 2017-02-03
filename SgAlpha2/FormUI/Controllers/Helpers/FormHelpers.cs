@@ -24,9 +24,25 @@ namespace FormUI.Controllers.Helpers
             return formGroup;
         }
 
-        public static IHtmlString LabelledInputText<T>(this HtmlHelper<T> helper, string label, Expression<Func<T, string>> property)
+        public static IHtmlString LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
-            var formGroup = new DivTag().AddClasses("form-group");
+            var label = new HtmlTag("label").Text(labelText);
+
+            var input = new HtmlTag("input").Attr("type", "text").AddClasses("form-control");
+
+            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(input);
+
+            var formGroup = new DivTag()
+                .AddClasses("form-group")
+                .Append(label)
+                .Append(inputWrapper);
+
+            if (!string.IsNullOrWhiteSpace(hintText))
+            {
+                var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(hintText);
+                label.After(hint);
+            }
+
             return formGroup;
         }
     }
