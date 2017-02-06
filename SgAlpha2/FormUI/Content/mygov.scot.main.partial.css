@@ -203,3 +203,19 @@
         display: block !important
     }
 }
+
+@media (min-width: 768px) {
+    .button {
+        width: 344px
+    }
+}
+@media (min-width: 992px) {
+    .button {
+        width: 293px
+    }
+}
+@media (min-width: 1200px) {
+    .button {
+        width: 360px
+    }
+}

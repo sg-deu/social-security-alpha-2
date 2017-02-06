@@ -21,8 +21,10 @@ namespace FormUI
                       "~/Content/mygov.scot.main.css",
                       "~/Content/sg.css"));
 
+            // attempt to use mygov-assets.css generated from source code here:  https://github.com/scottishgovernment/mygov-assets
+            // however this relies on mygov.scot.main.partial.css cos the header&footer and the button sizes didn't work
             bundles.Add(new StyleBundle("~/Content/myGovCss").Include(
-                      "~/Content/mygov-assets.css",
+                      "~/Content/styles/mygov-assets.css",
                       "~/Content/mygov.scot.main.partial.css",
                       "~/Content/sg.css"));
         }

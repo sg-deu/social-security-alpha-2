@@ -181,10 +181,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\icons\close-grey.png" />
     <Content Include="Content\images\icons\notification_close_white.png" />
     <Content Include="Content\images\icons\notification_close_white_2x.png" />
     <Content Include="Content\images\search-white_2x.png" />
-    <Content Include="Content\mygov-assets.css" />
+    <Content Include="Content\styles\mygov-assets.css" />
     <Content Include="Content\mygov.scot.main.css" />
     <Content Include="Content\mygov.scot.main.partial.css" />
     <Content Include="Content\sg.css">
