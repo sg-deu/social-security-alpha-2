@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Alpha2EntryFilter.cs" />
+    <Compile Include="App_Start\Alpha2LoggingFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FeatureFolders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
