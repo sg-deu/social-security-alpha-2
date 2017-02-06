@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
+    <Compile Include="Controllers\Harness\HarnessTests.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\SetUpFixture.cs" />
     <Compile Include="Controllers\Shared\FormUiContraintsTests.cs" />

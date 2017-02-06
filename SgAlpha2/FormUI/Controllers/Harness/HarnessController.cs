@@ -2,12 +2,15 @@
 
 namespace FormUI.Controllers.Harness
 {
+    public static class HarnessActions
+    {
+        public static string Index()        { return "~/"; }
+        public static string InputText()    { return "~/harness/inputText/"; }
+    }
+
     public class HarnessController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index()     { return View(); }
+        public ActionResult InputText() { return View(); }
     }
 }

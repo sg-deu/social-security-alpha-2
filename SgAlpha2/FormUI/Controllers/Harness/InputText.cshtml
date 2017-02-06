@@ -1,0 +1,22 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h1>InputText examples</h1>
+
+        <form>
+
+            @Html.LabelledInputText("Standard text input", m => m.Text1)
+
+            @(Html.LabelledInputText("Standard text input", m => m.Text2)
+                .Hint("with some hint text"))
+
+            @Html.LabelledInputText("Text input", m => m.Text3).Hint("with custom orange background").Control(c => c.Tag(t => t.Style("background", "orange")))
+
+            @Html.LabelledInputPassword("Password input", m => m.Password)
+
+        </form>
+
+    </div><!--
+--></div>

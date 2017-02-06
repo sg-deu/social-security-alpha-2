@@ -132,6 +132,7 @@
     <Compile Include="Controllers\Bsg\AboutYouModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
+    <Compile Include="Controllers\Harness\HarnessModel.cs" />
     <Compile Include="Controllers\Helpers\Controls\Control.cs" />
     <Compile Include="Controllers\Helpers\Controls\FormRow.cs" />
     <Compile Include="Controllers\Helpers\Controls\InputControl.cs" />
@@ -178,6 +179,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Controllers\Harness\Index.cshtml" />
+    <Content Include="Controllers\Harness\InputText.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
