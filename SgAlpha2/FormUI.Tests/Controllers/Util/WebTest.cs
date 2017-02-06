@@ -9,29 +9,22 @@ namespace FormUI.Tests.Controllers.Util
     [TestFixture]
     public abstract class WebTest
     {
-        private static AspNetTestHost _webApp;
+        private static Lazy<AspNetTestHost> _webApp;
 
         public static void SetUpWebHost()
         {
-            try
-            {
-                _webApp = AspNetTestHost.For(@"..\..\..\FormUI", typeof(TestEnvironmentProxy));
-            }
-            catch
-            {
-                TearDownWebHost();
-                throw;
-            }
+            _webApp = new Lazy<AspNetTestHost>(() => AspNetTestHost.For(@"..\..\..\FormUI", typeof(TestEnvironmentProxy)));
         }
 
         public static void TearDownWebHost()
         {
-            using (_webApp) { }
+            if (_webApp.IsValueCreated)
+                using (_webApp.Value) { }
         }
 
         protected void WebAppTest(Action<SimulatedHttpClient> test)
         {
-            _webApp.Test(client =>
+            _webApp.Value.Test(client =>
             {
                 client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
                 test(client);

@@ -5,7 +5,7 @@ using System.Xml;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace FormUI.Tests.Shared
+namespace FormUI.Tests.Controllers.Shared
 {
     [TestFixture]
     public class FormUiContraintsTests
