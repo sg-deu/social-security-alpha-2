@@ -132,6 +132,11 @@
     <Compile Include="Controllers\Bsg\AboutYouModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
+    <Compile Include="Controllers\Helpers\Controls\Control.cs" />
+    <Compile Include="Controllers\Helpers\Controls\FormRow.cs" />
+    <Compile Include="Controllers\Helpers\Controls\InputControl.cs" />
+    <Compile Include="Controllers\Helpers\Controls\InputPassword.cs" />
+    <Compile Include="Controllers\Helpers\Controls\InputText.cs" />
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
     <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />

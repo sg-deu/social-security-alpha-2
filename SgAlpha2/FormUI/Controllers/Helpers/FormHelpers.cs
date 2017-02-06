@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using FormUI.Controllers.Helpers.Controls;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers
@@ -24,55 +25,33 @@ namespace FormUI.Controllers.Helpers
             return formGroup;
         }
 
-        public static IHtmlString LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
+        public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
-            var name = ExpressionHelper.GetExpressionText(property);
-            var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
-
-            var label = new HtmlTag("label").Text(labelText).Attr("for", id);
-
-            var input = new HtmlTag("input").Attr("type", "text").AddClasses("form-control").Id(id).Name(name);
-
-            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(input);
-
-            var formGroup = new DivTag()
-                .AddClasses("form-group")
-                .Append(label)
-                .Append(inputWrapper);
-
-            if (!string.IsNullOrWhiteSpace(hintText))
-            {
-                var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(hintText);
-                label.Append(hint);
-            }
-
-            return formGroup;
+            return helper.LabelledControl(labelText, property, (id, name) =>
+                new InputText(id, name));
         }
 
-        public static IHtmlString LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
+        public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
+        {
+            return helper.LabelledControl(labelText, property, (id, name) =>
+                new InputPassword(id, name));
+        }
+
+        public delegate TControl ControlFactory<TControl>(string id, string name);
+
+        private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
+            where TControl : Control
         {
             var name = ExpressionHelper.GetExpressionText(property);
             var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
 
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);
 
-            var input = new HtmlTag("input").Attr("type", "password").AddClasses("form-control").Id(id).Name(name);
+            var control = factory(id, name);
 
-            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(input);
-            var hintText = string.Empty;
+            var formRow = new FormRow<TControl>(id, labelText, control);
 
-            var formGroup = new DivTag()
-                .AddClasses("form-group")
-                .Append(label)
-                .Append(inputWrapper);
-
-            if (!string.IsNullOrWhiteSpace(hintText))
-            {
-                var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(hintText);
-                label.Append(hint);
-            }
-
-            return formGroup;
+            return formRow;
         }
     }
 }
