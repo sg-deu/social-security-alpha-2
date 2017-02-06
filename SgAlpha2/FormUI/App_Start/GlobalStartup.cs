@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -8,6 +9,8 @@ namespace FormUI.App_Start
     {
         public virtual void Init()
         {
+            Trace.WriteLine("GlobalStartup.Init()");
+
             FeatureFolders.Register(ViewEngines.Engines);
             GlobalFilters.Filters.Add(new Alpha2EntryFilter());
 
