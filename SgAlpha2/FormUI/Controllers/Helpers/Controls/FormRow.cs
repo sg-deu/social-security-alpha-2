@@ -24,17 +24,18 @@ namespace FormUI.Controllers.Helpers.Controls
             return this;
         }
 
-        public FormRow<TControl> With(Action<TControl> mutator)
+        public FormRow<TControl> Control(Action<TControl> controlMutator)
         {
-            mutator(_control);
+            controlMutator(_control);
             return this;
         }
 
-        public override HtmlTag ToTag()
+        protected override HtmlTag CreateTag()
         {
             var label = new HtmlTag("label").Text(_labelText).Attr("for", _id);
 
-            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(_control.ToTag());
+            var controlTag = _control.GenerateTag();
+            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(controlTag);
 
             var formGroup = new DivTag()
                 .AddClasses("form-group")

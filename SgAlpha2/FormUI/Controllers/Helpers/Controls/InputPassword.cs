@@ -8,9 +8,9 @@ namespace FormUI.Controllers.Helpers.Controls
         {
         }
 
-        public override HtmlTag ToTag()
+        protected override HtmlTag CreateTag()
         {
-            return base.ToTag().Attr("type", "password");
+            return base.CreateTag().Attr("type", "password");
         }
     }
 }

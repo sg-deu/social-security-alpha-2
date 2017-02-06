@@ -8,7 +8,7 @@ namespace FormUI.Controllers.Helpers.Controls
         {
         }
 
-        public override HtmlTag ToTag()
+        protected override HtmlTag CreateTag()
         {
             var input = new HtmlTag("input")
                 .Id(Id)
