@@ -48,5 +48,31 @@ namespace FormUI.Controllers.Helpers
 
             return formGroup;
         }
+
+        public static IHtmlString LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
+        {
+            var name = ExpressionHelper.GetExpressionText(property);
+            var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+
+            var label = new HtmlTag("label").Text(labelText).Attr("for", id);
+
+            var input = new HtmlTag("input").Attr("type", "password").AddClasses("form-control").Id(id).Name(name);
+
+            var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(input);
+            var hintText = string.Empty;
+
+            var formGroup = new DivTag()
+                .AddClasses("form-group")
+                .Append(label)
+                .Append(inputWrapper);
+
+            if (!string.IsNullOrWhiteSpace(hintText))
+            {
+                var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(hintText);
+                label.Append(hint);
+            }
+
+            return formGroup;
+        }
     }
 }
