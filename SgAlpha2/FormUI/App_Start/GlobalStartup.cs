@@ -14,6 +14,8 @@ namespace FormUI.App_Start
             GlobalFilters.Filters.Add(new Alpha2EntryFilter());
             GlobalFilters.Filters.Add(new Alpha2LoggingFilter());
 
+            Alpha2Binder.Register();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

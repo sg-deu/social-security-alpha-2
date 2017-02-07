@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using FluentAssertions;
 using FormUI.Controllers.Harness;
 using FormUI.Tests.Controllers.Util;
@@ -38,6 +39,7 @@ namespace FormUI.Tests.Controllers.Harness
 
                 var response = form
                     .SetText(m => m.Text1, "Value 1")
+                    .SetDate(m => m.DateTime1, "03", "02", "2001")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 var responseJson = response.Text;
@@ -46,6 +48,7 @@ namespace FormUI.Tests.Controllers.Harness
                 var boundModel = JsonConvert.DeserializeObject<HarnessModel>(responseJson);
 
                 boundModel.Text1.Should().Be("Value 1");
+                boundModel.DateTime1.Should().Be(new DateTime(2001, 02, 03));
             });
         }
     }

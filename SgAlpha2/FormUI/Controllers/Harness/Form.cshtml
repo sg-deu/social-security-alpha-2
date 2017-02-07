@@ -7,8 +7,12 @@
 
         <form method="post">
 
+            @Html.ValidationSummary()
+
             @(Html.LabelledInputText("Text1", m => m.Text1)
                 .Hint("optional - no validation"))
+
+            @Html.LabelledInputDate("DateTime1", m => m.DateTime1)
 
             @Html.ButtonSubmit()
 

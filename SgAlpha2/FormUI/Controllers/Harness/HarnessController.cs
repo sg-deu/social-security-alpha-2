@@ -23,6 +23,9 @@ namespace FormUI.Controllers.Harness
         [HttpPost]
         public ActionResult Form(HarnessModel model)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             var json = JsonConvert.SerializeObject(model);
             return Content(json);
         }
