@@ -1,10 +1,11 @@
-﻿using HtmlTags;
+﻿using System.Web.Mvc;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputDate : InputControl
     {
-        public InputDate(string id, string name) : base(id, name)
+        public InputDate(HtmlHelper helper, string id, string name) : base(helper, id, name)
         {
         }
 

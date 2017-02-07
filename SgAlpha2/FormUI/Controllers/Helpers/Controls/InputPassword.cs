@@ -1,10 +1,11 @@
-﻿using HtmlTags;
+﻿using System.Web.Mvc;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputPassword : InputText
     {
-        public InputPassword(string id, string name) : base(id, name)
+        public InputPassword(HtmlHelper helper, string id, string name) : base(helper, id, name)
         {
         }
 

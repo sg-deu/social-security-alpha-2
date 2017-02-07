@@ -27,23 +27,29 @@ namespace FormUI.Controllers.Helpers
 
         public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
-            return helper.LabelledControl(labelText, property, (id, name) =>
-                new InputText(id, name));
+            return helper.LabelledControl(labelText, property, (h, id, name) =>
+                new InputText(h, id, name));
         }
 
         public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
         {
-            return helper.LabelledControl(labelText, property, (id, name) =>
-                new InputPassword(id, name));
+            return helper.LabelledControl(labelText, property, (h, id, name) =>
+                new InputPassword(h, id, name));
         }
 
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime>> property)
         {
-            return helper.LabelledControl(labelText, property, (id, name) =>
-                new InputDate(id, name));
+            return helper.LabelledControl(labelText, property, (h, id, name) =>
+                new InputDate(h, id, name));
         }
 
-        public delegate TControl ControlFactory<TControl>(string id, string name);
+        public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int>> property)
+        {
+            return helper.LabelledControl(labelText, property, (h, id, name) =>
+                new InputText(h, id, name));
+        }
+
+        public delegate TControl ControlFactory<TControl>(HtmlHelper helper, string id, string name);
 
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
             where TControl : Control
@@ -53,7 +59,7 @@ namespace FormUI.Controllers.Helpers
 
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);
 
-            var control = factory(id, name);
+            var control = factory(helper, id, name);
 
             var formRow = new FormRow<TControl>(id, labelText, control);
 

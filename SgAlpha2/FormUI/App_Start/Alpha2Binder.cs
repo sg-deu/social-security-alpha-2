@@ -21,18 +21,27 @@ namespace FormUI.App_Start
             var name = bindingContext.ModelName;
             var vp = bindingContext.ValueProvider;
 
-            if (!vp.ContainsPrefix(name + "_day") && !vp.ContainsPrefix(name + "_month") && !vp.ContainsPrefix(name + "_year"))
+            var dayName = name + "_day";
+            var monthName = name + "_month";
+            var yearName = name + "_year";
+
+            if (!vp.ContainsPrefix(dayName) && !vp.ContainsPrefix(monthName) && !vp.ContainsPrefix(yearName))
                 return null;
 
-            var dayText = vp.GetValue(name + "_day");
-            var monthText = vp.GetValue(name + "_month");
-            var yearText = vp.GetValue(name + "_year");
+            var dayValue = vp.GetValue(dayName);
+            var monthValue = vp.GetValue(monthName);
+            var yearValue = vp.GetValue(yearName);
+
+            var modelState = bindingContext.ModelState;
+            modelState.Add(dayName, new ModelState() { Value = dayValue });
+            modelState.Add(monthName, new ModelState() { Value = monthValue });
+            modelState.Add(yearName, new ModelState() { Value = yearValue });
 
             int day;
             int month;
             int year;
 
-            if (!int.TryParse(dayText.AttemptedValue, out day) || !int.TryParse(monthText.AttemptedValue, out month) || !int.TryParse(yearText.AttemptedValue, out year))
+            if (!int.TryParse(dayValue.AttemptedValue, out day) || !int.TryParse(monthValue.AttemptedValue, out month) || !int.TryParse(yearValue.AttemptedValue, out year))
                 return null;
 
             return new DateTime(year, month, day);

@@ -40,6 +40,7 @@ namespace FormUI.Tests.Controllers.Harness
                 var response = form
                     .SetText(m => m.Text1, "Value 1")
                     .SetDate(m => m.DateTime1, "03", "02", "2001")
+                    .SetText(m => m.Int1, "01")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 var responseJson = response.Text;

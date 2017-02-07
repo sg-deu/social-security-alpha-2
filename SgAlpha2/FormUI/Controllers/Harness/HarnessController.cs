@@ -18,7 +18,14 @@ namespace FormUI.Controllers.Harness
         public ActionResult InputDate() { return View(); }
 
         [HttpGet]
-        public ActionResult Form() { return View(); }
+        public ActionResult Form()
+        {
+            var model = new HarnessModel
+            {
+            };
+
+            return View(model);
+        }
 
         [HttpPost]
         public ActionResult Form(HarnessModel model)
