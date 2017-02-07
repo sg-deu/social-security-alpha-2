@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using FormUI.App_Start;
+using FormUI.Controllers.Bsg;
 
 namespace FormUI.Controllers.Home
 {
@@ -17,7 +18,7 @@ namespace FormUI.Controllers.Home
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return Redirect(BsgActions.Index());
         }
 
         [HttpGet]

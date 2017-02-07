@@ -4,7 +4,7 @@ namespace FormUI.Controllers.Harness
 {
     public static class HarnessActions
     {
-        public static string Index()        { return "~/"; }
+        public static string Index()        { return "~/harness/"; }
         public static string InputText()    { return "~/harness/inputText/"; }
         public static string InputDate()    { return "~/harness/inputDate/"; }
     }

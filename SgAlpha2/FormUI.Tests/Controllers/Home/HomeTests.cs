@@ -1,7 +1,9 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.App_Start;
+using FormUI.Controllers.Bsg;
 using FormUI.Controllers.Home;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
@@ -17,9 +19,9 @@ namespace FormUI.Tests.Controllers.Home
         {
             WebAppTest(client =>
             {
-                var response = client.Get(HomeActions.Index());
+                var response = client.Get(HomeActions.Index(), r => r.SetExpectedResponse(HttpStatusCode.Redirect));
 
-                response.Doc.Document.Body.TextContent.Should().Contain("Welcome to Alpha 2");
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Index());
             });
         }
 

@@ -206,7 +206,6 @@
     <Content Include="Controllers\_ViewStart.cshtml" />
     <Content Include="Controllers\Shared\Error.cshtml" />
     <Content Include="Controllers\Shared\_Layout.cshtml" />
-    <Content Include="Controllers\Home\Index.cshtml" />
     <Content Include="Controllers\Shared\Lockout.cshtml" />
     <Content Include="Controllers\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
