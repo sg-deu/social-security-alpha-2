@@ -1,0 +1,15 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>InputDate examples</h2>
+
+        <form>
+
+            @Html.LabelledInputDate("Standard Date input", m => m.DateTime)
+
+        </form>
+
+    </div><!--
+--></div>

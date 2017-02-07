@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Web;
+using FluentAssertions;
 using FormUI.Tests.Controllers.Util.Hosting;
 using FormUI.Tests.Controllers.Util.Http;
 using NUnit.Framework;
@@ -28,6 +30,15 @@ namespace FormUI.Tests.Controllers.Util
             {
                 client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
                 test(client);
+            });
+        }
+
+        protected void VerifyView(string actionUrl)
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(actionUrl);
+                response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
             });
         }
 

@@ -37,6 +37,12 @@ namespace FormUI.Controllers.Helpers
                 new InputPassword(id, name));
         }
 
+        public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime>> property)
+        {
+            return helper.LabelledControl(labelText, property, (id, name) =>
+                new InputDate(id, name));
+        }
+
         public delegate TControl ControlFactory<TControl>(string id, string name);
 
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
