@@ -1,5 +1,9 @@
 ﻿.sg {
 
+    input {
+        padding: 6px 12px;
+    }
+
     .form-group {
 
         label {
@@ -17,6 +21,34 @@
             }
 
         }
+
+    }
+
+    .date-input {
+
+        .day {
+            float: left;
+            width: 70px;
+
+            input { width: 50px; }
+        }
+
+        .month {
+            float: left;
+            width: 70px;
+
+            input { width: 50px; }
+        }
+
+        .year {
+            float: left;
+            width: 120px;
+
+            input { width: 100px; }
+        }
+
+        /* the overflow prevents the float cascaing onto the next element: http://www.quirksmode.org/css/clearing.html#link3 */
+        overflow: auto;
 
     }
 

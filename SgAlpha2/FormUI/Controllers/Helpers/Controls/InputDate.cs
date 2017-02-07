@@ -10,15 +10,38 @@ namespace FormUI.Controllers.Helpers.Controls
 
         protected override HtmlTag CreateTag()
         {
-            var container = new HtmlTag("span");
+            var day = CreateDatePartTag("Day", 2);
+            var month = CreateDatePartTag("Month", 2);
+            var year = CreateDatePartTag("Year", 4);
 
-            //var input = new HtmlTag("input")
-            //    .Id(Id)
-            //    .Name(Name)
-            //    .Attr("type", "text")
-            //    .AddClasses("form-control");
+            var container = new HtmlTag("div")
+                .AddClasses("date-input")
+                .Append(day)
+                .Append(month)
+                .Append(year);
 
             return container;
+        }
+
+        private HtmlTag CreateDatePartTag(string part, int maxLength)
+        {
+            var id = Id + "_" + part.ToLower();
+            var name = Name + "_" + part.ToLower();
+
+            var label = new HtmlTag("label").Attr("for", id).Text(part);
+
+            var input = new HtmlTag("input")
+                .Attr("id", id)
+                .Attr("name", name)
+                .Attr("type", "text")
+                .Attr("maxlength", maxLength);
+
+            var partContainer = new HtmlTag("div")
+                .AddClasses(part.ToLower())
+                .Append(label)
+                .Append(input);
+
+            return partContainer;
         }
     }
 }
