@@ -1,6 +1,13 @@
 ﻿.sg input {
   padding: 6px 12px; }
 
+.sg input:focus,
+.sg textarea:focus,
+.sg select:focus,
+.sg button:focus {
+  outline: 3px solid #ffbf47;
+  outline-offset: 0; }
+
 .sg .form-group label {
   font-weight: normal; }
 
@@ -11,6 +18,7 @@
   border: 1px solid #b3b3b3; }
 
 .sg .date-input {
+  padding: 3px;
   /* the overflow prevents the float cascaing onto the next element: http://www.quirksmode.org/css/clearing.html#link3 */
   overflow: auto; }
   .sg .date-input .day {
