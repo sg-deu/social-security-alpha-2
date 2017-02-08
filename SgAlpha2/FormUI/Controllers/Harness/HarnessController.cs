@@ -9,6 +9,7 @@ namespace FormUI.Controllers.Harness
         public static string Layout()       { return "~/harness/layout"; }
         public static string InputText()    { return "~/harness/inputText/"; }
         public static string InputDate()    { return "~/harness/inputDate/"; }
+        public static string Radio()        { return "~/harness/radio/"; }
         public static string Form()         { return "~/harness/form/"; }
     }
 
@@ -18,6 +19,7 @@ namespace FormUI.Controllers.Harness
         public ActionResult Layout()    { return View(); }
         public ActionResult InputText() { return View(); }
         public ActionResult InputDate() { return View(); }
+        public ActionResult Radio()     { return View(); }
 
         [HttpGet]
         public ActionResult Form()

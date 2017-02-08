@@ -37,6 +37,12 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
+        public void Radio_GET()
+        {
+            VerifyView(HarnessActions.Radio());
+        }
+
+        [Test]
         public void Form()
         {
             WebAppTest(client =>

@@ -11,5 +11,6 @@ namespace FormUI.Controllers.Harness
         public DateTime DateTime1   { get; set; }
         public DateTime DateTime2   { get; set; }
         public int      Int1        { get; set; }
+        public bool?    Radio1      { get; set; }
     }
 }

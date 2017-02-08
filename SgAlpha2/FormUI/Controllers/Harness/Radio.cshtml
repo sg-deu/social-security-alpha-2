@@ -1,0 +1,67 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>Radio examples</h2>
+
+        <form>
+
+            <style>
+
+                .radio-inline-item {
+                    float: left;
+                    margin-right: 30px;
+                    position: relative;
+                    padding: 8px 10px 9px 50px;
+                }
+
+                .radio-inline-item input {
+                    position: absolute;
+                    left: 0;
+                    top: 2px;
+                    width: 38px;
+                    height: 38px;
+                    outline: none !important;
+                }
+
+                .radio-inline-item input:checked::before {
+                  content: "";
+                  border: 2px solid;
+                  background: transparent;
+                  width: 37px;
+                  height: 37px;
+                  position: absolute;
+                  top: 0px;
+                  left: 0px;
+                  border-radius: 50%;
+                  box-shadow: 0 0 0 5px #ffbf47;
+                }
+
+                .radio-inline-item span {
+                }
+
+            </style>
+
+            <div class="form-group">
+                <label for="Text1">Standard radio boolean</label>
+                <div class="input-wrapper">
+                    <div class="radio-inline">
+                        <label class="radio-inline-item">
+                            <input name="Text1" type="radio">
+                            <span>Permanent</span>
+                        </label>
+                        <label class="radio-inline-item">
+                            <input name="Text1" type="radio">
+                            <span>Temporary</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*Html.LabelledOptionalRadio("Radio1", "Option 1", "Option 2", m => m.DateTime1)*@
+
+        </form>
+
+    </div><!--
+--></div>
