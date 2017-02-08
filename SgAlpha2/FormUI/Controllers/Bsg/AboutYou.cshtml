@@ -32,6 +32,20 @@
             @(Html.LabelledInputText("National Insurance number", m => m.NationalInsuranceNumberText)
                 .Hint("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'"))
 
+            <h2>Your Address</h2>
+
+            <p>Please tell us your current address</p>
+
+            @Html.LabelledInputText("Street", m => m.CurrentAddress.Street1)
+            @Html.LabelledInputText("", m => m.CurrentAddress.Street2)
+
+            @Html.LabelledInputText("Town or City", m => m.CurrentAddress.TownOrCity)
+
+            @Html.LabelledInputText("Postcode", m => m.CurrentAddress.Postcode)
+
+            @(Html.LabelledInputDate("Date You or your Partner moved into this address", m => m.CurrentAddress.DateMovedIn)
+                .Hint("For example, 01 01 2012"))
+
         </form>
 
     </div><!--
