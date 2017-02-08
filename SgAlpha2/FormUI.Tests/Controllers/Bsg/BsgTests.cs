@@ -9,17 +9,6 @@ namespace FormUI.Tests.Controllers.Bsg
     public class BsgTests : WebTest
     {
         [Test]
-        public void Index_GET()
-        {
-            WebAppTest(client =>
-            {
-                var response = client.Get(BsgActions.Index());
-
-                response.Doc.Document.Body.TextContent.Should().Contain("Best Start Grant Alpha");
-            });
-        }
-
-        [Test]
         public void Overview_GET()
         {
             WebAppTest(client =>

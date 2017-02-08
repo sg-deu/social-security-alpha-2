@@ -21,7 +21,7 @@ namespace FormUI.Tests.Controllers.Home
             {
                 var response = client.Get(HomeActions.Index(), r => r.SetExpectedResponse(HttpStatusCode.Redirect));
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Index());
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Overview());
             });
         }
 

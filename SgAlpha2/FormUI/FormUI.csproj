@@ -173,7 +173,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Controllers\Home\Password.cshtml" />
-    <Content Include="Controllers\Bsg\Index.cshtml" />
     <Content Include="Controllers\Bsg\Web.config" />
     <Content Include="Controllers\Bsg\Overview.cshtml" />
     <None Include="compilerconfig.json" />
