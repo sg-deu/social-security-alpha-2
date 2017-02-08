@@ -19,6 +19,12 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
+        public void Layout_GET()
+        {
+            VerifyView(HarnessActions.Layout());
+        }
+
+        [Test]
         public void InputText_GET()
         {
             VerifyView(HarnessActions.InputText());
