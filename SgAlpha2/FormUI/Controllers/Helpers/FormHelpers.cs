@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
@@ -50,12 +51,18 @@ namespace FormUI.Controllers.Helpers
                 new InputText(h, id, name));
         }
 
+        public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
+             where TEnum : struct
+        {
+            var descriptions = ReflectHelper.GetEnumDescriptions<TEnum>();
+            return helper.LabelledOptionalRadio(labelText, property, descriptions);
+        }
+
         public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
              where TEnum : struct
         {
-            var values = new List<string> { "Value1", "Value2" };
-            //var descriptionTexts = descriptions.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value);
-            var descriptionTexts = new Dictionary<string, string> { { "Value1", "Value 1" }, { "Value2", "Value 2" } };
+            var values = typeof(TEnum).GetEnumStringValues();
+            var descriptionTexts = descriptions.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value);
 
             return helper.LabelledControl(labelText, property, (h, id, name) =>
                 new Radios(h, id, name, values, descriptionTexts));

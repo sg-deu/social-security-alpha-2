@@ -32,7 +32,10 @@ namespace FormUI.Controllers.Helpers.Controls
         {
             var label = new HtmlTag("label").AddClasses("radio-inline-item");
             var input = new HtmlTag("input").Attr("type", "radio").Name(Name);
-            var text = new HtmlTag("span").Text(value);
+
+            var labelText = _labels.ContainsKey(value) ? _labels[value] : value;
+            var text = new HtmlTag("span").Text(labelText);
+
             return label.Append(input).Append(text);
         }
     }

@@ -52,23 +52,12 @@
 
             </style>
 
-            <div class="form-group">
-                <label for="Text1">Standard radio boolean</label>
-                <div class="input-wrapper">
-                    <div class="radio-inline">
-                        <label class="radio-inline-item">
-                            <input name="Text1" type="radio">
-                            <span>Permanent</span>
-                        </label>
-                        <label class="radio-inline-item">
-                            <input name="Text1" type="radio">
-                            <span>Temporary</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+            @(Html.LabelledOptionalRadio("Radio1", m => m.Radio1)
+                .Hint("An example of an inline radio (exactly two options)"))
 
-            @Html.LabelledOptionalRadio("Radio1", m => m.Radio1, RValues1Util.Descriptions)
+            @(Html.LabelledOptionalRadio("Radio1", m => m.Radio1, RValues1Util.Descriptions)
+                .Hint("Supplying specific descriptions"))
+
 
         </form>
 

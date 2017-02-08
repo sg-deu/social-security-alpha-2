@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Web.Mvc;
+using FormUI.Controllers.Helpers;
 
 namespace FormUI.Tests.Controllers.Util.Html
 {
@@ -30,7 +30,7 @@ namespace FormUI.Tests.Controllers.Util.Html
 
         public static string FormName(LambdaExpression property)
         {
-            return ExpressionHelper.GetExpressionText(property);
+            return property.GetExpressionText();
         }
     }
 }
