@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Web.Mvc;
 
 namespace FormUI.App_Start
@@ -25,7 +26,7 @@ namespace FormUI.App_Start
             var monthName = name + "_month";
             var yearName = name + "_year";
 
-            if (!vp.ContainsPrefix(dayName) && !vp.ContainsPrefix(monthName) && !vp.ContainsPrefix(yearName))
+            if (!vp.ContainsPrefix(dayName) || !vp.ContainsPrefix(monthName) || !vp.ContainsPrefix(yearName))
                 return null;
 
             var dayValue = vp.GetValue(dayName);
@@ -44,7 +45,14 @@ namespace FormUI.App_Start
             if (!int.TryParse(dayValue.AttemptedValue, out day) || !int.TryParse(monthValue.AttemptedValue, out month) || !int.TryParse(yearValue.AttemptedValue, out year))
                 return null;
 
-            return new DateTime(year, month, day);
+            var dateString = string.Format("{0:00}-{1:00}-{2:0000}", day, month, year);
+
+            DateTime output;
+
+            if (!DateTime.TryParseExact(dateString, "dd-MM-yyyy", null, DateTimeStyles.RoundtripKind, out output))
+                return null;
+
+            return output;
         }
     }
 }
