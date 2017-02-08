@@ -14,6 +14,7 @@ namespace FormUI.Controllers.Harness
         public DateTime     DateTime2   { get; set; }
         public int          Int1        { get; set; }
         public RValues1?    Radio1      { get; set; }
+        public RValues1?    Radio2      { get; set; }
     }
 
     public enum RValues1
