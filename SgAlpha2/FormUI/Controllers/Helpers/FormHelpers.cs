@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
@@ -49,12 +50,24 @@ namespace FormUI.Controllers.Helpers
                 new InputText(h, id, name));
         }
 
+        public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
+             where TEnum : struct
+        {
+            var values = new List<string> { "Value1", "Value2" };
+            //var descriptionTexts = descriptions.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value);
+            var descriptionTexts = new Dictionary<string, string> { { "Value1", "Value 1" }, { "Value2", "Value 2" } };
+
+            return helper.LabelledControl(labelText, property, (h, id, name) =>
+                new Radios(h, id, name, values, descriptionTexts));
+        }
+
         public delegate TControl ControlFactory<TControl>(HtmlHelper helper, string id, string name);
 
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
             where TControl : Control
         {
-            var name = ExpressionHelper.GetExpressionText(property);
+            var name = property.GetExpressionText();
+
             var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
 
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);

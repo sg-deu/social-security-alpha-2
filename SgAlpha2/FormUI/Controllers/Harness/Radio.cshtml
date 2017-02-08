@@ -9,6 +9,12 @@
 
             <style>
 
+                .radio-inline {
+                    overflow: auto;
+                    padding-top: 4px;
+                    padding-left: 5px;
+                }
+
                 .radio-inline-item {
                     float: left;
                     margin-right: 30px;
@@ -59,7 +65,7 @@
                 </div>
             </div>
 
-            @*Html.LabelledOptionalRadio("Radio1", "Option 1", "Option 2", m => m.DateTime1)*@
+            @Html.LabelledOptionalRadio("Radio1", m => m.Radio1, RValues1Util.Descriptions)
 
         </form>
 
