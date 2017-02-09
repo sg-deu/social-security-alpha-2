@@ -26,6 +26,7 @@ namespace FormUI.Controllers.Harness
         {
             var model = new HarnessModel
             {
+                Text1 = "initial value",
             };
 
             return View(model);

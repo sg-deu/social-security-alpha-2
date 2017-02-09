@@ -1,19 +1,18 @@
-﻿using System.Web.Mvc;
-using HtmlTags;
+﻿using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputText : InputControl
     {
-        public InputText(HtmlHelper helper, string id, string name) : base(helper, id, name)
+        public InputText(ControlContext controlContext) : base(controlContext)
         {
         }
 
         protected override HtmlTag CreateTag()
         {
             var input = new HtmlTag("input")
-                .Id(Id)
-                .Name(Name)
+                .Id(ControlContext.Id)
+                .Name(ControlContext.Name)
                 .Attr("type", "text")
                 .AddClasses("form-control");
 

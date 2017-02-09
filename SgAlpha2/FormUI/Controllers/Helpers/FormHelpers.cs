@@ -29,26 +29,26 @@ namespace FormUI.Controllers.Helpers
 
         public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
-            return helper.LabelledControl(labelText, property, (h, id, name) =>
-                new InputText(h, id, name));
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new InputText(controlContext));
         }
 
         public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
         {
-            return helper.LabelledControl(labelText, property, (h, id, name) =>
-                new InputPassword(h, id, name));
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new InputPassword(controlContext));
         }
 
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime>> property)
         {
-            return helper.LabelledControl(labelText, property, (h, id, name) =>
-                new InputDate(h, id, name));
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new InputDate(controlContext));
         }
 
         public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int>> property)
         {
-            return helper.LabelledControl(labelText, property, (h, id, name) =>
-                new InputText(h, id, name));
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new InputText(controlContext));
         }
 
         public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
@@ -64,22 +64,28 @@ namespace FormUI.Controllers.Helpers
             var values = typeof(TEnum).GetEnumStringValues();
             var descriptionTexts = descriptions.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value);
 
-            return helper.LabelledControl(labelText, property, (h, id, name) =>
-                new Radios(h, id, name, values, descriptionTexts));
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new Radios(controlContext, values, descriptionTexts));
         }
 
-        public delegate TControl ControlFactory<TControl>(HtmlHelper helper, string id, string name);
+        public delegate TControl ControlFactory<TControl>(ControlContext controlContext);
 
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
             where TControl : Control
         {
             var name = property.GetExpressionText();
-
             var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+
+            var controlContext = new ControlContext
+            {
+               Helper   = helper,
+               Id       = id,
+               Name     = name,
+            };
 
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);
 
-            var control = factory(helper, id, name);
+            var control = factory(controlContext);
 
             var formRow = new FormRow<TControl>(id, labelText, control);
 

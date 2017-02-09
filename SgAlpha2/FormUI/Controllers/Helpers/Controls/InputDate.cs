@@ -1,11 +1,10 @@
-﻿using System.Web.Mvc;
-using HtmlTags;
+﻿using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputDate : InputControl
     {
-        public InputDate(HtmlHelper helper, string id, string name) : base(helper, id, name)
+        public InputDate(ControlContext controlContext) : base(controlContext)
         {
         }
 
@@ -14,7 +13,7 @@ namespace FormUI.Controllers.Helpers.Controls
             // need this to trigger the model binding for the property
             var hidden = new HtmlTag("input")
                 .Attr("type", "hidden")
-                .Name(Name);
+                .Name(ControlContext.Name);
 
             var day = CreateDatePartTag("Day", 2);
             var month = CreateDatePartTag("Month", 2);
@@ -32,8 +31,8 @@ namespace FormUI.Controllers.Helpers.Controls
 
         private HtmlTag CreateDatePartTag(string part, int maxLength)
         {
-            var id = Id + "_" + part.ToLower();
-            var name = Name + "_" + part.ToLower();
+            var id = ControlContext.Id + "_" + part.ToLower();
+            var name = ControlContext.Name + "_" + part.ToLower();
 
             var label = new HtmlTag("label").Attr("for", id).Text(part);
 

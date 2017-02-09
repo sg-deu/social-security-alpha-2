@@ -135,6 +135,7 @@
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
     <Compile Include="Controllers\Helpers\Controls\Control.cs" />
+    <Compile Include="Controllers\Helpers\Controls\FormContext.cs" />
     <Compile Include="Controllers\Helpers\Controls\FormRow.cs" />
     <Compile Include="Controllers\Helpers\Controls\InputControl.cs" />
     <Compile Include="Controllers\Helpers\Controls\InputDate.cs" />

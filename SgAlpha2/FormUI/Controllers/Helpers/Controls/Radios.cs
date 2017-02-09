@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
@@ -9,7 +8,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private IList<string>               _values;
         private IDictionary<string, string> _labels;
 
-        public Radios(HtmlHelper helper, string id, string name, IList<string> values, IDictionary<string, string> labels) : base(helper, id, name)
+        public Radios(ControlContext controlContext, IList<string> values, IDictionary<string, string> labels) : base(controlContext)
         {
             _values = values;
             _labels = labels;
@@ -34,7 +33,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private HtmlTag CreateLabel(string value)
         {
             var label = new HtmlTag("label").AddClasses("radio-item");
-            var input = new HtmlTag("input").Attr("type", "radio").Name(Name).Value(value);
+            var input = new HtmlTag("input").Attr("type", "radio").Name(ControlContext.Name).Value(value);
 
             var labelText = _labels.ContainsKey(value) ? _labels[value] : value;
             var text = new HtmlTag("span").Text(labelText);
