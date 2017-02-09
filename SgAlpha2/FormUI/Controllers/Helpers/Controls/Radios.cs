@@ -20,20 +20,24 @@ namespace FormUI.Controllers.Helpers.Controls
             var radioClass = vertical ? "radio radio-block" : "radio radio-inline";
 
             var container = new DivTag().AddClasses(radioClass);
+            var modelValue = RenderValue();
 
             foreach (var value in _values)
             {
-                var label = CreateLabel(value);
+                var label = CreateLabel(value, modelValue);
                 container.Append(label);
             }
 
             return container;
         }
 
-        private HtmlTag CreateLabel(string value)
+        private HtmlTag CreateLabel(string value, string modelValue)
         {
             var label = new HtmlTag("label").AddClasses("radio-item");
             var input = new HtmlTag("input").Attr("type", "radio").Name(ControlContext.Name).Value(value);
+
+            if (value == modelValue)
+                input.Attr("checked", "true");
 
             var labelText = _labels.ContainsKey(value) ? _labels[value] : value;
             var text = new HtmlTag("span").Text(labelText);

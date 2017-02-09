@@ -30,6 +30,7 @@ namespace FormUI.Controllers.Harness
                 Text1 = "initial value",
                 DateTime1 = new DateTime(2003, 02, 01),
                 Int1 = 5,
+                Radio1 = RValues1.Value2,
             };
 
             return View(model);
