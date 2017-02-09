@@ -15,6 +15,7 @@ namespace FormUI.Controllers.Harness
         public int          Int1        { get; set; }
         public RValues1?    Radio1      { get; set; }
         public RValues1?    Radio2      { get; set; }
+        public RValues2?    Radio3      { get; set; }
     }
 
     public enum RValues1
@@ -33,5 +34,17 @@ namespace FormUI.Controllers.Harness
             { RValues1.Value1, "Custom Value 1" },
             { RValues1.Value2, "Custom Value 2" },
         };
+    }
+
+    public enum RValues2
+    {
+        [Description("Value 1")]
+        Value1,
+
+        [Description("Value 2")]
+        Value2,
+
+        [Description("Value 3")]
+        Value3,
     }
 }

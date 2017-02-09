@@ -62,14 +62,20 @@
 
     }
 
-    .radio-inline {
-        overflow: auto;
-        padding-top: 4px;
-        padding-left: 5px;
+    .radio {
 
-        .radio-inline-item {
-            float: left;
-            margin-right: 30px;
+        &.radio-inline {
+            overflow: auto;
+            padding-top: 4px;
+            padding-left: 5px;
+
+            .radio-item {
+                float: left;
+                margin-right: 30px;
+            }
+        }
+
+        .radio-item {
             position: relative;
             padding: 8px 10px 9px 50px;
 

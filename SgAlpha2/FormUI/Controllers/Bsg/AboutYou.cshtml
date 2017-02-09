@@ -48,6 +48,14 @@
 
             @Html.LabelledOptionalRadio("Is this address Permanent or Temporary?", m => m.CurrentAddressStatus)
 
+            @Html.LabelledOptionalRadio("How do you want to be contacted?", m => m.ContactPreference)
+
+            @Html.LabelledInputText("Email address", m => m.EmailAddress)
+
+            @Html.LabelledInputText("Phone number", m => m.PhoneNumer)
+
+            @Html.LabelledInputText("Mobile phone number", m => m.MobilePhoneNumber)
+
         </form>
 
     </div><!--

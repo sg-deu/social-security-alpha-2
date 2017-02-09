@@ -37,32 +37,34 @@
     .sg .date-input .year input {
       width: 100px; }
 
-.sg .radio-inline {
+.sg .radio.radio-inline {
   overflow: auto;
   padding-top: 4px;
   padding-left: 5px; }
-  .sg .radio-inline .radio-inline-item {
+  .sg .radio.radio-inline .radio-item {
     float: left;
-    margin-right: 30px;
-    position: relative;
-    padding: 8px 10px 9px 50px; }
-    .sg .radio-inline .radio-inline-item input {
-      position: absolute;
-      left: 0;
-      top: 2px;
-      width: 38px;
-      height: 38px;
-      outline: none !important; }
-    .sg .radio-inline .radio-inline-item input:checked::before {
-      content: "";
-      border: 2px solid;
-      background: transparent;
-      width: 37px;
-      height: 37px;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      border-radius: 50%; }
-    .sg .radio-inline .radio-inline-item input:focus::before {
-      box-shadow: 0 0 0 5px #ffbf47; }
+    margin-right: 30px; }
+
+.sg .radio .radio-item {
+  position: relative;
+  padding: 8px 10px 9px 50px; }
+  .sg .radio .radio-item input {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 38px;
+    height: 38px;
+    outline: none !important; }
+  .sg .radio .radio-item input:checked::before {
+    content: "";
+    border: 2px solid;
+    background: transparent;
+    width: 37px;
+    height: 37px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 50%; }
+  .sg .radio .radio-item input:focus::before {
+    box-shadow: 0 0 0 5px #ffbf47; }
 

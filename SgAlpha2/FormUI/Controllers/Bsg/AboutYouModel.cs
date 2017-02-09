@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FormUI.Controllers.Bsg
 {
@@ -10,23 +11,31 @@ namespace FormUI.Controllers.Bsg
             PreviousAddresses = new List<AddressModel>();
         }
 
-        public string           Title                       { get; set; }
+        public string               Title                       { get; set; }
 
-        public string           FirstName                   { get; set; }
+        public string               FirstName                   { get; set; }
 
-        public string           OtherNames                  { get; set; }
+        public string               OtherNames                  { get; set; }
 
-        public string           SurnameOrFamilyName         { get; set; }
+        public string               SurnameOrFamilyName         { get; set; }
 
-        public DateTime         DateOfBirth                 { get; set; }
+        public DateTime             DateOfBirth                 { get; set; }
 
-        public string           NationalInsuranceNumberText { get; set; }
+        public string               NationalInsuranceNumberText { get; set; }
 
-        public AddressModel     CurrentAddress              { get; set; }
+        public AddressModel         CurrentAddress              { get; set; }
 
-        public AddressStatus?   CurrentAddressStatus   { get; set; }
+        public AddressStatus?       CurrentAddressStatus        { get; set; }
 
-        public IList<AddressModel> PreviousAddresses { get; set; }
+        public IList<AddressModel>  PreviousAddresses           { get; set; }
+
+        public ContactPreference?   ContactPreference           { get; set; }
+
+        public string               EmailAddress                { get; set; }
+
+        public string               PhoneNumer                  { get; set; }
+
+        public string               MobilePhoneNumber           { get; set; }
     }
 
     public class AddressModel
@@ -46,5 +55,17 @@ namespace FormUI.Controllers.Bsg
     {
         Permanent,
         Temporary,
+    }
+
+    public enum ContactPreference
+    {
+        [Description("Email")]
+        Email,
+
+        [Description("Phone")]
+        Phone,
+
+        [Description("Text message")]
+        Text,
     }
 }

@@ -17,7 +17,10 @@ namespace FormUI.Controllers.Helpers.Controls
 
         protected override HtmlTag CreateTag()
         {
-            var container = new DivTag().AddClasses("radio-inline");
+            var vertical = _values.Count > 2;
+            var radioClass = vertical ? "radio radio-block" : "radio radio-inline";
+
+            var container = new DivTag().AddClasses(radioClass);
 
             foreach (var value in _values)
             {
@@ -30,7 +33,7 @@ namespace FormUI.Controllers.Helpers.Controls
 
         private HtmlTag CreateLabel(string value)
         {
-            var label = new HtmlTag("label").AddClasses("radio-inline-item");
+            var label = new HtmlTag("label").AddClasses("radio-item");
             var input = new HtmlTag("input").Attr("type", "radio").Name(Name).Value(value);
 
             var labelText = _labels.ContainsKey(value) ? _labels[value] : value;
