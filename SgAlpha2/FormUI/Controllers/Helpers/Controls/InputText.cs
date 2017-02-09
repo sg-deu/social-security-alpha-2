@@ -1,4 +1,5 @@
-﻿using HtmlTags;
+﻿using System;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
@@ -13,6 +14,7 @@ namespace FormUI.Controllers.Helpers.Controls
             var input = new HtmlTag("input")
                 .Id(ControlContext.Id)
                 .Name(ControlContext.Name)
+                .Value(RenderValue())
                 .Attr("type", "text")
                 .AddClasses("form-control");
 

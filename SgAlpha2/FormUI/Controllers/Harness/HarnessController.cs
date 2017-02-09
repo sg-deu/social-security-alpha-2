@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 
 namespace FormUI.Controllers.Harness
@@ -27,6 +28,8 @@ namespace FormUI.Controllers.Harness
             var model = new HarnessModel
             {
                 Text1 = "initial value",
+                DateTime1 = new DateTime(2003, 02, 01),
+                Int1 = 5,
             };
 
             return View(model);

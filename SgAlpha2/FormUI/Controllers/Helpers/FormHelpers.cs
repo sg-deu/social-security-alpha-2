@@ -75,12 +75,14 @@ namespace FormUI.Controllers.Helpers
         {
             var name = property.GetExpressionText();
             var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
 
             var controlContext = new ControlContext
             {
                Helper   = helper,
                Id       = id,
                Name     = name,
+               Metadata = metaData,
             };
 
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);

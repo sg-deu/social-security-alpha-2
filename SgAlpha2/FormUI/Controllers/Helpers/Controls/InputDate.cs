@@ -1,4 +1,5 @@
-﻿using HtmlTags;
+﻿using System;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
@@ -15,9 +16,15 @@ namespace FormUI.Controllers.Helpers.Controls
                 .Attr("type", "hidden")
                 .Name(ControlContext.Name);
 
-            var day = CreateDatePartTag("Day", 2);
-            var month = CreateDatePartTag("Month", 2);
-            var year = CreateDatePartTag("Year", 4);
+            DateTime? model = (DateTime?)ControlContext.Metadata.Model;
+
+            var dayValue = model.HasValue ? model.Value.ToString("dd") : null;
+            var monthValue = model.HasValue ? model.Value.ToString("MM") : null;
+            var yearValue = model.HasValue ? model.Value.ToString("yyyy") : null;
+
+            var day = CreateDatePartTag("Day", 2, dayValue);
+            var month = CreateDatePartTag("Month", 2, monthValue);
+            var year = CreateDatePartTag("Year", 4, yearValue);
 
             var container = new HtmlTag("div")
                 .AddClasses("date-input")
@@ -29,7 +36,7 @@ namespace FormUI.Controllers.Helpers.Controls
             return container;
         }
 
-        private HtmlTag CreateDatePartTag(string part, int maxLength)
+        private HtmlTag CreateDatePartTag(string part, int maxLength, string modelDefault)
         {
             var id = ControlContext.Id + "_" + part.ToLower();
             var name = ControlContext.Name + "_" + part.ToLower();
@@ -39,6 +46,7 @@ namespace FormUI.Controllers.Helpers.Controls
             var input = new HtmlTag("input")
                 .Id(id)
                 .Name(name)
+                .Value(ModelStateValue(name) ?? modelDefault)
                 .Attr("type", "text")
                 .Attr("maxlength", maxLength);
 
