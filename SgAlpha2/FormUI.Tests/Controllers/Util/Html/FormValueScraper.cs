@@ -1,10 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FormUI.Tests.Controllers.Util.Html
 {
     public static class FormValueScraper
     {
+        public static IEnumerable<FormValue> FromElements(IEnumerable<ElementWrapper> elements)
+        {
+            var grouped = elements
+                .GroupBy(e => e.AttributeOrEmpty("name"))
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            var values = new List<FormValue>();
+
+            foreach (var name in grouped.Keys)
+            {
+                var elementsWithName = grouped[name];
+
+                if (string.IsNullOrWhiteSpace(name) || elementsWithName.Count == 1)
+                {
+                    foreach (var element in grouped[name])
+                    {
+                        var value = FromElement(element);
+                        values.Add(value);
+                    }
+                }
+                else
+                {
+                    var value = FromMultipleElements(name, elementsWithName);
+
+                    if (value != null)
+                        values.Add(value);
+                }
+            }
+
+            return values;
+        }
+
         public static FormValue FromElement(ElementWrapper element)
         {
             var formValue = new FormValue(element.AttributeOrEmpty("name"));
@@ -24,6 +57,26 @@ namespace FormUI.Tests.Controllers.Util.Html
                 default:
                     throw new Exception("Unhandled tag: " + element.TagName);
             }
+        }
+
+        public static FormValue FromMultipleElements(string name, IList<ElementWrapper> elements)
+        {
+            var enabledElements = elements
+                .Where(e => !e.HasAttribute("disabled"))
+                .ToList();
+
+            if (enabledElements.Count == 0)
+                return null;
+
+            var checkedValues = enabledElements.Where(e => e.HasAttribute("checked")).ToList();
+
+            var formValue = new FormValue(name)
+                .SetConfinedValues(enabledElements.Select(e => e.Attribute("value")).ToList());
+
+            if (checkedValues.Count > 0)
+                formValue.SetValue(string.Join(",", checkedValues.Select(e => e.Attribute("value"))));
+
+            return formValue;
         }
 
         public static FormValue FromInput(ElementWrapper input, FormValue formValue)

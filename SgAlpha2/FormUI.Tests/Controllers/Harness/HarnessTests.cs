@@ -53,6 +53,7 @@ namespace FormUI.Tests.Controllers.Harness
                     .SetText(m => m.Text1, "Value 1")
                     .SetDate(m => m.DateTime1, "03", "02", "2001")
                     .SetText(m => m.Int1, "01")
+                    .SetText(m => m.Radio1, RValues1.Value2.ToString())
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 var responseJson = response.Text;
@@ -62,6 +63,8 @@ namespace FormUI.Tests.Controllers.Harness
 
                 boundModel.Text1.Should().Be("Value 1");
                 boundModel.DateTime1.Should().Be(new DateTime(2001, 02, 03));
+                boundModel.Int1.Should().Be(1);
+                boundModel.Radio1.Should().Be(RValues1.Value2);
             });
         }
     }

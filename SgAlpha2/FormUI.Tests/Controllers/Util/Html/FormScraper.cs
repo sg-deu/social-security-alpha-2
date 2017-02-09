@@ -1,4 +1,6 @@
-﻿namespace FormUI.Tests.Controllers.Util.Html
+﻿using System.Linq;
+
+namespace FormUI.Tests.Controllers.Util.Html
 {
     public class FormScraper
     {
@@ -26,11 +28,16 @@
         {
             var formInputs = _element.FindAll("input, select, textarea, button");
 
-            foreach (var formInput in formInputs)
-                if (IsSubmit(formInput))
-                    AddSubmit(form, formInput);
-                else
-                    AddInput(form, formInput);
+            var submits = formInputs.Where(i => IsSubmit(i));
+            var inputs = formInputs.Where(i => !IsSubmit(i));
+
+            foreach (var submit in submits)
+                AddSubmit(form, submit);
+
+            var formValues = FormValueScraper.FromElements(inputs);
+
+            foreach (var formValue in formValues)
+                form.AddFormValue(formValue);
         }
 
         protected virtual bool IsSubmit(ElementWrapper formInput)
@@ -46,12 +53,6 @@
         {
             var submitValue = SubmitValue.FromElement(inputSubmit);
             form.AddSubmitValue(submitValue);
-        }
-
-        protected virtual void AddInput<T>(TypedForm<T> form, ElementWrapper formInput)
-        {
-            var formValue = FormValueScraper.FromElement(formInput);
-            form.AddFormValue(formValue);
         }
     }
 }
