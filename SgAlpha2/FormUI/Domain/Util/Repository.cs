@@ -61,10 +61,11 @@ namespace FormUI.Domain.Util
             _client = client;
         }
 
-        public void Insert<T>(T doc)
+        public T Insert<T>(T doc)
         {
             var collectionLink = Links[typeof(T)];
             _client.CreateDocumentAsync(collectionLink, doc).Wait();
+            return doc;
         }
 
         public T Load<T>(string id)
@@ -75,11 +76,12 @@ namespace FormUI.Domain.Util
             return doc;
         }
 
-        public void Update<T>(T doc)
+        public T Update<T>(T doc)
             where T : IDocument
         {
             var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, doc.Id);
             _client.ReplaceDocumentAsync(documentUri, doc).Wait();
+            return doc;
         }
 
         public IOrderedQueryable<T> Query<T>()

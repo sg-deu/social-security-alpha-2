@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using NUnit.Framework;
@@ -9,13 +8,6 @@ namespace FormUI.Tests.Domain.Util
     [TestFixture]
     public class RepositoryTests
     {
-        [Test]
-        public void TestEnvironment()
-        {
-            var setting = Environment.GetEnvironmentVariable("Alpha2Db");
-            Console.WriteLine(setting ?? "<null>");
-        }
-
         [Test]
         public void SaveAndLoad()
         {
@@ -76,6 +68,26 @@ namespace FormUI.Tests.Domain.Util
                         .Count;
 
                 count.Should().Be(3);
+            }
+        }
+
+        [Test]
+        public void QueryWithFilter()
+        {
+            using (var repository = new LocalRepository(true))
+            {
+                var doc1 = repository.Insert(new BestStartGrant { Value = "Bsg1" });
+                var doc2 = repository.Insert(new BestStartGrant { Value = "Bsg2" });
+                var doc3 = repository.Insert(new BestStartGrant { Value = "Bsg3" });
+
+                var doc =
+                    repository.Query<BestStartGrant>()
+                        .Where(bsg => bsg.Value == "Bsg2")
+                        .ToList()
+                        .Single();
+
+                doc.Value.Should().Be("Bsg2");
+                doc.Id.Should().Be(doc2.Id);
             }
         }
     }
