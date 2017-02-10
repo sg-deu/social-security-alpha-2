@@ -9,13 +9,13 @@ namespace FormUI.Tests.Domain
         [SetUp]
         public void SetUp()
         {
-            TestRepository.SetUp();
+            LocalRepository.SetUp();
         }
 
         [TearDown]
         public void TearDown()
         {
-            TestRepository.TearDown();
+            LocalRepository.TearDown();
         }
     }
 }

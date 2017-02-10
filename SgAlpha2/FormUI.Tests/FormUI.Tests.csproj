@@ -154,7 +154,7 @@
     <Compile Include="Controllers\Util\WebTest.cs" />
     <Compile Include="Domain\SetUpFixture.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
-    <Compile Include="Domain\Util\TestRepository.cs" />
+    <Compile Include="Domain\Util\LocalRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -54,7 +54,7 @@ namespace FormUI.Domain.Util
             return new Repository(NewClient());
         }
 
-        private DocumentClient _client;
+        protected DocumentClient _client;
 
         public Repository(DocumentClient client)
         {
@@ -82,9 +82,11 @@ namespace FormUI.Domain.Util
             _client.ReplaceDocumentAsync(documentUri, doc).Wait();
         }
 
-        public IQueryable<T> Query<T>()
+        public IOrderedQueryable<T> Query<T>()
         {
-            throw new NotImplementedException("query");
+            var collectionLink = Links[typeof(T)];
+            var queryable = _client.CreateDocumentQuery<T>(collectionLink);
+            return queryable;
         }
 
         public void Dispose()

@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
-using FormUI.Domain.Util;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
@@ -23,14 +21,14 @@ namespace FormUI.Tests.Domain.Util
         {
             string id;
 
-            using (var repository = Repository.New())
+            using (var repository = new LocalRepository())
             {
                 var doc = new BestStartGrant() { Value = "some data" };
                 id = doc.Id;
                 repository.Insert(doc);
             }
 
-            using (var repository = Repository.New())
+            using (var repository = new LocalRepository())
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value.Should().Be("some data");
@@ -42,21 +40,21 @@ namespace FormUI.Tests.Domain.Util
         {
             string id;
 
-            using (var repository = Repository.New())
+            using (var repository = new LocalRepository())
             {
                 var doc = new BestStartGrant() { Value = "some data" };
                 id = doc.Id;
                 repository.Insert(doc);
             }
 
-            using (var repository = Repository.New())
+            using (var repository = new LocalRepository())
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value = "updated value";
                 repository.Update(doc);
             }
 
-            using (var repository = Repository.New())
+            using (var repository = new LocalRepository())
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value.Should().Be("updated value");
@@ -66,52 +64,18 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void Query()
         {
-        }
-
-        [Test]
-        [Explicit("Just for local testing for now")]
-        public void SaveDocument()
-        {
-            var dbUri = new Uri("https://localhost:8081");
-            var dbKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
-
-            using (var client = new DocumentClient(dbUri, dbKey))
+            using (var repository = new LocalRepository(true))
             {
-                var db =
-                    new Database
-                    {
-                        Id = "FormsDb",
-                    };
+                repository.Insert(new BestStartGrant { Value = "Bsg1" });
+                repository.Insert(new BestStartGrant { Value = "Bsg2" });
+                repository.Insert(new BestStartGrant { Value = "Bsg3" });
 
-                client.CreateDatabaseIfNotExistsAsync(db).Wait();
+                var count =
+                    repository.Query<BestStartGrant>()
+                        .ToList()
+                        .Count;
 
-                var collectionUri = UriFactory.CreateDocumentCollectionUri(db.Id, "Form");
-
-                var collection =
-                    new DocumentCollection
-                    {
-                        Id = "Form",
-                    };
-
-                var dbLlink = UriFactory.CreateDatabaseUri(db.Id);
-                client.CreateDocumentCollectionIfNotExistsAsync(dbLlink, collection).Wait();
-
-                var cLink = UriFactory.CreateDocumentCollectionUri(db.Id, collection.Id);
-
-                var formQuery = client.CreateDocumentQuery<BestStartGrant>(cLink);
-                var existingDocs = formQuery;
-
-                foreach (var existingDoc in existingDocs)
-                {
-                    Console.WriteLine(existingDoc.Id);
-                    client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(db.Id, collection.Id,  existingDoc.Id)).Wait();
-                }
-
-                for (var i = 0; i < 5; i++)
-                {
-                    var doc = new BestStartGrant();
-                    var savedDoc = client.CreateDocumentAsync(cLink, doc).Result;
-                }
+                count.Should().Be(3);
             }
         }
     }
