@@ -6,7 +6,7 @@ namespace FormUI.Domain.Util
     {
         void            Insert<T>(T doc);
         T               Load<T>(string id);
-        void            Update<T>(T doc);
+        void            Update<T>(T doc) where T : IDocument;
 
         IQueryable<T>   Query<T>();
     }

@@ -75,14 +75,16 @@ namespace FormUI.Domain.Util
             return doc;
         }
 
+        public void Update<T>(T doc)
+            where T : IDocument
+        {
+            var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, doc.Id);
+            _client.ReplaceDocumentAsync(documentUri, doc).Wait();
+        }
+
         public IQueryable<T> Query<T>()
         {
             throw new NotImplementedException("query");
-        }
-
-        public void Update<T>(T doc)
-        {
-            throw new NotImplementedException("update");
         }
 
         public void Dispose()

@@ -40,7 +40,27 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void Update()
         {
+            string id;
 
+            using (var repository = Repository.New())
+            {
+                var doc = new BestStartGrant() { Value = "some data" };
+                id = doc.Id;
+                repository.Insert(doc);
+            }
+
+            using (var repository = Repository.New())
+            {
+                var doc = repository.Load<BestStartGrant>(id);
+                doc.Value = "updated value";
+                repository.Update(doc);
+            }
+
+            using (var repository = Repository.New())
+            {
+                var doc = repository.Load<BestStartGrant>(id);
+                doc.Value.Should().Be("updated value");
+            }
         }
 
         [Test]

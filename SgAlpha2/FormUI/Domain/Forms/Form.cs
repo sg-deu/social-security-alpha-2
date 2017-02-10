@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using FormUI.Domain.Util;
+using Newtonsoft.Json;
 
 namespace FormUI.Domain.Forms
 {
-    public abstract class Form
+    public abstract class Form : IDocument
     {
         public Form(string id)
         {

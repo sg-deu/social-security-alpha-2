@@ -153,6 +153,7 @@
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
+    <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />
     <Compile Include="Domain\Util\Repository.cs" />
     <Compile Include="Global.asax.cs">
