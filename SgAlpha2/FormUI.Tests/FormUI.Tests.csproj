@@ -152,7 +152,9 @@
     <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
+    <Compile Include="Domain\SetUpFixture.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
+    <Compile Include="Domain\Util\TestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

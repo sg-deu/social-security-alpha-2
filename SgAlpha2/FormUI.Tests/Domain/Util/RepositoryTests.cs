@@ -1,32 +1,13 @@
 ﻿using System;
+using FluentAssertions;
+using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.Util;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
-    public abstract class Form
-    {
-        public Form(string id)
-        {
-            Id = id;
-        }
-
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; protected set; }
-
-    }
-
-    public class BestStartGrant : Form
-    {
-        public BestStartGrant() : base(Guid.NewGuid().ToString())
-        {
-        }
-
-        public string Value { get; set; }
-    }
-
     [TestFixture]
     public class RepositoryTests
     {
@@ -35,6 +16,36 @@ namespace FormUI.Tests.Domain.Util
         {
             var setting = Environment.GetEnvironmentVariable("Alpha2Db");
             Console.WriteLine(setting ?? "<null>");
+        }
+
+        [Test]
+        public void SaveAndLoad()
+        {
+            string id;
+
+            using (var repository = Repository.New())
+            {
+                var doc = new BestStartGrant() { Value = "some data" };
+                id = doc.Id;
+                repository.Insert(doc);
+            }
+
+            using (var repository = Repository.New())
+            {
+                var doc = repository.Load<BestStartGrant>(id);
+                doc.Value.Should().Be("some data");
+            }
+        }
+
+        [Test]
+        public void Update()
+        {
+
+        }
+
+        [Test]
+        public void Query()
+        {
         }
 
         [Test]
@@ -78,12 +89,7 @@ namespace FormUI.Tests.Domain.Util
 
                 for (var i = 0; i < 5; i++)
                 {
-                    var doc =
-                        new BestStartGrant
-                        {
-                            Value = "My document, created at: " + DateTime.UtcNow,
-                        };
-
+                    var doc = new BestStartGrant();
                     var savedDoc = client.CreateDocumentAsync(cLink, doc).Result;
                 }
             }
