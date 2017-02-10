@@ -91,7 +91,7 @@ namespace FormUI.Domain.Util
             return queryable;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             using (_client) { }
         }

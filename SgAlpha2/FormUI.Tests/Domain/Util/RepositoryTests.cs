@@ -20,7 +20,7 @@ namespace FormUI.Tests.Domain.Util
                 repository.Insert(doc);
             }
 
-            using (var repository = new LocalRepository())
+            using (var repository = new LocalRepository(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value.Should().Be("some data");
@@ -39,14 +39,14 @@ namespace FormUI.Tests.Domain.Util
                 repository.Insert(doc);
             }
 
-            using (var repository = new LocalRepository())
+            using (var repository = new LocalRepository(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value = "updated value";
                 repository.Update(doc);
             }
 
-            using (var repository = new LocalRepository())
+            using (var repository = new LocalRepository(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.Value.Should().Be("updated value");
@@ -56,7 +56,7 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void Query()
         {
-            using (var repository = new LocalRepository(true))
+            using (var repository = new LocalRepository())
             {
                 repository.Insert(new BestStartGrant { Value = "Bsg1" });
                 repository.Insert(new BestStartGrant { Value = "Bsg2" });
@@ -74,7 +74,7 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void QueryWithFilter()
         {
-            using (var repository = new LocalRepository(true))
+            using (var repository = new LocalRepository())
             {
                 var doc1 = repository.Insert(new BestStartGrant { Value = "Bsg1" });
                 var doc2 = repository.Insert(new BestStartGrant { Value = "Bsg2" });
