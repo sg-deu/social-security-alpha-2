@@ -134,7 +134,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
-    <Compile Include="Controllers\Bsg\AboutYouModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
@@ -151,7 +150,11 @@
     <Compile Include="Controllers\Helpers\ReflectHelper.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
+    <Compile Include="Domain\BestStartGrantForms\AboutYou.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Address.cs" />
+    <Compile Include="Domain\BestStartGrantForms\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
+    <Compile Include="Domain\BestStartGrantForms\ContactPreference.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />
