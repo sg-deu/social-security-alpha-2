@@ -155,6 +155,7 @@
     <Compile Include="Domain\SetUpFixture.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
     <Compile Include="Domain\Util\LocalRepository.cs" />
+    <Compile Include="VstsSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
