@@ -1,19 +1,42 @@
 ﻿using System;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
-    public class Form
+    public abstract class Form
     {
-        public string Id { get; set; }
+        public Form(string id)
+        {
+            Id = id;
+        }
+
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; protected set; }
+
+    }
+
+    public class BestStartGrant : Form
+    {
+        public BestStartGrant() : base(Guid.NewGuid().ToString())
+        {
+        }
+
         public string Value { get; set; }
     }
 
     [TestFixture]
     public class RepositoryTests
     {
+        [Test]
+        public void TestEnvironment()
+        {
+            var setting = Environment.GetEnvironmentVariable("Alpha2Db");
+            Console.WriteLine(setting ?? "<null>");
+        }
+
         [Test]
         [Explicit("Just for local testing for now")]
         public void SaveDocument()
@@ -44,18 +67,20 @@ namespace FormUI.Tests.Domain.Util
 
                 var cLink = UriFactory.CreateDocumentCollectionUri(db.Id, collection.Id);
 
-                var existingDocs = client.ReadDocumentFeedAsync(cLink).Result;
+                var formQuery = client.CreateDocumentQuery<BestStartGrant>(cLink);
+                var existingDocs = formQuery;
+
                 foreach (var existingDoc in existingDocs)
                 {
-                    client.DeleteDocumentAsync(existingDoc.SelfLink).Wait();
+                    Console.WriteLine(existingDoc.Id);
+                    client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(db.Id, collection.Id,  existingDoc.Id)).Wait();
                 }
 
                 for (var i = 0; i < 5; i++)
                 {
                     var doc =
-                        new Form()
+                        new BestStartGrant
                         {
-                            Id = Guid.NewGuid().ToString(),
                             Value = "My document, created at: " + DateTime.UtcNow,
                         };
 
