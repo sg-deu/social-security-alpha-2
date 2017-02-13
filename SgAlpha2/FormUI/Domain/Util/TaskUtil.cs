@@ -13,5 +13,15 @@ namespace FormUI.Domain.Util
             thread.Start();
             thread.Join();
         }
+
+        /// <summary> await the result synchronously by using a separate thread to wait for the .Result on </summary>
+        public static T Result<T>(Func<Task<T>> taskFunc)
+        {
+            T result = default(T);
+            var thread = new Thread(() => { result = taskFunc().Result; });
+            thread.Start();
+            thread.Join();
+            return result;
+        }
     }
 }

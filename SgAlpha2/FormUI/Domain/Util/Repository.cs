@@ -71,7 +71,7 @@ namespace FormUI.Domain.Util
         public T Load<T>(string id)
         {
             var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, id);
-            var response = _client.ReadDocumentAsync(documentUri).Result; // change this to be synchronous
+            var response = TaskUtil.Result(() => _client.ReadDocumentAsync(documentUri));
             var doc = (T)(dynamic)response.Resource;
             return doc;
         }
