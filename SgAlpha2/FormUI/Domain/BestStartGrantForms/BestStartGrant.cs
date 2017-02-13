@@ -1,4 +1,5 @@
 ﻿using System;
+using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Forms;
 
 namespace FormUI.Domain.BestStartGrantForms
@@ -9,6 +10,6 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        public string Value { get; set; }
+        public AboutYou AboutYou { get; set; }
     }
 }

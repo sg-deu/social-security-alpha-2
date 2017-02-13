@@ -17,9 +17,7 @@ namespace FormUI.Tests.Domain.Util
         {
         }
 
-        public LocalRepository() : this(true) { }
-
-        public LocalRepository(bool deleteAllDocuments) : base(NewClient())
+        public LocalRepository(bool deleteAllDocuments = true) : base(NewClient())
         {
             if (deleteAllDocuments)
                 DeleteAllDocuments();

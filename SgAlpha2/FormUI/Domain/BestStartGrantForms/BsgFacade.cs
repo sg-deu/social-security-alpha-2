@@ -3,9 +3,9 @@ using FormUI.Domain.BestStartGrantForms.Dto;
 
 namespace FormUI.Domain.BestStartGrantForms
 {
-    public static class Facade
+    public static class BsgFacade
     {
-        static Facade()
+        static BsgFacade()
         {
             Init();
         }
