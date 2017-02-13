@@ -1,4 +1,5 @@
-﻿using FormUI.Domain.Util;
+﻿using System.Diagnostics;
+using FormUI.Domain.Util;
 using Newtonsoft.Json;
 
 namespace FormUI.Domain.Forms
@@ -12,5 +13,11 @@ namespace FormUI.Domain.Forms
 
         [JsonProperty(PropertyName = "id")]
         public string Id { get; protected set; }
+
+        protected static IRepository Repository
+        {
+            [DebuggerStepThrough]
+            get { return DomainRegistry.Repository; }
+        }
     }
 }

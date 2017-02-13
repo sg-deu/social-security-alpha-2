@@ -23,6 +23,12 @@ namespace FormUI.Tests.Domain.Util
                 DeleteAllDocuments();
         }
 
+        public LocalRepository Register()
+        {
+            DomainRegistry.Repository = this;
+            return this;
+        }
+
         public LocalRepository DeleteAllDocuments()
         {
             foreach (var collectionType in Links.Keys)

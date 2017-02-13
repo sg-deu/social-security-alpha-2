@@ -19,7 +19,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private static bool ExecuteStart(AboutYou aboutYou)
         {
-            return false;
+            return BestStartGrant.Start(aboutYou);
         }
     }
 }

@@ -11,5 +11,17 @@ namespace FormUI.Domain.BestStartGrantForms
         }
 
         public AboutYou AboutYou { get; set; }
+
+        public static bool Start(AboutYou aboutYou)
+        {
+            var form = new BestStartGrant
+            {
+                AboutYou = aboutYou,
+            };
+
+            Repository.Insert(form);
+
+            return true;
+        }
     }
 }

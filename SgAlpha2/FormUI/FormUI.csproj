@@ -157,6 +157,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
     <Compile Include="Domain\BestStartGrantForms\BsgFacade.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
+    <Compile Include="Domain\Util\DomainRegistry.cs" />
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />
     <Compile Include="Domain\Util\Repository.cs" />

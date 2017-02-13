@@ -11,7 +11,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class FacadeTests : DomainTest
     {
         [Test]
-        [Ignore("RGB - WIP")]
         public void Start_CreatesForm()
         {
             var aboutYou = new AboutYou
