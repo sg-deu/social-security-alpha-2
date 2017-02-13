@@ -202,6 +202,7 @@
     <Content Include="Controllers\Harness\Form.cshtml" />
     <Content Include="Controllers\Harness\Layout.cshtml" />
     <Content Include="Controllers\Harness\Radio.cshtml" />
+    <Content Include="Controllers\Bsg\Complete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

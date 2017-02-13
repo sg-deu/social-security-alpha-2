@@ -29,5 +29,16 @@ namespace FormUI.Tests.Controllers.Bsg
                 response.Doc.Document.Body.TextContent.Should().Contain("About You");
             });
         }
+
+        [Test]
+        public void Complete_GET()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.Complete());
+
+                response.Text.ToLower().Should().Contain("received");
+            });
+        }
     }
 }
