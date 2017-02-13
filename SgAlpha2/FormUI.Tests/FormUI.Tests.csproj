@@ -158,6 +158,7 @@
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
     <Compile Include="Domain\Util\LocalRepository.cs" />
+    <Compile Include="Domain\Util\TaskUtilTests.cs" />
     <Compile Include="VstsSettings.cs" />
   </ItemGroup>
   <ItemGroup>

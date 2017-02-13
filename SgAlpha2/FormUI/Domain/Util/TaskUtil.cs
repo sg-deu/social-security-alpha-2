@@ -9,18 +9,36 @@ namespace FormUI.Domain.Util
         /// <summary> await the task synchronously by using a separate thread to .Wait() for the task on </summary>
         public static void Await<T>(Func<Task<T>> taskFunc)
         {
-            var thread = new Thread(() => { taskFunc().Wait(); });
-            thread.Start();
-            thread.Join();
+            Result(taskFunc);
         }
 
         /// <summary> await the result synchronously by using a separate thread to wait for the .Result on </summary>
         public static T Result<T>(Func<Task<T>> taskFunc)
         {
             T result = default(T);
-            var thread = new Thread(() => { result = taskFunc().Result; });
+            Exception threadException = null;
+            var thread = new Thread(() =>
+            {
+                try
+                {
+                    result = taskFunc().Result;
+                }
+                catch (Exception ex)
+                {
+                    threadException = ex;
+                }
+            });
             thread.Start();
             thread.Join();
+
+            var aggregateException = threadException as AggregateException;
+
+            if (aggregateException != null)
+                throw aggregateException.GetBaseException();
+
+            if (threadException != null)
+                throw threadException;
+
             return result;
         }
     }
