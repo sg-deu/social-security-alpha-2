@@ -1,1 +1,25 @@
-﻿
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+           <h2>Environment Variables</h2>
+
+           <ul>
+               @foreach (var k in Model.EnvironmentVariables.Keys)
+               {
+                   <li>@k = @Model.EnvironmentVariables[k]</li>
+               }
+           </ul>
+
+           <h2>Application Settings</h2>
+
+           <ul>
+               @foreach (var k in Model.ApplicationSettings.Keys)
+               {
+                   <li>@k = @Model.ApplicationSettings[k]</li>
+               }
+           </ul>
+
+    </div><!--
+--></div>
