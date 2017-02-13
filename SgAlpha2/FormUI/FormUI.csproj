@@ -150,11 +150,12 @@
     <Compile Include="Controllers\Helpers\ReflectHelper.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
-    <Compile Include="Domain\BestStartGrantForms\AboutYou.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Address.cs" />
-    <Compile Include="Domain\BestStartGrantForms\AddressStatus.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
-    <Compile Include="Domain\BestStartGrantForms\ContactPreference.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Facade.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />

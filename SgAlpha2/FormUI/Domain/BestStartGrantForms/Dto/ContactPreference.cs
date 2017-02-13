@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FormUI.Domain.BestStartGrantForms
+namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public enum ContactPreference
     {

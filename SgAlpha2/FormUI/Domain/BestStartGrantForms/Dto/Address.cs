@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FormUI.Domain.BestStartGrantForms
+namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class Address
     {

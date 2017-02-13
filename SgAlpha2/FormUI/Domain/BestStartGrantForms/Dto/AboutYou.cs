@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FormUI.Domain.BestStartGrantForms
+namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class AboutYou
     {
