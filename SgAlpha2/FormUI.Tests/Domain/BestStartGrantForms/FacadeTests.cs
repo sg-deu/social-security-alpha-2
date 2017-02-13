@@ -18,12 +18,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 FirstName = "unit test",
             };
 
-            var created = BsgFacade.Start(aboutYou);
-
-            created.Should().BeTrue("form should be created");
+            BsgFacade.Start(aboutYou);
 
             var createdForm = Repository.Query<BestStartGrant>().ToList().FirstOrDefault();
-            createdForm.Should().NotBeNull();
+            createdForm.Should().NotBeNull("form should be in database");
             createdForm.AboutYou.FirstName.Should().Be("unit test");
         }
     }

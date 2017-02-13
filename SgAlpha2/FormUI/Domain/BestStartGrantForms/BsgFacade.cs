@@ -15,11 +15,11 @@ namespace FormUI.Domain.BestStartGrantForms
             Start = ExecuteStart;
         }
 
-        public static Func<AboutYou, bool> Start;
+        public static Action<AboutYou> Start;
 
-        private static bool ExecuteStart(AboutYou aboutYou)
+        private static void ExecuteStart(AboutYou aboutYou)
         {
-            return BestStartGrant.Start(aboutYou);
+            BestStartGrant.Start(aboutYou);
         }
     }
 }

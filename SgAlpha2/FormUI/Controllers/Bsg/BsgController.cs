@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Dto;
 
 namespace FormUI.Controllers.Bsg
 {
@@ -21,6 +23,13 @@ namespace FormUI.Controllers.Bsg
         public ActionResult AboutYou()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AboutYou(AboutYou aboutYou)
+        {
+            BsgFacade.Start(aboutYou);
+            return Redirect(BsgActions.Complete());
         }
 
         [HttpGet]
