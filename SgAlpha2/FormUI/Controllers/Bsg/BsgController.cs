@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 
@@ -11,7 +13,7 @@ namespace FormUI.Controllers.Bsg
         public static string    Complete()  { return "~/bsg/complete"; }
     }
 
-    public class BsgController : Controller
+    public class BsgController : FormController
     {
         [HttpGet]
         public ActionResult Overview()
@@ -28,8 +30,9 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult AboutYou(AboutYou aboutYou)
         {
-            BsgFacade.Start(aboutYou);
-            return Redirect(BsgActions.Complete());
+            return Exec(() => BsgFacade.Start(aboutYou),
+                success: () => Redirect(BsgActions.Complete()),
+                failure: () => { throw new NotImplementedException("failure not tested yet"); });
         }
 
         [HttpGet]

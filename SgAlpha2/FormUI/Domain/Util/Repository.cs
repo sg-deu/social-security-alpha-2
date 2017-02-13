@@ -24,7 +24,7 @@ namespace FormUI.Domain.Util
             using (var client = NewClient())
             {
                 var db = new Database { Id = DbName };
-                client.CreateDatabaseIfNotExistsAsync(db).Wait();
+                TaskUtil.Await(() => client.CreateDatabaseIfNotExistsAsync(db));
 
                 Links = new Dictionary<Type, Uri>();
                 CreateCollection<BestStartGrant>(client);
@@ -37,7 +37,7 @@ namespace FormUI.Domain.Util
             var dbLlink = UriFactory.CreateDatabaseUri(DbName);
             var collection = new DocumentCollection { Id = collectionType.Name };
 
-            client.CreateDocumentCollectionIfNotExistsAsync(dbLlink, collection).Wait();
+            TaskUtil.Await(() => client.CreateDocumentCollectionIfNotExistsAsync(dbLlink, collection));
 
             var collectionLink = UriFactory.CreateDocumentCollectionUri(DbName, collection.Id);
             Links.Add(collectionType, collectionLink);
@@ -64,14 +64,14 @@ namespace FormUI.Domain.Util
         public T Insert<T>(T doc)
         {
             var collectionLink = Links[typeof(T)];
-            _client.CreateDocumentAsync(collectionLink, doc).Wait();
+            TaskUtil.Await(() => _client.CreateDocumentAsync(collectionLink, doc));
             return doc;
         }
 
         public T Load<T>(string id)
         {
             var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, id);
-            var response = _client.ReadDocumentAsync(documentUri).Result;
+            var response = _client.ReadDocumentAsync(documentUri).Result; // change this to be synchronous
             var doc = (T)(dynamic)response.Resource;
             return doc;
         }
@@ -80,7 +80,7 @@ namespace FormUI.Domain.Util
             where T : IDocument
         {
             var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, doc.Id);
-            _client.ReplaceDocumentAsync(documentUri, doc).Wait();
+            TaskUtil.Await(() => _client.ReplaceDocumentAsync(documentUri, doc));
             return doc;
         }
 

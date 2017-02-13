@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web;
 using FluentAssertions;
+using FormUI.Controllers.Shared;
 using FormUI.Tests.Controllers.Util.Hosting;
 using FormUI.Tests.Controllers.Util.Http;
 using NUnit.Framework;
@@ -28,6 +29,7 @@ namespace FormUI.Tests.Controllers.Util
         {
             _webApp.Value.Test(client =>
             {
+                FormController.Executor = domainFunc => domainFunc();
                 client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
                 test(client);
             });

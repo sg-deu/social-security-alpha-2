@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FormUI.Domain.Util;
+using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
@@ -14,7 +15,7 @@ namespace FormUI.Tests.Domain.Util
                 var databases = client.CreateDatabaseQuery();
 
                 foreach (var database in databases)
-                    client.DeleteDatabaseAsync(database.SelfLink).Wait();
+                    TaskUtil.Await(() => client.DeleteDatabaseAsync(database.SelfLink));
             }
         }
     }

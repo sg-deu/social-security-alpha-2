@@ -37,7 +37,7 @@ namespace FormUI.Tests.Domain.Util
                 var query = _client.CreateDocumentQuery(collectionLink);
 
                 foreach (var doc in query)
-                    _client.DeleteDocumentAsync(doc.SelfLink).Wait();
+                    TaskUtil.Await(() => _client.DeleteDocumentAsync(doc.SelfLink));
             }
 
             return this;

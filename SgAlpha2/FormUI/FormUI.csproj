@@ -150,6 +150,7 @@
     <Compile Include="Controllers\Helpers\ReflectHelper.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
+    <Compile Include="Controllers\Shared\FormController.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />
     <Compile Include="Domain\Util\Repository.cs" />
+    <Compile Include="Domain\Util\TaskUtil.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
