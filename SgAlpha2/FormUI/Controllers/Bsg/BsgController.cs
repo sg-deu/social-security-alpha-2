@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
@@ -32,7 +31,7 @@ namespace FormUI.Controllers.Bsg
         {
             return Exec(() => BsgFacade.Start(aboutYou),
                 success: () => Redirect(BsgActions.Complete()),
-                failure: () => { throw new NotImplementedException("failure not tested yet"); });
+                failure: () => View());
         }
 
         [HttpGet]

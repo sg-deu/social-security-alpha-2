@@ -24,6 +24,9 @@ namespace FormUI.Controllers.Shared
 
         protected ActionResult Exec(Action domainAction, Func<ActionResult> success, Func<ActionResult> failure)
         {
+            if (!ModelState.IsValid)
+                return failure();
+
             var result = Executor(() => { domainAction(); return null; });
             return success();
         }

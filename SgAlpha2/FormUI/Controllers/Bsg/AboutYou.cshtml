@@ -16,6 +16,9 @@
 
         <form method="post">
 
+            @Html.ValidationSummary()
+
+
             <h2>Your Personal  Details</h2>
 
             @Html.LabelledInputText("Title (optional)", m => m.Title)

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
 using FormUI.Domain.BestStartGrantForms;
@@ -44,12 +45,28 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
                     .SetText(m => m.FirstName, "first name")
+                    .SetDate(m => m.DateOfBirth, "01", "02", "2003")
+                    .SetDate(m => m.CurrentAddress.DateMovedIn , "02", "03", "2004")
                     .Submit(client);
 
                 dto.Should().NotBeNull("controller should call BsgStart()");
                 dto.FirstName.Should().Be("first name");
 
                 response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+            });
+        }
+
+        [Test]
+        public void AboutYou_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
+                    .SetDate(m => m.DateOfBirth, "in", "va", "lid")
+                    .SetText(m => m.FirstName, "first name")
+                    .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
             });
         }
 
