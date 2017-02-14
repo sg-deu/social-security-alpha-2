@@ -14,7 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 OtherNames = "test other names",
                 SurnameOrFamilyName = "test surname or family name",
                 DateOfBirth = new DateTime(1980, 12, 11),
-                NationalInsuranceNumberText = "AB123456C",
+                NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = new Address
                 {
                     Street1 = "test street 1",

@@ -21,7 +21,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeInvalid(m => m.FirstName = null);
             ShouldBeInvalid(m => m.SurnameOrFamilyName = null);
             ShouldBeInvalid(m => m.DateOfBirth = null);
-            ShouldBeInvalid(m => m.NationalInsuranceNumberText = null);
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = null);
             ShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
             ShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
             ShouldBeInvalid(m => m.CurrentAddress.Postcode = null);
