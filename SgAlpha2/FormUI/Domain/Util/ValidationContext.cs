@@ -14,12 +14,29 @@ namespace FormUI.Domain.Util
             _model = model;
         }
 
-        public void Required(Expression<Func<T, string>> stringProperty, string message)
+        public void Required(Expression<Func<T, string>> property, string message)
         {
-            var value = stringProperty.Compile()(_model);
+            var value = property.Compile()(_model);
 
             if (string.IsNullOrWhiteSpace(value))
-                _errors.Add(stringProperty, message);
+                _errors.Add(property, message);
+        }
+
+        public void Required(Expression<Func<T, DateTime?>> property, string message)
+        {
+            var value = property.Compile()(_model);
+
+            if (!value.HasValue)
+                _errors.Add(property, message);
+        }
+
+        public void Required<TStruct>(Expression<Func<T, Nullable<TStruct>>> property, string message)
+            where TStruct : struct
+        {
+            Nullable<TStruct> value = property.Compile()(_model);
+
+            if (!value.HasValue)
+                _errors.Add(property, message);
         }
 
         public void ThrowIfError()
@@ -27,7 +44,7 @@ namespace FormUI.Domain.Util
             if (_errors.Count == 0)
                 return;
 
-            throw new DomainException { PropertyErrors = _errors };
+            throw new DomainException(_errors);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
-using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -13,10 +12,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_CreatesForm()
         {
-            var aboutYou = new AboutYou
-            {
-                FirstName = "unit test",
-            };
+            var aboutYou = AboutYouBuilder.NewValidAboutYou(m =>
+                m.FirstName = "unit test");
 
             BsgFacade.Start(aboutYou);
 

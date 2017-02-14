@@ -7,6 +7,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
     {
         public AboutYou()
         {
+            CurrentAddress = new Address();
             PreviousAddresses = new List<Address>();
         }
 
