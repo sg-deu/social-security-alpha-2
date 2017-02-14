@@ -30,6 +30,54 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeInvalid(m => m.ContactPreference = null);
         }
 
+        [Test]
+        public void Start_ContactPreferenceEmail_RequiresEmail()
+        {
+            ShouldBeValid(m =>
+            {
+                m.ContactPreference = ContactPreference.Email;
+                m.PhoneNumer = null;
+                m.MobilePhoneNumber = null;
+            });
+            ShouldBeInvalid(m =>
+            {
+                m.ContactPreference = ContactPreference.Email;
+                m.EmailAddress = null;
+            });
+        }
+
+        [Test]
+        public void Start_ContactPreferencePhone_RequiresPhoneNumber()
+        {
+            ShouldBeValid(m =>
+            {
+                m.ContactPreference = ContactPreference.Phone;
+                m.EmailAddress = null;
+                m.MobilePhoneNumber = null;
+            });
+            ShouldBeInvalid(m =>
+            {
+                m.ContactPreference = ContactPreference.Phone;
+                m.PhoneNumer = null;
+            });
+        }
+
+        [Test]
+        public void Start_ContactPreferenceText_RequiresText()
+        {
+            ShouldBeValid(m =>
+            {
+                m.ContactPreference = ContactPreference.Text;
+                m.EmailAddress = null;
+                m.PhoneNumer = null;
+            });
+            ShouldBeInvalid(m =>
+            {
+                m.ContactPreference = ContactPreference.Text;
+                m.MobilePhoneNumber = null;
+            });
+        }
+
         #region test helpers
 
         protected void ShouldBeValid(Action<AboutYou> mutator)

@@ -42,6 +42,25 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
             ctx.Required(m => m.ContactPreference, "Please supply a contact preference");
 
+            if (aboutYou.ContactPreference.HasValue)
+                switch(aboutYou.ContactPreference.Value)
+                {
+                    case ContactPreference.Email:
+                        ctx.Required(m => m.EmailAddress, "Please supply an Email address");
+                        break;
+
+                    case ContactPreference.Phone:
+                        ctx.Required(m => m.PhoneNumer, "Please supply a Phone number");
+                        break;
+
+                    case ContactPreference.Text:
+                        ctx.Required(m => m.MobilePhoneNumber, "Please supply a Mobile phone number");
+                        break;
+
+                    default:
+                        throw new Exception("Unhandled contact preference: " + aboutYou.ContactPreference);
+                }
+
             ctx.ThrowIfError();
         }
     }
