@@ -16,9 +16,6 @@ namespace FormUI.Controllers.Harness
         public RValues1?    Radio1      { get; set; }
         public RValues1?    Radio2      { get; set; }
         public RValues2?    Radio3      { get; set; }
-
-        public IDictionary<string, string> EnvironmentVariables;
-        public IDictionary<string, string> ApplicationSettings;
     }
 
     public enum RValues1

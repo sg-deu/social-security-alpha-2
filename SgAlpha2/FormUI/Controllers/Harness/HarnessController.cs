@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 
@@ -19,33 +17,11 @@ namespace FormUI.Controllers.Harness
     public class HarnessController : Controller
     {
         public ActionResult Index()     { return View(); }
-        //public ActionResult Layout()    { return View(); }
+        public ActionResult Layout()    { return View(); }
         public ActionResult InputText() { return View(); }
         public ActionResult InputDate() { return View(); }
         public ActionResult Radio()     { return View(); }
 
-
-        [HttpGet]
-        public ActionResult Layout()
-        {
-            var model = new HarnessModel
-            {
-                EnvironmentVariables = new Dictionary<string, string>(),
-                ApplicationSettings = new Dictionary<string, string>(),
-            };
-
-            var envVars = Environment.GetEnvironmentVariables();
-
-            foreach (var key in envVars.Keys)
-                model.EnvironmentVariables.Add(key.ToString(), envVars[key].ToString());
-
-            var appSettings = ConfigurationManager.AppSettings;
-
-            foreach (var key in appSettings.Keys)
-                model.ApplicationSettings.Add(key.ToString(), appSettings[key.ToString()]);
-
-            return View(model);
-        }
 
         [HttpGet]
         public ActionResult Form()
