@@ -31,7 +31,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<AboutYou>(aboutYou);
 
-            ctx.Required(m => m.FirstName);
+            ctx.Required(m => m.FirstName, "Please supply a First name");
 
             ctx.ThrowIfError();
         }

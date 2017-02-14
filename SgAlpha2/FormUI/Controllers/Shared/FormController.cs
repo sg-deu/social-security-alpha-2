@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using FormUI.Controllers.Helpers;
 using FormUI.Domain.Util;
 
 namespace FormUI.Controllers.Shared
@@ -27,8 +28,21 @@ namespace FormUI.Controllers.Shared
             if (!ModelState.IsValid)
                 return failure();
 
-            var result = Executor(() => { domainAction(); return null; });
-            return success();
+            try
+            {
+                var result = Executor(() => { domainAction(); return null; });
+                return success();
+            }
+            catch (DomainException domainException)
+            {
+                foreach (var propertyError in domainException.PropertyErrors)
+                {
+                    var key = propertyError.Key.GetExpressionText();
+                    ModelState.AddModelError(key, propertyError.Value);
+                }
+
+                return failure();
+            }
         }
     }
 }

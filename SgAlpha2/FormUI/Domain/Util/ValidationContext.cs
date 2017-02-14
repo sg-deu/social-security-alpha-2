@@ -14,12 +14,12 @@ namespace FormUI.Domain.Util
             _model = model;
         }
 
-        public void Required(Expression<Func<T, string>> stringProperty)
+        public void Required(Expression<Func<T, string>> stringProperty, string message)
         {
             var value = stringProperty.Compile()(_model);
 
             if (string.IsNullOrWhiteSpace(value))
-                _errors.Add(stringProperty, "Please supply a value for {0}");
+                _errors.Add(stringProperty, message);
         }
 
         public void ThrowIfError()
@@ -27,7 +27,7 @@ namespace FormUI.Domain.Util
             if (_errors.Count == 0)
                 return;
 
-            throw new DomainException();
+            throw new DomainException { PropertyErrors = _errors };
         }
     }
 }

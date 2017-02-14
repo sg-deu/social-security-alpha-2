@@ -8,6 +8,9 @@
   outline: 3px solid #ffbf47;
   outline-offset: 0; }
 
+.sg .validation-summary-errors {
+  color: red; }
+
 .sg .form-group label {
   font-weight: normal; }
 
