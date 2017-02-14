@@ -16,13 +16,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeValid(m => { });
             ShouldBeValid(m => m.Title = null);
             ShouldBeValid(m => m.OtherNames = null);
+            ShouldBeValid(m => m.CurrentAddress.Street2 = null);
 
             ShouldBeInvalid(m => m.FirstName = null);
             ShouldBeInvalid(m => m.SurnameOrFamilyName = null);
             ShouldBeInvalid(m => m.DateOfBirth = null);
             ShouldBeInvalid(m => m.NationalInsuranceNumberText = null);
             ShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
-            ShouldBeInvalid(m => m.CurrentAddress.Street2 = null);
             ShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
             ShouldBeInvalid(m => m.CurrentAddress.Postcode = null);
             ShouldBeInvalid(m => m.CurrentAddress.DateMovedIn = null);

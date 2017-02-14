@@ -21,9 +21,15 @@ namespace FormUI.Controllers.Helpers.Controls
 
         protected string ModelStateValue(string name)
         {
-            return ModelState.ContainsKey(name)
-                ? ModelState[name].Value.AttemptedValue
-                : null;
+            if (!ModelState.ContainsKey(name))
+                return null;
+
+            var value = ModelState[name];
+
+            if (value.Value == null)
+                return null;
+
+            return value.Value.AttemptedValue;
         }
 
         protected string RenderValue()

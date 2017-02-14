@@ -35,8 +35,7 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.SurnameOrFamilyName, "Please supply a Surname or family name");
             ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
             ctx.Required(m => m.NationalInsuranceNumberText, "National Insurance number");
-            ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street 1");
-            ctx.Required(m => m.CurrentAddress.Street2, "Please supply an Address Street 2");
+            ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
             ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
             ctx.Required(m => m.CurrentAddress.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
