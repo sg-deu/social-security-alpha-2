@@ -45,8 +45,6 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
                     .SetText(m => m.FirstName, "first name")
-                    .SetDate(m => m.DateOfBirth, "01", "02", "2003")
-                    .SetDate(m => m.CurrentAddress.DateMovedIn , "02", "03", "2004")
                     .Submit(client);
 
                 dto.Should().NotBeNull("controller should call BsgStart()");
@@ -63,7 +61,6 @@ namespace FormUI.Tests.Controllers.Bsg
             {
                 var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
                     .SetDate(m => m.DateOfBirth, "in", "va", "lid")
-                    .SetText(m => m.FirstName, "first name")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();

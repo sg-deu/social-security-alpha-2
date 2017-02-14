@@ -49,9 +49,9 @@
             @(Html.LabelledInputDate("Date You or your Partner moved into this address", m => m.CurrentAddress.DateMovedIn)
                 .Hint("For example, 01 01 2012"))
 
-            @Html.LabelledOptionalRadio("Is this address Permanent or Temporary?", m => m.CurrentAddressStatus)
+            @Html.LabelledRadio("Is this address Permanent or Temporary?", m => m.CurrentAddressStatus)
 
-            @Html.LabelledOptionalRadio("How do you want to be contacted?", m => m.ContactPreference)
+            @Html.LabelledRadio("How do you want to be contacted?", m => m.ContactPreference)
 
             @Html.LabelledInputText("Email address", m => m.EmailAddress)
 

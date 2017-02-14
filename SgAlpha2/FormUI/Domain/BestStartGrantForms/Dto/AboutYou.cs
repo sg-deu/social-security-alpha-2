@@ -18,7 +18,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public string               SurnameOrFamilyName         { get; set; }
 
-        public DateTime             DateOfBirth                 { get; set; }
+        public DateTime?            DateOfBirth                 { get; set; }
 
         public string               NationalInsuranceNumberText { get; set; }
 

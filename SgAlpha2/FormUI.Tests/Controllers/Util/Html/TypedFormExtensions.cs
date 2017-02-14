@@ -19,7 +19,7 @@ namespace FormUI.Tests.Controllers.Util.Html
             return form;
         }
 
-        public static TypedForm<T> SetDate<T>(this TypedForm<T> form, Expression<Func<T, DateTime>> property, string day, string month, string year)
+        public static TypedForm<T> SetDate<T>(this TypedForm<T> form, Expression<Func<T, DateTime?>> property, string day, string month, string year)
         {
             var formName = FormName(property);
             form.GetSingle(formName + "_day").SetValue(day);

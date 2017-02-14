@@ -7,13 +7,13 @@
 
         <form>
 
-            @(Html.LabelledOptionalRadio("Radio1", m => m.Radio1)
+            @(Html.LabelledRadio("Radio1", m => m.Radio1)
                 .Hint("An example of an inline radio (exactly two options)"))
 
-            @(Html.LabelledOptionalRadio("Radio2", m => m.Radio2, RValues1Util.Descriptions)
+            @(Html.LabelledRadio("Radio2", m => m.Radio2, RValues1Util.Descriptions)
                 .Hint("Supplying specific descriptions"))
 
-            @Html.LabelledOptionalRadio("Radio3", m => m.Radio3)
+            @Html.LabelledRadio("Radio3", m => m.Radio3)
 
         </form>
 

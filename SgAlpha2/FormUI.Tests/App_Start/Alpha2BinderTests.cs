@@ -31,11 +31,36 @@ namespace FormUI.Tests.App_Start
             Bind("01", "13", "2003").Should().BeNull();
         }
 
+        [Test]
+        public void AddsModelErrors()
+        {
+            BindState("01", "02", "2003").IsValid.Should().BeTrue();
+            BindState("", "", "").IsValid.Should().BeTrue("it is valid to leave all three empty in case the entry is optional");
+
+            BindState("x", "02", "2003").IsValid.Should().BeFalse("should report day as invalid");
+            BindState("01", "x", "2003").IsValid.Should().BeFalse("should report month as invalid");
+            BindState("01", "02", "x").IsValid.Should().BeFalse("should report year as invalid");
+        }
+
+        private ModelStateDictionary BindState(string dayText, string monthText, string yearText)
+        {
+            var ct = new ControllerContext();
+
+            var bc = NewModelBindingContext();
+            bc.ModelName = "TestDateTime";
+            bc.ValueProvider = new DummyValueProvider(bc.ModelName, dayText, monthText, yearText);
+
+            var binder = new Alpha2Binder();
+            var nullableDateTime = binder.BindModel(ct, bc);
+
+            return bc.ModelState;
+        }
+
         private DateTime? Bind(string dayText, string monthText, string yearText)
         {
             var ct = new ControllerContext();
 
-            var bc = new ModelBindingContext();
+            var bc = NewModelBindingContext();
             bc.ModelName = "TestDateTime";
             bc.ValueProvider = new DummyValueProvider(bc.ModelName, dayText, monthText, yearText);
 
@@ -72,6 +97,29 @@ namespace FormUI.Tests.App_Start
             public ValueProviderResult GetValue(string key)
             {
                 return new ValueProviderResult(null, _values[key], null);
+            }
+        }
+
+        private ModelBindingContext NewModelBindingContext()
+        {
+            return new ModelBindingContext { ModelMetadata = new ModelMetadata(new FakeModelMetadataProvider(), null, null, typeof(DateTime?), null) };
+        }
+
+        private class FakeModelMetadataProvider : ModelMetadataProvider
+        {
+            public override IEnumerable<ModelMetadata> GetMetadataForProperties(object container, Type containerType)
+            {
+                return null;
+            }
+
+            public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName)
+            {
+                return null;
+            }
+
+            public override ModelMetadata GetMetadataForType(Func<object> modelAccessor, Type modelType)
+            {
+                return null;
             }
         }
     }

@@ -39,7 +39,7 @@ namespace FormUI.Controllers.Helpers
                 new InputPassword(controlContext));
         }
 
-        public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime>> property)
+        public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
                 new InputDate(controlContext));
@@ -51,14 +51,14 @@ namespace FormUI.Controllers.Helpers
                 new InputText(controlContext));
         }
 
-        public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
+        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
              where TEnum : struct
         {
             var descriptions = ReflectHelper.GetEnumDescriptions<TEnum>();
-            return helper.LabelledOptionalRadio(labelText, property, descriptions);
+            return helper.LabelledRadio(labelText, property, descriptions);
         }
 
-        public static FormRow<Radios> LabelledOptionalRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
+        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
              where TEnum : struct
         {
             var values = typeof(TEnum).GetEnumStringValues();

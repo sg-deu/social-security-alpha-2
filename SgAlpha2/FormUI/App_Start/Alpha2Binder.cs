@@ -9,6 +9,7 @@ namespace FormUI.App_Start
         public static void Register()
         {
             ModelBinders.Binders[typeof(DateTime)] = new Alpha2Binder();
+            ModelBinders.Binders[typeof(DateTime?)] = new Alpha2Binder();
         }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -38,12 +39,18 @@ namespace FormUI.App_Start
             modelState.Add(monthName, new ModelState() { Value = monthValue });
             modelState.Add(yearName, new ModelState() { Value = yearValue });
 
+            if (string.IsNullOrWhiteSpace(dayValue.AttemptedValue) && string.IsNullOrWhiteSpace(monthValue.AttemptedValue) && string.IsNullOrWhiteSpace(yearValue.AttemptedValue))
+                return null;
+
             int day;
             int month;
             int year;
 
             if (!int.TryParse(dayValue.AttemptedValue, out day) || !int.TryParse(monthValue.AttemptedValue, out month) || !int.TryParse(yearValue.AttemptedValue, out year))
+            {
+                bindingContext.ModelState.AddModelError(name, $"{bindingContext.ModelMetadata.GetDisplayName()} is not a valid date");
                 return null;
+            }
 
             var dateString = string.Format("{0:00}-{1:00}-{2:0000}", day, month, year);
 
