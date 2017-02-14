@@ -1,6 +1,7 @@
 ﻿using System;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Forms;
+using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms
 {
@@ -14,6 +15,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool Start(AboutYou aboutYou)
         {
+            Validate(aboutYou);
+
             var form = new BestStartGrant
             {
                 AboutYou = aboutYou,
@@ -22,6 +25,15 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Insert(form);
 
             return true;
+        }
+
+        private static void Validate(AboutYou aboutYou)
+        {
+            var ctx = new ValidationContext<AboutYou>(aboutYou);
+
+            ctx.Required(m => m.FirstName);
+
+            ctx.ThrowIfError();
         }
     }
 }

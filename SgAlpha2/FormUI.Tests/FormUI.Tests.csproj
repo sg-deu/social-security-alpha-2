@@ -152,6 +152,8 @@
     <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
+    <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\FacadeTests.cs" />
     <Compile Include="Domain\SetUpFixture.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
