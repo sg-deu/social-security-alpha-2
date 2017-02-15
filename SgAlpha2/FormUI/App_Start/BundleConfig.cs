@@ -10,7 +10,10 @@ namespace FormUI
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.validate*",
-                        "~/Scripts/mygov.scot.global.js"));
+                        "~/Scripts/mygov.scot.global.js",
+                        "~/Scripts/jquery.inputmask/inputmask.js",
+                        "~/Scripts/jquery.inputmask/jquery.inputmask.js",
+                        "~/Scripts/formui.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
