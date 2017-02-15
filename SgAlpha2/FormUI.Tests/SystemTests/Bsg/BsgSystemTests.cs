@@ -1,4 +1,5 @@
-﻿using FormUI.Tests.SystemTests.Util;
+﻿using System.Threading;
+using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests.SystemTests.Bsg
@@ -8,9 +9,10 @@ namespace FormUI.Tests.SystemTests.Bsg
     {
         [Test]
         [Explicit("Marked explicit until we get this running in both Chrome and PhantomJS")]
-        public void ProcessApplication()
+        public void VerifyWeCanOpenBrowser()
         {
-            App.GoTo("http://www.google.com");
+            App.GoTo("about:blank");
+            Thread.Sleep(3000);
         }
     }
 }

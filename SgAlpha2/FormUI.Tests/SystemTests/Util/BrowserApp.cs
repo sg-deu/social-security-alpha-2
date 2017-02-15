@@ -24,6 +24,7 @@ namespace FormUI.Tests.SystemTests.Util
 
         public void GoTo(string action)
         {
+            Console.WriteLine("Navigating to: " + action);
             _browser.Navigate().GoToUrl(action);
         }
     }
