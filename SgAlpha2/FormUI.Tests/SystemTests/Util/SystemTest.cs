@@ -22,7 +22,7 @@ namespace FormUI.Tests.SystemTests.Util
 
         private bool RunHeadless()
         {
-            return false;
+            return true;
         }
     }
 }
