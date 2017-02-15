@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using NUnit.Framework;
 
 namespace FormUI.Tests.SystemTests.Util
 {
@@ -22,7 +25,22 @@ namespace FormUI.Tests.SystemTests.Util
 
         private bool RunHeadless()
         {
-            return true;
+            var allProcesses = Process.GetProcesses();
+            var processNames = allProcesses.Select(p => p.ProcessName).ToList();
+
+            var nunitGuiRunning = processNames.Contains("nunit") || processNames.Contains("nunit.exe");
+            var nunitConsoleRunning = processNames.Contains("nunit-console");
+
+            if (nunitGuiRunning && !nunitConsoleRunning)
+            {
+                Console.WriteLine("Detected nunit.exe (i.e., NUnitGui); running system tests using Chrome");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Could not find nunit.exe (i.e., NUnitGui); running system tests headless using PhantomJS");
+                return true;
+            }
         }
     }
 }

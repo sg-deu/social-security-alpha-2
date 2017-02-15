@@ -8,7 +8,6 @@ namespace FormUI.Tests.SystemTests.Bsg
     public class BsgSystemTests : SystemTest
     {
         [Test]
-        [Explicit("Marked explicit until we get this running in both Chrome and PhantomJS")]
         public void VerifyWeCanOpenBrowser()
         {
             App.GoTo("about:blank");
