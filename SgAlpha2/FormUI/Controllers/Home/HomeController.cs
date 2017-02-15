@@ -33,7 +33,7 @@ namespace FormUI.Controllers.Home
             if (model.Password != PasswordValue)
                 return Redirect(HttpContext.Request.Url.OriginalString);
 
-            Alpha2EntryFilter.Authenticate(Response);
+            EntryFilter.Authenticate(Response);
 
             var returnUrl = Request.QueryString[PasswordReturnUrlName] ?? HomeActions.Index();
             return Redirect(returnUrl);

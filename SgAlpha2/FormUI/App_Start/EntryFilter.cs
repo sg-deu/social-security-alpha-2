@@ -11,7 +11,7 @@ namespace FormUI.App_Start
     /// is simply to prevent random access to a public site from the public, while still allowing the
     /// Alpha2 team to review the screens.
     /// </summary>
-    public class Alpha2EntryFilter : IAuthenticationFilter
+    public class EntryFilter : IAuthenticationFilter
     {
         private const string _cookieName = "Alpha2Entry";
         private const string _cookieValue = "allow";

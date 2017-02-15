@@ -56,7 +56,7 @@ namespace FormUI.Tests.Controllers.Home
             {
                 // stub out authentication response
                 var responseAuthenticated = false;
-                Alpha2EntryFilter.Authenticate = r => { responseAuthenticated = true; };
+                EntryFilter.Authenticate = r => { responseAuthenticated = true; };
 
                 var url = HomeActions.Password() + $"?{HomeController.PasswordReturnUrlName}={HttpUtility.UrlEncode("http://www.google.com")}";
 

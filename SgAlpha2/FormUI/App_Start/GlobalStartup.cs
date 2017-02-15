@@ -11,13 +11,13 @@ namespace FormUI.App_Start
     {
         public virtual void Init()
         {
-            Alpha2LoggingFilter.Info("GlobalStartup.Init()");
+            LoggingFilter.Info("GlobalStartup.Init()");
 
             FeatureFolders.Register(ViewEngines.Engines);
-            GlobalFilters.Filters.Add(new Alpha2EntryFilter());
-            GlobalFilters.Filters.Add(new Alpha2LoggingFilter());
+            GlobalFilters.Filters.Add(new EntryFilter());
+            GlobalFilters.Filters.Add(new LoggingFilter());
 
-            Alpha2Binder.Register();
+            Binder.Register();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

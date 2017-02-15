@@ -122,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs" />
-    <Compile Include="App_Start\Alpha2BinderTests.cs" />
+    <Compile Include="App_Start\BinderTests.cs" />
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
     <Compile Include="Controllers\Harness\HarnessTests.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />

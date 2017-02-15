@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace FormUI.App_Start
 {
-    public class Alpha2LoggingFilter : IActionFilter, IExceptionFilter, IResultFilter
+    public class LoggingFilter : IActionFilter, IExceptionFilter, IResultFilter
     {
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
@@ -66,17 +66,17 @@ namespace FormUI.App_Start
 
         public static void Info(string format, params object[] args)
         {
-            Trace.TraceInformation("Alpha2::INFO  " + format, args);
+            Trace.TraceInformation("Form_ui::INFO  " + format, args);
         }
 
         public static void Warn(string format, params object[] args)
         {
-            Trace.TraceWarning("Alpha2::WARN  " + format, args);
+            Trace.TraceWarning("Form_ui::WARN  " + format, args);
         }
 
         public static void Error(string format, params object[] args)
         {
-            Trace.TraceError("Alpha2::ERROR " + format, args);
+            Trace.TraceError("Form_ui::ERROR " + format, args);
         }
     }
 }

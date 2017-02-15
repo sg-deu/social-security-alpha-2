@@ -4,12 +4,12 @@ using System.Web.Mvc;
 
 namespace FormUI.App_Start
 {
-    public class Alpha2Binder : IModelBinder
+    public class Binder : IModelBinder
     {
         public static void Register()
         {
-            ModelBinders.Binders[typeof(DateTime)] = new Alpha2Binder();
-            ModelBinders.Binders[typeof(DateTime?)] = new Alpha2Binder();
+            ModelBinders.Binders[typeof(DateTime)] = new Binder();
+            ModelBinders.Binders[typeof(DateTime?)] = new Binder();
         }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.App_Start
 {
     [TestFixture]
-    public class Alpha2BinderTests
+    public class BinderTests
     {
         [Test]
         public void Bind()
@@ -50,7 +50,7 @@ namespace FormUI.Tests.App_Start
             bc.ModelName = "TestDateTime";
             bc.ValueProvider = new DummyValueProvider(bc.ModelName, dayText, monthText, yearText);
 
-            var binder = new Alpha2Binder();
+            var binder = new Binder();
             var nullableDateTime = binder.BindModel(ct, bc);
 
             return bc.ModelState;
@@ -64,7 +64,7 @@ namespace FormUI.Tests.App_Start
             bc.ModelName = "TestDateTime";
             bc.ValueProvider = new DummyValueProvider(bc.ModelName, dayText, monthText, yearText);
 
-            var binder = new Alpha2Binder();
+            var binder = new Binder();
             var nullableDateTime = binder.BindModel(ct, bc);
 
             if (nullableDateTime == null)
