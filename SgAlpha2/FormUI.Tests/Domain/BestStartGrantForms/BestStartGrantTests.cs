@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Util;
@@ -78,12 +79,33 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             });
         }
 
+        [Test]
+        public void Start_NationalInsuranceNumber_FormattedCorrectly()
+        {
+            ShouldBeValid(m => m.NationalInsuranceNumber = "AB 12 34 56 C", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ShouldBeValid(m => m.NationalInsuranceNumber = "ab 12 34 56 c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ShouldBeValid(m => m.NationalInsuranceNumber = "Ab123456c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ShouldBeValid(m => m.NationalInsuranceNumber = "AB/123456/c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A 12 34 56 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 56 CD");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12/34/56 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A. 12 34 56 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB .2 34 56 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 .4 56 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 .6 C");
+            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A5 12 34 56 .");
+        }
+
         #region test helpers
 
-        protected void ShouldBeValid(Action<AboutYou> mutator)
+        protected void ShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
         {
             var aboutYou = AboutYouBuilder.NewValidAboutYou(mutator);
             Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou), mutator.ToString());
+
+            if (postVerify != null)
+                postVerify(aboutYou);
         }
 
         protected void ShouldBeInvalid(Action<AboutYou> mutator)

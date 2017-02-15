@@ -39,6 +39,15 @@ namespace FormUI.Domain.Util
                 _errors.Add(property, message);
         }
 
+        public void Custom<TProp>(Expression<Func<T, TProp>> property, Func<TProp, string> validator)
+        {
+            TProp value = property.Compile()(_model);
+            var message = validator(value);
+
+            if (message != null)
+                _errors.Add(property, message);
+        }
+
         public void ThrowIfError()
         {
             if (_errors.Count == 0)
