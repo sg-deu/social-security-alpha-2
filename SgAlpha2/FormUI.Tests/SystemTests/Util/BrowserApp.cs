@@ -19,7 +19,9 @@ namespace FormUI.Tests.SystemTests.Util
             }
             else
             {
-                _browser = new ChromeDriver();
+                var service = ChromeDriverService.CreateDefaultService();
+                service.HideCommandPromptWindow = true;
+                _browser = new ChromeDriver(service);
             }
         }
 

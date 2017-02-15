@@ -56,6 +56,7 @@
   <Target Name="Clean">
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="CleanFilesInit" Properties="Configuration=Debug" />
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="CleanFilesInit" Properties="Configuration=Release" />
+    <RemoveDir Directories="packages" />
   </Target>
 
   <Target Name="CleanFilesInit">

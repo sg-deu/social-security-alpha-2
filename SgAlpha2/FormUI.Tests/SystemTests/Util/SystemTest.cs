@@ -28,8 +28,8 @@ namespace FormUI.Tests.SystemTests.Util
             var allProcesses = Process.GetProcesses();
             var processNames = allProcesses.Select(p => p.ProcessName).ToList();
 
-            var nunitGuiRunning = processNames.Contains("nunit") || processNames.Contains("nunit.exe");
-            var nunitConsoleRunning = processNames.Contains("nunit-console");
+            var nunitGuiRunning = processNames.Contains("nunit-x86");
+            var nunitConsoleRunning = processNames.Contains("nunit-console-x86");
 
             if (nunitGuiRunning && !nunitConsoleRunning)
             {

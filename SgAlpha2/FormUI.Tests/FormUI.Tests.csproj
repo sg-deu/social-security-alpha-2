@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -167,6 +168,7 @@
     <Compile Include="Domain\Util\LocalRepository.cs" />
     <Compile Include="Domain\Util\TaskUtilTests.cs" />
     <Compile Include="SystemTests\Bsg\BsgSystemTests.cs" />
+    <Compile Include="SystemTests\SetUpFixture.cs" />
     <Compile Include="SystemTests\Util\BrowserApp.cs" />
     <Compile Include="SystemTests\Util\SystemTest.cs" />
     <Compile Include="VstsSettings.cs" />

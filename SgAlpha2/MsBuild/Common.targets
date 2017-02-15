@@ -5,7 +5,7 @@
 
     <Version>0.0.0.1</Version>
 
-    <NUnitExe>$(MSBuildThisFileDirectory)\..\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe</NUnitExe>
+    <NUnitExe>$(MSBuildThisFileDirectory)\..\packages\NUnit.Runners.2.6.4\tools\nunit-console-x86.exe</NUnitExe>
 
     <TestAssembly>$(AssemblyName).dll</TestAssembly>
     <TestOutput>$(AssemblyName).results.xml</TestOutput>
