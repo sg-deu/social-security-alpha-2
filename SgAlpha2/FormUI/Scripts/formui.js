@@ -13,6 +13,7 @@
         niInput.inputmask({
             mask: "aa 99 99 99 a",
             jitMasking: true,
+            casing: 'upper'
         });
 
     }
