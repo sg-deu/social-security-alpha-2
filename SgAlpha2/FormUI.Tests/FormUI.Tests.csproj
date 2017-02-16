@@ -41,6 +41,14 @@
       <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CassiniDev4-lib, Version=4.0.1.6, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\CassiniDev.5.0.2-bleeding-17\lib\net40\debug\CassiniDev4-lib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <HintPath>..\packages\Common.Logging.1.2.0\lib\1.0\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>

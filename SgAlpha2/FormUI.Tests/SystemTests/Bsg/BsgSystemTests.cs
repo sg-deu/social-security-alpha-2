@@ -10,7 +10,7 @@ namespace FormUI.Tests.SystemTests.Bsg
         [Test]
         public void VerifyWeCanOpenBrowser()
         {
-            App.GoTo("about:blank");
+            App.GoTo("http://localhost:54077/");
             Thread.Sleep(3000);
         }
     }
