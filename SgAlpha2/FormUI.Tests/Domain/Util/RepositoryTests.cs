@@ -14,14 +14,14 @@ namespace FormUI.Tests.Domain.Util
         {
             string id;
 
-            using (var repository = new LocalRepository())
+            using (var repository = LocalRepository.New())
             {
                 var doc = new BestStartGrant() { AboutYou = new AboutYou { FirstName = "some data" } };
                 id = doc.Id;
                 repository.Insert(doc);
             }
 
-            using (var repository = new LocalRepository(deleteAllDocuments: false))
+            using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.AboutYou.FirstName.Should().Be("some data");
@@ -33,21 +33,21 @@ namespace FormUI.Tests.Domain.Util
         {
             string id;
 
-            using (var repository = new LocalRepository())
+            using (var repository = LocalRepository.New())
             {
                 var doc = new BestStartGrant() { AboutYou = new AboutYou { FirstName = "some data" } };
                 id = doc.Id;
                 repository.Insert(doc);
             }
 
-            using (var repository = new LocalRepository(deleteAllDocuments: false))
+            using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.AboutYou.FirstName = "updated value";
                 repository.Update(doc);
             }
 
-            using (var repository = new LocalRepository(deleteAllDocuments: false))
+            using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.AboutYou.FirstName.Should().Be("updated value");
@@ -57,7 +57,7 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void Query()
         {
-            using (var repository = new LocalRepository())
+            using (var repository = LocalRepository.New())
             {
                 repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg1" } });
                 repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg2" } });
@@ -75,7 +75,7 @@ namespace FormUI.Tests.Domain.Util
         [Test]
         public void QueryWithFilter()
         {
-            using (var repository = new LocalRepository())
+            using (var repository = LocalRepository.New())
             {
                 var doc1 = repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg1" } });
                 var doc2 = repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg2" } });

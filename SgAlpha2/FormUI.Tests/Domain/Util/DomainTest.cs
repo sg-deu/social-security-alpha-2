@@ -12,7 +12,7 @@ namespace FormUI.Tests.Domain.Util
         protected virtual void SetUp()
         {
             BsgFacade.Init();
-            Repository = new LocalRepository().Register();
+            Repository = LocalRepository.New().Register();
         }
 
         [TearDown]

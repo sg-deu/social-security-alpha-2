@@ -122,5 +122,15 @@ namespace FormUI.Tests.SystemTests.Util
                 radio.Click();
             });
         }
+
+        public void Submit()
+        {
+            Console.WriteLine("Submit form");
+            Wait.For(() =>
+            {
+                var button = _browser.FindElement(By.CssSelector("form[method='post'] button"));
+                button.Click();
+            });
+        }
     }
 }

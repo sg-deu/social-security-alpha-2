@@ -1,4 +1,5 @@
 ﻿using System;
+using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests.SystemTests.Util
@@ -13,6 +14,7 @@ namespace FormUI.Tests.SystemTests.Util
         {
             Console.WriteLine("Started {0}", TestContext.CurrentContext.Test.FullName);
             App = BrowserApp.Instance();
+            Db(r => r.DeleteAllDocuments());
         }
 
         [TearDown]
@@ -21,6 +23,17 @@ namespace FormUI.Tests.SystemTests.Util
             Console.WriteLine("Completed {0} Status={1}\n",
                 TestContext.CurrentContext.Test.FullName,
                 TestContext.CurrentContext.Result.State);
+        }
+
+        protected void Db(Action<LocalRepository> action)
+        {
+            Wait.For(() =>
+            {
+                using (var repository = LocalRepository.New(deleteAllDocuments: false))
+                {
+                    action(repository);
+                }
+            });
         }
     }
 }

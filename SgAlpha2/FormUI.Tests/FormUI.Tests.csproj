@@ -174,7 +174,6 @@
     <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\FacadeTests.cs" />
-    <Compile Include="Domain\SetUpFixture.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
