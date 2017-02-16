@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace FormUI.Tests
 {
     public static class VstsSettings
     {
+        private const string WebConfigFile      = @"..\..\..\FormUI\Web.config";
+        private const string WebConfigCopyFile  = @"..\..\..\FormUI\Web.config.copy";
+
         private static Lazy<IDictionary<string, string>> _settings = new Lazy<IDictionary<string, string>>(ReadVstsSettings);
 
         public static string GetSetting(string name, string defaultValue)
@@ -15,6 +19,39 @@ namespace FormUI.Tests
             return settings.ContainsKey(name)
                 ? settings[name]
                 : defaultValue;
+        }
+
+        public static void UpdateWebConfig()
+        {
+            RestoreWebConfig();
+
+            File.Move(WebConfigFile, WebConfigCopyFile);
+
+            var webConfig = new XmlDocument();
+            webConfig.Load(WebConfigCopyFile);
+            var webConfigSettings = webConfig.SelectNodes("//appSettings/add");
+            var settings = _settings.Value;
+
+            foreach (XmlElement setting in webConfigSettings)
+            {
+                var key = setting.GetAttribute("key");
+
+                if (!settings.ContainsKey(key))
+                    continue;
+
+                setting.SetAttribute("value", settings[key]);
+            }
+
+            webConfig.Save(WebConfigFile);
+        }
+
+        public static void RestoreWebConfig()
+        {
+            if (File.Exists(WebConfigCopyFile))
+            {
+                File.Delete(WebConfigFile);
+                File.Move(WebConfigCopyFile, WebConfigFile);
+            }
         }
 
         private static IDictionary<string, string> ReadVstsSettings()

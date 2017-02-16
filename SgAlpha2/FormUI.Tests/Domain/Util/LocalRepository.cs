@@ -12,10 +12,10 @@ namespace FormUI.Tests.Domain.Util
             if (_isSetup)
                 return;
 
-            var localDbUri = new Uri(VstsSettings.GetSetting("localDbUri", "https://localhost:8081"));
-            var localDbKey = VstsSettings.GetSetting("localDbKey", "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
+            var dbUri = new Uri(VstsSettings.GetSetting("dbUri", "https://localhost:8081"));
+            var dbKey = VstsSettings.GetSetting("dbKey", "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
 
-            Repository.Init(localDbUri, localDbKey);
+            Repository.Init(dbUri, dbKey);
             _isSetup = true;
         }
 

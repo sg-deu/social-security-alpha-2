@@ -17,6 +17,7 @@ namespace FormUI.Tests.SystemTests
 
             try
             {
+                VstsSettings.UpdateWebConfig();
                 DevWebServer.Start();
                 BrowserApp.Start(runHeadless);
             }
@@ -33,6 +34,7 @@ namespace FormUI.Tests.SystemTests
             Console.WriteLine("TearDown SystemTests");
             DevWebServer.Stop();
             BrowserApp.Stop();
+            VstsSettings.RestoreWebConfig();
         }
 
         private bool RunHeadless()
