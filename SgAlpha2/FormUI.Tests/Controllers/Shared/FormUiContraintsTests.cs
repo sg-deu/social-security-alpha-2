@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using FluentAssertions;
 using NUnit.Framework;
@@ -10,6 +12,55 @@ namespace FormUI.Tests.Controllers.Shared
     [TestFixture]
     public class FormUiContraintsTests
     {
+        [Test]
+        public void MsBuildTasks_versions_should_match()
+        {
+            var packageFiles = Directory.EnumerateFiles(@"..\..\..", "packages.config", SearchOption.AllDirectories).ToList();
+            var packageVersions = new Dictionary<string, string>();
+
+            foreach (var packageFile in packageFiles)
+            {
+                var doc = new XmlDocument();
+                doc.Load(packageFile);
+
+                foreach (XmlElement packageElement in doc.SelectNodes("//package"))
+                {
+                    var id = packageElement.Attributes["id"].Value;
+                    var version = packageElement.Attributes["version"].Value;
+
+                    if (!packageVersions.ContainsKey(id))
+                        packageVersions.Add(id, version);
+
+                    if (packageVersions[id] != version)
+                        Assert.Fail("Found multiple versions of NuGet package {0}: {1} and {2}", id, version, packageVersions[id]);
+                }
+            }
+
+            var buildTasksVersion = packageVersions["MSBuildTasks"];
+
+            var buildFiles = new[]
+            {
+                @"..\..\..\SgAlpha2.proj",
+                @"..\..\..\MsBuild\Common.targets",
+            };
+
+            var taskReference = new Regex(@"MSBuildTasks\.([.0-9]*)", RegexOptions.Compiled);
+
+            foreach (var buildFile in buildFiles)
+            {
+                var text = File.ReadAllText(buildFile);
+                var references = taskReference.Matches(text);
+
+                foreach (Match reference in references)
+                {
+                    var referencedVersion = reference.Groups[1];
+
+                    if (referencedVersion.Value != buildTasksVersion)
+                        Assert.Fail("File {0} references MSBuildTasks.{1}, but NuGet packages specify MSBuildTasks.{2}", buildFile, referencedVersion, buildTasksVersion);
+                }
+            }
+        }
+
         [Test]
         public void All_files_in_web_should_be_in_csproj()
         {
