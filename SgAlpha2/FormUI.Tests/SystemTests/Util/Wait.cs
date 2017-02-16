@@ -5,7 +5,7 @@ namespace FormUI.Tests.SystemTests.Util
 {
     public static class Wait
     {
-        private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(45);
+        private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(20);
         private static          TimeSpan Timeout        = DefaultTimeout;
 
         public static void For(Action action)

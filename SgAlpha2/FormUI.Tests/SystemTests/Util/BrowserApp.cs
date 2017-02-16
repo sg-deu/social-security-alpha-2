@@ -102,13 +102,24 @@ namespace FormUI.Tests.SystemTests.Util
             return new FormModel<T>(this);
         }
 
-        public void TypeText(string inputName, string text)
+        public void TypeText(string name, string text)
         {
-            Console.WriteLine("Type text '{0}' into '{1}'", text, inputName);
+            Console.WriteLine("Type text '{0}' into '{1}'", text, name);
             Wait.For(() =>
             {
-                var input = _browser.FindElement(By.CssSelector($"input[name={inputName}]"));
+                var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
                 input.SendKeys(text);
+            });
+        }
+
+        public void SelectRadio(string name, string value)
+        {
+            Console.WriteLine("Select '{0}' for '{1}'", value, name);
+            Wait.For(() =>
+            {
+                var radios = _browser.FindElements(By.CssSelector($"input[name='{name}']"));
+                var radio = radios.Where(r => r.GetAttribute("value") == value).Single();
+                radio.Click();
             });
         }
     }
