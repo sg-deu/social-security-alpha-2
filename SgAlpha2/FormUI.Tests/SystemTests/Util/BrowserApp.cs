@@ -50,7 +50,7 @@ namespace FormUI.Tests.SystemTests.Util
 
         public void GoTo(string action)
         {
-            Console.WriteLine("Navigating to: " + action);
+            Console.WriteLine("Navigating to '{0}' ", action);
             Wait.For(() =>
             {
                 action = action.Replace("~/", DevWebServer.RootUrl);
@@ -60,7 +60,7 @@ namespace FormUI.Tests.SystemTests.Util
 
         public void VerifyCanSeeText(string text)
         {
-            Console.WriteLine("Verify can see text: " + text);
+            Console.WriteLine("Verify can see text '{0}'", text);
             Wait.For(() =>
             {
                 var body = _browser.FindElement(By.TagName("body"));
@@ -70,12 +70,27 @@ namespace FormUI.Tests.SystemTests.Util
 
         public void ClickLinkButton(string linkText)
         {
-            Console.WriteLine("Click link button: " + linkText);
+            Console.WriteLine("Click link button '{0}'", linkText);
             Wait.For(() =>
             {
                 var links = _browser.FindElements(By.CssSelector("a.button"));
                 var link = links.Where(l => string.Equals(l.Text, linkText, StringComparison.OrdinalIgnoreCase)).Single();
                 link.Click();
+            });
+        }
+
+        public FormModel<T> FormFormModel<T>()
+        {
+            return new FormModel<T>(this);
+        }
+
+        public void TypeText(string inputName, string text)
+        {
+            Console.WriteLine("Type text '{0}' into '{1}'", text, inputName);
+            Wait.For(() =>
+            {
+                var input = _browser.FindElement(By.CssSelector($"input[name={inputName}]"));
+                input.SendKeys(text);
             });
         }
     }
