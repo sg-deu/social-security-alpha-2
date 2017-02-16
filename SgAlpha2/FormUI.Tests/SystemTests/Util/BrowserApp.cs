@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -50,15 +51,32 @@ namespace FormUI.Tests.SystemTests.Util
         public void GoTo(string action)
         {
             Console.WriteLine("Navigating to: " + action);
-            action = action.Replace("~/", DevWebServer.RootUrl);
-            _browser.Navigate().GoToUrl(action);
+            Wait.For(() =>
+            {
+                action = action.Replace("~/", DevWebServer.RootUrl);
+                _browser.Navigate().GoToUrl(action);
+            });
         }
 
         public void VerifyCanSeeText(string text)
         {
             Console.WriteLine("Verify can see text: " + text);
-            var body = _browser.FindElement(By.TagName("body"));
-            body.Text.Should().Contain(text);
+            Wait.For(() =>
+            {
+                var body = _browser.FindElement(By.TagName("body"));
+                body.Text.Should().Contain(text);
+            });
+        }
+
+        public void ClickLinkButton(string linkText)
+        {
+            Console.WriteLine("Click link button: " + linkText);
+            Wait.For(() =>
+            {
+                var links = _browser.FindElements(By.CssSelector("a.button"));
+                var link = links.Where(l => string.Equals(l.Text, linkText, StringComparison.OrdinalIgnoreCase)).Single();
+                link.Click();
+            });
         }
     }
 }

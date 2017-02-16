@@ -184,6 +184,7 @@
     <Compile Include="SystemTests\Util\BrowserApp.cs" />
     <Compile Include="SystemTests\Util\DevWebServer.cs" />
     <Compile Include="SystemTests\Util\SystemTest.cs" />
+    <Compile Include="SystemTests\Util\Wait.cs" />
     <Compile Include="VstsSettings.cs" />
   </ItemGroup>
   <ItemGroup>

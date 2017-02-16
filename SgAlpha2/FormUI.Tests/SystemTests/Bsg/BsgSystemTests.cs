@@ -8,10 +8,13 @@ namespace FormUI.Tests.SystemTests.Bsg
     public class BsgSystemTests : SystemTest
     {
         [Test]
-        public void VerifyWeCanOpenBrowser()
+        public void CompleteApplication()
         {
             App.GoTo(BsgActions.Overview());
             App.VerifyCanSeeText("Overview");
+
+            App.ClickLinkButton("Next");
+            App.VerifyCanSeeText("About You ...");
         }
     }
 }
