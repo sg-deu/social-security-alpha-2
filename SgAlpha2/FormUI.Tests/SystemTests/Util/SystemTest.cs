@@ -33,12 +33,12 @@ namespace FormUI.Tests.SystemTests.Util
 
             if (nunitGuiRunning && !nunitConsoleRunning)
             {
-                Console.WriteLine("Detected nunit.exe (i.e., NUnitGui); running system tests using Chrome");
+                Console.WriteLine("Detected nunit-x86.exe (i.e., NUnitGui); running system tests using Chrome");
                 return false;
             }
             else
             {
-                Console.WriteLine("Could not find nunit.exe (i.e., NUnitGui); running system tests headless using PhantomJS");
+                Console.WriteLine("Could not find nunit-x86.exe (i.e., NUnitGui); running system tests headless using PhantomJS");
                 return true;
             }
         }

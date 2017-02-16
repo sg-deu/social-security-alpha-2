@@ -1,5 +1,5 @@
 ﻿using System;
-using CassiniDev;
+using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests.SystemTests
@@ -7,20 +7,27 @@ namespace FormUI.Tests.SystemTests
     [SetUpFixture]
     public class SetUpFixture
     {
-        private static CassiniDevServer _server;
-
         [SetUp]
         public void SetUp()
         {
-            _server = new CassiniDevServer();
-            _server.StartServer(@"..\..\..\FormUI", 54077, "/", "localhost");
-            Console.WriteLine(_server.RootUrl);
+            Console.WriteLine("SetUp SystemTests");
+
+            try
+            {
+                DevWebServer.Start();
+            }
+            catch
+            {
+                TearDown();
+                throw;
+            }
         }
 
         [TearDown]
         public void TearDown()
         {
-            _server.StopServer();
+            Console.WriteLine("TearDown SystemTests");
+            DevWebServer.Stop();
         }
     }
 }

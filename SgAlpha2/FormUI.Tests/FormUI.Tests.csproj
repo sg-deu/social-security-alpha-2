@@ -182,6 +182,7 @@
     <Compile Include="SystemTests\Bsg\BsgSystemTests.cs" />
     <Compile Include="SystemTests\SetUpFixture.cs" />
     <Compile Include="SystemTests\Util\BrowserApp.cs" />
+    <Compile Include="SystemTests\Util\DevWebServer.cs" />
     <Compile Include="SystemTests\Util\SystemTest.cs" />
     <Compile Include="VstsSettings.cs" />
   </ItemGroup>
