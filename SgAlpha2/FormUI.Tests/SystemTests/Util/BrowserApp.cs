@@ -9,9 +9,27 @@ namespace FormUI.Tests.SystemTests.Util
 {
     public class BrowserApp : IDisposable
     {
+        private static BrowserApp _instance;
+
+        public static void Start(bool runHeadless)
+        {
+            _instance = new BrowserApp(runHeadless);
+        }
+
+        public static void Stop()
+        {
+            using (_instance) { }
+            _instance = null;
+        }
+
+        public static BrowserApp Instance()
+        {
+            return _instance;
+        }
+
         private IWebDriver _browser;
 
-        public BrowserApp(bool runHeadless)
+        private BrowserApp(bool runHeadless)
         {
             try
             {
