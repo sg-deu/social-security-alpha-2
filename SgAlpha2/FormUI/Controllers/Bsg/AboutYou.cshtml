@@ -21,30 +21,30 @@
 
             <h2>Your Personal  Details</h2>
 
-            @Html.LabelledInputText("Title (optional)", m => m.Title)
+            @Html.LabelledInputText(m => m.Title)
 
-            @Html.LabelledInputText("First name", m => m.FirstName)
+            @Html.LabelledInputText(m => m.FirstName)
 
-            @Html.LabelledInputText("All other names (optional)", m => m.OtherNames)
+            @Html.LabelledInputText(m => m.OtherNames)
 
-            @Html.LabelledInputText("Surname or family name", m => m.SurnameOrFamilyName)
+            @Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
             @(Html.LabelledInputDate("Date of Birth", m => m.DateOfBirth)
                 .Hint("For example, 18 03 1980"))
 
-            @(Html.LabelledInputText("National Insurance number", m => m.NationalInsuranceNumber)
+            @(Html.LabelledInputText(m => m.NationalInsuranceNumber)
                 .Hint("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'"))
 
             <h2>Your Address</h2>
 
             <p>Please tell us your current address</p>
 
-            @Html.LabelledInputText("Street", m => m.CurrentAddress.Street1)
-            @Html.LabelledInputText("", m => m.CurrentAddress.Street2)
+            @Html.LabelledInputText(m => m.CurrentAddress.Street1)
+            @Html.LabelledInputText(m => m.CurrentAddress.Street2)
 
-            @Html.LabelledInputText("Town or City", m => m.CurrentAddress.TownOrCity)
+            @Html.LabelledInputText(m => m.CurrentAddress.TownOrCity)
 
-            @Html.LabelledInputText("Postcode", m => m.CurrentAddress.Postcode)
+            @Html.LabelledInputText(m => m.CurrentAddress.Postcode)
 
             @(Html.LabelledInputDate("Date You or your Partner moved into this address", m => m.CurrentAddress.DateMovedIn)
                 .Hint("For example, 01 01 2012"))
@@ -53,11 +53,11 @@
 
             @Html.LabelledRadio("How do you want to be contacted?", m => m.ContactPreference)
 
-            @Html.LabelledInputText("Email address", m => m.EmailAddress)
+            @Html.LabelledInputText(m => m.EmailAddress)
 
-            @Html.LabelledInputText("Phone number", m => m.PhoneNumer)
+            @Html.LabelledInputText(m => m.PhoneNumer)
 
-            @Html.LabelledInputText("Mobile phone number", m => m.MobilePhoneNumber)
+            @Html.LabelledInputText(m => m.MobilePhoneNumber)
 
 
             @Html.ButtonSubmit()

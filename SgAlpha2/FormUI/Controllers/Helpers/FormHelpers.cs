@@ -33,6 +33,12 @@ namespace FormUI.Controllers.Helpers
                 new InputText(controlContext));
         }
 
+        public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property, string hintText = null)
+        {
+            return helper.LabelledControl(null, property, controlContext =>
+                new InputText(controlContext));
+        }
+
         public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
@@ -85,6 +91,7 @@ namespace FormUI.Controllers.Helpers
                Metadata = metaData,
             };
 
+            labelText = labelText ?? metaData.DisplayName ?? metaData.PropertyName;
             var label = new HtmlTag("label").Text(labelText).Attr("for", id);
 
             var control = factory(controlContext);
