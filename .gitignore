@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /SgAlpha2/VstsSettings.txt
+/SgAlpha2/FormUI/Web.config.copy

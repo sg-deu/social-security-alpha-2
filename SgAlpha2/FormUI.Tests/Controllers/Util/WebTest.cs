@@ -3,6 +3,7 @@ using System.Net;
 using System.Web;
 using FluentAssertions;
 using FormUI.Controllers.Shared;
+using FormUI.Domain.Util.Facade;
 using FormUI.Tests.Controllers.Util.Hosting;
 using FormUI.Tests.Controllers.Util.Http;
 using NUnit.Framework;
@@ -25,11 +26,15 @@ namespace FormUI.Tests.Controllers.Util
                 using (_webApp.Value) { }
         }
 
+        protected static ExecutorStub ExecutorStub;
+
         protected void WebAppTest(Action<SimulatedHttpClient> test)
         {
             _webApp.Value.Test(client =>
             {
-                FormController.Executor = domainFunc => domainFunc();
+                ExecutorStub = new ExecutorStub();
+                PresentationRegistry.NewExecutor = () => new CqExecutor(ExecutorStub);
+
                 client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
                 test(client);
             });

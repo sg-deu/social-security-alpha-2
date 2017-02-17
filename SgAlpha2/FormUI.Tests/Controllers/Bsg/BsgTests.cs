@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
-using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
@@ -40,15 +40,14 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                AboutYou dto = null;
-                BsgFacade.Start = postedModel => dto = postedModel;
-
                 var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
                     .SetText(m => m.FirstName, "first name")
                     .Submit(client);
 
-                dto.Should().NotBeNull("controller should call BsgStart()");
-                dto.FirstName.Should().Be("first name");
+                ExecutorStub.Executed<StartBestStartGrant>(0).ShouldBeEquivalentTo(new StartBestStartGrant
+                {
+                    AboutYou = new AboutYou { FirstName = "first name" },
+                });
 
                 response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
             });

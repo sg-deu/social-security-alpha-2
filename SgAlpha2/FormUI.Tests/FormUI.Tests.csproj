@@ -147,6 +147,7 @@
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\SetUpFixture.cs" />
     <Compile Include="Controllers\Shared\FormUiContraintsTests.cs" />
+    <Compile Include="Controllers\Util\ExecutorStub.cs" />
     <Compile Include="Controllers\Util\FakeStartup.cs" />
     <Compile Include="Controllers\Util\Hosting\AppDomainProxy.cs" />
     <Compile Include="Controllers\Util\Hosting\AspNetTestHost.cs" />
@@ -173,7 +174,7 @@
     <Compile Include="Controllers\Util\WebTest.cs" />
     <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\FacadeTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\FacadeTests.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />

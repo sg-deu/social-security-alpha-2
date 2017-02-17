@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using FormUI.Controllers.Shared;
-using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 
 namespace FormUI.Controllers.Bsg
@@ -29,7 +29,12 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult AboutYou(AboutYou aboutYou)
         {
-            return Exec(() => BsgFacade.Start(aboutYou),
+            var cmd = new StartBestStartGrant
+            {
+                AboutYou = aboutYou,
+            };
+
+            return Exec(cmd,
                 success: () => Redirect(BsgActions.Complete()),
                 failure: () => View());
         }

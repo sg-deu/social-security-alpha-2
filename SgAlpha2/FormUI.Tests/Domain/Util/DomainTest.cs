@@ -1,5 +1,4 @@
-﻿using FormUI.Domain.BestStartGrantForms;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
@@ -11,7 +10,6 @@ namespace FormUI.Tests.Domain.Util
         [SetUp]
         protected virtual void SetUp()
         {
-            BsgFacade.Init();
             Repository = LocalRepository.New().Register();
         }
 

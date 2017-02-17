@@ -3,7 +3,9 @@ using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using FormUI.Controllers.Shared;
 using FormUI.Domain.Util;
+using FormUI.Domain.Util.Facade;
 
 namespace FormUI.App_Start
 {
@@ -25,6 +27,7 @@ namespace FormUI.App_Start
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             InitRepository();
+            InitExecutor();
         }
 
         protected virtual void InitRepository()
@@ -33,6 +36,13 @@ namespace FormUI.App_Start
             var dbKey = ConfigurationManager.AppSettings["dbKey"];
 
             Repository.Init(dbUri, dbKey);
+        }
+
+        protected virtual void InitExecutor()
+        {
+            var executor = new DomainExecutor();
+            var cqExecutor = new CqExecutor(executor);
+            PresentationRegistry.NewExecutor = () => cqExecutor;
         }
     }
 }
