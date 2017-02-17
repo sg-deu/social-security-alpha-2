@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
@@ -8,7 +7,6 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public AboutYou()
         {
             CurrentAddress = new Address();
-            PreviousAddresses = new List<Address>();
         }
 
         public string               Title                   { get; set; }
@@ -26,8 +24,6 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public Address              CurrentAddress          { get; set; }
 
         public AddressStatus?       CurrentAddressStatus    { get; set; }
-
-        public IList<Address>       PreviousAddresses       { get; set; }
 
         public ContactPreference?   ContactPreference       { get; set; }
 
