@@ -17,6 +17,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Postcode")]
         public string       Postcode    { get; set; }
 
+        [DisplayName("Date You or your Partner moved into this address")]
         public DateTime?    DateMovedIn { get; set; }
     }
 }

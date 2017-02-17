@@ -22,6 +22,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Surname or family name")]
         public string               SurnameOrFamilyName     { get; set; }
 
+        [DisplayName("Date of Birth")]
         public DateTime?            DateOfBirth             { get; set; }
 
         [DisplayName("National Insurance number")]
@@ -29,8 +30,10 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public Address              CurrentAddress          { get; set; }
 
+        [DisplayName("Is this address Permanent or Temporary?")]
         public AddressStatus?       CurrentAddressStatus    { get; set; }
 
+        [DisplayName("How do you want to be contacted?")]
         public ContactPreference?   ContactPreference       { get; set; }
 
         [DisplayName("Email address")]

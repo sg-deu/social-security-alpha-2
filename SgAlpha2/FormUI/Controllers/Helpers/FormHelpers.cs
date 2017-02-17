@@ -45,6 +45,12 @@ namespace FormUI.Controllers.Helpers
                 new InputPassword(controlContext));
         }
 
+        public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, Expression<Func<T, DateTime?>> property)
+        {
+            return helper.LabelledControl(null, property, controlContext =>
+                new InputDate(controlContext));
+        }
+
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
@@ -57,11 +63,23 @@ namespace FormUI.Controllers.Helpers
                 new InputText(controlContext));
         }
 
+        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, Nullable<TEnum>>> property)
+             where TEnum : struct
+        {
+            return helper.LabelledRadio(null, property);
+        }
+
         public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
              where TEnum : struct
         {
             var descriptions = ReflectHelper.GetEnumDescriptions<TEnum>();
             return helper.LabelledRadio(labelText, property, descriptions);
+        }
+
+        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
+             where TEnum : struct
+        {
+            return helper.LabelledRadio(null, property, descriptions);
         }
 
         public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)

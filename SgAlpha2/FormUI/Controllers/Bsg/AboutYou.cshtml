@@ -29,7 +29,7 @@
 
             @Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
-            @(Html.LabelledInputDate("Date of Birth", m => m.DateOfBirth)
+            @(Html.LabelledInputDate(m => m.DateOfBirth)
                 .Hint("For example, 18 03 1980"))
 
             @(Html.LabelledInputText(m => m.NationalInsuranceNumber)
@@ -46,12 +46,12 @@
 
             @Html.LabelledInputText(m => m.CurrentAddress.Postcode)
 
-            @(Html.LabelledInputDate("Date You or your Partner moved into this address", m => m.CurrentAddress.DateMovedIn)
+            @(Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
                 .Hint("For example, 01 01 2012"))
 
-            @Html.LabelledRadio("Is this address Permanent or Temporary?", m => m.CurrentAddressStatus)
+            @Html.LabelledRadio(m => m.CurrentAddressStatus)
 
-            @Html.LabelledRadio("How do you want to be contacted?", m => m.ContactPreference)
+            @Html.LabelledRadio(m => m.ContactPreference)
 
             @Html.LabelledInputText(m => m.EmailAddress)
 

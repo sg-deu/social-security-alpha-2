@@ -18,6 +18,12 @@ namespace FormUI.Controllers.Helpers.Controls
             _control = control;
         }
 
+        public FormRow<TControl> Label(string labelText)
+        {
+            _labelText = labelText;
+            return this;
+        }
+
         public FormRow<TControl> Hint(string hintHtml)
         {
             _hintHtml = hintHtml;
