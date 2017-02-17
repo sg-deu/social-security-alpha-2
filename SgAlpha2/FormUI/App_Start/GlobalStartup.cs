@@ -20,6 +20,7 @@ namespace FormUI.App_Start
             GlobalFilters.Filters.Add(new LoggingFilter());
 
             Binder.Register();
+            ModelMetadataProviders.Current = new MetadataProvider();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

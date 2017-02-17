@@ -116,6 +116,9 @@ namespace FormUI.Controllers.Helpers
 
             var formRow = new FormRow<TControl>(id, labelText, control);
 
+            if (metaData.AdditionalValues.ContainsKey("HintText"))
+                formRow.Hint((string)metaData.AdditionalValues["HintText"]);
+
             return formRow;
         }
     }

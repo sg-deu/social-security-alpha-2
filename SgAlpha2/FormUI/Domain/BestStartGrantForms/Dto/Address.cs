@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
@@ -18,6 +19,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string       Postcode    { get; set; }
 
         [DisplayName("Date You or your Partner moved into this address")]
+        [HintText("For example, 01 01 2012")]
         public DateTime?    DateMovedIn { get; set; }
     }
 }

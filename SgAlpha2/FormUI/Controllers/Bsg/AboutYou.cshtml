@@ -29,11 +29,9 @@
 
             @Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
-            @(Html.LabelledInputDate(m => m.DateOfBirth)
-                .Hint("For example, 18 03 1980"))
+            @Html.LabelledInputDate(m => m.DateOfBirth)
 
-            @(Html.LabelledInputText(m => m.NationalInsuranceNumber)
-                .Hint("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'"))
+            @Html.LabelledInputText(m => m.NationalInsuranceNumber)
 
             <h2>Your Address</h2>
 
@@ -46,8 +44,7 @@
 
             @Html.LabelledInputText(m => m.CurrentAddress.Postcode)
 
-            @(Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
-                .Hint("For example, 01 01 2012"))
+            @Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
 
             @Html.LabelledRadio(m => m.CurrentAddressStatus)
 

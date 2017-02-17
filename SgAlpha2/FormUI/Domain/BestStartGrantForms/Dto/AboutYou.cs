@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
@@ -23,9 +24,11 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string               SurnameOrFamilyName     { get; set; }
 
         [DisplayName("Date of Birth")]
+        [HintText("For example, 18 03 1980")]
         public DateTime?            DateOfBirth             { get; set; }
 
         [DisplayName("National Insurance number")]
+        [HintText("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")]
         public string               NationalInsuranceNumber { get; set; }
 
         public Address              CurrentAddress          { get; set; }
