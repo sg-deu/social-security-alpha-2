@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace FormUI.Tests.Domain.Util
 {
-    [ExcludeFromCodeCoverage]
     public class Builder
     {
         /// <summary>
