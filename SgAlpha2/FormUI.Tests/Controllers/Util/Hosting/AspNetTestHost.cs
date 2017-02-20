@@ -49,7 +49,7 @@ namespace FormUI.Tests.Controllers.Util.Hosting
 
                 CopyTestBinaries();
                 _appDomainProxy = (AppDomainProxy)ApplicationHost.CreateApplicationHost(appDomainProxyType, virtualDirectory, PhysicalDirectory);
-                _appDomainProxy.RunCodeInAppDomain(() => InitHost());
+                _appDomainProxy.RunCodeInAppDomain(InitHost);
             }
             catch
             {

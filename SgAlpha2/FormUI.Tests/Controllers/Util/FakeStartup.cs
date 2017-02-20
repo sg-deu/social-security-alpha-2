@@ -1,4 +1,6 @@
 ﻿using FormUI.App_Start;
+using FormUI.Controllers.Shared;
+using FormUI.Domain.Util.Facade;
 
 namespace FormUI.Tests.Controllers.Util
 {
@@ -14,6 +16,12 @@ namespace FormUI.Tests.Controllers.Util
         {
             // repository should not be used in web-tests,
             // and domain tests initialise a local repository
+        }
+
+        protected override void InitExecutor()
+        {
+            // executor is based on WebTest executor that has been setup
+            PresentationRegistry.NewExecutor = () => new CqExecutor(WebTest.ExecutorStub);
         }
     }
 }

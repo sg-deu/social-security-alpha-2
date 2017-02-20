@@ -7,9 +7,10 @@ namespace FormUI.Controllers.Bsg
 {
     public static class BsgActions
     {
-        public static string    Overview()  { return "~/bsg/overview"; }
-        public static string    AboutYou()  { return "~/bsg/aboutYou"; }
-        public static string    Complete()  { return "~/bsg/complete"; }
+        public static string    Overview()                          { return "~/bsg/overview"; }
+        public static string    AboutYou()                          { return "~/bsg/aboutYou"; }
+        public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
+        public static string    Complete()                          { return "~/bsg/complete"; }
     }
 
     public class BsgController : FormController
@@ -36,7 +37,27 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: formId => Redirect(BsgActions.Complete()),
-                failure: () => View());
+                failure: () => AboutYou());
+        }
+
+        [HttpGet]
+        public ActionResult ExpectedChildren(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ExpectedChildren(string id, ExpectedChildren expectedChildren)
+        {
+            var cmd = new AddExpectedChildren
+            {
+                FormId = id,
+                ExpectedChildren = expectedChildren,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.Complete()),
+                failure: () => { throw new System.Exception("errors not handled yet"); });
         }
 
         [HttpGet]

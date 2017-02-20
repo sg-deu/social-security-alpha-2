@@ -218,6 +218,7 @@
     <Content Include="Controllers\Harness\Layout.cshtml" />
     <Content Include="Controllers\Harness\Radio.cshtml" />
     <Content Include="Controllers\Bsg\Complete.cshtml" />
+    <Content Include="Controllers\Bsg\ExpectedChildren.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

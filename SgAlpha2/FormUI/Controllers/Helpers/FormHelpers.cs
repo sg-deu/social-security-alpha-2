@@ -57,7 +57,12 @@ namespace FormUI.Controllers.Helpers
                 new InputDate(controlContext));
         }
 
-        public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int>> property)
+        public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, Expression<Func<T, int?>> property)
+        {
+            return helper.LabelledInputInt(null, property);
+        }
+
+        public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int?>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
                 new InputText(controlContext));
