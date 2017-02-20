@@ -159,6 +159,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildren.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Command.cs" />
     <Compile Include="Domain\Util\DomainException.cs" />

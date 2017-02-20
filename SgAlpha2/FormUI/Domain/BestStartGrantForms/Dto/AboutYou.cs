@@ -11,13 +11,13 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
             CurrentAddress = new Address();
         }
 
-        [DisplayName("Title (optional)")]
+        [DisplayName("Title")]
         public string               Title                   { get; set; }
 
         [DisplayName("First name")]
         public string               FirstName               { get; set; }
 
-        [DisplayName("All other names (optional)")]
+        [DisplayName("All other names")]
         public string               OtherNames              { get; set; }
 
         [DisplayName("Surname or family name")]
