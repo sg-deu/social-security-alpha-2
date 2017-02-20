@@ -16,6 +16,11 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonSubmit("Submit");
         }
 
+        public static IHtmlString ButtonSubmitNext<T>(this HtmlHelper<T> helper)
+        {
+            return helper.ButtonSubmit("Next");
+        }
+
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper, string text)
         {
             var button = new HtmlTag("button")
