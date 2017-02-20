@@ -27,15 +27,14 @@ namespace FormUI.Controllers.Helpers
             return formGroup;
         }
 
+        public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property, string hintText = null)
+        {
+            return helper.LabelledInputText(null, property, hintText);
+        }
+
         public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
-                new InputText(controlContext));
-        }
-
-        public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property, string hintText = null)
-        {
-            return helper.LabelledControl(null, property, controlContext =>
                 new InputText(controlContext));
         }
 
@@ -47,8 +46,7 @@ namespace FormUI.Controllers.Helpers
 
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, Expression<Func<T, DateTime?>> property)
         {
-            return helper.LabelledControl(null, property, controlContext =>
-                new InputDate(controlContext));
+            return helper.LabelledInputDate(null, property);
         }
 
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
@@ -74,17 +72,17 @@ namespace FormUI.Controllers.Helpers
             return helper.LabelledRadio(null, property);
         }
 
+        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
+             where TEnum : struct
+        {
+            return helper.LabelledRadio(null, property, descriptions);
+        }
+
         public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property)
              where TEnum : struct
         {
             var descriptions = ReflectHelper.GetEnumDescriptions<TEnum>();
             return helper.LabelledRadio(labelText, property, descriptions);
-        }
-
-        public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
-             where TEnum : struct
-        {
-            return helper.LabelledRadio(null, property, descriptions);
         }
 
         public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, Nullable<TEnum>>> property, IDictionary<TEnum, string> descriptions)
