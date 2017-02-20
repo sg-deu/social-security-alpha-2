@@ -41,6 +41,8 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), "form123");
+
                 var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
                     .SetText(m => m.FirstName, "first name")
                     .Submit(client);
@@ -50,7 +52,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     AboutYou = new AboutYou { FirstName = "first name" },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ExpectedChildren("form123"));
             });
         }
 

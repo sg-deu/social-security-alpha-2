@@ -36,7 +36,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: formId => Redirect(BsgActions.Complete()),
+                success: formId => Redirect(BsgActions.ExpectedChildren(formId)),
                 failure: () => AboutYou());
         }
 
