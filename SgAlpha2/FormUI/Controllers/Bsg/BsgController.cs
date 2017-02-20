@@ -57,7 +57,7 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.Complete()),
-                failure: () => { throw new System.Exception("errors not handled yet"); });
+                failure: () => ExpectedChildren(id));
         }
 
         [HttpGet]

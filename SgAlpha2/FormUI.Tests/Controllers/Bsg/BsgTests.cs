@@ -92,6 +92,19 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExpectedChildren_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExpectedChildren("form123")).Form<ExpectedChildren>(1)
+                    .SetDate(m => m.ExpectancyDate, "in", "va", "lid")
+                    .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void Complete_GET()
         {
             WebAppTest(client =>
