@@ -173,8 +173,13 @@
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
     <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\BestStartGrantBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildrenTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\ExpectedChildrenBuilder.cs" />
+    <Compile Include="Domain\Util\Builder.cs" />
+    <Compile Include="Domain\Util\BuilderExtensions.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />

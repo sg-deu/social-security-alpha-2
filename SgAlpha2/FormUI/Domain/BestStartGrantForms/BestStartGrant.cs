@@ -8,11 +8,12 @@ namespace FormUI.Domain.BestStartGrantForms
 {
     public class BestStartGrant : Form
     {
-        public BestStartGrant() : base(Guid.NewGuid().ToString())
+        protected BestStartGrant() : base(Guid.NewGuid().ToString())
         {
         }
 
-        public AboutYou AboutYou { get; set; }
+        public AboutYou         AboutYou            { get; set; }
+        public ExpectedChildren ExpectedChildren    { get; set; }
 
         public static string Start(AboutYou aboutYou)
         {
@@ -26,6 +27,12 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Insert(form);
 
             return form.Id;
+        }
+
+        public void AddExpectedChildren(ExpectedChildren expectedChildren)
+        {
+            ExpectedChildren = expectedChildren;
+            Repository.Update(this);
         }
 
         private static void Validate(AboutYou aboutYou)

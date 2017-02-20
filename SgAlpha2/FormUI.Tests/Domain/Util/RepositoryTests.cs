@@ -2,6 +2,7 @@
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Tests.Domain.BestStartGrantForms;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
@@ -10,13 +11,13 @@ namespace FormUI.Tests.Domain.Util
     public class RepositoryTests
     {
         [Test]
-        public void SaveAndLoad()
+        public void InsertAndLoad()
         {
             string id;
 
             using (var repository = LocalRepository.New())
             {
-                var doc = new BestStartGrant() { AboutYou = new AboutYou { FirstName = "some data" } };
+                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
                 id = doc.Id;
                 repository.Insert(doc);
             }
@@ -35,7 +36,7 @@ namespace FormUI.Tests.Domain.Util
 
             using (var repository = LocalRepository.New())
             {
-                var doc = new BestStartGrant() { AboutYou = new AboutYou { FirstName = "some data" } };
+                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
                 id = doc.Id;
                 repository.Insert(doc);
             }
@@ -59,9 +60,9 @@ namespace FormUI.Tests.Domain.Util
         {
             using (var repository = LocalRepository.New())
             {
-                repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg1" } });
-                repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg2" } });
-                repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg3" } });
+                repository.Insert(new BestStartGrantBuilder("form1").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg1" }).Value());
+                repository.Insert(new BestStartGrantBuilder("form2").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg2" }).Value());
+                repository.Insert(new BestStartGrantBuilder("form3").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg3" }).Value());
 
                 var count =
                     repository.Query<BestStartGrant>()
@@ -77,9 +78,9 @@ namespace FormUI.Tests.Domain.Util
         {
             using (var repository = LocalRepository.New())
             {
-                var doc1 = repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg1" } });
-                var doc2 = repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg2" } });
-                var doc3 = repository.Insert(new BestStartGrant { AboutYou = new AboutYou { FirstName = "Bsg3" } });
+                var doc1 = repository.Insert(new BestStartGrantBuilder("form1").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg1" }).Value());
+                var doc2 = repository.Insert(new BestStartGrantBuilder("form2").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg2" }).Value());
+                var doc3 = repository.Insert(new BestStartGrantBuilder("form3").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg3" }).Value());
 
                 var doc =
                     repository.Query<BestStartGrant>()

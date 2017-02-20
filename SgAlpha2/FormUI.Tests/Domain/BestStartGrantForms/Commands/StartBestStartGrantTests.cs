@@ -13,7 +13,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         [Test]
         public void Execute_CreatesForm()
         {
-            var aboutYou = AboutYouBuilder.NewValidAboutYou(m =>
+            var aboutYou = AboutYouBuilder.NewValid(m =>
                 m.FirstName = "unit test");
 
             var cmd = new StartBestStartGrant

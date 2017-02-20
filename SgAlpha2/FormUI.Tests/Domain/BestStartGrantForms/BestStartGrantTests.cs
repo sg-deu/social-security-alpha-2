@@ -101,7 +101,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void ShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
         {
-            var aboutYou = AboutYouBuilder.NewValidAboutYou(mutator);
+            var aboutYou = AboutYouBuilder.NewValid(mutator);
             Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou), mutator.ToString());
 
             if (postVerify != null)
@@ -110,7 +110,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void ShouldBeInvalid(Action<AboutYou> mutator)
         {
-            var aboutYou = AboutYouBuilder.NewValidAboutYou(mutator);
+            var aboutYou = AboutYouBuilder.NewValid(mutator);
             Assert.Throws<DomainException>(() => BestStartGrant.Start(aboutYou), mutator.ToString());
         }
 

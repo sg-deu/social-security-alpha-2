@@ -5,9 +5,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 {
     public class AboutYouBuilder
     {
-        public static AboutYou NewValidAboutYou(Action<AboutYou> mutator = null)
+        public static AboutYou NewValid(Action<AboutYou> mutator = null)
         {
-            var aboutYou = new AboutYou
+            var value = new AboutYou
             {
                 Title = "test title",
                 FirstName = "test first name",
@@ -31,9 +31,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             };
 
             if (mutator != null)
-                mutator(aboutYou);
+                mutator(value);
 
-            return aboutYou;
+            return value;
         }
     }
 }
