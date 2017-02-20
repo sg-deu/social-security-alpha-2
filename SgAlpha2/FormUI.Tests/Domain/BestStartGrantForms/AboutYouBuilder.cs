@@ -1,8 +1,10 @@
 ﻿using System;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
+    [ExcludeFromCodeCoverage]
     public class AboutYouBuilder
     {
         public static AboutYou NewValid(Action<AboutYou> mutator = null)

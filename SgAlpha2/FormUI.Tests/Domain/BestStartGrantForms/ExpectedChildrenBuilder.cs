@@ -1,8 +1,10 @@
 ﻿using System;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
+    [ExcludeFromCodeCoverage]
     public class ExpectedChildrenBuilder
     {
         public static ExpectedChildren NewValid(Action<ExpectedChildren> mutator = null)

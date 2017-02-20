@@ -4,9 +4,11 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 {
+    [ExcludeFromCodeCoverage]
     [TestFixture]
     public class StartBestStartGrantTests : DomainTest
     {

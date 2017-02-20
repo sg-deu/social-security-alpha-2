@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.Util
 {
+    [ExcludeFromCodeCoverage]
     [TestFixture]
     public abstract class DomainTest
     {
