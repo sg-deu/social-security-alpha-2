@@ -77,8 +77,8 @@ namespace FormUI.Tests.Domain.Util
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyFunction.Body);
 
-            //if (!_allowPublicMutators && propertyInfo.GetSetMethod() != null)
-            //    throw new Exception("Property '" + propertyInfo.Name + "' is not protected on " + _instance.GetType());
+            if (!_allowPublicMutators && propertyInfo.GetSetMethod() != null)
+                throw new Exception("Property '" + propertyInfo.Name + "' is not protected on " + _instance.GetType());
 
             if (!propertyInfo.CanWrite)
                 throw new Exception("Property '" + propertyInfo.Name + "' does not have a mutator on " + _instance.GetType());

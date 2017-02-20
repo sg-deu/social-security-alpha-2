@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using FormUI.Domain.BestStartGrantForms;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace FormUI.Domain.Util
 {
@@ -18,6 +21,13 @@ namespace FormUI.Domain.Util
 
         public static void Init(Uri dbUri, string dbKey)
         {
+            var defaultSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new RepositoryContractResolver(),
+            };
+
+            JsonConvert.DefaultSettings = () => defaultSettings;
+
             _dbUri = dbUri;
             _dbKey = dbKey;
 
@@ -94,6 +104,20 @@ namespace FormUI.Domain.Util
         public virtual void Dispose()
         {
             using (_client) { }
+        }
+
+        private class RepositoryContractResolver : DefaultContractResolver
+        {
+            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+            {
+                var jsonProperty = base.CreateProperty(member, memberSerialization);
+
+                if (jsonProperty.Writable)
+                    return jsonProperty;
+
+                jsonProperty.Writable = true;
+                return jsonProperty;
+            }
         }
     }
 }

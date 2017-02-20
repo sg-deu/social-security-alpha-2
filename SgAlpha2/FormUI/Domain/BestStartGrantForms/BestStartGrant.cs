@@ -12,8 +12,8 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        public AboutYou         AboutYou            { get; set; }
-        public ExpectedChildren ExpectedChildren    { get; set; }
+        public AboutYou         AboutYou            { get; protected set; }
+        public ExpectedChildren ExpectedChildren    { get; protected set; }
 
         public static string Start(AboutYou aboutYou)
         {
