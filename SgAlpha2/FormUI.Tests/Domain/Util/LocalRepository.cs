@@ -1,10 +1,8 @@
 ﻿using System;
 using FormUI.Domain.Util;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.Util
 {
-    [ExcludeFromCodeCoverage]
     public class LocalRepository : Repository
     {
         private static bool _isSetup = false;

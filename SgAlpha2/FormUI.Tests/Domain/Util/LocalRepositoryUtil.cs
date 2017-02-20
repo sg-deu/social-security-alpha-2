@@ -1,10 +1,8 @@
 ﻿using FormUI.Domain.Util;
 using NUnit.Framework;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.Util
 {
-    [ExcludeFromCodeCoverage]
     [TestFixture]
     [Explicit("Intended to be triggered manually by a developer")]
     public class LocalRepositoryUtil

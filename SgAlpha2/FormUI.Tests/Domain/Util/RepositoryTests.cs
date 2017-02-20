@@ -4,11 +4,9 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.BestStartGrantForms;
 using NUnit.Framework;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FormUI.Tests.Domain.Util
 {
-    [ExcludeFromCodeCoverage]
     [TestFixture]
     public class RepositoryTests
     {
