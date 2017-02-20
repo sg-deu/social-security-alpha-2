@@ -174,7 +174,7 @@
     <Compile Include="Controllers\Util\WebTest.cs" />
     <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\FacadeTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />

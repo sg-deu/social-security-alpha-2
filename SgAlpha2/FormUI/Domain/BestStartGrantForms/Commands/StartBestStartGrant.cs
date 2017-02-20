@@ -3,13 +3,13 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class StartBestStartGrant : Command
+    public class StartBestStartGrant : Command<string>
     {
         public AboutYou AboutYou;
 
-        public override void Execute()
+        public override string Execute()
         {
-            BestStartGrant.Start(AboutYou);
+            return BestStartGrant.Start(AboutYou);
         }
     }
 }

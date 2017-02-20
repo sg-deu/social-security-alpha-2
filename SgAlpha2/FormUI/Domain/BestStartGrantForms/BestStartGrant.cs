@@ -14,7 +14,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public AboutYou AboutYou { get; set; }
 
-        public static bool Start(AboutYou aboutYou)
+        public static string Start(AboutYou aboutYou)
         {
             Validate(aboutYou);
 
@@ -25,7 +25,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
             Repository.Insert(form);
 
-            return true;
+            return form.Id;
         }
 
         private static void Validate(AboutYou aboutYou)

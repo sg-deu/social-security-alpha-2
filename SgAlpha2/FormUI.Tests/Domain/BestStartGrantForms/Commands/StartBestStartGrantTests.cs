@@ -5,7 +5,7 @@ using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
-namespace FormUI.Tests.Domain.BestStartGrantForms
+namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 {
     [TestFixture]
     public class StartBestStartGrantTests : DomainTest
@@ -21,11 +21,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 AboutYou = aboutYou,
             };
 
-            cmd.Execute();
+            var id = cmd.Execute();
 
             var createdForm = Repository.Query<BestStartGrant>().ToList().FirstOrDefault();
             createdForm.Should().NotBeNull("form should be in database");
             createdForm.AboutYou.FirstName.Should().Be("unit test");
+
+            createdForm.Id.Should().Be(id);
         }
     }
 }
