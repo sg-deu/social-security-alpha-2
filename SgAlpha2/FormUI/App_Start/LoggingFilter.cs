@@ -64,19 +64,34 @@ namespace FormUI.App_Start
             Info(sb.ToString());
         }
 
-        public static void Info(string format, params object[] args)
+        public static void InfoFormat(string format, params object[] args)
         {
-            Trace.TraceInformation("Form_ui::INFO  " + format, args);
+            Info(string.Format(format, args));
         }
 
-        public static void Warn(string format, params object[] args)
+        public static void WarnFormat(string format, params object[] args)
         {
-            Trace.TraceWarning("Form_ui::WARN  " + format, args);
+            Warn(string.Format(format, args));
         }
 
-        public static void Error(string format, params object[] args)
+        public static void ErrorFormat(string format, params object[] args)
         {
-            Trace.TraceError("Form_ui::ERROR " + format, args);
+            Error(string.Format(format, args));
+        }
+
+        public static void Info(string message)
+        {
+            Trace.TraceInformation($"Form_ui::INFO  {message}");
+        }
+
+        public static void Warn(string message)
+        {
+            Trace.TraceWarning($"Form_ui::WARN  {message}");
+        }
+
+        public static void Error(string message)
+        {
+            Trace.TraceError($"Form_ui::ERROR {message}");
         }
     }
 }
