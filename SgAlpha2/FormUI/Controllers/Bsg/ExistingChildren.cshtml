@@ -1,0 +1,30 @@
+﻿@inherits WebViewPage<ExistingChildren>
+@{
+    ViewBag.Title = "Best Start Grant - Existing Children";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h1>If the baby has already been born ...</h1>
+
+        <br />
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+            @for (var i = 0; i < Model.Children.Count; i++) {
+                <h3>Child @(i + 1)</h3>
+
+                @Html.LabelledInputText(m => m.Children[i].FirstName)
+            }
+
+            <button name="Add">Add Child</button>
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>

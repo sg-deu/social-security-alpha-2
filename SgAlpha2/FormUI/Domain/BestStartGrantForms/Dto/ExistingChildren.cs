@@ -4,6 +4,11 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class ExistingChildren
     {
-        public IList<ExistingChild> Children;
+        public ExistingChildren()
+        {
+            Children = new List<ExistingChild>();
+        }
+
+        public IList<ExistingChild> Children { get; set; }
     }
 }

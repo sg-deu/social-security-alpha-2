@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using FluentAssertions;
@@ -103,6 +104,34 @@ namespace FormUI.Tests.Controllers.Bsg
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        [Explicit("WIP")]
+        public void ExistingChildren_POST_StoredData()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
+                    .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
+                    .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
+                    .SubmitName("", client);
+
+                ExecutorStub.Executed<AddExistingChildren>(0).ShouldBeEquivalentTo(new AddExistingChildren
+                {
+                    FormId = "form123",
+                    ExistingChildren = new ExistingChildren
+                    {
+                        Children = new List<ExistingChild>()
+                        {
+                            new ExistingChild(),
+                            new ExistingChild(),
+                        },
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
             });
         }
 
