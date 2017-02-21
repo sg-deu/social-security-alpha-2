@@ -14,33 +14,33 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_Validation()
         {
-            ShouldBeValid(m => { });
-            ShouldBeValid(m => m.Title = null);
-            ShouldBeValid(m => m.OtherNames = null);
-            ShouldBeValid(m => m.CurrentAddress.Street2 = null);
+            AboutYouShouldBeValid(m => { });
+            AboutYouShouldBeValid(m => m.Title = null);
+            AboutYouShouldBeValid(m => m.OtherNames = null);
+            AboutYouShouldBeValid(m => m.CurrentAddress.Street2 = null);
 
-            ShouldBeInvalid(m => m.FirstName = null);
-            ShouldBeInvalid(m => m.SurnameOrFamilyName = null);
-            ShouldBeInvalid(m => m.DateOfBirth = null);
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = null);
-            ShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
-            ShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
-            ShouldBeInvalid(m => m.CurrentAddress.Postcode = null);
-            ShouldBeInvalid(m => m.CurrentAddress.DateMovedIn = null);
-            ShouldBeInvalid(m => m.CurrentAddressStatus = null);
-            ShouldBeInvalid(m => m.ContactPreference = null);
+            AboutYouShouldBeInvalid(m => m.FirstName = null);
+            AboutYouShouldBeInvalid(m => m.SurnameOrFamilyName = null);
+            AboutYouShouldBeInvalid(m => m.DateOfBirth = null);
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = null);
+            AboutYouShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
+            AboutYouShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
+            AboutYouShouldBeInvalid(m => m.CurrentAddress.Postcode = null);
+            AboutYouShouldBeInvalid(m => m.CurrentAddress.DateMovedIn = null);
+            AboutYouShouldBeInvalid(m => m.CurrentAddressStatus = null);
+            AboutYouShouldBeInvalid(m => m.ContactPreference = null);
         }
 
         [Test]
         public void Start_ContactPreferenceEmail_RequiresEmail()
         {
-            ShouldBeValid(m =>
+            AboutYouShouldBeValid(m =>
             {
                 m.ContactPreference = ContactPreference.Email;
                 m.PhoneNumer = null;
                 m.MobilePhoneNumber = null;
             });
-            ShouldBeInvalid(m =>
+            AboutYouShouldBeInvalid(m =>
             {
                 m.ContactPreference = ContactPreference.Email;
                 m.EmailAddress = null;
@@ -50,13 +50,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_ContactPreferencePhone_RequiresPhoneNumber()
         {
-            ShouldBeValid(m =>
+            AboutYouShouldBeValid(m =>
             {
                 m.ContactPreference = ContactPreference.Phone;
                 m.EmailAddress = null;
                 m.MobilePhoneNumber = null;
             });
-            ShouldBeInvalid(m =>
+            AboutYouShouldBeInvalid(m =>
             {
                 m.ContactPreference = ContactPreference.Phone;
                 m.PhoneNumer = null;
@@ -66,13 +66,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_ContactPreferenceText_RequiresText()
         {
-            ShouldBeValid(m =>
+            AboutYouShouldBeValid(m =>
             {
                 m.ContactPreference = ContactPreference.Text;
                 m.EmailAddress = null;
                 m.PhoneNumer = null;
             });
-            ShouldBeInvalid(m =>
+            AboutYouShouldBeInvalid(m =>
             {
                 m.ContactPreference = ContactPreference.Text;
                 m.MobilePhoneNumber = null;
@@ -82,24 +82,36 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_NationalInsuranceNumber_FormattedCorrectly()
         {
-            ShouldBeValid(m => m.NationalInsuranceNumber = "AB 12 34 56 C", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ShouldBeValid(m => m.NationalInsuranceNumber = "ab 12 34 56 c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ShouldBeValid(m => m.NationalInsuranceNumber = "Ab123456c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ShouldBeValid(m => m.NationalInsuranceNumber = "AB/123456/c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            AboutYouShouldBeValid(m => m.NationalInsuranceNumber = "AB 12 34 56 C", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            AboutYouShouldBeValid(m => m.NationalInsuranceNumber = "ab 12 34 56 c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            AboutYouShouldBeValid(m => m.NationalInsuranceNumber = "Ab123456c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            AboutYouShouldBeValid(m => m.NationalInsuranceNumber = "AB/123456/c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
 
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A 12 34 56 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 56 CD");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12/34/56 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A. 12 34 56 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB .2 34 56 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 .4 56 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 .6 C");
-            ShouldBeInvalid(m => m.NationalInsuranceNumber = "A5 12 34 56 .");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "A 12 34 56 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 56 CD");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12/34/56 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "A. 12 34 56 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "AB .2 34 56 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 .4 56 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 .6 C");
+            AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = "A5 12 34 56 .");
+        }
+
+        [Test]
+        public void AddExpectedChildren_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 1);
+            ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 10);
+
+            ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 0);
+            ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 11);
         }
 
         #region test helpers
 
-        protected void ShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
+        protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
         {
             var aboutYou = AboutYouBuilder.NewValid(mutator);
             Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou), mutator.ToString());
@@ -108,10 +120,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 postVerify(aboutYou);
         }
 
-        protected void ShouldBeInvalid(Action<AboutYou> mutator)
+        protected void AboutYouShouldBeInvalid(Action<AboutYou> mutator)
         {
             var aboutYou = AboutYouBuilder.NewValid(mutator);
             Assert.Throws<DomainException>(() => BestStartGrant.Start(aboutYou), mutator.ToString());
+        }
+
+        protected void ExpectedChildrenShouldBeValid(BestStartGrant form, Action<ExpectedChildren> mutator)
+        {
+            var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
+            Assert.DoesNotThrow(() => form.AddExpectedChildren(expectedChildren), mutator.ToString());
+        }
+
+        protected void ExpectedChildrenShouldBeInvalid(BestStartGrant form, Action<ExpectedChildren> mutator)
+        {
+            var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
+            Assert.Throws<DomainException>(() => form.AddExpectedChildren(expectedChildren), mutator.ToString());
         }
 
         #endregion

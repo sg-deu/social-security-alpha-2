@@ -31,6 +31,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public void AddExpectedChildren(ExpectedChildren expectedChildren)
         {
+            Validate(expectedChildren);
+
             ExpectedChildren = expectedChildren;
             Repository.Update(this);
         }
@@ -116,6 +118,18 @@ namespace FormUI.Domain.BestStartGrantForms
             aboutYou.NationalInsuranceNumber = ni;
 
             return null;
+        }
+
+        private static void Validate(ExpectedChildren expectedChildren)
+        {
+            var ctx = new ValidationContext<ExpectedChildren>(expectedChildren);
+
+            ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
+                babyCount.HasValue && (babyCount.Value < 1 || babyCount.Value > 10)
+                    ? "Please supply a number of babies between 1 and 10"
+                    : null);
+
+            ctx.ThrowIfError();
         }
     }
 }
