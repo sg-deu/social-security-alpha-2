@@ -1,0 +1,376 @@
+@media(min-width: 768px) {
+  .grid__item {
+    padding-left: 15px;
+  }
+
+  .large--eight-twelfths {
+    width: calc(66.666% + 15px);
+  }
+}
+
+.form-intro {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.form-input--small {
+  width: calc(37.5% - 15px);
+  padding-left: 12px;
+}
+
+.birthdate select {
+    display: inline-block;
+    margin-right: 25px;
+    width: initial;
+    text-align: left;
+    height: 42px;
+}
+
+.input-wrapper {
+  margin-top: 7px;
+}
+
+#birthdate-day {
+  width: 75px;
+}
+
+#birthdate-month {
+  width: 115px;
+}
+
+#birthdate-year {
+  width: 100px;
+}
+
+#registration-time, #postcode, #session-date {
+  width: 262px;
+}
+
+.registration-date input {
+  display: inline-block;
+  width: 215px;
+}
+
+#telephone-number {
+  width: 360px;
+}
+
+.time-online input[type="text"] {
+    width: 45px;
+    display: inline-block;
+    margin: 10px 10px 10px 0px;
+    text-align: center;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    display: inline-block;
+    margin: 7px;
+    width: initial;
+}
+
+label.inline {
+    display: inline-block;
+    font-weight: normal;
+    margin-right: 30px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+.required-icon+legend {
+    margin-left: 14px;
+}
+
+form h2 {
+  display: inline-block;
+  font-weight: 500;
+  padding-top: 21px;
+  position: relative;
+  margin-bottom: 0px;
+  margin-top: 70px;
+}
+
+form h2:before {
+  background: #0065bd;
+  border-radius: 8px;
+  content: '';
+  height: 8px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.optional {
+  color: #727272;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+div.form-box {
+  padding: 15px;
+}
+
+p.asterisk-note {
+  color: #333;
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 28px;
+  margin-bottom: 28px;
+  height: 28px;
+}
+
+label {
+  color: #333;
+  font-size: 19px;
+  line-height: 28px;
+  margin-top: 7px;
+  margin-bottom: 0px;
+}
+
+.form-group p {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.form-group {
+  margin-top: 49px;
+}
+
+
+.date-entry__trigger {
+  position: relative;
+  right: initial;
+  display: inline-block;
+}
+
+
+/* errors */
+.current-errors, .server-side-errors, .field-errors {
+  font-size: 16px;
+  line-height: 21px;
+  color: #d32205;
+  font-weight: normal;
+  margin-top: 7px;
+}
+
+.current-errors span, .server-side-errors span {
+  font-family: FontAwesome;
+  font-size: 11px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.field-errors {
+  margin: 0 0 0 62px;
+}
+
+.form-message--error {
+  background-color: #fff;
+  border-radius: 15px;
+  border: 7px solid #d32205;
+  padding: 21px 30px 35px 30px;
+  margin-bottom: 49px;
+}
+
+.form-message--error a {
+  color: #d32205;
+}
+
+.form-message--error li {
+  font-size: 17px;
+  padding-top: 21px;
+}
+
+div .form-message--error .form-errors ul {
+  margin-bottom: 0;
+}
+
+.form-message--error:after {
+  content: url('../../assets/images/icons/error_triangle.png');
+  position: relative;
+  bottom: -81px;
+  left: 20px;
+}
+
+.consent {
+  display: inline;
+  font-size: 16px;
+}
+
+.error-grey, .error-grey a {
+  color: #727272;
+}
+
+.form-message--successful {
+  border: 7px solid #4e9d52;
+  border-radius: 15px;
+  padding: 21px 30px 35px 30px;
+  background: #fff;
+  margin-bottom: 49px;
+}
+
+.form-message--successful h2 {
+  color: #4e9d52;
+}
+
+.form-message--successful p {
+  font-weight: 500;
+}
+
+.form-message--successful:after {
+  content: url('../../assets/images/icons/success_triangle.png');
+  position: relative;
+  bottom: -81px;
+  left: 20px;
+}
+
+.form-message h2 {
+  margin: 5px 0 13px;
+  padding: 0;
+}
+
+.form-message--error h2, .form-message--error h3 {
+  color: #333;
+}
+
+.error span {
+  font-weight: bold;
+}
+
+/**
+ * Nice checkboxes
+ */
+/* line 124, ../../../src/scss/base/_base.forms.scss */
+label.fancy-checkbox, label.fancy-radio {
+  position: relative;
+}
+
+/* line 132, ../../../src/scss/base/_base.forms.scss */
+input.fancy-checkbox, input.fancy-radio {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=00)";
+}
+
+/* line 137, ../../../src/scss/base/_base.forms.scss */
+input + label.fancy-checkbox:before {
+  background-color: #ffffff;
+  border: 1px solid #727272;
+  content: '';
+  float: left;
+  font-size: 18px;
+  height: 26px;
+  left: 0;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 26px;
+  font-family: 'FontAwesome';
+}
+
+input + label.fancy-radio:before {
+  background-color: #ffffff;
+  border: 3px solid #727272;
+  border-radius: 50%;
+  content: '';
+  float: left;
+  font-size: 10px;
+  height: 22px;
+  left: 0;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  width: 22px;
+  font-family: 'FontAwesome';
+  box-sizing: content-box;
+}
+
+label.fancy-checkbox, label.fancy-radio {
+  padding-left: 38px;
+  margin-top: 14px;
+}
+
+/* line 162, ../../../src/scss/base/_base.forms.scss */
+input:focus + label.fancy-checkbox:before {
+  background-color: #e5f0f8;
+}
+
+input:focus + label.fancy-radio:before {
+  background-color: #e5f0f8;
+}
+
+/* line 166, ../../../src/scss/base/_base.forms.scss */
+input:checked + label.fancy-checkbox:before {
+  border: 1px solid #0065bd;
+  color: #0065bd;
+  background-color: #e5f0f8;
+  content: '\f00c';
+}
+
+input:checked + label.fancy-radio:before {
+  border-color: #0065bd;
+  color: #0065bd;
+  background-color: #e5f0f8;
+  content: '\f111';
+}
+
+input[type=checkbox], input[type=radio] {
+    font-size: 40px;
+    margin-right: 0px;
+    margin-left: -18px;
+}
+
+
+
+/*Standard form things*/
+
+input[type=text].grey, textarea.grey, select.grey {
+  border: 1px solid #727272;
+  background: #fff;
+}
+
+input[type=text].grey:focus, textarea.grey:focus, select.grey:focus {
+  border: 2px solid #0065bd;
+  background: #e5f0f8;
+}
+
+input[type="text"].input-error, textarea.input-error, select.input-error { 
+  color: #000;
+  border: 2px solid #d32205;
+  background: #fff;
+}
+
+input[type="text"].input-error:focus, textarea.input-error:focus, select.input-error:focus {
+  border: 2px solid #d32205;
+  background: #e5f0f8;
+}
+
+textarea.grey {
+  padding: 13px 12px 13px 12px;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.asterisk {
+  font-size: 35px;
+  top: 10px;
+  position: relative;
+}
+
+p.word-count {
+    color: #727272;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+

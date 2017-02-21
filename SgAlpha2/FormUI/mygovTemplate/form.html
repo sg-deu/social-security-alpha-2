@@ -1,0 +1,623 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="canonical" href="https://www.mygov.scot" />
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900" />
+    <![endif]-->
+
+      <title>Registration Form - mygov.scot</title>
+
+    <meta name="description" content="Registration form test.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/calendar.css">
+    <link rel="stylesheet" href="assets/css/form.css">
+
+
+    <!--[if lt IE 9]>
+      <script src="/assets/scripts/vendor/html5shiv/dist/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 7]>
+      <link rel="stylesheet" href="/assets/styles/ie.fec7544a.css">
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="/assets/styles/ie8.59b04236.css">
+    <![endif]-->
+  </head>
+<body class="article" data-uuid="MYGOV-1493">
+    
+
+    <!-- sticky notices -->
+
+    <span id="page-top"></span>
+
+    <!-- other notices -->
+    <div id="browser-notice" class="notification hidden strong">
+        <div class="wrapper">
+            <p>You appear to be using an unsupported browser, and it may not be able to display this site properly.</p>
+            <p>You may wish to <a href="/browsers/">upgrade your browser</a>.</p>
+    
+            <button title="Close this notification" id="close-unsupported-browser-notification" class="button button--close close-notification"><span>Close</span></button>
+        </div>
+    </div>
+    <div id="cookie-notice" class="notification hidden" aria-describedby="cookieinfo">
+        <div class="wrapper">
+            <p tabindex="0" id="cookieinfo" class="cookieinfo">This site uses cookies to make the site simpler. <a href="/cookies/">Find out more about cookies</a></p>
+            <button title="Close this notification" id="close-cookie-notification" class="button button--close close-notification">Close</button>
+        </div>
+    </div>
+    <div id="decommissioned-site-notice" class="notification strong hidden" aria-describedby="decommissionedinfo">
+        <div class="wrapper">
+            <p tabindex="0" class="decommissionedinfo" id="decommissionedinfo">
+                You've been redirected from a site that no longer exists
+                (<span id="decomissioned-site-host"></span>).
+    
+                Find what you're looking for on mygov.scot.
+            </p>
+            <button title="Close this notification" id="close-decommissioned-site-notification" class="button button--close close-notification"><span>Close</span></button>
+        </div>
+    </div>
+ <div class="div-spacer"></div>
+
+<div class="wrapper header-bar">
+    <div class="header-with-search-container clearfix">
+        <div class="site-brand">
+            <div class="site-brand__link">
+                <a id="mygov-logo" class="site-brand__logo" data-gtm="logo-mygov" href="/">
+                    <svg viewBox="0 0 439 84.24" aria-label="mygov.scot logo">
+                        <title>mygov.scot logo</title>
+                        <defs>
+                            <style>
+                                .blue-base {
+                                    fill: #0065bd;
+                                }
+                    
+                                .blue-darker {
+                                    fill: #002d54;
+                                }
+                            </style>
+                        </defs>
+                        <switch>
+                            <g>
+                                <path class="blue-base" d="M281.14,59.75a4.8,4.8,0,0,1-3.37-5V52.11c0-2.7,2.16-4.94,5.7-4.11a48.53,48.53,0,0,0,11.66,1.78c4.75,0,6.9-.93,6.9-3.27s-1.58-3-4.66-3.26c-14.72-1.3-18.82-5.22-18.82-14.91,0-9.5,6.15-15.84,20.5-15.84,5.41,0,10.93.75,13.17,1.49a5,5,0,0,1,3.56,5v2.61c0,2.7-2.35,4.94-5.89,4.1a40.25,40.25,0,0,0-10.17-1.3c-4.19,0-6.57.93-6.57,3.26s1.55,3,4.63,3.26c14.73,1.3,18.81,5.22,18.81,14.91,0,9-5.33,15.85-21.08,15.85A54.59,54.59,0,0,1,281.14,59.75Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-base" d="M345.29,48.84a23.11,23.11,0,0,0,5.51-.65c3.73-.84,6,1.4,6,4.1v3.07c0,2.7-1.13,4.29-3.46,5a31.47,31.47,0,0,1-9.55,1.3c-17.14,0-23.51-8.76-23.51-24.61s6.33-24.6,23.47-24.6a31.76,31.76,0,0,1,9.6,1.3c2.33.75,3.45,2.33,3.45,5v3.07c0,2.7-2.24,4.94-6,4.1a22.64,22.64,0,0,0-5.46-.65c-6.15,0-10.37,2.89-10.37,11.74S339.14,48.84,345.29,48.84Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-base" d="M359.15,37.1c0-14.54,4.66-24.6,21.9-24.6s21.9,10.06,21.9,24.6S398.29,61.71,381,61.71,359.15,51.64,359.15,37.1Zm14.91,0c0,9.32,1.86,12.68,7,12.68s7-3.35,7-12.68-1.86-12.67-7-12.67S374.05,27.78,374.05,37.1Z" transform="translate(-0.76 -1.88)"
+                                />
+                                <path class="blue-base" d="M412.76,8.12c0-2.7,1.16-3.73,4.52-4.66l4.87-1.31c3.91-1,5.61.93,5.61,3.82V13.9H435c2.89,0,4.73,1.31,4.73,4.19v3.82c0,2.89-1.84,4-4.73,4h-7.27V44c0,3.63,1.39,5.9,6.15,5.9h.93a3.6,3.6,0,0,1,3.92,3.7v3.07A4.56,4.56,0,0,1,435,61.33a22.52,22.52,0,0,1-4.21.38c-13.23,0-18-5.5-18-16.5V25.9h-3.55c-2.89,0-4.45-1.1-4.45-4V19.77c0-2.42,1.06-3.64,3.77-4.38l4.23-1.12Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-base" d="M68.76,56.62c0,3-1.28,4.28-4.14,4.28H58.06c-2.85,0-4.29-1.33-4.29-4.28V28.27c0-2.47-1.17-3.81-4.12-3.81a10.76,10.76,0,0,0-6.88,2.47V56.62c0,3-1.74,4.28-4.59,4.28H31.61c-2.85,0-4.84-1.33-4.84-4.28V28.27c0-2.47-1.17-3.81-4.12-3.81a10.75,10.75,0,0,0-6.88,2.47V56.62c0,3-1.28,4.28-4.24,4.28H5.06C2.11,60.9.76,59.57.76,56.62V17.8c0-2.95,1.35-3.9,4.29-3.9H7.44c2.09,0,2.85.62,4.28,3.19,3.43-3,10-4.88,14.94-4.88,6.38,0,9.51,1.65,11,3.84,3.43-2.57,9.59-3.93,15.3-3.93,12.37,0,15.77,7.39,15.77,16Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-base" d="M94.7,80.47c-1.14,2.85-2.76,4.43-6.09,4.43H83.09c-3.52,0-5.33-3.19-3.71-6.71L88.7,58,72.53,20.34c-1.43-3.42.57-6.44,4.09-6.44h5.14c3.33,0,4.95,1.38,5.9,4.14l8.75,24.71,7.8-24.66c.86-2.85,2.57-4.2,5.9-4.2h5.14c3.52,0,5.52,2.93,4.09,6.45Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-darker" d="M164.16,25.13a30.39,30.39,0,0,1,.48,5.23c0,12-6.66,18.27-21.41,18.27a40.16,40.16,0,0,1-4.85-.19,2.87,2.87,0,0,0-.67,1.81c0,1,.57,1.52,1.9,1.71L158,54.34c10,1.33,12.85,6.28,12.85,14,0,12.85-14.75,17.79-29.31,17.79-12,0-22.55-3.71-22.55-12.94,0-6.47,5-10.47,9.9-11.51A8.32,8.32,0,0,1,124.48,54c0-2.66,2-6,5-8.18-5.24-3-7.71-8.09-7.71-15.42,0-12,6.66-18,21.41-18,4.37,0,7.71-.43,11.13,1.57H166c2.85,0,4.8,1,4.8,3.9v2c0,2.76-1.54,4-4.3,4.76Zm-27.5,39.11A5.53,5.53,0,0,0,133,69.09c0,3.43,2.57,5.61,10.09,5.61,7.23,0,12.66-2.47,12.66-5.61,0-1.52-.76-2.47-2.66-2.76Zm6.56-26.84c4.66,0,6.94-2.38,6.94-7s-2.28-7-6.94-7-6.95,2.38-6.95,7S138.56,37.4,143.23,37.4Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-darker" d="M171.85,37.21c0-14.84,4.76-25.12,22.36-25.12s22.36,10.28,22.36,25.12-4.76,25.12-22.36,25.12S171.85,52.05,171.85,37.21Zm15.22,0c0,9.52,1.9,12.94,7.14,12.94s7.14-3.42,7.14-12.94-1.9-12.94-7.14-12.94S187.08,27.7,187.08,37.21Z"
+                                    transform="translate(-0.76 -1.88)" />
+                                <path class="blue-darker" d="M240.17,61.9c-4,0-5.42-1.5-6.85-5.11L218.48,20.55c-1.62-4,.48-6.65,4-6.65h4.66c3.33,0,4.85,1.38,5.8,4.14l8.85,25,8.85-24.94c1-2.76,2.47-4.2,5.8-4.2h4.66c3.52,0,5.62,2.62,4,6.61L250.26,56.91c-1.43,3.62-2.86,5-6.85,5Z" transform="translate(-0.76 -1.88)"
+                                />
+                                <circle class="blue-base" cx="264.81" cy="53.41" r="6.19" />
+                            </g>
+                            <foreignObject>
+                                <!-- <img src="/assets/images/mygov-logos/mygovscot_195px.png" alt="mygov.scot logo"> -->
+                          </foreignObject>
+                        </switch>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <form class="search-box__form" method="GET" action="/search/">
+                <label class="search-box__label hidden" for="search-box">Search</label>
+                <input name="q" required id="search-box" class="search-box__input" type="text" placeholder="Search mygov.scot" />
+                <input type="hidden" value="sitesearch" name="cat"/>
+        
+                <button type="submit" title="search" class="search-box__button button button--primary">
+                    <img alt="" class="search-box__icon" src="assets/images/icons/search-white_@2x.png" />
+                    <span class="hidden">Search mygov.scot</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="header-separator header-separator--eight-twelfths"> </div>
+</div>
+
+<!-- Start article.hbs -->
+
+<div class="wrapper">
+    <div class="grid"><!--
+        --><div class="grid__item large--eight-twelfths">
+                <article>
+
+                <div class="form-intro">
+                    <header class="article-header">
+                        <h1 class="article-header__title">Registration</h1>
+                    </header>
+
+                    <div class="body-content">
+                        <p>To get started we just need some contact information from you as well as an indication of how you like to use the internet. If you’d like to know how we use your information then you can read our <a href="https://www.mygov.scot/privacy/">Privacy policy</a>. Your test facilitator can help you if you have any queries.</p>
+                    </div>
+                </div>
+
+                <div class="form-box">
+
+                    <p class="asterisk-note">All fields marked with an asterisk must be filled in (<span class="asterisk">*</span>)</p>
+
+                    <div id='feedback-box'>
+                        <div class="client-error hidden form-message form-message--error">
+                            <h2>Oops, there's a problem... </h2>
+                            <h3>There were some errors found on this form: </h3>
+                            <div class="form-errors">
+                            </div>
+                        </div> 
+                    </div>
+
+                    <form class="in-article-form main-content body-content" id="registration-form">
+
+                        <h2>Date and time</h2>
+                        <div class="form-group relative date-entry">
+                            <a name="registration-date-link"></a>
+                            <span class="required-icon">*</span><label
+                                for="registration-date" class="filters_">Date of session</label>
+                            <div class="date-entry__input-group input-group input-wrapper registration-date">
+                                <input type="text" id="registration-date" placeholder="DD/MM/YYYY" class="grey form-control">
+                                <button id="date-start-trigger" type="button" class="date-entry__trigger button button--primary js-show-calendar">Choose date</button>
+                                <p class="current-errors"></p>
+                            </div>
+                            <div class="date-entry__calendar">
+                                <button class="date-entry__close filters-container__close hidden-xsmall js-close-calendar" type="button">Close</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group relative">
+                            <a name="registration-time-link"></a>
+                            <span class="required-icon">*</span><label for="registration-time">Time of session</label>
+                            <p>Use 24 hour format.</p>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="registration-time" class="grey form-control" type="text" placeholder="e.g. 14.00">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+
+                        <h2>Your details</h2>
+                        <div class="form-group relative">
+                            <a name="name-link"></a>
+                            <span class="required-icon">*</span><label for="name">Your name</label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="300" id="name" class="grey form-control" type="text">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group relative">
+                            <a name="birthdate-link"></a>
+                            <span class="required-icon">*</span><label for="birthdate">Date of birth</label>
+                            <div class="input-wrapper birthdate" id="birthdate">
+                                <select id="birthdate-day" class="grey">
+                                    <option selected disabled value="">Day</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                    <option>16</option>
+                                    <option>17</option>
+                                    <option>18</option>
+                                    <option>19</option>
+                                    <option>20</option>
+                                    <option>21</option>
+                                    <option>22</option>
+                                    <option>23</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>26</option>
+                                    <option>27</option>
+                                    <option>28</option>
+                                    <option>29</option>
+                                    <option>30</option>
+                                    <option>31</option>
+                                </select>
+
+                                <select id="birthdate-month" class="grey">
+                                    <option selected disabled value="">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+
+                                <select id="birthdate-year" class="grey">
+                                    <option selected disabled value="">Year</option>
+                                    <option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option><option>1989</option><option>1988</option><option>1987</option><option>1986</option><option>1985</option><option>1984</option><option>1983</option><option>1982</option><option>1981</option><option>1980</option><option>1979</option><option>1978</option><option>1977</option><option>1976</option><option>1975</option><option>1974</option><option>1973</option><option>1972</option><option>1971</option><option>1970</option><option>1969</option><option>1968</option><option>1967</option><option>1966</option><option>1965</option><option>1964</option><option>1963</option><option>1962</option><option>1961</option><option>1960</option><option>1959</option><option>1958</option><option>1957</option><option>1956</option><option>1955</option><option>1954</option><option>1953</option><option>1952</option><option>1951</option><option>1950</option><option>1949</option><option>1948</option><option>1947</option><option>1946</option><option>1945</option><option>1944</option><option>1943</option><option>1942</option><option>1941</option><option>1940</option><option>1939</option><option>1938</option><option>1937</option><option>1936</option><option>1935</option><option>1934</option><option>1933</option><option>1932</option><option>1931</option><option>1930</option><option>1929</option><option>1928</option><option>1927</option><option>1926</option><option>1925</option><option>1924</option><option>1923</option><option>1922</option><option>1921</option><option>1920</option><option>1919</option><option>1918</option><option>1917</option><option>1916</option><option>1915</option><option>1914</option><option>1913</option><option>1912</option><option>1911</option><option>1910</option><option>1909</option><option>1908</option><option>1907</option><option>1906</option><option>1905</option><option>1904</option><option>1903</option><option>1902</option><option>1901</option>
+                                </select>
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <a name="email-link"></a>
+                            <span class="required-icon">*</span><label for="email">Email address</label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="150" id="email" class="grey form-control" type="text">
+                                <p class="current-errors"></p>
+                                <p class="server-side-errors"></p>
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <a name="telephone-number-link"></a>
+                            <label for="telephone-number">Phone number <span class="optional">(optional)</span></label>
+                            <p>We will use this if there are any problems with your form and we need to contact you.<br />
+                            If overseas, include International dialling code e.g. +34.</p>
+                            <div class="input-wrapper">
+                                <input data-maxlength="20" id="telephone-number" class="grey grid__item one-half" type="text">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <a name="address-1-link"></a>                            
+                            <span class="required-icon">*</span><label for="address-1">Address line 1</label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="address-1" class="grey form-control" type="text">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <label for="address-2">Address line 2 <span class="optional">(optional)</span></label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="address-2" class="grey form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <label for="address-3">Address line 3 <span class="optional">(optional)</span></label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="address-3" class="grey form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <a name="postcode-link"></a>
+                            <span class="required-icon">*</span> <label for="postcode">Postcode</label>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="postcode" class="grey form-control" type="text">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+
+                        <h2>Online activity</h2>
+                        <div class="form-group relative" id="smartphone-radio">
+                            <a name="smartphone-radio-link"></a>
+                            <fieldset>
+                                <span class="required-icon">*</span><legend>Do you use a smartphone or tablet to access the internet?</legend>
+                                <div class="input-wrapper">
+                                    <p class="current-errors"></p>
+                                    <input data-maxlength="100" id="smartphone-yes" name="smartphone" class="grey form-control fancy-radio" type="radio">
+                                     <label for="smartphone-yes" class="inline radio-button fancy-radio">Yes</label>
+                                    <input data-maxlength="100" id="smartphone-no" name="smartphone" class="grey form-control fancy-radio" type="radio">
+                                    <label for="smartphone-no" class="inline fancy-radio" >No</label>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group relative">
+                            <fieldset>
+                                <legend>If so, what kind of device(s) do you have? <span class="optional">(optional)</span></legend>
+                                <div class="input-wrapper">
+                                    <input data-maxlength="100" name="device" id="device-ios" class="grey form-control fancy-checkbox" type="checkbox">
+                                    <label for="device-ios" class="inline fancy-checkbox">iOS (Apple)</label><br />
+                                    <input data-maxlength="100" name="device" id="device-android" class="grey form-control fancy-checkbox" type="checkbox">
+                                    <label for="device-android" class="inline fancy-checkbox">Android</label><br />
+                                    <input data-maxlength="100" name="device" id="device-windows" class="grey form-control fancy-checkbox" type="checkbox">
+                                    <label for="device-windows" class="inline fancy-checkbox">Windows</label><br />
+                                    <input data-maxlength="100" name="device" id="device-other" class="grey form-control fancy-checkbox" type="checkbox">
+                                    <label for="device-other" class="inline fancy-checkbox">Other</label><br />
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group relative" id="time-online">
+                            <a name="time-online-link"></a>
+                            <fieldset>
+                                <span class="required-icon">*</span><legend>Daily time spent online?</legend>
+                                <p>Please indicate number of hours spent in each area.</p>
+                                <div class="input-wrapper time-online">
+                                    <p class="current-errors"></p>
+                                    <div class="input-block">
+                                        <input data-maxlength="2" id="time-online-social" class="grey form-control" type="text" placeholder="0">
+                                        <label for="time-online-social" class="inline">Social networking sites</label>
+                                    </div>
+                                    <div class="input-block">
+                                        <input data-maxlength="2" id="time-online-news" class="grey form-control" type="text" placeholder="0"> 
+                                        <label for="time-online-news" class="inline">News sites</label>
+                                    </div>
+                                    <div class="input-block">
+                                        <input data-maxlength="2" id="time-online-youtube" class="grey form-control" type="text" placeholder="0">
+                                        <label for="time-online-youtube" class="inline">YouTube</label>
+                                    </div>
+                                    <div class="input-block">
+                                        <input data-maxlength="2" id="time-online-work" class="grey form-control" type="text" placeholder="0"> 
+                                        <label for="time-online-work" class="inline">Work-related</label>
+                                    </div>
+                                    <div class="input-block">
+                                        <input data-maxlength="2" id="time-online-gaming" class="grey form-control" type="text" placeholder="0">
+                                        <label for="time-online-gaming" class="inline">Gaming</label>
+                                    </div>
+                                    <div class="input-block">
+                                    <input data-maxlength="2" id="time-online-other" class="grey form-control" type="text" placeholder="0"> 
+                                    <label for="time-online-other" class="inline">Other</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        
+                        <h2>Feedback</h2>
+                       
+                        <div class="form-group relative" id="form-difficulty">
+                            <a name="form-difficulty-link"></a>
+                            <fieldset>
+                            <span class="required-icon">*</span><legend>Tell us how you have found this form so far</legend>
+                            <div class="input-wrapper">
+                                <p class="current-errors"></p>
+                                <input data-maxlength="100" name="form-difficulty" id="very-difficult" class="grey form-control fancy-radio" type="radio">
+                                <label for="very-difficult" class="inline fancy-radio">Very difficult</label> <br />
+                                <input data-maxlength="100" name="form-difficulty" id="difficult" class="grey form-control fancy-radio" type="radio">
+                                <label for="difficult" class="inline fancy-radio">Difficult</label> <br />
+                                <input data-maxlength="100" name="form-difficulty" id="ok" class="grey form-control fancy-radio" type="radio">
+                                <label for="ok" class="inline fancy-radio">OK</label> <br />
+                                <input data-maxlength="100" name="form-difficulty" id="easy" class="grey form-control fancy-radio" type="radio">
+                                <label for="easy" class="inline fancy-radio">Easy</label> <br />
+                                <input data-maxlength="100" name="form-difficulty" id="very-easy" class="grey form-control fancy-radio" type="radio">
+                                <label for="very-easy" class="inline fancy-radio">Very easy</label> <br />
+                            </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group relative">
+                        <a name="comments-link"></a>
+                            <label for="comments">Any other comments <span class="optional">(optional)</span></label>
+                            <p>
+                                If you’ve had any frustrations or the experience has been a pleasure throughout, then tell us here.
+                            </p>
+                            <div class="input-wrapper">
+                                <textarea data-maxlength="700" rows="4" id="comments"
+                                          class="grey form-control"></textarea>
+                                <p class="word-count"><span>700</span> characters remaining</p>
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+
+                        <h2>Confirmation</h2>
+
+                        <div class="form-group relative">
+                            <a name="session-date-link"></a>
+                            <span class="required-icon">*</span><label for="session-date">Confirm date of session</label>
+                            <p>Use DD/MM/YYYY format.</p>
+                            <div class="input-wrapper">
+                                <input data-maxlength="100" id="session-date" class="grey form-control" type="text" placeholder="e.g. 01/02/2017">
+                                <p class="current-errors"></p>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="expandable-item expandable-item--disclaimer">
+                            <a name="consent-checkbox-link"></a>
+                            <input type="checkbox" id="consent-checkbox" class="fancy-checkbox">
+                            <label class="consent inline fancy-checkbox" for="consent-checkbox">By ticking the attached box you’re consenting to your data being used as laid out in the <a class="js-toggle-expand expandable-item__link-trigger" href="#consent-statement" data-toggle="collapse" data-gtm="panel-opened" aria-expanded="false" aria-controls="consent-statement">consent statement.</a></label> <br />
+                            <p class="current-errors"></p>
+                            
+                            <div class="expandable-item__body expandable-item__body--disclaimer" id="consent-statement">
+                                <h3>Usability Testing - Informed consent</h3>
+
+                                <p>The data received today will be used to help us understand and improve the Scottish Government websites.</p> 
+
+                                <p>During the session you will be asked to use your personal information at certain points (i.e. full name, date of birth, email address, phone number, address and postcode). Observers from the MyGov team and the User Research and Service Design team will be able to view this information live. Your information will not be saved (on any databases), but it will be video recorded along with your likeness and voice. </p>
+
+                                <p>The recording will be stored on a password protected computer on a secure network in a locked room within the Scottish Government premises that can be accessed only by the user research team.  Your personal information will be removed/blanked out and any references (i.e. this consent form) will be kept in a separate file. The video file will be viewable only by team members on the MyGov programme or the User Research and Service Design team.</p>
+
+                                <p>We will hold your details for 12 months and the video recording will be deleted 12 months from the date you write below.</p>
+
+                                <p>If you have any questions about this study or your data please speak with the user researcher. If you need to get in touch at a later date please get in contact by emailing URSD@gov.scot.</p>
+                            </div>
+                        </div> 
+
+
+                        <div class="form-group">
+                            <input type="submit" data-gtm="form-submit" id="form-submit" class="button button--primary"></input>
+                        </div>
+                    </form>
+
+                
+            </div>
+
+        </article>
+    </div><!--
+
+        --><div class="grid__item large--four-twelfths" id="sidebar">
+            <div class="enlarged-gutter">
+                
+                <nav class="related-items">
+<!--                 	<h2 class="related-items__title">Related items</h2>
+                	<ul class="related-items__list no-margin">
+                			<li class="related-items__item">
+                				<a class="related-items__link" href="/transport-help/" data-gtm="link-related-0">Transport help for older or disabled people</a>
+                			</li> -->
+                	</ul>
+                </nav>
+            </div>
+        </div><!--
+    --></div>
+
+    <div class="grid"><!--
+           Feedback form would go here.
+    --></div>
+
+</div>
+<script type="text/javascript">
+var app = app || {};
+</script>
+
+<footer id="site-footer" class="site-footer">
+    <div class="wrapper">
+        <ul class="site-items grid hidden-xsmall hidden-medium"><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/about-mygovscot/" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/accessibility/" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/cookies/" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/give-feedback/" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/myaccount/" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+        --><li class="site-items__item">
+                    <a class="site-items__link" href="/privacy/" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+        --></ul>
+
+        <ul class="site-items grid visible-xsmall visible-medium"><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/about-mygovscot/" target="_self" title="About" data-gtm="link-footer">About</a>
+                </li><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/accessibility/" target="_self" title="Accessibility" data-gtm="link-footer">Accessibility</a>
+                </li><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/cookies/" target="_self" title="Cookies" data-gtm="link-footer">Cookies</a>
+                </li><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/give-feedback/" target="_self" title="Feedback" data-gtm="link-footer">Feedback</a>
+                </li><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/myaccount/" target="_self" title="myaccount" data-gtm="link-footer">myaccount</a>
+                </li><!--
+        --><li class="grid__item six-twelfths site-items__item">
+                    <a class="site-items__link" href="/privacy/" target="_self" title="Privacy" data-gtm="link-footer">Privacy</a>
+                </li><!--
+        --></ul>
+
+        <div class="grid"><!--
+            --><div class="grid__item medium--six-twelfths">
+                <p class="site-footer__summary">
+                    mygov.scot is the place for people in Scotland to access public services that are easy to find and simple to use.  Please give us your
+                    <a href="https://www.mygov.scot/give-feedback/">feedback</a> on how we can improve this service.
+                </p>
+            </div><!--
+
+            --><div class="grid__item medium--six-twelfths">
+                <a data-gtm="logo-govscot" id="govscot-logo" class=site-footer__gov-logo title="The Scottish Government" href="http://www.gov.scot/">
+                    <svg viewBox="0 0 165 30">
+                        <defs>
+                            <style>
+                                .white {
+                                    fill: #fff;
+                                }
+                            </style>
+                        </defs>
+                        <switch>
+                            <g>
+                                <rect class="white" x="57" width="1" height="30" />
+                                <polygon class="white" points="6.46 0 25.48 11.14 44.5 0 6.46 0 6.46 0" />
+                                <polygon class="white" points="6.46 30 25.48 18.86 44.5 30 6.46 30 6.46 30" />
+                                <polygon class="white" points="0 3.18 0 26.16 18.91 14.67 0 3.18 0 3.18" />
+                                <polygon class="white" points="51 3.18 51 26.16 32.09 14.67 51 3.18 51 3.18" />
+                                <path class="white" d="M69.91,25.21c3.27,0,7.09-1.3,7.09-6.12V7H74V8.26a5.46,5.46,0,0,0-4.46-2.19c-3.46,0-6,2.52-6,6.87s2.65,6.87,6.06,6.87A5.59,5.59,0,0,0,74,17.56v1.52c0,2.85-2.22,3.74-4.13,3.74a5.46,5.46,0,0,1-4.35-1.72l-1.29,2.11a7.81,7.81,0,0,0,5.69,2Zm.48-8c-2.33,0-3.88-1.69-3.88-4.27s1.6-4.29,3.92-4.29A5.33,5.33,0,0,1,74,10.42v5a5.43,5.43,0,0,1-3.61,1.77Zm15.9,2.91a6.71,6.71,0,0,0,6.87-7,6.87,6.87,0,1,0-13.74,0,6.71,6.71,0,0,0,6.87,7Zm0-2.58c-2.47,0-3.85-2.08-3.85-4.46s1.38-4.43,3.85-4.43,3.85,2.08,3.85,4.43-1.36,4.46-3.85,4.46Zm16,2.46,5.46-13h-3.1l-3.91,10L96.87,7H93.74L99.2,20Zm7.39.09a2,2,0,0,0,1.94-2,1.94,1.94,0,0,0-3.88,0,2,2,0,0,0,1.94,2Zm10.11,0c3.6,0,5.57-1.8,5.57-4.18,0-5.32-8.09-3.55-8.09-5.9,0-.94.94-1.66,2.47-1.66a5.46,5.46,0,0,1,4,1.61l1.22-2.05a7.64,7.64,0,0,0-5.18-1.86c-3.38,0-5.26,1.86-5.26,4,0,5.15,8.09,3.27,8.09,5.9,0,1.05-.91,1.77-2.66,1.77a6.87,6.87,0,0,1-4.52-1.86L114.08,18a8.11,8.11,0,0,0,5.73,2.11Zm14.4,0a6,6,0,0,0,5.13-2.38l-1.91-1.8a3.6,3.6,0,0,1-3.08,1.61c-2.41,0-4-1.86-4-4.46s1.63-4.43,4-4.43a3.55,3.55,0,0,1,3.08,1.55l1.91-1.75a6,6,0,0,0-5.13-2.38,6.71,6.71,0,0,0-6.9,7,6.73,6.73,0,0,0,6.9,7Zm13.29,0a6.7,6.7,0,0,0,6.87-7,6.87,6.87,0,1,0-13.74,0,6.7,6.7,0,0,0,6.87,7Zm0-2.58c-2.47,0-3.85-2.08-3.85-4.46s1.39-4.43,3.85-4.43,3.85,2.08,3.85,4.43-1.36,4.46-3.85,4.46Zm13.82,2.58a3.8,3.8,0,0,0,2.67-.86L163.29,17a1.48,1.48,0,0,1-1.14.5c-.83,0-1.14-.69-1.14-1.61V9h3V7h-3V3h-3V7h-2V9h2v7.65c0,2.24,1.07,3.46,3.34,3.46Z"
+                                />
+                            </g>
+                            <foreignObject>
+                                <!-- <img src="/assets/images/mygov-logos/govscot_165px.png" alt="The Scottish Government"> -->
+                            </foreignObject>
+                        </switch>
+                    </svg>
+                </a>
+            </div><!--
+        --></div>
+    </div>
+</footer>
+        <script src="assets/jquery.min.js"></script>
+        <script src="assets/moment.js"></script>
+        <script type="text/javascript" src="assets/pikaday.js"></script>
+        <script type="text/javascript" src="assets/js/validations.js"></script>
+        <script type="text/javascript" src="assets/js/calendar.js"></script>
+
+
+        <!--[if lt IE 9]>
+            <script src="/assets/scripts/vendor/respond.min.js"></script>
+
+            <script>
+              // allows IE8 to redraw :before and :after
+              $(document).ready(function() {
+                  var $style;
+                  $style = $('<style type="text/css">:before,:after{content:none !important}</style>');
+                  $('head').append($style);
+                  return setTimeout((function() {
+                      return $style.remove();
+                  }), 0);
+              });
+            </script>
+        <![endif]-->
+
+        <!-- Latest compiled and minified JavaScript -->
+
+        <!-- Mandatory for Responsive Bootstrap Toolkit to operate -->
+        <div class="device-xs visible-xs"></div>
+        <div class="device-sm visible-sm"></div>
+        <div class="device-md visible-md"></div>
+        <div class="device-lg visible-lg"></div>
+
+        <!-- Responsive Bootstrap Toolkit -->
+        <script src="assets/bootstrap-toolkit.min.js"></script>
+        <!-- <script src="/assets/scripts/vendor/responsive.js"></script> -->
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- <script src="/assets/scripts/vendor/ie10-viewport-bug-workaround.js"></script> -->
+
+<!--         <script src="https://www.google.com/recaptcha/api.js"></script> -->
+
+        <script src="assets/lodash.min.js"></script>
+        <!-- <script src="/assets/scripts/article.d3ed60e9.js"></script> -->
+        <script>window.format.init();</script>
+    </body>
+</html>

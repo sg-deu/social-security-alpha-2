@@ -79,7 +79,7 @@ namespace FormUI.Tests.Controllers.Shared
 
             var filesOnDisk = Directory.GetFiles(@"..\..\..\FormUI", "*.*", SearchOption.AllDirectories)
                 .Select(f => f.Remove(0, @"..\..\..\FormUI\".Length))
-                .Where(f => !f.StartsWith(@"bin\") && !f.StartsWith(@"obj\") && !f.Contains(".csproj"))
+                .Where(f => !f.StartsWith(@"bin\") && !f.StartsWith(@"obj\") && !f.StartsWith(@"mygovTemplate\") && !f.Contains(".csproj"))
                 .ToList();
 
             var filesMissingFromCsproj = filesOnDisk.Where(f => !csprojFiles.Contains(f)).ToList();
