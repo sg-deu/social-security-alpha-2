@@ -153,6 +153,7 @@
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
     <Compile Include="Controllers\Shared\FormController.cs" />
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />

@@ -14,6 +14,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public AboutYou         AboutYou            { get; protected set; }
         public ExpectedChildren ExpectedChildren    { get; protected set; }
+        public ExistingChildren ExistingChildren    { get; protected set; }
 
         public static string Start(AboutYou aboutYou)
         {
@@ -34,6 +35,12 @@ namespace FormUI.Domain.BestStartGrantForms
             Validate(expectedChildren);
 
             ExpectedChildren = expectedChildren;
+            Repository.Update(this);
+        }
+
+        public void AddExistingChildren(ExistingChildren existingChildren)
+        {
+            ExistingChildren = existingChildren;
             Repository.Update(this);
         }
 
