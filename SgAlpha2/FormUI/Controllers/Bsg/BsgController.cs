@@ -71,8 +71,21 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult ExistingChildren(string id, ExistingChildren existingChildren)
         {
-            existingChildren.Children.Add(new ExistingChild());
-            return View(existingChildren);
+            if (Request.Form["Add"] != null)
+            {
+                existingChildren.Children.Add(new ExistingChild());
+                return View(existingChildren);
+            }
+
+            var cmd = new AddExistingChildren
+            {
+                FormId = id,
+                ExistingChildren = existingChildren,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.Complete()),
+                failure: () => null);
         }
 
         [HttpGet]

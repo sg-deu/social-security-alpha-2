@@ -108,14 +108,21 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        [Explicit("WIP")]
-        public void ExistingChildren_POST_StoredData()
+        public void ExistingChildren_POST_StoresData()
         {
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
                     .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
+                    .SetText(m => m.Children[0].FirstName, "child 0 first name")
+                    .SetText(m => m.Children[0].Surname, "child 0 surname")
+                    .SetDate(m => m.Children[0].DateOfBirth, "03", "04", "2005")
+                    .SetText(m => m.Children[0].RelationshipToChild, "child 0 relationship")
                     .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
+                    .SetText(m => m.Children[1].FirstName, "child 1 first name")
+                    .SetText(m => m.Children[1].Surname, "child 1 surname")
+                    .SetDate(m => m.Children[1].DateOfBirth, "02", "03", "2004")
+                    .SetText(m => m.Children[1].RelationshipToChild, "child 1 relationship")
                     .SubmitName("", client);
 
                 ExecutorStub.Executed<AddExistingChildren>(0).ShouldBeEquivalentTo(new AddExistingChildren
@@ -125,8 +132,20 @@ namespace FormUI.Tests.Controllers.Bsg
                     {
                         Children = new List<ExistingChild>()
                         {
-                            new ExistingChild(),
-                            new ExistingChild(),
+                            new ExistingChild
+                            {
+                                FirstName = "child 0 first name",
+                                Surname = "child 0 surname",
+                                DateOfBirth = new DateTime(2005, 04, 03),
+                                RelationshipToChild = "child 0 relationship",
+                            },
+                            new ExistingChild
+                            {
+                                FirstName = "child 1 first name",
+                                Surname = "child 1 surname",
+                                DateOfBirth = new DateTime(2004, 03, 02),
+                                RelationshipToChild = "child 1 relationship",
+                            },
                         },
                     },
                 });

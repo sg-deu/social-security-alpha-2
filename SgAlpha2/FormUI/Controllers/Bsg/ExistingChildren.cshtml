@@ -6,7 +6,7 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
-        <h1>If the baby has already been born ...</h1>
+        <h1>If the baby has already been born...</h1>
 
         <br />
 
@@ -18,6 +18,9 @@
                 <h3>Child @(i + 1)</h3>
 
                 @Html.LabelledInputText(m => m.Children[i].FirstName)
+                @Html.LabelledInputText(m => m.Children[i].Surname)
+                @Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
+                @Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
             }
 
             <button name="Add">Add Child</button>
