@@ -2,13 +2,14 @@
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
     [TestFixture]
-    public class RepositoryTests
+    public class RepositoryTests : DomainTest
     {
         [Test]
         public void InsertAndLoad()
@@ -52,6 +53,31 @@ namespace FormUI.Tests.Domain.Util
             {
                 var doc = repository.Load<BestStartGrant>(id);
                 doc.AboutYou.FirstName.Should().Be("updated value");
+            }
+        }
+
+        [Test]
+        public void Insert_Fails_IsValidationContextHasErrors()
+        {
+            using (var repository = LocalRepository.New())
+            {
+                var doc = new BestStartGrantBuilder("form123").Value();
+
+                DomainRegistry.ValidationContext = new ValidationContext(false);
+                Assert.Throws<DomainException>(() => repository.Insert(doc));
+            }
+        }
+
+        [Test]
+        public void Update_Fails_IsValidationContextHasErrors()
+        {
+            using (var repository = LocalRepository.New())
+            {
+                var doc = new BestStartGrantBuilder("form123").Value();
+                repository.Insert(doc);
+
+                DomainRegistry.ValidationContext = new ValidationContext(false);
+                Assert.Throws<DomainException>(() => repository.Update(doc));
             }
         }
 

@@ -73,6 +73,7 @@ namespace FormUI.Domain.Util
 
         public T Insert<T>(T doc)
         {
+            DomainRegistry.ValidationContext.ThrowIfError();
             var collectionLink = Links[typeof(T)];
             TaskUtil.Await(() => _client.CreateDocumentAsync(collectionLink, doc));
             return doc;
@@ -89,6 +90,7 @@ namespace FormUI.Domain.Util
         public T Update<T>(T doc)
             where T : IDocument
         {
+            DomainRegistry.ValidationContext.ThrowIfError();
             var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, doc.Id);
             TaskUtil.Await(() => _client.ReplaceDocumentAsync(documentUri, doc));
             return doc;
