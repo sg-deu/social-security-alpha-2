@@ -42,27 +42,21 @@ namespace FormUI.Domain.Util
 
         public void Required(Expression<Func<T, string>> property, string message)
         {
-            var value = property.Compile()(_model);
-
-            if (string.IsNullOrWhiteSpace(value))
-                Current.AddError(property, message);
+            VerifyNotEmptyMessage(message);
+            Custom(property, s => string.IsNullOrWhiteSpace(s) ? message : null);
         }
 
         public void Required(Expression<Func<T, DateTime?>> property, string message)
         {
-            var value = property.Compile()(_model);
-
-            if (!value.HasValue)
-                Current.AddError(property, message);
+            VerifyNotEmptyMessage(message);
+            Custom(property, d => !d.HasValue ? message : null);
         }
 
         public void Required<TStruct>(Expression<Func<T, Nullable<TStruct>>> property, string message)
             where TStruct : struct
         {
-            Nullable<TStruct> value = property.Compile()(_model);
-
-            if (!value.HasValue)
-                Current.AddError(property, message);
+            VerifyNotEmptyMessage(message);
+            Custom(property, v => !v.HasValue ? message : null);
         }
 
         public void Custom<TProp>(Expression<Func<T, TProp>> property, Func<TProp, string> validator)
@@ -72,6 +66,12 @@ namespace FormUI.Domain.Util
 
             if (message != null)
                 Current.AddError(property, message);
+        }
+
+        private void VerifyNotEmptyMessage(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                throw new ArgumentException("message cannot be empty or whitespace", "message");
         }
 
         public void ThrowIfError()

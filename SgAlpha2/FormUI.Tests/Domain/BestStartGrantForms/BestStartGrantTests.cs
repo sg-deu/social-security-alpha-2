@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
@@ -102,6 +103,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
+            ExpectedChildrenShouldBeValid(form, m => { });
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 1);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 10);
 
@@ -109,12 +111,28 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 11);
         }
 
+        [Test]
+        public void AddExistingChildren_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ExistingChildrenShouldBeValid(form, m => { });
+            ExistingChildrenShouldBeValid(form, m => m.Children = new List<ExistingChild>());
+
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FirstName = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].Surname = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].RelationshipToChild = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
+        }
+
         #region test helpers
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
         {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
             var aboutYou = AboutYouBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou), mutator.ToString());
+            Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou));
 
             if (postVerify != null)
                 postVerify(aboutYou);
@@ -122,20 +140,37 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void AboutYouShouldBeInvalid(Action<AboutYou> mutator)
         {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
             var aboutYou = AboutYouBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => BestStartGrant.Start(aboutYou), mutator.ToString());
+            Assert.Throws<DomainException>(() => BestStartGrant.Start(aboutYou));
         }
 
         protected void ExpectedChildrenShouldBeValid(BestStartGrant form, Action<ExpectedChildren> mutator)
         {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
             var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => form.AddExpectedChildren(expectedChildren), mutator.ToString());
+            Assert.DoesNotThrow(() => form.AddExpectedChildren(expectedChildren));
         }
 
         protected void ExpectedChildrenShouldBeInvalid(BestStartGrant form, Action<ExpectedChildren> mutator)
         {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
             var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => form.AddExpectedChildren(expectedChildren), mutator.ToString());
+            Assert.Throws<DomainException>(() => form.AddExpectedChildren(expectedChildren));
+        }
+
+        protected void ExistingChildrenShouldBeValid(BestStartGrant form, Action<ExistingChildren> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
+            Assert.DoesNotThrow(() => form.AddExistingChildren(existingChildren));
+        }
+
+        protected void ExistingChildrenShouldBeInvalid(BestStartGrant form, Action<ExistingChildren> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
+            Assert.Throws<DomainException>(() => form.AddExistingChildren(existingChildren));
         }
 
         #endregion

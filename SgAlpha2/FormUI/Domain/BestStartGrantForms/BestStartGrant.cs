@@ -40,6 +40,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public void AddExistingChildren(ExistingChildren existingChildren)
         {
+            Validate(existingChildren);
+
             ExistingChildren = existingChildren;
             Repository.Update(this);
         }
@@ -135,6 +137,22 @@ namespace FormUI.Domain.BestStartGrantForms
                 babyCount.HasValue && (babyCount.Value < 1 || babyCount.Value > 10)
                     ? "Please supply a number of babies between 1 and 10"
                     : null);
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(ExistingChildren existingChildren)
+        {
+            var ctx = new ValidationContext<ExistingChildren>(existingChildren);
+
+            for (var i = 0; i < existingChildren.Children.Count; i ++)
+            {
+                ctx.Required(c => c.Children[i].FirstName, "Please supply a First name");
+                ctx.Required(c => c.Children[i].Surname, "Please supply a Surname or family name");
+                ctx.Required(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth");
+                ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
+                ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
+            }
 
             ctx.ThrowIfError();
         }
