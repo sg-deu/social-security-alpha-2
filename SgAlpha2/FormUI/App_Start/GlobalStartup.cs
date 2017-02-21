@@ -41,9 +41,10 @@ namespace FormUI.App_Start
 
         protected virtual void InitExecutor()
         {
-            var executor = new DomainExecutor();
-            var cqExecutor = new CqExecutor(executor);
-            PresentationRegistry.NewExecutor = () => cqExecutor;
+            PresentationRegistry.NewExecutor = isValid =>
+                new CqExecutor(
+                    new DomainExecutor(isValid)
+                );
         }
     }
 }

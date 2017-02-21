@@ -21,7 +21,7 @@ namespace FormUI.Tests.Controllers.Util
         protected override void InitExecutor()
         {
             // executor is based on WebTest executor that has been setup
-            PresentationRegistry.NewExecutor = () => new CqExecutor(WebTest.ExecutorStub);
+            PresentationRegistry.NewExecutor = isValid => new CqExecutor(WebTest.ExecutorStub);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FormUI.Domain.Util;
+using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
@@ -11,6 +12,7 @@ namespace FormUI.Tests.Domain.Util
         protected virtual void SetUp()
         {
             Repository = LocalRepository.New().Register();
+            DomainRegistry.ValidationContext = new ValidationContext(true);
         }
 
         [TearDown]

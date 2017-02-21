@@ -1,10 +1,11 @@
-﻿using System;
-using FormUI.Domain.Util.Facade;
+﻿using FormUI.Domain.Util.Facade;
 
 namespace FormUI.Controllers.Shared
 {
     public class PresentationRegistry
     {
-        public static Func<CqExecutor> NewExecutor;
+        public delegate CqExecutor ExecutorFactory(bool modelIsValid);
+
+        public static ExecutorFactory NewExecutor;
     }
 }

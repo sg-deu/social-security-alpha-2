@@ -6,5 +6,8 @@ namespace FormUI.Domain.Util
     {
         [ThreadStatic]
         public static IRepository Repository;
+
+        [ThreadStatic]
+        public static ValidationContext ValidationContext;
     }
 }
