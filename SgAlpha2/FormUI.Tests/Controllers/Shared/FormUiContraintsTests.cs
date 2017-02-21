@@ -75,11 +75,12 @@ namespace FormUI.Tests.Controllers.Shared
                 .Cast<XmlElement>()
                 .Where(e => relevantElements.Contains(e.Name))
                 .Select(e => e.Attributes["Include"].Value)
+                .Select(f => f.Replace("%40", "@"))
                 .ToList();
 
             var filesOnDisk = Directory.GetFiles(@"..\..\..\FormUI", "*.*", SearchOption.AllDirectories)
                 .Select(f => f.Remove(0, @"..\..\..\FormUI\".Length))
-                .Where(f => !f.StartsWith(@"bin\") && !f.StartsWith(@"obj\") && !f.StartsWith(@"mygovTemplate\") && !f.Contains(".csproj"))
+                .Where(f => !f.StartsWith(@"bin\") && !f.StartsWith(@"obj\") && !f.Contains(".csproj"))
                 .ToList();
 
             var filesMissingFromCsproj = filesOnDisk.Where(f => !csprojFiles.Contains(f)).ToList();
