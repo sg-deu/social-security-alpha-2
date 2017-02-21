@@ -57,6 +57,35 @@ namespace FormUI.Tests.Domain.Util
         }
 
         [Test]
+        public void Delete()
+        {
+            string id;
+
+            using (var repository = LocalRepository.New())
+            {
+                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
+                id = doc.Id;
+                repository.Insert(doc);
+            }
+
+            using (var repository = LocalRepository.New(deleteAllDocuments: false))
+            {
+                var doc = repository.Load<BestStartGrant>(id);
+                repository.Delete(doc);
+            }
+
+            using (var repository = LocalRepository.New(deleteAllDocuments: false))
+            {
+                var count =
+                    repository.Query<BestStartGrant>()
+                        .ToList()
+                        .Count;
+
+                count.Should().Be(0);
+            }
+        }
+
+        [Test]
         public void Insert_Fails_IsValidationContextHasErrors()
         {
             using (var repository = LocalRepository.New())
@@ -78,6 +107,19 @@ namespace FormUI.Tests.Domain.Util
 
                 DomainRegistry.ValidationContext = new ValidationContext(false);
                 Assert.Throws<DomainException>(() => repository.Update(doc));
+            }
+        }
+
+        [Test]
+        public void Delete_Fails_IsValidationContextHasErrors()
+        {
+            using (var repository = LocalRepository.New())
+            {
+                var doc = new BestStartGrantBuilder("form123").Value();
+                repository.Insert(doc);
+
+                DomainRegistry.ValidationContext = new ValidationContext(false);
+                Assert.Throws<DomainException>(() => repository.Delete(doc));
             }
         }
 

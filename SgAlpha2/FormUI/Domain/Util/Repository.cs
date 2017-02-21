@@ -96,6 +96,14 @@ namespace FormUI.Domain.Util
             return doc;
         }
 
+        public void Delete<T>(T doc)
+            where T : IDocument
+        {
+            DomainRegistry.ValidationContext.ThrowIfError();
+            var documentUri = UriFactory.CreateDocumentUri(DbName, typeof(T).Name, doc.Id);
+            TaskUtil.Await(() => _client.DeleteDocumentAsync(documentUri));
+        }
+
         public IOrderedQueryable<T> Query<T>()
         {
             var collectionLink = Links[typeof(T)];
