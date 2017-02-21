@@ -21,6 +21,8 @@
                 @Html.LabelledInputText(m => m.Children[i].Surname)
                 @Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
                 @Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
+                @Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
+                @Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
             }
 
             <div class="form-group">

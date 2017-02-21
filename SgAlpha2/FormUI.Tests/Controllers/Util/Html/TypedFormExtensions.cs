@@ -28,6 +28,16 @@ namespace FormUI.Tests.Controllers.Util.Html
             return form;
         }
 
+        public static TypedForm<T> SelectYes<T, U>(this TypedForm<T> form, Expression<Func<T, U>> property)
+        {
+            return form.SetText(property, "True");
+        }
+
+        public static TypedForm<T> SelectNo<T, U>(this TypedForm<T> form, Expression<Func<T, U>> property)
+        {
+            return form.SetText(property, "False");
+        }
+
         public static string FormName(LambdaExpression property)
         {
             return property.GetExpressionText();
