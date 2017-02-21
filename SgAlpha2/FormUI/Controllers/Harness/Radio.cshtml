@@ -15,6 +15,9 @@
 
             @Html.LabelledRadio("Radio3", m => m.Radio3)
 
+            @(Html.LabelledRadioYesNo(m => m.Radio4)
+                .Hint("An example of an inline yes/no radio mapping to a nullable boolean in the model"))
+
         </form>
 
     </div><!--

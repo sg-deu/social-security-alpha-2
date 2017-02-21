@@ -100,6 +100,21 @@ namespace FormUI.Controllers.Helpers
                 new Radios(controlContext, values, descriptionTexts));
         }
 
+        public static FormRow<Radios> LabelledRadioYesNo<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property)
+        {
+            return helper.LabelledRadioYesNo(null, property);
+        }
+
+
+        public static FormRow<Radios> LabelledRadioYesNo<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool?>> property)
+        {
+            var values = new List<string> { "True", "False" };
+            var descriptionTexts = new Dictionary<string, string> { { "True", "Yes" }, { "False", "No" }, };
+
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new Radios(controlContext, values, descriptionTexts));
+        }
+
         public delegate TControl ControlFactory<TControl>(ControlContext controlContext);
 
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
