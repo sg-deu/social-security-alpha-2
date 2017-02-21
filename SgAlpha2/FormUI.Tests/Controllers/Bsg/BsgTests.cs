@@ -6,6 +6,7 @@ using FluentAssertions;
 using FormUI.Controllers.Bsg;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
 using NUnit.Framework;
@@ -151,6 +152,20 @@ namespace FormUI.Tests.Controllers.Bsg
                 });
 
                 response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+            });
+        }
+
+        [Test]
+        public void ExistingChildren_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddExistingChildren>(), cmd => { throw new DomainException(new string[0]); });
+
+                var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
             });
         }
 

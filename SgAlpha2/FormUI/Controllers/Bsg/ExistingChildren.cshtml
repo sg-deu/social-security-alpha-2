@@ -23,9 +23,11 @@
                 @Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
             }
 
-            <button name="Add">Add Child</button>
+            <div class="form-group">
+                <button name="Add" class="button button--primary">Add Child</button>
+            </div>
 
-            @Html.ButtonSubmit()
+            @Html.ButtonSubmitNext()
 
         </form>
 
