@@ -10,7 +10,7 @@
         localStorage['scrollTop'] = $(document).scrollTop();
     });
 
-    if (localStorage['page'] == document.URL) {
+    if (localStorage['page'] == document.URL && $('.validation-summary-errors').length == 0) {
         $(document).scrollTop(localStorage['scrollTop']);
     }
 
