@@ -40,7 +40,7 @@ namespace FormUI.App_Start
 
                 if (!int.TryParse(vpr.AttemptedValue, out value))
                 {
-                    bindingContext.ModelState.AddModelError(name, $"{bindingContext.ModelMetadata.GetDisplayName()} is not a valid number");
+                    bindingContext.ModelState.AddModelError(name, $"{bindingContext.ModelMetadata.GetDisplayName()}: please supply a valid number");
                     return null;
                 }
 
@@ -86,7 +86,7 @@ namespace FormUI.App_Start
 
                 if (!int.TryParse(dayValue.AttemptedValue, out day) || !int.TryParse(monthValue.AttemptedValue, out month) || !int.TryParse(yearValue.AttemptedValue, out year))
                 {
-                    bindingContext.ModelState.AddModelError(name, $"{bindingContext.ModelMetadata.GetDisplayName()} is not a valid date");
+                    bindingContext.ModelState.AddModelError(name, $"{bindingContext.ModelMetadata.GetDisplayName()}: please supply a valid date");
                     return null;
                 }
 
