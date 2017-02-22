@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
@@ -123,14 +125,29 @@ namespace FormUI.Tests.SystemTests.Util
             });
         }
 
-        public void Submit()
+        public void ClickButton(string name)
         {
-            Console.WriteLine("Submit form");
+            Console.WriteLine("Click button ", name);
             Wait.For(() =>
             {
-                var button = _browser.FindElement(By.CssSelector("form[method='post'] button"));
-                button.Click();
+                IList<IWebElement> buttons = _browser.FindElements(By.CssSelector("form[method='post'] button"));
+
+                if (name != null)
+                    buttons = buttons.Where(b => b.GetAttribute("name") == name).ToList();
+
+                if (buttons.Count > 1)
+                    Assert.Fail("No single button; found: ", string.Join("\n", buttons.Select(b => b.GetAttribute("outerHTML"))));
+
+                if (buttons.Count < 1)
+                    Assert.Fail("No buttons found with name = ", name);
+
+                buttons.First().Click();
             });
+        }
+
+        public void Submit()
+        {
+            ClickButton(null);
         }
     }
 }
