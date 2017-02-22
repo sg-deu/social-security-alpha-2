@@ -15,7 +15,7 @@
             @Html.ValidationSummary()
 
             @for (var i = 0; i < Model.Children.Count; i++) {
-                <h3>Child @(i + 1)</h3>
+                <h3 class="existing-child">Child @(i + 1)</h3>
 
                 @Html.LabelledInputText(m => m.Children[i].FirstName)
                 @Html.LabelledInputText(m => m.Children[i].Surname)
@@ -23,6 +23,10 @@
                 @Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
                 @Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
                 @Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
+
+                <div class="form-group">
+                    <button name="Remove" value="@i" class="button button--primary">Remove Child @(i + 1)</button>
+                </div>
             }
 
             <div class="form-group">

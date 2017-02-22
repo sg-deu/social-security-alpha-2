@@ -77,6 +77,14 @@ namespace FormUI.Controllers.Bsg
                 return View(existingChildren);
             }
 
+            if (Request.Form["Remove"] != null)
+            {
+                var childIndex = int.Parse(Request.Form["Remove"]);
+                existingChildren.Children.RemoveAt(childIndex);
+                RemoveModelStateArray<ExistingChildren>(m => m.Children, childIndex);
+                return View(existingChildren);
+            }
+
             var cmd = new AddExistingChildren
             {
                 FormId = id,

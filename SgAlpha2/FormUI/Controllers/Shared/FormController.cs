@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using FormUI.Controllers.Helpers;
 using FormUI.Domain.Util;
@@ -45,6 +47,21 @@ namespace FormUI.Controllers.Shared
             return modelState.IsValid
                 ? success(response)
                 : failure();
+        }
+
+        protected void RemoveModelStateArray<T>(Expression<Func<T, object>> property, int index)
+        {
+            var name = property.GetExpressionText();
+            var keys = ModelState.Keys.ToList();
+            var nameToDelete = $"{name}[{index}]";
+
+            foreach (var key in keys)
+            {
+                if (!key.StartsWith(nameToDelete))
+                    continue;
+
+                ModelState.Remove(key);
+            }
         }
     }
 }

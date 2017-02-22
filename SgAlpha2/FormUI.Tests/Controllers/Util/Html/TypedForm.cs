@@ -98,6 +98,13 @@ namespace FormUI.Tests.Controllers.Util.Html
             return Submit(submit, client, modifier);
         }
 
+        public Response SubmitNameValue(string name, string value, ISimulatedHttpClient client, Action<Request> modifier = null)
+        {
+            var submits = _submitValues.Where(sv => sv.Name == name && sv.Value == value).ToList();
+            var submit = SingleSubmit("Could not find submit with name " + name + " and value " + value, submits);
+            return Submit(submit, client, modifier);
+        }
+
         public Response Submit(SubmitValue submit, ISimulatedHttpClient client, Action<Request> modifier = null)
         {
             var request = new Request(Action, Method);

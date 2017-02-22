@@ -164,6 +164,36 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExistingChildren_POST_CanAddRemoveChildren()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExistingChildren("form123"));
+
+                response.Doc.FindAll(".existing-child").Count.Should().Be(0);
+
+                response = response
+                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK))
+                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK))
+                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.FindAll(".existing-child").Count.Should().Be(3);
+
+                response = response.Form<ExistingChildren>(1)
+                    .SetText(m => m.Children[0].FirstName, "child 0")
+                    .SetText(m => m.Children[1].FirstName, "child 1")
+                    .SetText(m => m.Children[2].FirstName, "child 2")
+                    .SubmitNameValue("Remove", "1", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.FindAll(".existing-child").Count.Should().Be(2);
+
+                var form = response.Form<ExistingChildren>(1);
+                form.GetText(m => m.Children[0].FirstName).Should().Be("child 0");
+                form.GetText(m => m.Children[1].FirstName).Should().Be("child 2");
+            });
+        }
+
+        [Test]
         public void ExistingChildren_POST_ErrorsAreDisplayed()
         {
             WebAppTest(client =>
