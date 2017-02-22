@@ -3,13 +3,21 @@ using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
+    public enum ControlWidth
+    {
+        Small,
+        Medium,
+        Max,
+    }
+
     public class FormRow<TControl> : Control
         where TControl : Control
     {
-        private string      _id;
-        private string      _labelText;
-        private TControl    _control;
-        private string      _hintHtml;
+        private string          _id;
+        private string          _labelText;
+        private TControl        _control;
+        private string          _hintHtml;
+        private ControlWidth?   _controlWidth;
 
         public FormRow(string id, string labelText, TControl control)
         {
@@ -27,6 +35,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public FormRow<TControl> Hint(string hintHtml)
         {
             _hintHtml = hintHtml;
+            return this;
+        }
+
+        public FormRow<TControl> Width(ControlWidth? controlWidth)
+        {
+            _controlWidth = controlWidth;
             return this;
         }
 
@@ -53,6 +67,9 @@ namespace FormUI.Controllers.Helpers.Controls
                 var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(_hintHtml);
                 label.Append(hint);
             }
+
+            if (_controlWidth.HasValue && _controlWidth.Value != ControlWidth.Max)
+                inputWrapper.AddClass("control-width-" + _controlWidth.Value.ToString().ToLower());
 
             return formGroup;
         }

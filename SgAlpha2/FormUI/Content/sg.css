@@ -20,6 +20,12 @@
 .sg .form-group .input-wrapper input {
   border: 1px solid #b3b3b3; }
 
+.sg .form-group .input-wrapper.control-width-medium {
+  width: 360px; }
+
+.sg .form-group .input-wrapper.control-width-small {
+  width: 100px; }
+
 .sg .date-input {
   padding: 3px;
   /* the overflow prevents the float cascaing onto the next element: http://www.quirksmode.org/css/clearing.html#link3 */
