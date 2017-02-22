@@ -49,6 +49,11 @@ namespace FormUI.Controllers.Shared
                 : failure();
         }
 
+        protected bool WasClicked(string button)
+        {
+            return Request.Form[button] != null;
+        }
+
         protected void RemoveModelStateArray<T>(Expression<Func<T, object>> property, int index)
         {
             var name = property.GetExpressionText();

@@ -5,6 +5,12 @@ using FormUI.Domain.BestStartGrantForms.Dto;
 
 namespace FormUI.Controllers.Bsg
 {
+    public static class BsgButtons
+    {
+        public const string AddChild    = "AddChild";
+        public const string RemoveChild = "RemoveChild";
+    }
+
     public static class BsgActions
     {
         public static string    Overview()                          { return "~/bsg/overview"; }
@@ -71,15 +77,15 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult ExistingChildren(string id, ExistingChildren existingChildren)
         {
-            if (Request.Form["Add"] != null)
+            if (WasClicked(BsgButtons.AddChild))
             {
                 existingChildren.Children.Add(new ExistingChild());
                 return View(existingChildren);
             }
 
-            if (Request.Form["Remove"] != null)
+            if (WasClicked(BsgButtons.RemoveChild))
             {
-                var childIndex = int.Parse(Request.Form["Remove"]);
+                var childIndex = int.Parse(Request.Form[BsgButtons.RemoveChild]);
                 existingChildren.Children.RemoveAt(childIndex);
                 RemoveModelStateArray<ExistingChildren>(m => m.Children, childIndex);
                 return View(existingChildren);

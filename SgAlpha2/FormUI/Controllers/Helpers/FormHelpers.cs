@@ -105,7 +105,6 @@ namespace FormUI.Controllers.Helpers
             return helper.LabelledRadioYesNo(null, property);
         }
 
-
         public static FormRow<Radios> LabelledRadioYesNo<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool?>> property)
         {
             var values = new List<string> { "True", "False" };
@@ -113,6 +112,25 @@ namespace FormUI.Controllers.Helpers
 
             return helper.LabelledControl(labelText, property, controlContext =>
                 new Radios(controlContext, values, descriptionTexts));
+        }
+
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label)
+        {
+            return helper.FormButton(name, null, label);
+        }
+
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string value, string label)
+        {
+            var div = new DivTag().AddClasses("form-group");
+            var button = new HtmlTag("button").AddClasses("button", "button--primary").Text(label);
+
+            if (!string.IsNullOrWhiteSpace(name))
+                button.Name(name);
+
+            if (!string.IsNullOrWhiteSpace(value))
+                button.Value(value);
+
+            return div.Append(button);
         }
 
         public delegate TControl ControlFactory<TControl>(ControlContext controlContext);

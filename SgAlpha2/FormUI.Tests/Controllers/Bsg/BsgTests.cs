@@ -114,14 +114,14 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
-                    .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
+                    .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
                     .SetText(m => m.Children[0].FirstName, "child 0 first name")
                     .SetText(m => m.Children[0].Surname, "child 0 surname")
                     .SetDate(m => m.Children[0].DateOfBirth, "03", "04", "2005")
                     .SetText(m => m.Children[0].RelationshipToChild, "child 0 relationship")
                     .SelectYes(m => m.Children[0].ChildBenefit)
                     .SelectYes(m => m.Children[0].FormalKinshipCare)
-                    .SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
+                    .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
                     .SetText(m => m.Children[1].FirstName, "child 1 first name")
                     .SetText(m => m.Children[1].Surname, "child 1 surname")
                     .SetDate(m => m.Children[1].DateOfBirth, "02", "03", "2004")
@@ -173,9 +173,9 @@ namespace FormUI.Tests.Controllers.Bsg
                 response.Doc.FindAll(".existing-child").Count.Should().Be(0);
 
                 response = response
-                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK))
-                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK))
-                    .Form<ExistingChildren>(1).SubmitName("Add", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+                    .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK))
+                    .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK))
+                    .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.FindAll(".existing-child").Count.Should().Be(3);
 
@@ -183,7 +183,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SetText(m => m.Children[0].FirstName, "child 0")
                     .SetText(m => m.Children[1].FirstName, "child 1")
                     .SetText(m => m.Children[2].FirstName, "child 2")
-                    .SubmitNameValue("Remove", "1", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+                    .SubmitNameValue(BsgButtons.RemoveChild, "1", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.FindAll(".existing-child").Count.Should().Be(2);
 

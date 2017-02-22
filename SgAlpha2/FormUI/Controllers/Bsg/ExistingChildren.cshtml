@@ -24,14 +24,10 @@
                 @Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
                 @Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
 
-                <div class="form-group">
-                    <button name="Remove" value="@i" class="button button--primary">Remove Child @(i + 1)</button>
-                </div>
+                @Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i+1}")
             }
 
-            <div class="form-group">
-                <button name="Add" class="button button--primary">Add Child</button>
-            </div>
+            @Html.FormButton(BsgButtons.AddChild, "Add Child")
 
             @Html.ButtonSubmitNext()
 
