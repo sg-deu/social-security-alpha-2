@@ -27,7 +27,7 @@ namespace FormUI.Tests.SystemTests.Util
 
                     _enforceSingleInstance = new Semaphore(1, 1, semaphoreName, out createdNew_notUsed, security);
 
-                    if (!_enforceSingleInstance.WaitOne())
+                    if (!_enforceSingleInstance.WaitOne(TimeSpan.FromSeconds(40)))
                         throw new Exception("Could not obtain semaphore: " + semaphoreName);
                 }
                 catch

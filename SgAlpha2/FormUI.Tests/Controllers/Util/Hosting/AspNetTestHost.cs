@@ -23,7 +23,7 @@ namespace FormUI.Tests.Controllers.Util.Hosting
 
         public AspNetTestHost(string physicalDirectory) : this(physicalDirectory, typeof(AppDomainProxy)) { }
 
-        public AspNetTestHost(string physicalDirectory, Type appDomainProxyType) : this(physicalDirectory, "/", Timeout.InfiniteTimeSpan, appDomainProxyType) { }
+        public AspNetTestHost(string physicalDirectory, Type appDomainProxyType) : this(physicalDirectory, "/", TimeSpan.FromSeconds(40), appDomainProxyType) { }
 
         public AspNetTestHost(string physicalDirectory, string virtualDirectory, TimeSpan timeout, Type appDomainProxyType)
         {

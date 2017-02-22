@@ -9,10 +9,15 @@
 
             @Html.LabelledInputText("Standard text input", m => m.Text1)
 
-            @(Html.LabelledInputText("Standard text input", m => m.Text2)
-                .Hint("with some hint text"))
+            @(Html.LabelledInputText("Standard text input (medium width)", m => m.Text2)
+                .Hint("with some hint text, and max length 10 chars")
+                .Control(c => c.MaxLength(10))
+                .Width(ControlWidth.Medium))
 
-            @Html.LabelledInputText("Text input", m => m.Text3).Hint("with custom orange background").Control(c => c.Tag(t => t.Style("background", "orange")))
+            @(Html.LabelledInputText("Text input", m => m.Text3)
+                .Hint("with custom orange background (small width)")
+                .Control(c => c.Tag(t => t.Style("background", "orange")))
+                .Width(ControlWidth.Small))
 
             @Html.LabelledInputPassword("Password input", m => m.Password)
 
