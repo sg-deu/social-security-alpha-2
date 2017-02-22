@@ -32,23 +32,14 @@ namespace FormUI.Controllers.Shared
             }
             catch (DomainException exception)
             {
-                bool addedErrorReason = false;
-
                 foreach (var nonPropertyError in exception.Messages)
-                {
                     modelState.AddModelError("", nonPropertyError);
-                    addedErrorReason = true;
-                }
 
                 foreach (var propertyError in exception.PropertyErrors)
                 {
                     var key = propertyError.Key.GetExpressionText();
                     modelState.AddModelError(key, propertyError.Value);
-                    addedErrorReason = true;
                 }
-
-                if (!addedErrorReason)
-                    modelState.AddModelError("", "The application has encountered an unknown error.  Please help us by letting us know about the problem.");
             }
 
             return modelState.IsValid

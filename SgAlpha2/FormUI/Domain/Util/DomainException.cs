@@ -13,6 +13,9 @@ namespace FormUI.Domain.Util
             PropertyErrors = new Dictionary<LambdaExpression, string>();
         }
 
+        public DomainException(string message) : this(new string[] { message })
+        { }
+
         public DomainException(IEnumerable<string> messages) : this()
         {
             Messages = messages;

@@ -168,7 +168,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddExistingChildren>(), cmd => { throw new DomainException(new string[0]); });
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddExistingChildren>(), cmd => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
