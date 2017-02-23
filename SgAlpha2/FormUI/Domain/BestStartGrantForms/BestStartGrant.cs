@@ -58,6 +58,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public void AddPaymentDetails(PaymentDetails paymentDetails)
         {
+            Validate(paymentDetails);
+
             PaymentDetails = paymentDetails;
             Repository.Update(this);
         }
@@ -182,6 +184,23 @@ namespace FormUI.Domain.BestStartGrantForms
             var ctx = new ValidationContext<HealthProfessional>(healthProfessional);
 
             ctx.Required(c => c.Pin, "Please supply a GMC No. or NMC pin");
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(PaymentDetails paymentDetails)
+        {
+            var ctx = new ValidationContext<PaymentDetails>(paymentDetails);
+
+            ctx.Required(m => m.LackingBankAccount, "Please indicate if you are lacking a bank account");
+
+            if (paymentDetails.LackingBankAccount == false)
+            {
+                ctx.Required(m => m.NameOfAccountHolder, "Please supply the name of the account holder");
+                ctx.Required(m => m.NameOfBank, "Please supply the name of the bank");
+                ctx.Required(m => m.AccountNumber, "Please supply the account number");
+                ctx.Required(m => m.SortCode, "Please supply the sort code");
+            }
 
             ctx.ThrowIfError();
         }

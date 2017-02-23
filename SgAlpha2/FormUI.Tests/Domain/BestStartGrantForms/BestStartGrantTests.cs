@@ -141,6 +141,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             HealthProfessionalShouldBeInvalid(form, m => m.Pin = null);
         }
 
+        [Test]
+        public void AddPaymentDetails_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            PaymentDetailsShouldBeValid(form, m => { });
+            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = false; m.RollNumber = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.NameOfAccountHolder = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.NameOfBank = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.AccountNumber = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.SortCode = null; });
+
+            PaymentDetailsShouldBeInvalid(form, m => m.LackingBankAccount = null);
+            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.NameOfAccountHolder = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.NameOfBank = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.AccountNumber = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.SortCode = null; });
+        }
+
         #region test helpers
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
@@ -200,6 +219,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             DomainRegistry.ValidationContext = new ValidationContext(true);
             var healthProfessional = HealthProfessionalBuilder.NewValid(mutator);
             Assert.Throws<DomainException>(() => form.AddHealthProfessional(healthProfessional));
+        }
+
+        protected void PaymentDetailsShouldBeValid(BestStartGrant form, Action<PaymentDetails> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var paymentDetails = PaymentDetailsBuilder.NewValid(mutator);
+            Assert.DoesNotThrow(() => form.AddPaymentDetails(paymentDetails));
+        }
+
+        protected void PaymentDetailsShouldBeInvalid(BestStartGrant form, Action<PaymentDetails> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var paymentDetails = PaymentDetailsBuilder.NewValid(mutator);
+            Assert.Throws<DomainException>(() => form.AddPaymentDetails(paymentDetails));
         }
 
         #endregion
