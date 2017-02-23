@@ -254,6 +254,7 @@
     <Content Include="Controllers\Bsg\Complete.cshtml" />
     <Content Include="Controllers\Bsg\ExpectedChildren.cshtml" />
     <Content Include="Controllers\Bsg\ExistingChildren.cshtml" />
+    <Content Include="Controllers\Bsg\HealthProfessional.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

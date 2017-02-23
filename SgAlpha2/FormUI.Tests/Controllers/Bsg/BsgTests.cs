@@ -208,6 +208,42 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void HealthProfessional_POST_StoresData()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.HealthProfessional("form123")).Form<HealthProfessional>(1)
+                    .SetText(m => m.Pin, "ABC12345")
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddHealthProfessional>(0).ShouldBeEquivalentTo(new AddHealthProfessional
+                {
+                    FormId = "form123",
+                    HealthProfessional = new HealthProfessional
+                    {
+                        Pin = "ABC12345",
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+            });
+        }
+
+        [Test]
+        public void HealthProfessional_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddHealthProfessional>(), cmd => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.HealthProfessional("form123")).Form<HealthProfessional>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void Complete_GET()
         {
             WebAppTest(client =>

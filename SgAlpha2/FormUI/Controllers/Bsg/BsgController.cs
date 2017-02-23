@@ -17,6 +17,7 @@ namespace FormUI.Controllers.Bsg
         public static string    AboutYou()                          { return "~/bsg/aboutYou"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
+        public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    Complete()                          { return "~/bsg/complete"; }
     }
 
@@ -100,6 +101,26 @@ namespace FormUI.Controllers.Bsg
             return Exec(cmd,
                 success: () => Redirect(BsgActions.Complete()),
                 failure: () => View(existingChildren));
+        }
+
+        [HttpGet]
+        public ActionResult HealthProfessional(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult HealthProfessional(string id, HealthProfessional healthProfessional)
+        {
+            var cmd = new AddHealthProfessional
+            {
+                FormId = id,
+                HealthProfessional = healthProfessional,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.Complete()),
+                failure: () => HealthProfessional(id));
         }
 
         [HttpGet]
