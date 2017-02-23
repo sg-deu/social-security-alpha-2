@@ -179,10 +179,12 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildrenTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildrenTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessionalTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\ExistingChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\ExpectedChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\HealthProfessionalBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\PaymentDetailsBuilder.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />

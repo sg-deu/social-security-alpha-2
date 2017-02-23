@@ -156,6 +156,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />

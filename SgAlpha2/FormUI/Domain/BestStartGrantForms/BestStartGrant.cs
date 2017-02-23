@@ -16,6 +16,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
+        public PaymentDetails       PaymentDetails      { get; protected set; }
 
         public static string Start(AboutYou aboutYou)
         {
@@ -52,6 +53,12 @@ namespace FormUI.Domain.BestStartGrantForms
             Validate(healthProfessional);
 
             HealthProfessional = healthProfessional;
+            Repository.Update(this);
+        }
+
+        public void AddPaymentDetails(PaymentDetails paymentDetails)
+        {
+            PaymentDetails = paymentDetails;
             Repository.Update(this);
         }
 

@@ -26,7 +26,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string   AccountNumber       { get; set; }
 
         [DisplayName("Building Society roll or reference number")]
-        [HintText("If you are using a building society account numberyou may need to tell us a roll or reference number; this may be made up of letters and numbers, and may be up to 18 characters long; if you are not sure if the account has a roll or reference number, ask the building society")]
+        [HintText("If you are using a building society account number you may need to tell us a roll or reference number; this may be made up of letters and numbers, and may be up to 18 characters long; if you are not sure if the account has a roll or reference number, ask the building society")]
         public string   RollNumber          { get; set; }
     }
 }
