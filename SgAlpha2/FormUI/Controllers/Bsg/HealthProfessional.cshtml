@@ -15,9 +15,7 @@
             @Html.ValidationSummary()
 
 
-            @(Html.LabelledInputText(m => m.Pin)
-                .Control(c => c.MaxLength(20))
-                .Width(ControlWidth.Medium))
+            @Html.LabelledInputText(m => m.Pin)
 
             @Html.ButtonSubmit()
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using FormUI.App_Start;
 using FormUI.Controllers.Helpers.Controls;
 using HtmlTags;
 
@@ -157,8 +158,18 @@ namespace FormUI.Controllers.Helpers
 
             var formRow = new FormRow<TControl>(id, labelText, control);
 
-            if (metaData.AdditionalValues.ContainsKey("HintText"))
-                formRow.Hint((string)metaData.AdditionalValues["HintText"]);
+            if (metaData.AdditionalValues.ContainsKey(Metadata.HintText))
+                formRow.Hint((string)metaData.AdditionalValues[Metadata.HintText]);
+
+            if (metaData.AdditionalValues.ContainsKey(Metadata.MaxLength))
+            {
+                int maxLength = (int)metaData.AdditionalValues[Metadata.MaxLength];
+
+                if (maxLength <= 5)
+                    formRow.Width(ControlWidth.Small);
+                else if (maxLength <= 25)
+                    formRow.Width(ControlWidth.Medium);
+            }
 
             return formRow;
         }

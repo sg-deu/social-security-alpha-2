@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using FormUI.Domain.Util;
 
 namespace FormUI.App_Start
 {
+    public static class Metadata
+    {
+        public const string HintText    = "HintText";
+        public const string MaxLength   = "MaxLength";
+    }
+
     public class MetadataProvider : DataAnnotationsModelMetadataProvider
     {
         protected override ModelMetadata CreateMetadata(IEnumerable<Attribute> attributes, Type containerType, Func<object> modelAccessor, Type modelType, string propertyName)
@@ -15,7 +22,12 @@ namespace FormUI.App_Start
             var hint = attributes.OfType<HintTextAttribute>().FirstOrDefault();
 
             if (hint != null)
-                metaData.AdditionalValues.Add("HintText", hint.HintText);
+                metaData.AdditionalValues.Add(Metadata.HintText, hint.HintText);
+
+            var stringLength = attributes.OfType<StringLengthAttribute>().FirstOrDefault();
+
+            if (stringLength != null)
+                metaData.AdditionalValues.Add(Metadata.MaxLength, stringLength.MaximumLength);
 
             return metaData;
         }

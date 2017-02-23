@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace FormUI.Controllers.Harness
 {
     public class HarnessModel
     {
+        [DisplayName("Standard text input")]
+        [StringLength(30)]
         public string       Text1       { get; set; }
+
         public string       Text2       { get; set; }
         public string       Text3       { get; set; }
         public string       Password    { get; set; }

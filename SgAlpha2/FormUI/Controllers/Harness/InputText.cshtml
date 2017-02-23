@@ -7,7 +7,7 @@
 
         <form>
 
-            @Html.LabelledInputText("Standard text input", m => m.Text1)
+            @Html.LabelledInputText(m => m.Text1)
 
             @(Html.LabelledInputText("Standard text input (medium width)", m => m.Text2)
                 .Hint("with some hint text, and max length 10 chars")

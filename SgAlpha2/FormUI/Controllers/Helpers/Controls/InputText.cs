@@ -1,4 +1,5 @@
-﻿using HtmlTags;
+﻿using FormUI.App_Start;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
@@ -25,8 +26,13 @@ namespace FormUI.Controllers.Helpers.Controls
                 .Attr("type", "text")
                 .AddClasses("form-control");
 
-            if (_maxLength.HasValue)
-                input.Attr("maxlength", _maxLength);
+            var maxLength = _maxLength;
+
+            if (!maxLength.HasValue && ControlContext.Metadata.AdditionalValues.ContainsKey(Metadata.MaxLength))
+                maxLength = (int)ControlContext.Metadata.AdditionalValues[Metadata.MaxLength];
+
+            if (maxLength.HasValue)
+                input.Attr("maxlength", maxLength);
 
             return input;
         }
