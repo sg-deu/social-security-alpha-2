@@ -49,6 +49,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public void AddHealthProfessional(HealthProfessional healthProfessional)
         {
+            Validate(healthProfessional);
+
             HealthProfessional = healthProfessional;
             Repository.Update(this);
         }
@@ -164,6 +166,15 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
                 ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
             }
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(HealthProfessional healthProfessional)
+        {
+            var ctx = new ValidationContext<HealthProfessional>(healthProfessional);
+
+            ctx.Required(c => c.Pin, "Please supply a GMC No. or NMC pin");
 
             ctx.ThrowIfError();
         }

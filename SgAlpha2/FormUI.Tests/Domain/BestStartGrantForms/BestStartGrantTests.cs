@@ -131,6 +131,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
         }
 
+        [Test]
+        public void AddHealthProfessional_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            HealthProfessionalShouldBeValid(form, m => { });
+
+            HealthProfessionalShouldBeInvalid(form, m => m.Pin = null);
+        }
+
         #region test helpers
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
@@ -176,6 +186,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             DomainRegistry.ValidationContext = new ValidationContext(true);
             var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
             Assert.Throws<DomainException>(() => form.AddExistingChildren(existingChildren));
+        }
+
+        protected void HealthProfessionalShouldBeValid(BestStartGrant form, Action<HealthProfessional> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var healthProfessional = HealthProfessionalBuilder.NewValid(mutator);
+            Assert.DoesNotThrow(() => form.AddHealthProfessional(healthProfessional));
+        }
+
+        protected void HealthProfessionalShouldBeInvalid(BestStartGrant form, Action<HealthProfessional> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var healthProfessional = HealthProfessionalBuilder.NewValid(mutator);
+            Assert.Throws<DomainException>(() => form.AddHealthProfessional(healthProfessional));
         }
 
         #endregion
