@@ -99,7 +99,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Complete()),
+                success: () => Redirect(BsgActions.HealthProfessional(id)),
                 failure: () => View(existingChildren));
         }
 

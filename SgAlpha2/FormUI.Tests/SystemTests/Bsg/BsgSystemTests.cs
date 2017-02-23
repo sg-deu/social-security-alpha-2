@@ -75,6 +75,14 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             App.ClickButton("");
 
+            {
+                var form = App.FormFormModel<HealthProfessional>();
+
+                form.TypeText(m => m.Pin, "XYZ54321");
+            }
+
+            App.Submit();
+
             App.VerifyCanSeeText("Thank you");
 
             Db(r =>
@@ -114,6 +122,8 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
                 doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
                 doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
+
+                doc.HealthProfessional.Pin.Should().Be("XYZ54321");
             });
         }
     }
