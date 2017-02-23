@@ -134,7 +134,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<ExpectedChildren>(expectedChildren);
 
-            ctx.InFuture(m => m.ExpectancyDate, "Please supply an Expectancy Date in the future");
+            ctx.InFuture(m => m.ExpectancyDate, "Please supply an expectancy date in the future");
 
             ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
                 babyCount.HasValue && (babyCount.Value < 1 || babyCount.Value > 10)
