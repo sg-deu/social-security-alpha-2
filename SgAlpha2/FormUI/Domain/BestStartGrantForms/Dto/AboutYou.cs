@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using FormUI.Domain.Util;
+using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {

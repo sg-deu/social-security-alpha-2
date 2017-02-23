@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using FormUI.Domain.Util;
+using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
@@ -12,6 +12,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         [DisplayName("If more than one baby is expected, please state how many are expected")]
         [HintText("Please make sure that the document you are sending with this claim form tells us the number of babies that are expected")]
+        [UiLength(2)]
         public int? ExpectedBabyCount { get; set; }
     }
 }

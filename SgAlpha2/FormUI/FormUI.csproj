@@ -167,6 +167,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessional.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
+    <Compile Include="Domain\Util\Attributes\UiLengthAttribute.cs" />
     <Compile Include="Domain\Util\Command.cs" />
     <Compile Include="Domain\Util\DomainException.cs" />
     <Compile Include="Domain\Util\DomainRegistry.cs" />
@@ -174,7 +175,7 @@
     <Compile Include="Domain\Util\Facade\DomainExecutor.cs" />
     <Compile Include="Domain\Util\Facade\IExecutable.cs" />
     <Compile Include="Domain\Util\Facade\IExecutor.cs" />
-    <Compile Include="Domain\Util\HintTextAttribute.cs" />
+    <Compile Include="Domain\Util\Attributes\HintTextAttribute.cs" />
     <Compile Include="Domain\Util\Query.cs" />
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />

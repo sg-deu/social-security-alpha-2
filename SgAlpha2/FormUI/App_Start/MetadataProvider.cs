@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
-using FormUI.Domain.Util;
+using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.App_Start
 {
@@ -24,10 +23,10 @@ namespace FormUI.App_Start
             if (hint != null)
                 metaData.AdditionalValues.Add(Metadata.HintText, hint.HintText);
 
-            var stringLength = attributes.OfType<StringLengthAttribute>().FirstOrDefault();
+            var uiLength = attributes.OfType<UiLengthAttribute>().FirstOrDefault();
 
-            if (stringLength != null)
-                metaData.AdditionalValues.Add(Metadata.MaxLength, stringLength.MaximumLength);
+            if (uiLength != null)
+                metaData.AdditionalValues.Add(Metadata.MaxLength, uiLength.MaxLength);
 
             return metaData;
         }

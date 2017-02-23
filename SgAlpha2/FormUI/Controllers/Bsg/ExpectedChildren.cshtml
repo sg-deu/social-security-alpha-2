@@ -17,9 +17,7 @@
 
             @Html.LabelledInputDate(m => m.ExpectancyDate)
 
-            @(Html.LabelledInputInt(m => m.ExpectedBabyCount)
-                .Control(c => c.MaxLength(2))
-                .Width(ControlWidth.Small))
+            @Html.LabelledInputInt(m => m.ExpectedBabyCount)
 
             @Html.ButtonSubmitNext()
 

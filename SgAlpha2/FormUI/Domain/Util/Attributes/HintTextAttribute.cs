@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FormUI.Domain.Util
+namespace FormUI.Domain.Util.Attributes
 {
     public class HintTextAttribute : Attribute
     {
