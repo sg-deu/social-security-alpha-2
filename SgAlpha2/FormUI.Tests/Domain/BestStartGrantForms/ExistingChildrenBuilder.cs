@@ -17,7 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     {
                         FirstName = "child 1 first name",
                         Surname = "child 1 surname",
-                        DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(10 * 365),
+                        DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(10 * 365),
                         RelationshipToChild = "parent",
                         ChildBenefit = true,
                         FormalKinshipCare = true,
@@ -26,7 +26,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     {
                         FirstName = "child 2 first name",
                         Surname = "child 2 surname",
-                        DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(12 * 365),
+                        DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(12 * 365),
                         RelationshipToChild = "guardian",
                         ChildBenefit = false,
                         FormalKinshipCare = false,

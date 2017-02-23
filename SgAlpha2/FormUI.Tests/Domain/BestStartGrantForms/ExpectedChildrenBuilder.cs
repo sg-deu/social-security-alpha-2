@@ -10,7 +10,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var value = new ExpectedChildren
             {
-                ExpectancyDate = DomainRegistry.NowUtc() + TimeSpan.FromDays(100),
+                ExpectancyDate = DomainRegistry.NowUtc().Date + TimeSpan.FromDays(100),
                 ExpectedBabyCount = 2,
             };
 

@@ -14,7 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 FirstName = "test first name",
                 OtherNames = "test other names",
                 SurnameOrFamilyName = "test surname or family name",
-                DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(20 * 365),
+                DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(20 * 365),
                 NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = new Address
                 {
@@ -22,7 +22,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     Street2 = "test street 2",
                     TownOrCity = "test town or city",
                     Postcode = "test postcode",
-                    DateMovedIn = DateTime.Today - TimeSpan.FromDays(365),
+                    DateMovedIn = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(365),
                 },
                 CurrentAddressStatus = AddressStatus.Permanent,
                 ContactPreference = ContactPreference.Email,
