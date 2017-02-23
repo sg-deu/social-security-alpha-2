@@ -18,6 +18,7 @@ namespace FormUI.Controllers.Bsg
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
         public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
+        public static string    PaymentDetails(string formId)       { return $"~/bsg/paymentDetails/{formId}"; }
         public static string    Complete()                          { return "~/bsg/complete"; }
     }
 
@@ -121,6 +122,26 @@ namespace FormUI.Controllers.Bsg
             return Exec(cmd,
                 success: () => Redirect(BsgActions.Complete()),
                 failure: () => HealthProfessional(id));
+        }
+
+        [HttpGet]
+        public ActionResult PaymentDetails(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PaymentDetails(string id, PaymentDetails paymentDetails)
+        {
+            var cmd = new AddPaymentDetails
+            {
+                FormId = id,
+                PaymentDetails = paymentDetails,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.Complete()),
+                failure: () => PaymentDetails(id));
         }
 
         [HttpGet]

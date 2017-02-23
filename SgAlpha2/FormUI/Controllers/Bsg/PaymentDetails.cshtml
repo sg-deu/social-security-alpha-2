@@ -1,0 +1,36 @@
+﻿@inherits WebViewPage<PaymentDetails>
+@{
+    ViewBag.Title = "Best Start Grant - Payment Details";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h1>Payment Details ...</h1>
+
+        <br />
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+
+            @Html.LabelledRadioYesNo(m => m.LackingBankAccount)
+
+            @Html.LabelledInputText(m => m.NameOfAccountHolder)
+
+            @Html.LabelledInputText(m => m.NameOfBank)
+
+            @Html.LabelledInputText(m => m.AccountNumber)
+
+            @Html.LabelledInputText(m => m.SortCode)
+
+            @Html.LabelledInputText(m => m.RollNumber)
+
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>
