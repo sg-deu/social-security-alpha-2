@@ -155,6 +155,7 @@
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChild.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildren.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessional.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Command.cs" />
     <Compile Include="Domain\Util\DomainException.cs" />

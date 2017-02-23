@@ -29,6 +29,7 @@ namespace FormUI.Domain.Util
                 }
             });
             thread.Start();
+            Thread.Sleep(0);
             thread.Join();
 
             var aggregateException = threadException as AggregateException;
