@@ -1,5 +1,6 @@
 ﻿using System;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
@@ -9,7 +10,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var value = new ExpectedChildren
             {
-                ExpectancyDate = DateTime.Today + TimeSpan.FromDays(100),
+                ExpectancyDate = DomainRegistry.NowUtc() + TimeSpan.FromDays(100),
                 ExpectedBabyCount = 2,
             };
 

@@ -9,5 +9,7 @@ namespace FormUI.Domain.Util
 
         [ThreadStatic]
         public static ValidationContext ValidationContext;
+
+        public static Func<DateTime> NowUtc = () => DateTime.UtcNow;
     }
 }

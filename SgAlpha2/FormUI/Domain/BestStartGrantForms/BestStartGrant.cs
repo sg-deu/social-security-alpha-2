@@ -53,6 +53,7 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.FirstName, "Please supply a First name");
             ctx.Required(m => m.SurnameOrFamilyName, "Please supply a Surname or family name");
             ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
+            ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(aboutYou));
             ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
             ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
@@ -133,6 +134,8 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<ExpectedChildren>(expectedChildren);
 
+            ctx.InFuture(m => m.ExpectancyDate, "Please supply an Expectancy Date in the future");
+
             ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
                 babyCount.HasValue && (babyCount.Value < 1 || babyCount.Value > 10)
                     ? "Please supply a number of babies between 1 and 10"
@@ -150,6 +153,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(c => c.Children[i].FirstName, "Please supply a First name");
                 ctx.Required(c => c.Children[i].Surname, "Please supply a Surname or family name");
                 ctx.Required(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth");
+                ctx.InPast(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth in the past");
                 ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
                 ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
             }

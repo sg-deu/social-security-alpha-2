@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
@@ -16,7 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     {
                         FirstName = "child 1 first name",
                         Surname = "child 1 surname",
-                        DateOfBirth = new DateTime(2008, 07, 06),
+                        DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(10 * 365),
                         RelationshipToChild = "parent",
                         ChildBenefit = true,
                         FormalKinshipCare = true,
@@ -25,7 +26,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     {
                         FirstName = "child 2 first name",
                         Surname = "child 2 surname",
-                        DateOfBirth = new DateTime(2009, 08, 07),
+                        DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(12 * 365),
                         RelationshipToChild = "guardian",
                         ChildBenefit = false,
                         FormalKinshipCare = false,

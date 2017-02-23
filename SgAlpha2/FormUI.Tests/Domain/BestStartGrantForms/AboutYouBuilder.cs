@@ -1,5 +1,6 @@
 ﻿using System;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
@@ -13,7 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 FirstName = "test first name",
                 OtherNames = "test other names",
                 SurnameOrFamilyName = "test surname or family name",
-                DateOfBirth = new DateTime(1980, 12, 11),
+                DateOfBirth = DomainRegistry.NowUtc() - TimeSpan.FromDays(20 * 365),
                 NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = new Address
                 {

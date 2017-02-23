@@ -27,6 +27,14 @@ namespace FormUI.Tests.SystemTests.Util
             _app.TypeText(name + "_year", yearText);
         }
 
+        public void TypeDate(Expression<Func<T, object>> property, DateTime date)
+        {
+            var dayText = date.Day.ToString();
+            var monthText = date.Month.ToString();
+            var yearText = date.Year.ToString();
+            TypeDate(property, dayText, monthText, yearText);
+        }
+
         public void SelectRadio<TValue>(Expression<Func<T, TValue>> property, TValue value)
         {
             var name = property.GetExpressionText();

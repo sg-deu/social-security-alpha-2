@@ -19,10 +19,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             AboutYouShouldBeValid(m => m.Title = null);
             AboutYouShouldBeValid(m => m.OtherNames = null);
             AboutYouShouldBeValid(m => m.CurrentAddress.Street2 = null);
+            AboutYouShouldBeValid(m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
 
             AboutYouShouldBeInvalid(m => m.FirstName = null);
             AboutYouShouldBeInvalid(m => m.SurnameOrFamilyName = null);
             AboutYouShouldBeInvalid(m => m.DateOfBirth = null);
+            AboutYouShouldBeInvalid(m => m.DateOfBirth = TestNowUtc);
             AboutYouShouldBeInvalid(m => m.NationalInsuranceNumber = null);
             AboutYouShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
             AboutYouShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
@@ -104,9 +106,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var form = new BestStartGrantBuilder("form").Insert();
 
             ExpectedChildrenShouldBeValid(form, m => { });
+            ExpectedChildrenShouldBeValid(form, m => m.ExpectancyDate = TestNowUtc);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 1);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 10);
 
+            ExpectedChildrenShouldBeInvalid(form, m => m.ExpectancyDate = TestNowUtc - TimeSpan.FromDays(1));
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 0);
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 11);
         }
@@ -122,6 +126,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FirstName = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].Surname = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = TestNowUtc);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].RelationshipToChild = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
         }

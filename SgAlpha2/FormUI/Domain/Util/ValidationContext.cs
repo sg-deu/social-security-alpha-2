@@ -59,6 +59,18 @@ namespace FormUI.Domain.Util
             Custom(property, v => !v.HasValue ? message : null);
         }
 
+        public void InPast(Expression<Func<T, DateTime?>> property, string message)
+        {
+            VerifyNotEmptyMessage(message);
+            Custom(property, d => d.HasValue && d.Value.Date >= DomainRegistry.NowUtc().Date ? message : null);
+        }
+
+        public void InFuture(Expression<Func<T, DateTime?>> property, string message)
+        {
+            VerifyNotEmptyMessage(message);
+            Custom(property, d => d.HasValue && d.Value.Date < DomainRegistry.NowUtc().Date ? message : null);
+        }
+
         public void Custom<TProp>(Expression<Func<T, TProp>> property, Func<TProp, string> validator)
         {
             TProp value = property.Compile()(_model);

@@ -41,9 +41,11 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             App.Submit();
 
+            var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
+
             {
                 var form = App.FormFormModel<ExpectedChildren>();
-                form.TypeDate(m => m.ExpectancyDate, "02", "03", "2004");
+                form.TypeDate(m => m.ExpectancyDate, expectancyDate);
                 form.TypeText(m => m.ExpectedBabyCount, "3");
             }
 
@@ -94,7 +96,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.AboutYou.ContactPreference.Should().Be( ContactPreference.Email);
                 doc.AboutYou.EmailAddress.Should().Be("test.system@system.test");
 
-                doc.ExpectedChildren.ExpectancyDate.Should().Be(new DateTime(2004, 03, 02));
+                doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
                 doc.ExpectedChildren.ExpectedBabyCount.Should().Be(3);
 
                 doc.ExistingChildren.Children.Count.Should().Be(2);
