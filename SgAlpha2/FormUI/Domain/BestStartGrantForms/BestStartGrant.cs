@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Forms;
 using FormUI.Domain.Util;
@@ -15,6 +16,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public AboutYou             AboutYou            { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
+        public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
 
@@ -45,6 +47,12 @@ namespace FormUI.Domain.BestStartGrantForms
             Validate(existingChildren);
 
             ExistingChildren = existingChildren;
+            Repository.Update(this);
+        }
+
+        public void AddApplicantBenefits(ApplicantBenefits applicantBenefits, Part part)
+        {
+            ApplicantBenefits = applicantBenefits;
             Repository.Update(this);
         }
 
