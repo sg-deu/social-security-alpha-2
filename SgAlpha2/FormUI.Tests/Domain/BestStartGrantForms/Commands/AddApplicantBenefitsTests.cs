@@ -21,7 +21,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
             {
                 FormId = "form123",
                 Part = Part.Part2,
-                ApplicantBenefits = AddApplicantBenefitsBuilder.NewValidPart2(),
+                ApplicantBenefits = ApplicantBenefitsBuilder.NewValid(Part.Part2),
             };
 
             cmd.Execute();

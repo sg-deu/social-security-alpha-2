@@ -16,7 +16,7 @@ namespace FormUI.Domain.BestStartGrantForms.Commands
                 throw new Exception("Must supply AddApplicantBenefits.Part");
 
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.AddApplicantBenefits(ApplicantBenefits, Part.Value);
+            form.AddApplicantBenefits(Part.Value, ApplicantBenefits);
         }
     }
 }

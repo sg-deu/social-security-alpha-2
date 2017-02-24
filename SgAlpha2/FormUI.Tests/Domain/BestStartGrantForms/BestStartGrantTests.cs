@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.Util;
@@ -132,6 +133,21 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddApplicantBenefits_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => { });
+            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => m.ReceivingBenefitForUnder20 = null);
+            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => m.YouOrPartnerInvolvedInTradeDispute = null);
+            ApplicantBenefitsShouldBeValid(form, Part.Part2, m => { });
+
+            ApplicantBenefitsShouldBeInvalid(form, Part.Part1, m => m.HasExistingBenefit = null);
+            ApplicantBenefitsShouldBeInvalid(form, Part.Part2, m => m.ReceivingBenefitForUnder20 = null);
+            ApplicantBenefitsShouldBeInvalid(form, Part.Part2, m => m.YouOrPartnerInvolvedInTradeDispute = null);
+        }
+
+        [Test]
         public void AddHealthProfessional_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
@@ -231,6 +247,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             DomainRegistry.ValidationContext = new ValidationContext(true);
             var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
             Assert.Throws<DomainException>(() => form.AddExistingChildren(existingChildren));
+        }
+
+        protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var applicantBenefits = ApplicantBenefitsBuilder.NewValid(part, mutator);
+            Assert.DoesNotThrow(() => form.AddApplicantBenefits(part, applicantBenefits));
+        }
+
+        protected void ApplicantBenefitsShouldBeInvalid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            var applicantBenefits = ApplicantBenefitsBuilder.NewValid(part, mutator);
+            Assert.Throws<DomainException>(() => form.AddApplicantBenefits(part, applicantBenefits));
         }
 
         protected void HealthProfessionalShouldBeValid(BestStartGrant form, Action<HealthProfessional> mutator)

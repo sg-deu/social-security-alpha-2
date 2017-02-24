@@ -50,8 +50,10 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Update(this);
         }
 
-        public void AddApplicantBenefits(ApplicantBenefits applicantBenefits, Part part)
+        public void AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
         {
+            Validate(part, applicantBenefits);
+
             ApplicantBenefits = applicantBenefits;
             Repository.Update(this);
         }
@@ -182,6 +184,21 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.InPast(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth in the past");
                 ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
                 ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
+            }
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(Part part, ApplicantBenefits applicantBenefits)
+        {
+            var ctx = new ValidationContext<ApplicantBenefits>(applicantBenefits);
+
+            ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
+
+            if (part == Part.Part2)
+            {
+                ctx.Required(b => b.ReceivingBenefitForUnder20, "Please indicate if you are receiving benefit for the parent of the baby, or an expectant mother, because they are under 20 years of age");
+                ctx.Required(b => b.YouOrPartnerInvolvedInTradeDispute, "Please indicate if you or your partner are involved in a trade dispute");
             }
 
             ctx.ThrowIfError();
