@@ -10,6 +10,7 @@ namespace FormUI.App_Start
     {
         public const string HintText    = "HintText";
         public const string MaxLength   = "MaxLength";
+        public const string InputMask   = "InputMask";
     }
 
     public class MetadataProvider : DataAnnotationsModelMetadataProvider
@@ -17,18 +18,23 @@ namespace FormUI.App_Start
         protected override ModelMetadata CreateMetadata(IEnumerable<Attribute> attributes, Type containerType, Func<object> modelAccessor, Type modelType, string propertyName)
         {
             var metaData = base.CreateMetadata(attributes, containerType, modelAccessor, modelType, propertyName);
+            var attributeList = attributes.ToList();
 
-            var hint = attributes.OfType<HintTextAttribute>().FirstOrDefault();
+            Each<HintTextAttribute>(attributeList, a =>
+                metaData.AdditionalValues.Add(Metadata.HintText, a.HintText));
 
-            if (hint != null)
-                metaData.AdditionalValues.Add(Metadata.HintText, hint.HintText);
+            Each<UiLengthAttribute>(attributeList, a =>
+                metaData.AdditionalValues.Add(Metadata.MaxLength, a.MaxLength));
 
-            var uiLength = attributes.OfType<UiLengthAttribute>().FirstOrDefault();
-
-            if (uiLength != null)
-                metaData.AdditionalValues.Add(Metadata.MaxLength, uiLength.MaxLength);
+            Each<UiInputMaskAttribute>(attributeList, a =>
+                metaData.AdditionalValues.Add(Metadata.InputMask, a.InputMask));
 
             return metaData;
+        }
+
+        private static void Each<T>(IList<Attribute> attributes, Action<T> action)
+        {
+            attributes.OfType<T>().ToList().ForEach(action);
         }
     }
 }

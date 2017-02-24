@@ -18,28 +18,37 @@
         init($(document));
     });
 
-    function init(rootElement) {
+    var namedMasks = {
 
-        var niInput = $('[name=NationalInsuranceNumber]');
-
-        niInput.inputmask({
+        NationalInsuranceNumber: {
             mask: 'aa 99 99 99 a',
             jitMasking: true,
             casing: 'upper'
-        });
+        },
 
-        var baInput = $('[name=AccountNumber]');
-
-        baInput.inputmask({
-            mask: '9999999999',
-            jitMasking: true,
-        });
-
-        var scInput = $('[name=SortCode]');
-
-        scInput.inputmask({
+        SortCode: {
             mask: '99-99-99',
             jitMasking: true,
+        },
+
+        AccountNumber: {
+            mask: '9999999999',
+            jitMasking: true,
+        },
+
+    };
+
+    function init(rootElement) {
+
+        rootElement.find('[data-input-mask]').each(function (i, e) {
+            var input = $(e)
+            var maskName = input.attr('data-input-mask');
+            var mask = namedMasks[maskName];
+
+            if (mask == null)
+                alert('Cannot find named mask: ' + maskName);
+
+            input.inputmask(mask);
         });
 
     }

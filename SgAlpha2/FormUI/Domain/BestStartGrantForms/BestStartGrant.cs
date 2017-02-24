@@ -198,24 +198,11 @@ namespace FormUI.Domain.BestStartGrantForms
             {
                 ctx.Required(m => m.NameOfAccountHolder, "Please supply the name of the account holder");
                 ctx.Required(m => m.NameOfBank, "Please supply the name of the bank");
-                ctx.Custom(m => m.AccountNumber, an => ValidateAccountNumber(paymentDetails));
                 ctx.Custom(m => m.SortCode, sc => ValidateSortCode(paymentDetails));
+                ctx.Custom(m => m.AccountNumber, an => ValidateAccountNumber(paymentDetails));
             }
 
             ctx.ThrowIfError();
-        }
-
-        private static string ValidateAccountNumber(PaymentDetails paymentDetails)
-        {
-            var an = paymentDetails.AccountNumber;
-
-            if (string.IsNullOrWhiteSpace(an))
-                return "Please supply the Account number";
-
-            if (!AllCharsAreDigits(an))
-                return "Please supply a valid Account number";
-
-            return null;
         }
 
         private static string ValidateSortCode(PaymentDetails paymentDetails)
@@ -235,6 +222,19 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (!AllCharsAreDigits(sc.Substring(0, 2)) || !AllCharsAreDigits(sc.Substring(3, 2)) || !AllCharsAreDigits(sc.Substring(6, 2)))
                 return invalidMessage;
+
+            return null;
+        }
+
+        private static string ValidateAccountNumber(PaymentDetails paymentDetails)
+        {
+            var an = paymentDetails.AccountNumber;
+
+            if (string.IsNullOrWhiteSpace(an))
+                return "Please supply the Account number";
+
+            if (!AllCharsAreDigits(an))
+                return "Please supply a valid Account number";
 
             return null;
         }

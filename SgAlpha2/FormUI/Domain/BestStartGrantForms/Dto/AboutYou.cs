@@ -29,6 +29,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         [DisplayName("National Insurance number")]
         [HintText("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")]
+        [UiInputMask(InputMasks.NationalInsuranceNumber)]
         public string               NationalInsuranceNumber { get; set; }
 
         public Address              CurrentAddress          { get; set; }

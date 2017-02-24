@@ -252,8 +252,8 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SelectNo(m => m.LackingBankAccount)
                     .SetText(m => m.NameOfAccountHolder, "test name")
                     .SetText(m => m.NameOfBank, "test bank")
-                    .SetText(m => m.AccountNumber, "01234567")
                     .SetText(m => m.SortCode, "01-02-03")
+                    .SetText(m => m.AccountNumber, "01234567")
                     .SetText(m => m.RollNumber, "roll/number")
                     .Submit(client);
 
@@ -265,8 +265,8 @@ namespace FormUI.Tests.Controllers.Bsg
                         LackingBankAccount = false,
                         NameOfAccountHolder = "test name",
                         NameOfBank = "test bank",
-                        AccountNumber = "01234567",
                         SortCode = "01-02-03",
+                        AccountNumber = "01234567",
                         RollNumber = "roll/number",
                     },
                 });

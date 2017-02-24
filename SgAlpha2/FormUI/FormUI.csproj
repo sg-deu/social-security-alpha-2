@@ -169,6 +169,8 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessional.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\PaymentDetails.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
+    <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />
+    <Compile Include="Domain\Util\Attributes\InputMasks.cs" />
     <Compile Include="Domain\Util\Attributes\UiLengthAttribute.cs" />
     <Compile Include="Domain\Util\Command.cs" />
     <Compile Include="Domain\Util\DomainException.cs" />

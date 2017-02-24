@@ -20,11 +20,13 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Sort Code")]
         [HintText("Please tell us all 6 numbers, for example 12-34-56")]
         [UiLength(8)]
+        [UiInputMask(InputMasks.SortCode)]
         public string   SortCode            { get; set; }
 
         [DisplayName("Account number")]
         [HintText("Most account numbers are 8 numbers long; if your account number has fewer than 10 numbers, please fill in the numbers from the left")]
         [UiLength(10)]
+        [UiInputMask(InputMasks.AccountNumber)]
         public string   AccountNumber       { get; set; }
 
         [DisplayName("Building Society roll or reference number")]

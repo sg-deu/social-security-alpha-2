@@ -89,8 +89,8 @@ namespace FormUI.Tests.SystemTests.Bsg
                 form.SelectRadio(m => m.LackingBankAccount, false);
                 form.TypeText(m => m.NameOfAccountHolder, "system test account holder");
                 form.TypeText(m => m.NameOfBank, "system test bank name");
-                form.TypeText(m => m.AccountNumber, "01234567");
                 form.TypeText(m => m.SortCode, "01-02-03");
+                form.TypeText(m => m.AccountNumber, "01234567");
                 form.TypeText(m => m.RollNumber, "roll_number");
             }
 
@@ -141,8 +141,8 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.PaymentDetails.LackingBankAccount.Should().BeFalse();
                 doc.PaymentDetails.NameOfAccountHolder.Should().Be("system test account holder");
                 doc.PaymentDetails.NameOfBank.Should().Be("system test bank name");
-                doc.PaymentDetails.AccountNumber.Should().Be("01234567");
                 doc.PaymentDetails.SortCode.Should().Be("01-02-03");
+                doc.PaymentDetails.AccountNumber.Should().Be("01234567");
                 doc.PaymentDetails.RollNumber.Should().Be("roll_number");
             });
         }

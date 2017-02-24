@@ -26,13 +26,17 @@ namespace FormUI.Controllers.Helpers.Controls
                 .Attr("type", "text")
                 .AddClasses("form-control");
 
+            var additionalValues = ControlContext.Metadata.AdditionalValues;
             var maxLength = _maxLength;
 
-            if (!maxLength.HasValue && ControlContext.Metadata.AdditionalValues.ContainsKey(Metadata.MaxLength))
-                maxLength = (int)ControlContext.Metadata.AdditionalValues[Metadata.MaxLength];
+            if (!maxLength.HasValue && additionalValues.ContainsKey(Metadata.MaxLength))
+                maxLength = (int)additionalValues[Metadata.MaxLength];
 
             if (maxLength.HasValue)
                 input.Attr("maxlength", maxLength);
+
+            if (additionalValues.ContainsKey(Metadata.InputMask))
+                input.Attr("data-input-mask", additionalValues[Metadata.InputMask]);
 
             return input;
         }
