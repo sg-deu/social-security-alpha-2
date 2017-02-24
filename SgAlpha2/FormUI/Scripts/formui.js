@@ -40,16 +40,23 @@
 
     function init(rootElement) {
 
-        rootElement.find('[data-input-mask]').each(function (i, e) {
-            var input = $(e)
-            var maskName = input.attr('data-input-mask');
-            var mask = namedMasks[maskName];
+        var isMobile = true;
 
-            if (mask == null)
-                alert('Cannot find named mask: ' + maskName);
+        // this simple check is enough for Alpha2
+        if (window.orientation == null)
+            isMobile = false;
 
-            input.inputmask(mask);
-        });
+        if (!isMobile) // the input mask doesn't work with a mobile's virtual keyboard
+            rootElement.find('[data-input-mask]').each(function (i, e) {
+                var input = $(e)
+                var maskName = input.attr('data-input-mask');
+                var mask = namedMasks[maskName];
+
+                if (mask == null)
+                    alert('Cannot find named mask: ' + maskName);
+
+                input.inputmask(mask);
+            });
 
     }
 
