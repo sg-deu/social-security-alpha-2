@@ -20,12 +20,26 @@
 
     function init(rootElement) {
 
-        var niInput = $('[name=NationalInsuranceNumber');
+        var niInput = $('[name=NationalInsuranceNumber]');
 
         niInput.inputmask({
-            mask: "aa 99 99 99 a",
+            mask: 'aa 99 99 99 a',
             jitMasking: true,
             casing: 'upper'
+        });
+
+        var baInput = $('[name=AccountNumber]');
+
+        baInput.inputmask({
+            mask: '9999999999',
+            jitMasking: true,
+        });
+
+        var scInput = $('[name=SortCode]');
+
+        scInput.inputmask({
+            mask: '99-99-99',
+            jitMasking: true,
         });
 
     }

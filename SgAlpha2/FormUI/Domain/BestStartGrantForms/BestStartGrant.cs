@@ -210,10 +210,10 @@ namespace FormUI.Domain.BestStartGrantForms
             var an = paymentDetails.AccountNumber;
 
             if (string.IsNullOrWhiteSpace(an))
-                return "Please supply the account number";
+                return "Please supply the Account number";
 
             if (!AllCharsAreDigits(an))
-                return "Please supply a valid account number";
+                return "Please supply a valid Account number";
 
             return null;
         }
