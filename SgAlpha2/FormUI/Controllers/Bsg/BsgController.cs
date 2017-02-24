@@ -105,6 +105,18 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
+        public ActionResult ApplicantBenefits1(string id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ApplicantBenefits2(string id)
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult HealthProfessional(string id)
         {
             return View();

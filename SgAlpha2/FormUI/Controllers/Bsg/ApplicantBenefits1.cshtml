@@ -1,0 +1,36 @@
+﻿@inherits WebViewPage<ApplicantBenefits>
+@{
+    ViewBag.Title = "Best Start Grant - Your Benefits part 1";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h1>Your benefits</h1>
+
+        <br />
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+
+            @Html.LabelledRadioYesNo(m => m.HasExistingBenefit)
+
+            <ul>
+                <li>Universal Credit</li>
+                <li>Income Support</li>
+                <li>Income-based Jobseekers Allowance</li>
+                <li>Income-related Employment and Support Allowance</li>
+                <li>Pension Credit</li>
+                <li>Working Tax Credit</li>
+                <li>Child Tax Credit</li>
+            </ul>
+
+
+            @Html.ButtonSubmitNext()
+
+        </form>
+
+    </div><!--
+--></div>

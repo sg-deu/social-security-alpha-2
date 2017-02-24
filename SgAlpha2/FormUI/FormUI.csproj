@@ -162,6 +162,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChild.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChildren.cs" />
@@ -207,6 +208,7 @@
     </Content>
     <Content Include="Content\sg.scss" />
     <Content Include="Controllers\Bsg\AboutYou.cshtml" />
+    <Content Include="Controllers\Bsg\ApplicantBenefits1.cshtml" />
     <Content Include="Controllers\Shared\_MyGovLayout.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -261,6 +263,7 @@
     <Content Include="Controllers\Bsg\ExistingChildren.cshtml" />
     <Content Include="Controllers\Bsg\HealthProfessional.cshtml" />
     <Content Include="Controllers\Bsg\PaymentDetails.cshtml" />
+    <Content Include="Controllers\Bsg\ApplicantBenefits2.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
