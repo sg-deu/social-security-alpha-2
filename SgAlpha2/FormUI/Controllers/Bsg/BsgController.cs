@@ -120,7 +120,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Complete()),
+                success: () => Redirect(BsgActions.PaymentDetails(id)),
                 failure: () => HealthProfessional(id));
         }
 

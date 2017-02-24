@@ -21,8 +21,8 @@ namespace FormUI.Tests.SystemTests.Util
             {
                 try
                 {
-                    Thread.Sleep(0);
                     action();
+                    Thread.Sleep(0);
                     return;
                 }
                 catch
