@@ -160,6 +160,32 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.SortCode = null; });
         }
 
+        [Test]
+        public void AddPaymentDetails_AccountNumberValidated()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            PaymentDetailsShouldBeValid(form, m => m.AccountNumber = "0");
+            PaymentDetailsShouldBeValid(form, m => m.AccountNumber = "01234567");
+
+            PaymentDetailsShouldBeInvalid(form, m => m.AccountNumber = "x");
+            PaymentDetailsShouldBeInvalid(form, m => m.AccountNumber = " 1 ");
+        }
+
+        [Test]
+        public void AddPaymentDetails_SortCodeValidated()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            PaymentDetailsShouldBeValid(form, m => m.SortCode = "01-02-03");
+
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01 02-03");
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01-02.03");
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "x1-02-03");
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01-0x-03");
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01-02-.3");
+        }
+
         #region test helpers
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)

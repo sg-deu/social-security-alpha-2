@@ -198,11 +198,54 @@ namespace FormUI.Domain.BestStartGrantForms
             {
                 ctx.Required(m => m.NameOfAccountHolder, "Please supply the name of the account holder");
                 ctx.Required(m => m.NameOfBank, "Please supply the name of the bank");
-                ctx.Required(m => m.AccountNumber, "Please supply the account number");
-                ctx.Required(m => m.SortCode, "Please supply the sort code");
+                ctx.Custom(m => m.AccountNumber, an => ValidateAccountNumber(paymentDetails));
+                ctx.Custom(m => m.SortCode, sc => ValidateSortCode(paymentDetails));
             }
 
             ctx.ThrowIfError();
+        }
+
+        private static string ValidateAccountNumber(PaymentDetails paymentDetails)
+        {
+            var an = paymentDetails.AccountNumber;
+
+            if (string.IsNullOrWhiteSpace(an))
+                return "Please supply the account number";
+
+            if (!AllCharsAreDigits(an))
+                return "Please supply a valid account number";
+
+            return null;
+        }
+
+        private static string ValidateSortCode(PaymentDetails paymentDetails)
+        {
+            var sc = paymentDetails.SortCode;
+
+            if (string.IsNullOrWhiteSpace(sc))
+                return "Please supply the sort code";
+
+            const string invalidMessage = "Please supply a valid Sort Code number in the format 'nn-nn-nn'";
+
+            if (sc.Length != 8)
+                return invalidMessage;
+
+            if (sc[2] != '-' || sc[5] != '-')
+                return invalidMessage;
+
+            if (!AllCharsAreDigits(sc.Substring(0, 2)) || !AllCharsAreDigits(sc.Substring(3, 2)) || !AllCharsAreDigits(sc.Substring(6, 2)))
+                return invalidMessage;
+
+            return null;
+        }
+
+        private static bool AllCharsAreDigits(string value)
+        {
+            foreach (var c in value)
+                if (!char.IsDigit(c))
+                    return false;
+
+            return true;
         }
     }
 }
