@@ -24,5 +24,17 @@ namespace FormUI.Tests.Domain.Util
         {
             using (Repository) { }
         }
+
+        protected void ShouldBeValid(Action action)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            Assert.DoesNotThrow(() => action());
+        }
+
+        protected void ShouldBeInvalid(Action action)
+        {
+            DomainRegistry.ValidationContext = new ValidationContext(true);
+            Assert.Throws<DomainException>(() => action());
+        }
     }
 }

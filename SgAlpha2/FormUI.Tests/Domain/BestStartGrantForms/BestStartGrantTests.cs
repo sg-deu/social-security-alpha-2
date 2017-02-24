@@ -206,9 +206,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
             var aboutYou = AboutYouBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => BestStartGrant.Start(aboutYou));
+            ShouldBeValid(() => BestStartGrant.Start(aboutYou));
 
             if (postVerify != null)
                 postVerify(aboutYou);
@@ -216,79 +215,57 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void AboutYouShouldBeInvalid(Action<AboutYou> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var aboutYou = AboutYouBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => BestStartGrant.Start(aboutYou));
+            ShouldBeInvalid(() => BestStartGrant.Start(AboutYouBuilder.NewValid(mutator)));
         }
 
         protected void ExpectedChildrenShouldBeValid(BestStartGrant form, Action<ExpectedChildren> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => form.AddExpectedChildren(expectedChildren));
+            ShouldBeValid(() => form.AddExpectedChildren(ExpectedChildrenBuilder.NewValid(mutator)));
         }
 
         protected void ExpectedChildrenShouldBeInvalid(BestStartGrant form, Action<ExpectedChildren> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var expectedChildren = ExpectedChildrenBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => form.AddExpectedChildren(expectedChildren));
+            ShouldBeInvalid(() => form.AddExpectedChildren(ExpectedChildrenBuilder.NewValid(mutator)));
         }
 
         protected void ExistingChildrenShouldBeValid(BestStartGrant form, Action<ExistingChildren> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => form.AddExistingChildren(existingChildren));
+            ShouldBeValid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
         }
 
         protected void ExistingChildrenShouldBeInvalid(BestStartGrant form, Action<ExistingChildren> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var existingChildren = ExistingChildrenBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => form.AddExistingChildren(existingChildren));
+            ShouldBeInvalid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
         }
 
         protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var applicantBenefits = ApplicantBenefitsBuilder.NewValid(part, mutator);
-            Assert.DoesNotThrow(() => form.AddApplicantBenefits(part, applicantBenefits));
+            ShouldBeValid(() => form.AddApplicantBenefits(part, ApplicantBenefitsBuilder.NewValid(part, mutator)));
         }
 
         protected void ApplicantBenefitsShouldBeInvalid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var applicantBenefits = ApplicantBenefitsBuilder.NewValid(part, mutator);
-            Assert.Throws<DomainException>(() => form.AddApplicantBenefits(part, applicantBenefits));
+            ShouldBeInvalid(() => form.AddApplicantBenefits(part, ApplicantBenefitsBuilder.NewValid(part, mutator)));
         }
 
         protected void HealthProfessionalShouldBeValid(BestStartGrant form, Action<HealthProfessional> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var healthProfessional = HealthProfessionalBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => form.AddHealthProfessional(healthProfessional));
+            ShouldBeValid(() => form.AddHealthProfessional(HealthProfessionalBuilder.NewValid(mutator)));
         }
 
         protected void HealthProfessionalShouldBeInvalid(BestStartGrant form, Action<HealthProfessional> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var healthProfessional = HealthProfessionalBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => form.AddHealthProfessional(healthProfessional));
+            ShouldBeInvalid(() => form.AddHealthProfessional(HealthProfessionalBuilder.NewValid(mutator)));
         }
 
         protected void PaymentDetailsShouldBeValid(BestStartGrant form, Action<PaymentDetails> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var paymentDetails = PaymentDetailsBuilder.NewValid(mutator);
-            Assert.DoesNotThrow(() => form.AddPaymentDetails(paymentDetails));
+            ShouldBeValid(() => form.AddPaymentDetails(PaymentDetailsBuilder.NewValid(mutator)));
         }
 
         protected void PaymentDetailsShouldBeInvalid(BestStartGrant form, Action<PaymentDetails> mutator)
         {
-            DomainRegistry.ValidationContext = new ValidationContext(true);
-            var paymentDetails = PaymentDetailsBuilder.NewValid(mutator);
-            Assert.Throws<DomainException>(() => form.AddPaymentDetails(paymentDetails));
+            ShouldBeInvalid(() => form.AddPaymentDetails(PaymentDetailsBuilder.NewValid(mutator)));
         }
 
         #endregion
