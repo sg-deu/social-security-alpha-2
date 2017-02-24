@@ -15,17 +15,17 @@
             @Html.ValidationSummary()
 
 
-            @Html.LabelledRadioYesNo(m => m.HasExistingBenefit)
-
-            <ul>
-                <li>Universal Credit</li>
-                <li>Income Support</li>
-                <li>Income-based Jobseekers Allowance</li>
-                <li>Income-related Employment and Support Allowance</li>
-                <li>Pension Credit</li>
-                <li>Working Tax Credit</li>
-                <li>Child Tax Credit</li>
-            </ul>
+            @(Html.LabelledRadioYesNo(m => m.HasExistingBenefit)
+                .BeforeControl(@"
+                <ul>
+                    <li>Universal Credit</li>
+                    <li>Income Support</li>
+                    <li>Income-based Jobseekers Allowance</li>
+                    <li>Income-related Employment and Support Allowance</li>
+                    <li>Pension Credit</li>
+                    <li>Working Tax Credit</li>
+                    <li>Child Tax Credit</li>
+                </ul>"))
 
 
             @Html.ButtonSubmitNext()

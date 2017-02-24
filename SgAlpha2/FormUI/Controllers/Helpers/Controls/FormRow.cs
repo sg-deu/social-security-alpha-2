@@ -17,6 +17,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private string          _labelText;
         private TControl        _control;
         private string          _hintHtml;
+        private string          _beforeControlHtml;
         private ControlWidth?   _controlWidth;
 
         public FormRow(string id, string labelText, TControl control)
@@ -35,6 +36,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public FormRow<TControl> Hint(string hintHtml)
         {
             _hintHtml = hintHtml;
+            return this;
+        }
+
+        public FormRow<TControl> BeforeControl(string beforeControlHtml)
+        {
+            _beforeControlHtml = beforeControlHtml;
             return this;
         }
 
@@ -66,6 +73,12 @@ namespace FormUI.Controllers.Helpers.Controls
             {
                 var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(_hintHtml);
                 label.Append(hint);
+            }
+
+            if (!string.IsNullOrWhiteSpace(_beforeControlHtml))
+            {
+                var beforeControl = new HtmlTag("span").AppendHtml(_beforeControlHtml);
+                label.Append(beforeControl);
             }
 
             if (_controlWidth.HasValue && _controlWidth.Value != ControlWidth.Max)
