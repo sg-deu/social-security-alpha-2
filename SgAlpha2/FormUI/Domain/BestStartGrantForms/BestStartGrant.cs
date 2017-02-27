@@ -19,6 +19,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
+        public Declaration          Declaration         { get; protected set; }
 
         public static string Start(AboutYou aboutYou)
         {
@@ -84,6 +85,12 @@ namespace FormUI.Domain.BestStartGrantForms
             Validate(paymentDetails);
 
             PaymentDetails = paymentDetails;
+            Repository.Update(this);
+        }
+
+        public void Complete(Declaration declaration)
+        {
+            Declaration = declaration;
             Repository.Update(this);
         }
 

@@ -154,6 +154,7 @@
     <Compile Include="Controllers\Shared\FormController.cs" />
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\Complete.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\Declaration.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChild.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildren.cs" />
