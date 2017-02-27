@@ -159,7 +159,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.HealthProfessional("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantBenefits1("form123"));
             });
         }
 

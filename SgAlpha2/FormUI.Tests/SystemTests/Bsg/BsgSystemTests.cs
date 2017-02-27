@@ -76,6 +76,23 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.ClickButton("");
 
             {
+                var form = App.FormFormModel<ApplicantBenefits>();
+
+                form.SelectRadio(m => m.HasExistingBenefit, false);
+            }
+
+            App.Submit();
+
+            {
+                var form = App.FormFormModel<ApplicantBenefits>();
+
+                form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
+                form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
+            }
+
+            App.Submit();
+
+            {
                 var form = App.FormFormModel<HealthProfessional>();
 
                 form.TypeText(m => m.Pin, "XYZ54321");
@@ -135,6 +152,10 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
                 doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
                 doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
+
+                doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+                doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
+                doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
 
                 doc.HealthProfessional.Pin.Should().Be("XYZ54321");
 
