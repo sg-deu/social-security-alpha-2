@@ -4,7 +4,6 @@ using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
-using FormUI.Domain.Util;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -130,6 +129,33 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = TestNowUtc);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].RelationshipToChild = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
+        }
+
+        [Test]
+        public void AddApplicantBenefits_Part2DoesNotOverwritePart1()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            var part1 = new ApplicantBenefits
+            {
+                HasExistingBenefit = false,
+            };
+
+            form.AddApplicantBenefits(Part.Part1, part1);
+
+            form.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+
+            var part2 = new ApplicantBenefits
+            {
+                ReceivingBenefitForUnder20 = true,
+                YouOrPartnerInvolvedInTradeDispute = false,
+            };
+
+            form.AddApplicantBenefits(Part.Part2, part2);
+
+            form.ApplicantBenefits.HasExistingBenefit.Should().BeFalse("part1 should not be lost");
+            form.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
+            form.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
         }
 
         [Test]

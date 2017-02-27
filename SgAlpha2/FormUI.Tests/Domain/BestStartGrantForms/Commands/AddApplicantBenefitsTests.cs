@@ -13,9 +13,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresBenefitsDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
+                .With(f => f.ApplicantBenefits, ApplicantBenefitsBuilder.NewValid(Part.Part1))
                 .Insert();
 
-            existingForm.ApplicantBenefits.Should().BeNull("no data stored before executing command");
+            existingForm.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeNull("no data stored before executing command");
 
             var cmd = new AddApplicantBenefits
             {

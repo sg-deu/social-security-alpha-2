@@ -54,8 +54,21 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             Validate(part, applicantBenefits);
 
-            ApplicantBenefits = applicantBenefits;
+            if (part == Part.Part1)
+                ApplicantBenefits = applicantBenefits;
+
+            UpdateApplicantBenefits(part, applicantBenefits);
+
             Repository.Update(this);
+        }
+
+        private void UpdateApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
+        {
+            if (part == Part.Part2)
+            {
+                ApplicantBenefits.ReceivingBenefitForUnder20 = applicantBenefits.ReceivingBenefitForUnder20;
+                ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute = applicantBenefits.YouOrPartnerInvolvedInTradeDispute;
+            }
         }
 
         public void AddHealthProfessional(HealthProfessional healthProfessional)
@@ -193,7 +206,10 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<ApplicantBenefits>(applicantBenefits);
 
-            ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
+            if (part == Part.Part1)
+            {
+                ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
+            }
 
             if (part == Part.Part2)
             {
