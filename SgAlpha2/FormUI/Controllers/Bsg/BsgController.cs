@@ -17,6 +17,8 @@ namespace FormUI.Controllers.Bsg
         public static string    AboutYou()                          { return "~/bsg/aboutYou"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
+        public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
+        public static string    ApplicantBenefits2(string formId)   { return $"~/bsg/applicantBenefits2/{formId}"; }
         public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    PaymentDetails(string formId)       { return $"~/bsg/paymentDetails/{formId}"; }
         public static string    Complete()                          { return "~/bsg/complete"; }
@@ -110,10 +112,40 @@ namespace FormUI.Controllers.Bsg
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ApplicantBenefits1(string id, ApplicantBenefits applicantBenefits)
+        {
+            var cmd = new AddApplicantBenefits
+            {
+                FormId = id,
+                Part = Part.Part1,
+                ApplicantBenefits = applicantBenefits,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.ApplicantBenefits2(id)),
+                failure: () => ApplicantBenefits1(id));
+        }
+
         [HttpGet]
         public ActionResult ApplicantBenefits2(string id)
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult ApplicantBenefits2(string id, ApplicantBenefits applicantBenefits)
+        {
+            var cmd = new AddApplicantBenefits
+            {
+                FormId = id,
+                Part = Part.Part2,
+                ApplicantBenefits = applicantBenefits,
+            };
+
+            return Exec(cmd,
+                success: () => Redirect(BsgActions.HealthProfessional(id)),
+                failure: () => ApplicantBenefits2(id));
         }
 
         [HttpGet]

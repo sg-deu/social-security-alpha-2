@@ -208,6 +208,82 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ApplicantBenefits1_POST_CanAddApplicantBenefits()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
+                    .SelectNo(m => m.HasExistingBenefit)
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddApplicantBenefits>(0).ShouldBeEquivalentTo(new AddApplicantBenefits
+                {
+                    FormId = "form123",
+                    Part = Part.Part1,
+                    ApplicantBenefits = new ApplicantBenefits
+                    {
+                        HasExistingBenefit = false,
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantBenefits2("form123"));
+            });
+        }
+
+        [Test]
+        public void ApplicantBenefits1_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void ApplicantBenefits2_POST_CanAddApplicantBenefits()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ApplicantBenefits2("form123")).Form<ApplicantBenefits>(1)
+                    .SelectNo(m => m.ReceivingBenefitForUnder20)
+                    .SelectYes(m => m.YouOrPartnerInvolvedInTradeDispute)
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddApplicantBenefits>(0).ShouldBeEquivalentTo(new AddApplicantBenefits
+                {
+                    FormId = "form123",
+                    Part = Part.Part2,
+                    ApplicantBenefits = new ApplicantBenefits
+                    {
+                        ReceivingBenefitForUnder20 = false,
+                        YouOrPartnerInvolvedInTradeDispute = true,
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.HealthProfessional("form123"));
+            });
+        }
+
+        [Test]
+        public void ApplicantBenefits2_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void HealthProfessional_POST_StoresData()
         {
             WebAppTest(client =>
