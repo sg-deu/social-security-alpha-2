@@ -228,6 +228,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             PaymentDetailsShouldBeInvalid(form, m => m.AccountNumber = " 1 ");
         }
 
+        [Test]
+        public void Complete_DeclarationValidated()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            DeclarationShouldBeValid(form, m => { });
+
+            DeclarationShouldBeInvalid(form, m => m.AgreedToLegalStatement = false);
+        }
+
         #region test helpers
 
         protected void AboutYouShouldBeValid(Action<AboutYou> mutator, Action<AboutYou> postVerify = null)
@@ -292,6 +302,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         protected void PaymentDetailsShouldBeInvalid(BestStartGrant form, Action<PaymentDetails> mutator)
         {
             ShouldBeInvalid(() => form.AddPaymentDetails(PaymentDetailsBuilder.NewValid(mutator)));
+        }
+
+        protected void DeclarationShouldBeValid(BestStartGrant form, Action<Declaration> mutator)
+        {
+            ShouldBeValid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
+        }
+
+        protected void DeclarationShouldBeInvalid(BestStartGrant form, Action<Declaration> mutator)
+        {
+            ShouldBeInvalid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
         }
 
         #endregion

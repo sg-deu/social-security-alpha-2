@@ -90,6 +90,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public void Complete(Declaration declaration)
         {
+            Validate(declaration);
+
             Declaration = declaration;
             Repository.Update(this);
         }
@@ -249,6 +251,15 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Custom(m => m.SortCode, sc => ValidateSortCode(paymentDetails));
                 ctx.Custom(m => m.AccountNumber, an => ValidateAccountNumber(paymentDetails));
             }
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(Declaration declaration)
+        {
+            var ctx = new ValidationContext<Declaration>(declaration);
+
+            ctx.Required(m => m.AgreedToLegalStatement, "Please indicate that you agree");
 
             ctx.ThrowIfError();
         }

@@ -46,6 +46,12 @@ namespace FormUI.Domain.Util
             Custom(property, s => string.IsNullOrWhiteSpace(s) ? message : null);
         }
 
+        public void Required(Expression<Func<T, bool>> property, string message)
+        {
+            VerifyNotEmptyMessage(message);
+            Custom(property, b => !b ? message : null);
+        }
+
         public void Required(Expression<Func<T, DateTime?>> property, string message)
         {
             VerifyNotEmptyMessage(message);
