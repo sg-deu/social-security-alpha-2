@@ -13,7 +13,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresPaymentDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
-                .With(f => f.AboutYou, AboutYouBuilder.NewValid())
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
                 .With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid())
                 .With(f => f.ExistingChildren, ExistingChildrenBuilder.NewValid())
                 .With(f => f.HealthProfessional, HealthProfessionalBuilder.NewValid())

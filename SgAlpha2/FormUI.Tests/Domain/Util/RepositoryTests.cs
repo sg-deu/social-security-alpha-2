@@ -18,7 +18,7 @@ namespace FormUI.Tests.Domain.Util
 
             using (var repository = LocalRepository.New())
             {
-                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
+                var doc = new BestStartGrantBuilder("form123").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "some data" }).Value();
                 id = doc.Id;
                 repository.Insert(doc);
             }
@@ -26,7 +26,7 @@ namespace FormUI.Tests.Domain.Util
             using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
-                doc.AboutYou.FirstName.Should().Be("some data");
+                doc.ApplicantDetails.FirstName.Should().Be("some data");
             }
         }
 
@@ -37,7 +37,7 @@ namespace FormUI.Tests.Domain.Util
 
             using (var repository = LocalRepository.New())
             {
-                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
+                var doc = new BestStartGrantBuilder("form123").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "some data" }).Value();
                 id = doc.Id;
                 repository.Insert(doc);
             }
@@ -45,14 +45,14 @@ namespace FormUI.Tests.Domain.Util
             using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
-                doc.AboutYou.FirstName = "updated value";
+                doc.ApplicantDetails.FirstName = "updated value";
                 repository.Update(doc);
             }
 
             using (var repository = LocalRepository.New(deleteAllDocuments: false))
             {
                 var doc = repository.Load<BestStartGrant>(id);
-                doc.AboutYou.FirstName.Should().Be("updated value");
+                doc.ApplicantDetails.FirstName.Should().Be("updated value");
             }
         }
 
@@ -63,7 +63,7 @@ namespace FormUI.Tests.Domain.Util
 
             using (var repository = LocalRepository.New())
             {
-                var doc = new BestStartGrantBuilder("form123").With(f => f.AboutYou, new AboutYou { FirstName = "some data" }).Value();
+                var doc = new BestStartGrantBuilder("form123").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "some data" }).Value();
                 id = doc.Id;
                 repository.Insert(doc);
             }
@@ -128,9 +128,9 @@ namespace FormUI.Tests.Domain.Util
         {
             using (var repository = LocalRepository.New())
             {
-                repository.Insert(new BestStartGrantBuilder("form1").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg1" }).Value());
-                repository.Insert(new BestStartGrantBuilder("form2").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg2" }).Value());
-                repository.Insert(new BestStartGrantBuilder("form3").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg3" }).Value());
+                repository.Insert(new BestStartGrantBuilder("form1").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg1" }).Value());
+                repository.Insert(new BestStartGrantBuilder("form2").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg2" }).Value());
+                repository.Insert(new BestStartGrantBuilder("form3").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg3" }).Value());
 
                 var count =
                     repository.Query<BestStartGrant>()
@@ -146,17 +146,17 @@ namespace FormUI.Tests.Domain.Util
         {
             using (var repository = LocalRepository.New())
             {
-                var doc1 = repository.Insert(new BestStartGrantBuilder("form1").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg1" }).Value());
-                var doc2 = repository.Insert(new BestStartGrantBuilder("form2").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg2" }).Value());
-                var doc3 = repository.Insert(new BestStartGrantBuilder("form3").With(f => f.AboutYou, new AboutYou { FirstName = "Bsg3" }).Value());
+                var doc1 = repository.Insert(new BestStartGrantBuilder("form1").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg1" }).Value());
+                var doc2 = repository.Insert(new BestStartGrantBuilder("form2").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg2" }).Value());
+                var doc3 = repository.Insert(new BestStartGrantBuilder("form3").With(f => f.ApplicantDetails, new ApplicantDetails { FirstName = "Bsg3" }).Value());
 
                 var doc =
                     repository.Query<BestStartGrant>()
-                        .Where(bsg => bsg.AboutYou.FirstName == "Bsg2")
+                        .Where(bsg => bsg.ApplicantDetails.FirstName == "Bsg2")
                         .ToList()
                         .Single();
 
-                doc.AboutYou.FirstName.Should().Be("Bsg2");
+                doc.ApplicantDetails.FirstName.Should().Be("Bsg2");
                 doc.Id.Should().Be(doc2.Id);
             }
         }

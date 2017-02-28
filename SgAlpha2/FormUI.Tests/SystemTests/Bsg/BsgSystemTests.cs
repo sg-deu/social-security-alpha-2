@@ -22,7 +22,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.VerifyCanSeeText("About You ...");
 
             {
-                var form = App.FormForModel<AboutYou>();
+                var form = App.FormForModel<ApplicantDetails>();
                 form.TypeText(m => m.Title, "system test Title");
                 form.TypeText(m => m.FirstName, "system test FirstName");
                 form.TypeText(m => m.OtherNames, "system test OtherNames");
@@ -127,20 +127,20 @@ namespace FormUI.Tests.SystemTests.Bsg
             {
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
-                doc.AboutYou.Title.Should().Be("system test Title");
-                doc.AboutYou.FirstName.Should().Be("system test FirstName");
-                doc.AboutYou.OtherNames.Should().Be("system test OtherNames");
-                doc.AboutYou.SurnameOrFamilyName.Should().Be("system test FamilyName");
-                doc.AboutYou.DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
-                doc.AboutYou.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
-                doc.AboutYou.CurrentAddress.Street1.Should().Be("system test ca.Street1");
-                doc.AboutYou.CurrentAddress.Street2.Should().Be("system test ca.Street2");
-                doc.AboutYou.CurrentAddress.TownOrCity.Should().Be("system test ca.TownOrCity");
-                doc.AboutYou.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
-                doc.AboutYou.CurrentAddress.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
-                doc.AboutYou.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
-                doc.AboutYou.ContactPreference.Should().Be( ContactPreference.Email);
-                doc.AboutYou.EmailAddress.Should().Be("test.system@system.test");
+                doc.ApplicantDetails.Title.Should().Be("system test Title");
+                doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
+                doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
+                doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
+                doc.ApplicantDetails.DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
+                doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
+                doc.ApplicantDetails.CurrentAddress.Street1.Should().Be("system test ca.Street1");
+                doc.ApplicantDetails.CurrentAddress.Street2.Should().Be("system test ca.Street2");
+                doc.ApplicantDetails.CurrentAddress.TownOrCity.Should().Be("system test ca.TownOrCity");
+                doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
+                doc.ApplicantDetails.CurrentAddress.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
+                doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
+                doc.ApplicantDetails.ContactPreference.Should().Be( ContactPreference.Email);
+                doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
 
                 doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
                 doc.ExpectedChildren.ExpectedBabyCount.Should().Be(3);

@@ -173,7 +173,7 @@
     <Compile Include="Controllers\Util\It.cs" />
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
-    <Compile Include="Domain\BestStartGrantForms\AboutYouBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\ApplicantDetailsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\ApplicantBenefitsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />

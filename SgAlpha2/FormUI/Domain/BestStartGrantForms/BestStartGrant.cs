@@ -13,7 +13,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        public AboutYou             AboutYou            { get; protected set; }
+        public ApplicantDetails     ApplicantDetails    { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
         public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
@@ -21,13 +21,13 @@ namespace FormUI.Domain.BestStartGrantForms
         public PaymentDetails       PaymentDetails      { get; protected set; }
         public Declaration          Declaration         { get; protected set; }
 
-        public static string Start(AboutYou aboutYou)
+        public static string Start(ApplicantDetails applicantDetails)
         {
-            Validate(aboutYou);
+            Validate(applicantDetails);
 
             var form = new BestStartGrant
             {
-                AboutYou = aboutYou,
+                ApplicantDetails = applicantDetails,
             };
 
             Repository.Insert(form);
@@ -96,15 +96,15 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Update(this);
         }
 
-        private static void Validate(AboutYou aboutYou)
+        private static void Validate(ApplicantDetails applicantDetails)
         {
-            var ctx = new ValidationContext<AboutYou>(aboutYou);
+            var ctx = new ValidationContext<ApplicantDetails>(applicantDetails);
 
             ctx.Required(m => m.FirstName, "Please supply a First name");
             ctx.Required(m => m.SurnameOrFamilyName, "Please supply a Surname or family name");
             ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
             ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
-            ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(aboutYou));
+            ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
             ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
             ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
@@ -112,8 +112,8 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
             ctx.Required(m => m.ContactPreference, "Please supply a contact preference");
 
-            if (aboutYou.ContactPreference.HasValue)
-                switch(aboutYou.ContactPreference.Value)
+            if (applicantDetails.ContactPreference.HasValue)
+                switch(applicantDetails.ContactPreference.Value)
                 {
                     case ContactPreference.Email:
                         ctx.Required(m => m.EmailAddress, "Please supply an Email address");
@@ -128,15 +128,15 @@ namespace FormUI.Domain.BestStartGrantForms
                         break;
 
                     default:
-                        throw new Exception("Unhandled contact preference: " + aboutYou.ContactPreference);
+                        throw new Exception("Unhandled contact preference: " + applicantDetails.ContactPreference);
                 }
 
             ctx.ThrowIfError();
         }
 
-        private static string ValidateNationalInsuranceNumber(AboutYou aboutYou)
+        private static string ValidateNationalInsuranceNumber(ApplicantDetails applicantDetails)
         {
-            var ni = aboutYou.NationalInsuranceNumber;
+            var ni = applicantDetails.NationalInsuranceNumber;
 
             if (string.IsNullOrWhiteSpace(ni))
                 return "Please supply a National Insurance number";
@@ -175,7 +175,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ni.Substring(6, 2),     // {3} 56
                 ni.Substring(8, 1));    // {4} C
 
-            aboutYou.NationalInsuranceNumber = ni;
+            applicantDetails.NationalInsuranceNumber = ni;
 
             return null;
         }

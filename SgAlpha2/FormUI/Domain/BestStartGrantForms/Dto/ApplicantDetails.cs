@@ -4,9 +4,9 @@ using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
-    public class AboutYou
+    public class ApplicantDetails
     {
-        public AboutYou()
+        public ApplicantDetails()
         {
             CurrentAddress = new Address();
         }

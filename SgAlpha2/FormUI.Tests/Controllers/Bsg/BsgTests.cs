@@ -28,30 +28,30 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        public void AboutYou_GET()
+        public void ApplicantDetails_GET()
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.AboutYou());
+                var response = client.Get(BsgActions.ApplicantDetails());
 
                 response.Doc.Document.Body.TextContent.Should().Contain("About You");
             });
         }
 
         [Test]
-        public void AboutYou_POST_StartsForm()
+        public void ApplicantDetails_POST_StartsForm()
         {
             WebAppTest(client =>
             {
                 ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), "form123");
 
-                var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
+                var response = client.Get(BsgActions.ApplicantDetails()).Form<ApplicantDetails>(1)
                     .SetText(m => m.FirstName, "first name")
                     .Submit(client);
 
                 ExecutorStub.Executed<StartBestStartGrant>(0).ShouldBeEquivalentTo(new StartBestStartGrant
                 {
-                    AboutYou = new AboutYou { FirstName = "first name" },
+                    ApplicantDetails = new ApplicantDetails { FirstName = "first name" },
                 });
 
                 response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ExpectedChildren("form123"));
@@ -59,11 +59,11 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        public void AboutYou_POST_ErrorsAreDisplayed()
+        public void ApplicantDetails_POST_ErrorsAreDisplayed()
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.AboutYou()).Form<AboutYou>(1)
+                var response = client.Get(BsgActions.ApplicantDetails()).Form<ApplicantDetails>(1)
                     .SetDate(m => m.DateOfBirth, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 

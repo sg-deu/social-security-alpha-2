@@ -4,11 +4,11 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
-    public class AboutYouBuilder
+    public class ApplicantDetailsBuilder
     {
-        public static AboutYou NewValid(Action<AboutYou> mutator = null)
+        public static ApplicantDetails NewValid(Action<ApplicantDetails> mutator = null)
         {
-            var value = new AboutYou
+            var value = new ApplicantDetails
             {
                 Title = "test title",
                 FirstName = "test first name",

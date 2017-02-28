@@ -13,7 +13,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresExpectedDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
-                .With(f => f.AboutYou, AboutYouBuilder.NewValid())
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
                 .Insert();
 
             existingForm.ExpectedChildren.Should().BeNull("no data stored before executing command");

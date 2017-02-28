@@ -162,7 +162,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\Part.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\AboutYou.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
@@ -212,7 +212,7 @@
       <DependentUpon>sg.css</DependentUpon>
     </Content>
     <Content Include="Content\sg.scss" />
-    <Content Include="Controllers\Bsg\AboutYou.cshtml" />
+    <Content Include="Controllers\Bsg\ApplicantDetails.cshtml" />
     <Content Include="Controllers\Bsg\ApplicantBenefits1.cshtml" />
     <Content Include="Controllers\Shared\_MyGovLayout.cshtml" />
     <Content Include="favicon.ico" />

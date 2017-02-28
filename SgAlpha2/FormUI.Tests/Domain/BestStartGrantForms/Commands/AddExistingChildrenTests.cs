@@ -13,7 +13,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresExistingDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
-                .With(f => f.AboutYou, AboutYouBuilder.NewValid())
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
                 .With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid())
                 .Insert();
 
