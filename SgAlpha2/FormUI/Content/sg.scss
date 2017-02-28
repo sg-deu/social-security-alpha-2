@@ -122,6 +122,12 @@
 
     .confirm-check-box {
 
+        &.emphasise {
+            label {
+                span { font-weight: bold; }
+            }
+        }
+
         label {
 
             position: relative;
@@ -134,7 +140,7 @@
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-           }
+            }
 
             span {
                 padding-left: 50px;
