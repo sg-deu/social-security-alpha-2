@@ -35,6 +35,14 @@ namespace FormUI.Domain.BestStartGrantForms
             return form.Id;
         }
 
+        public void AddApplicantDetails(ApplicantDetails applicantDetails)
+        {
+            Validate(applicantDetails);
+
+            ApplicantDetails = applicantDetails;
+            Repository.Update(this);
+        }
+
         public void AddExpectedChildren(ExpectedChildren expectedChildren)
         {
             Validate(expectedChildren);

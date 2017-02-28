@@ -155,6 +155,7 @@
     <Compile Include="Controllers\Shared\FormController.cs" />
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\Complete.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />

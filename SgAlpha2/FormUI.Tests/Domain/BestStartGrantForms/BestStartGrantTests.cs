@@ -15,35 +15,39 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_Validation()
         {
-            ApplicantDetailsShouldBeValid(m => { });
-            ApplicantDetailsShouldBeValid(m => m.Title = null);
-            ApplicantDetailsShouldBeValid(m => m.OtherNames = null);
-            ApplicantDetailsShouldBeValid(m => m.CurrentAddress.Street2 = null);
-            ApplicantDetailsShouldBeValid(m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
+            var form = new BestStartGrantBuilder("form").Insert();
 
-            ApplicantDetailsShouldBeInvalid(m => m.FirstName = null);
-            ApplicantDetailsShouldBeInvalid(m => m.SurnameOrFamilyName = null);
-            ApplicantDetailsShouldBeInvalid(m => m.DateOfBirth = null);
-            ApplicantDetailsShouldBeInvalid(m => m.DateOfBirth = TestNowUtc);
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = null);
-            ApplicantDetailsShouldBeInvalid(m => m.CurrentAddress.Street1 = null);
-            ApplicantDetailsShouldBeInvalid(m => m.CurrentAddress.TownOrCity = null);
-            ApplicantDetailsShouldBeInvalid(m => m.CurrentAddress.Postcode = null);
-            ApplicantDetailsShouldBeInvalid(m => m.CurrentAddress.DateMovedIn = null);
-            ApplicantDetailsShouldBeInvalid(m => m.CurrentAddressStatus = null);
-            ApplicantDetailsShouldBeInvalid(m => m.ContactPreference = null);
+            ApplicantDetailsShouldBeValid(form, m => { });
+            ApplicantDetailsShouldBeValid(form, m => m.Title = null);
+            ApplicantDetailsShouldBeValid(form, m => m.OtherNames = null);
+            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Street2 = null);
+            ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
+
+            ApplicantDetailsShouldBeInvalid(form, m => m.FirstName = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.SurnameOrFamilyName = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = TestNowUtc);
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Street1 = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.TownOrCity = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.DateMovedIn = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.ContactPreference = null);
         }
 
         [Test]
         public void Start_ContactPreferenceEmail_RequiresEmail()
         {
-            ApplicantDetailsShouldBeValid(m =>
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ApplicantDetailsShouldBeValid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Email;
                 m.PhoneNumer = null;
                 m.MobilePhoneNumber = null;
             });
-            ApplicantDetailsShouldBeInvalid(m =>
+            ApplicantDetailsShouldBeInvalid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Email;
                 m.EmailAddress = null;
@@ -53,13 +57,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_ContactPreferencePhone_RequiresPhoneNumber()
         {
-            ApplicantDetailsShouldBeValid(m =>
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ApplicantDetailsShouldBeValid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Phone;
                 m.EmailAddress = null;
                 m.MobilePhoneNumber = null;
             });
-            ApplicantDetailsShouldBeInvalid(m =>
+            ApplicantDetailsShouldBeInvalid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Phone;
                 m.PhoneNumer = null;
@@ -69,13 +75,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_ContactPreferenceText_RequiresText()
         {
-            ApplicantDetailsShouldBeValid(m =>
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            ApplicantDetailsShouldBeValid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Text;
                 m.EmailAddress = null;
                 m.PhoneNumer = null;
             });
-            ApplicantDetailsShouldBeInvalid(m =>
+            ApplicantDetailsShouldBeInvalid(form, m =>
             {
                 m.ContactPreference = ContactPreference.Text;
                 m.MobilePhoneNumber = null;
@@ -85,19 +93,21 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_NationalInsuranceNumber_FormattedCorrectly()
         {
-            ApplicantDetailsShouldBeValid(m => m.NationalInsuranceNumber = "AB 12 34 56 C", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ApplicantDetailsShouldBeValid(m => m.NationalInsuranceNumber = "ab 12 34 56 c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ApplicantDetailsShouldBeValid(m => m.NationalInsuranceNumber = "Ab123456c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
-            ApplicantDetailsShouldBeValid(m => m.NationalInsuranceNumber = "AB/123456/c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            var form = new BestStartGrantBuilder("form").Insert();
 
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "A 12 34 56 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 56 CD");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12/34/56 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "A. 12 34 56 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "AB .2 34 56 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 .4 56 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "AB 12 34 .6 C");
-            ApplicantDetailsShouldBeInvalid(m => m.NationalInsuranceNumber = "A5 12 34 56 .");
+            ApplicantDetailsShouldBeValid(form, m => m.NationalInsuranceNumber = "AB 12 34 56 C", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ApplicantDetailsShouldBeValid(form, m => m.NationalInsuranceNumber = "ab 12 34 56 c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ApplicantDetailsShouldBeValid(form, m => m.NationalInsuranceNumber = "Ab123456c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+            ApplicantDetailsShouldBeValid(form, m => m.NationalInsuranceNumber = "AB/123456/c", m => m.NationalInsuranceNumber.Should().Be("AB 12 34 56 C"));
+
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "A 12 34 56 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "AB 12 34 56 CD");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "AB 12/34/56 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "A. 12 34 56 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "AB .2 34 56 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "AB 12 .4 56 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "AB 12 34 .6 C");
+            ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = "A5 12 34 56 .");
         }
 
         [Test]
@@ -240,18 +250,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         #region test helpers
 
-        protected void ApplicantDetailsShouldBeValid(Action<ApplicantDetails> mutator, Action<ApplicantDetails> postVerify = null)
+        protected void ApplicantDetailsShouldBeValid(BestStartGrant form, Action<ApplicantDetails> mutator, Action<ApplicantDetails> postVerify = null)
         {
-            var aboutYou = ApplicantDetailsBuilder.NewValid(mutator);
-            ShouldBeValid(() => BestStartGrant.Start(aboutYou));
+            var applicantDetails = ApplicantDetailsBuilder.NewValid(mutator);
+            ShouldBeValid(() => form.AddApplicantDetails(applicantDetails));
 
             if (postVerify != null)
-                postVerify(aboutYou);
+                postVerify(applicantDetails);
         }
 
-        protected void ApplicantDetailsShouldBeInvalid(Action<ApplicantDetails> mutator)
+        protected void ApplicantDetailsShouldBeInvalid(BestStartGrant form, Action<ApplicantDetails> mutator)
         {
-            ShouldBeInvalid(() => BestStartGrant.Start(ApplicantDetailsBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddApplicantDetails(ApplicantDetailsBuilder.NewValid(mutator)));
         }
 
         protected void ExpectedChildrenShouldBeValid(BestStartGrant form, Action<ExpectedChildren> mutator)
