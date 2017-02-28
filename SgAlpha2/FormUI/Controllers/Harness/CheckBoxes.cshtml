@@ -1,0 +1,17 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>CheckBox examples</h2>
+
+        <form>
+
+            @Html.LabelledConfirmCheckBox("A really long label that will wrap onto a second line to see how the vertical centering works with css and screen sizes", m => m.CheckBox1)
+
+            @Html.LabelledConfirmCheckBox(m => m.CheckBox2)
+
+        </form>
+
+    </div><!--
+--></div>

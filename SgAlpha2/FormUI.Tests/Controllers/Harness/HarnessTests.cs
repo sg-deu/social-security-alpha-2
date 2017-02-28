@@ -43,6 +43,12 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
+        public void CheckBoxes_GET()
+        {
+            VerifyView(HarnessActions.CheckBoxes());
+        }
+
+        [Test]
         public void Form()
         {
             WebAppTest(client =>

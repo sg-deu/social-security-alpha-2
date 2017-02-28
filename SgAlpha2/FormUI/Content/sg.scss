@@ -120,4 +120,29 @@
 
     }
 
+    .confirm-check-box {
+
+        label {
+
+            position: relative;
+
+            input {
+                width: 30px;
+                height: 30px;
+                display: block;
+                float: left;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+           }
+
+            span {
+                padding-left: 50px;
+                display: block;
+            }
+
+        }
+
+    }
+
 }

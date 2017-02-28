@@ -138,6 +138,7 @@
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
+    <Compile Include="Controllers\Helpers\Controls\ConfirmCheckBox.cs" />
     <Compile Include="Controllers\Helpers\Controls\Control.cs" />
     <Compile Include="Controllers\Helpers\Controls\FormContext.cs" />
     <Compile Include="Controllers\Helpers\Controls\FormRow.cs" />
@@ -268,6 +269,7 @@
     <Content Include="Controllers\Bsg\HealthProfessional.cshtml" />
     <Content Include="Controllers\Bsg\PaymentDetails.cshtml" />
     <Content Include="Controllers\Bsg\ApplicantBenefits2.cshtml" />
+    <Content Include="Controllers\Harness\CheckBoxes.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

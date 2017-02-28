@@ -115,6 +115,17 @@ namespace FormUI.Controllers.Helpers
                 new Radios(controlContext, values, descriptionTexts));
         }
 
+        public static FormRow<ConfirmCheckBox> LabelledConfirmCheckBox<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        {
+            return helper.LabelledConfirmCheckBox(null, property);
+        }
+
+        public static FormRow<ConfirmCheckBox> LabelledConfirmCheckBox<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool>> property)
+        {
+            return helper.LabelledControl("", property, controlContext =>
+                new ConfirmCheckBox(controlContext, labelText));
+        }
+
         public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label)
         {
             return helper.FormButton(name, null, label);

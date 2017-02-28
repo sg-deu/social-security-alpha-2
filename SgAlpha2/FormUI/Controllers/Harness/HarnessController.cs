@@ -11,16 +11,18 @@ namespace FormUI.Controllers.Harness
         public static string InputText()    { return "~/harness/inputText/"; }
         public static string InputDate()    { return "~/harness/inputDate/"; }
         public static string Radio()        { return "~/harness/radio/"; }
+        public static string CheckBoxes()   { return "~/harness/checkBoxes/"; }
         public static string Form()         { return "~/harness/form/"; }
     }
 
     public class HarnessController : Controller
     {
-        public ActionResult Index()     { return View(); }
-        public ActionResult Layout()    { return View(); }
-        public ActionResult InputText() { return View(); }
-        public ActionResult InputDate() { return View(); }
-        public ActionResult Radio()     { return View(); }
+        public ActionResult Index()         { return View(); }
+        public ActionResult Layout()        { return View(); }
+        public ActionResult InputText()     { return View(); }
+        public ActionResult InputDate()     { return View(); }
+        public ActionResult Radio()         { return View(); }
+        public ActionResult CheckBoxes()    { return View(); }
 
 
         [HttpGet]
@@ -32,6 +34,7 @@ namespace FormUI.Controllers.Harness
                 DateTime1 = new DateTime(2003, 02, 01),
                 Int1 = 5,
                 Radio1 = RValues1.Value2,
+                CheckBox2 = true,
             };
 
             return View(model);
