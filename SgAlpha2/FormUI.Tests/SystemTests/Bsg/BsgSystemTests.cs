@@ -22,7 +22,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.VerifyCanSeeText("About You ...");
 
             {
-                var form = App.FormFormModel<AboutYou>();
+                var form = App.FormForModel<AboutYou>();
                 form.TypeText(m => m.Title, "system test Title");
                 form.TypeText(m => m.FirstName, "system test FirstName");
                 form.TypeText(m => m.OtherNames, "system test OtherNames");
@@ -44,7 +44,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
 
             {
-                var form = App.FormFormModel<ExpectedChildren>();
+                var form = App.FormForModel<ExpectedChildren>();
                 form.TypeDate(m => m.ExpectancyDate, expectancyDate);
                 form.TypeText(m => m.ExpectedBabyCount, "3");
             }
@@ -57,7 +57,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 App.ClickButton(BsgButtons.AddChild);
                 App.VerifyCanSeeText("Child 2");
 
-                var form = App.FormFormModel<ExistingChildren>();
+                var form = App.FormForModel<ExistingChildren>();
 
                 form.TypeText(m => m.Children[0].FirstName, "c1 first name");
                 form.TypeText(m => m.Children[0].Surname, "c1 last name");
@@ -76,7 +76,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.ClickButton("");
 
             {
-                var form = App.FormFormModel<ApplicantBenefits>();
+                var form = App.FormForModel<ApplicantBenefits>();
 
                 form.SelectRadio(m => m.HasExistingBenefit, false);
             }
@@ -84,7 +84,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             {
-                var form = App.FormFormModel<ApplicantBenefits>();
+                var form = App.FormForModel<ApplicantBenefits>();
 
                 form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
                 form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
@@ -93,7 +93,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             {
-                var form = App.FormFormModel<HealthProfessional>();
+                var form = App.FormForModel<HealthProfessional>();
 
                 form.TypeText(m => m.Pin, "XYZ54321");
             }
@@ -101,7 +101,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             {
-                var form = App.FormFormModel<PaymentDetails>();
+                var form = App.FormForModel<PaymentDetails>();
 
                 form.SelectRadio(m => m.LackingBankAccount, false);
                 form.TypeText(m => m.NameOfAccountHolder, "system test account holder");
@@ -109,6 +109,14 @@ namespace FormUI.Tests.SystemTests.Bsg
                 form.TypeText(m => m.SortCode, "01-02-03");
                 form.TypeText(m => m.AccountNumber, "01234567");
                 form.TypeText(m => m.RollNumber, "roll_number");
+            }
+
+            App.Submit();
+
+            {
+                var form = App.FormForModel<Declaration>();
+
+                form.Check(m => m.AgreedToLegalStatement, true);
             }
 
             App.Submit();

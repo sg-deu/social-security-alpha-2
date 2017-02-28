@@ -99,7 +99,7 @@ namespace FormUI.Tests.SystemTests.Util
             });
         }
 
-        public FormModel<T> FormFormModel<T>()
+        public FormModel<T> FormForModel<T>()
         {
             return new FormModel<T>(this);
         }
@@ -123,6 +123,37 @@ namespace FormUI.Tests.SystemTests.Util
                 var radio = radios.Where(r => r.GetAttribute("value") == value).Single();
                 radio.Click();
             });
+        }
+
+        public void Check(string name, bool check)
+        {
+            var display = check ? "Check" : "Uncheck";
+            Console.Write("{0} {1}; ", display, name);
+            var after = "";
+            Wait.For(() =>
+            {
+                var checkBox = _browser.FindElement(By.Name(name));
+
+                if (checkBox.Selected && check)
+                {
+                    after = "already checked";
+                }
+                else if (checkBox.Selected && !check)
+                {
+                    checkBox.Click();
+                    after = "unchecked";
+                }
+                else if (!checkBox.Selected && check)
+                {
+                    checkBox.Click();
+                    after = "checked";
+                }
+                else if (!checkBox.Selected && !check)
+                {
+                    after = "already unchecked";
+                }
+            });
+            Console.WriteLine(after);
         }
 
         public void ClickButton(string name)

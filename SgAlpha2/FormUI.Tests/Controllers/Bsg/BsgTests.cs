@@ -347,7 +347,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Declaration("form123"));
             });
         }
 

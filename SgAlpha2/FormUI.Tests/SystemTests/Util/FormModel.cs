@@ -41,5 +41,11 @@ namespace FormUI.Tests.SystemTests.Util
             var valueText = value.ToString();
             _app.SelectRadio(name, valueText);
         }
+
+        public void Check(Expression<Func<T, bool>> property, bool check)
+        {
+            var name = property.GetExpressionText();
+            _app.Check(name, check);
+        }
     }
 }
