@@ -24,6 +24,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static string Start(Consent consent)
         {
+            Validate(consent);
+
             var form = new BestStartGrant
             {
                 Consent = consent,
@@ -100,6 +102,15 @@ namespace FormUI.Domain.BestStartGrantForms
 
             Declaration = declaration;
             Repository.Update(this);
+        }
+
+        private static void Validate(Consent consent)
+        {
+            var ctx = new ValidationContext<Consent>(consent);
+
+            ctx.Required(m => m.AgreedToConsent, "Please indicate that you agree");
+
+            ctx.ThrowIfError();
         }
 
         private static void Validate(ApplicantDetails applicantDetails)

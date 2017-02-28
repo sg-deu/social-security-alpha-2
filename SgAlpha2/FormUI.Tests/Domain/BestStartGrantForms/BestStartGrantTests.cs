@@ -15,6 +15,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Start_Validation()
         {
+            ConsentShouldBeValid(m => { });
+
+            ConsentShouldBeInvalid(m => m.AgreedToConsent = false);
+        }
+
+        [Test]
+        public void AddApplicantDetails_Validation()
+        {
             var form = new BestStartGrantBuilder("form").Insert();
 
             ApplicantDetailsShouldBeValid(form, m => { });
@@ -37,7 +45,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void Start_ContactPreferenceEmail_RequiresEmail()
+        public void AddApplicantDetails_ContactPreferenceEmail_RequiresEmail()
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
@@ -55,7 +63,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void Start_ContactPreferencePhone_RequiresPhoneNumber()
+        public void AddApplicantDetails_ContactPreferencePhone_RequiresPhoneNumber()
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
@@ -73,7 +81,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void Start_ContactPreferenceText_RequiresText()
+        public void AddApplicantDetails_ContactPreferenceText_RequiresText()
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
@@ -91,7 +99,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void Start_NationalInsuranceNumber_FormattedCorrectly()
+        public void AddApplicantDetails_NationalInsuranceNumber_FormattedCorrectly()
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
@@ -249,6 +257,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         #region test helpers
+
+        protected void ConsentShouldBeValid(Action<Consent> mutator)
+        {
+            ShouldBeValid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+        }
+
+        protected void ConsentShouldBeInvalid(Action<Consent> mutator)
+        {
+            ShouldBeInvalid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+        }
 
         protected void ApplicantDetailsShouldBeValid(BestStartGrant form, Action<ApplicantDetails> mutator, Action<ApplicantDetails> postVerify = null)
         {
