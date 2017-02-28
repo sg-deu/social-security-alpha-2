@@ -19,7 +19,14 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.VerifyCanSeeText("Overview");
 
             App.ClickLinkButton("Next");
-            App.VerifyCanSeeText("About You ...");
+            App.VerifyCanSeeText("Consent");
+
+            {
+                var form = App.FormForModel<Consent>();
+                form.Check(m => m.AgreedToConsent, true);
+            }
+
+            App.Submit();
 
             {
                 var form = App.FormForModel<ApplicantDetails>();

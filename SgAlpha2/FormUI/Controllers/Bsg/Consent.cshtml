@@ -1,0 +1,51 @@
+﻿@inherits WebViewPage<Consent>
+@{
+    ViewBag.Title = "Best Start Grant - Consent";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h1>Consent</h1>
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+            <p>
+                The Social Security Agency is an agency of the Scottish Government responsible for
+                processing and administering social security benefits and grants. In some instances
+                the data that you provide may be shared with the Department of Work and Pensions (DWP)
+                and other Government bodies to verify your identity and eligibility for
+                Best Start Grant (BSG). Data which does not identify the applicant (i.e. name) may
+                also be used for statistical purposes.
+            </p>
+
+            <p>
+                If you agree that the Social Security Agency can use the data you have provided
+                in your BSG application for the purposes described above, please tick the box below.
+            </p>
+
+            @Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true))
+
+            <p>
+                If you need any further information, please contact us at:
+                <dl>
+                    <dd>Social Security Agency</dd>
+                    <dd>1 Social Security House</dd>
+                    <dd>Scotland</dd>
+                </dl>
+                <br/>
+                <dl>
+                    <dd>Tel: 01010 101 010</dd>
+                    <dd>Email: enquiries@socialsecurity.gov.scot</dd>
+                </dl>
+            </p>
+
+
+            @Html.ButtonSubmitNext()
+
+        </form>
+
+    </div><!--
+--></div>

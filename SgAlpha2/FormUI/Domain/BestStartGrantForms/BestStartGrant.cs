@@ -13,6 +13,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
+        public Consent              Consent             { get; protected set; }
         public ApplicantDetails     ApplicantDetails    { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
@@ -21,17 +22,14 @@ namespace FormUI.Domain.BestStartGrantForms
         public PaymentDetails       PaymentDetails      { get; protected set; }
         public Declaration          Declaration         { get; protected set; }
 
-        public static string Start(ApplicantDetails applicantDetails)
+        public static string Start(Consent consent)
         {
-            Validate(applicantDetails);
-
             var form = new BestStartGrant
             {
-                ApplicantDetails = applicantDetails,
+                Consent = consent,
             };
 
             Repository.Insert(form);
-
             return form.Id;
         }
 

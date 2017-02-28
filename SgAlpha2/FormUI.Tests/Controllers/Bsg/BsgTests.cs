@@ -28,29 +28,62 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Consent_POST_StartsForm()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), "form123");
+
+                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                    .SelectConfirm(m => m.AgreedToConsent, true)
+                    .Submit(client);
+
+                ExecutorStub.Executed<StartBestStartGrant>(0).ShouldBeEquivalentTo(new StartBestStartGrant
+                {
+                    Consent = new Consent { AgreedToConsent = true },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantDetails("form123"));
+            });
+        }
+
+        [Test]
+        public void Consent_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand<StartBestStartGrant, string>((cmd, r) => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                    .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void ApplicantDetails_GET()
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.ApplicantDetails());
+                var response = client.Get(BsgActions.ApplicantDetails("form123"));
 
                 response.Doc.Document.Body.TextContent.Should().Contain("About You");
             });
         }
 
         [Test]
-        public void ApplicantDetails_POST_StartsForm()
+        public void ApplicantDetails_POST_StoresData()
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), "form123");
-
-                var response = client.Get(BsgActions.ApplicantDetails()).Form<ApplicantDetails>(1)
+                var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1)
                     .SetText(m => m.FirstName, "first name")
                     .Submit(client);
 
-                ExecutorStub.Executed<StartBestStartGrant>(0).ShouldBeEquivalentTo(new StartBestStartGrant
+                ExecutorStub.Executed<AddApplicantDetails>(0).ShouldBeEquivalentTo(new AddApplicantDetails
                 {
+                    FormId = "form123",
                     ApplicantDetails = new ApplicantDetails { FirstName = "first name" },
                 });
 
@@ -63,7 +96,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.ApplicantDetails()).Form<ApplicantDetails>(1)
+                var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1)
                     .SetDate(m => m.DateOfBirth, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 

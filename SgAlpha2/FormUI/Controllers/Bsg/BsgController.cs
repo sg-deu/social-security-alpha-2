@@ -14,7 +14,8 @@ namespace FormUI.Controllers.Bsg
     public static class BsgActions
     {
         public static string    Overview()                          { return $"~/bsg/overview"; }
-        public static string    ApplicantDetails()                  { return $"~/bsg/applicantDetails"; }
+        public static string    Consent()                           { return $"~/bsg/consent"; }
+        public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
         public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
@@ -34,22 +35,42 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
-        public ActionResult ApplicantDetails()
+        public ActionResult Consent()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult ApplicantDetails(ApplicantDetails applicantDetails)
+        public ActionResult Consent(string id, Consent consent)
         {
             var cmd = new StartBestStartGrant
             {
+                Consent = consent,
+            };
+
+            return Exec(cmd,
+                success: formId => Redirect(BsgActions.ApplicantDetails(formId)),
+                failure: () => Consent());
+        }
+
+        [HttpGet]
+        public ActionResult ApplicantDetails(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
+        {
+            var cmd = new AddApplicantDetails
+            {
+                FormId = id,
                 ApplicantDetails = applicantDetails,
             };
 
             return Exec(cmd,
-                success: formId => Redirect(BsgActions.ExpectedChildren(formId)),
-                failure: () => ApplicantDetails());
+                success: () => Redirect(BsgActions.ExpectedChildren(id)),
+                failure: () => ApplicantDetails(id));
         }
 
         [HttpGet]

@@ -13,19 +13,19 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         [Test]
         public void Execute_CreatesForm()
         {
-            var applicantDetails = ApplicantDetailsBuilder.NewValid(m =>
-                m.FirstName = "unit test");
+            var consent = ConsentBuilder.NewValid(m =>
+                m.AgreedToConsent = true);
 
             var cmd = new StartBestStartGrant
             {
-                ApplicantDetails = applicantDetails,
+                Consent = consent,
             };
 
             var id = cmd.Execute();
 
             var createdForm = Repository.Query<BestStartGrant>().ToList().FirstOrDefault();
             createdForm.Should().NotBeNull("form should be in database");
-            createdForm.ApplicantDetails.FirstName.Should().Be("unit test");
+            createdForm.Consent.AgreedToConsent.Should().BeTrue();
 
             createdForm.Id.Should().Be(id);
         }

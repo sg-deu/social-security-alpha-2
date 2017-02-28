@@ -185,6 +185,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessionalTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\ConsentBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\DeclarationBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\ExistingChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\ExpectedChildrenBuilder.cs" />

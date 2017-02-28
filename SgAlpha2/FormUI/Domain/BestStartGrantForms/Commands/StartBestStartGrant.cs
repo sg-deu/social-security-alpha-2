@@ -5,11 +5,11 @@ namespace FormUI.Domain.BestStartGrantForms.Commands
 {
     public class StartBestStartGrant : Command<string>
     {
-        public ApplicantDetails ApplicantDetails;
+        public Consent Consent;
 
         public override string Execute()
         {
-            return BestStartGrant.Start(ApplicantDetails);
+            return BestStartGrant.Start(Consent);
         }
     }
 }

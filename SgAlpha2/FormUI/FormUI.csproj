@@ -168,6 +168,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\Consent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Declaration.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChild.cs" />
@@ -272,6 +273,7 @@
     <Content Include="Controllers\Bsg\ApplicantBenefits2.cshtml" />
     <Content Include="Controllers\Harness\CheckBoxes.cshtml" />
     <Content Include="Controllers\Bsg\Declaration.cshtml" />
+    <Content Include="Controllers\Bsg\Consent.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
