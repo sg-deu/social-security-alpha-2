@@ -366,6 +366,42 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Declaration_POST_CompletesForm()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
+                    .SelectConfirm(m => m.AgreedToLegalStatement, true)
+                    .Submit(client);
+
+                ExecutorStub.Executed<Complete>(0).ShouldBeEquivalentTo(new Complete
+                {
+                    FormId = "form123",
+                    Declaration = new Declaration
+                    {
+                        AgreedToLegalStatement = true,
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+            });
+        }
+
+        [Test]
+        public void Declaration_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupVoidCommand(It.IsAny<Complete>(), cmd => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void Complete_GET()
         {
             WebAppTest(client =>
