@@ -105,7 +105,7 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult ExpectedChildren(string id)
         {
-            return View();
+            return ExpectedChildren_Render(id, null);
         }
 
         [HttpPost]
@@ -119,14 +119,21 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.ExistingChildren(id)),
-                failure: () => ExpectedChildren(id));
+                failure: () => ExpectedChildren_Render(id, expectedChildren));
+        }
+
+        private ActionResult ExpectedChildren_Render(string formId, ExpectedChildren details)
+        {
+            return NavigableView<ExpectedChildrenModel>(formId, Sections.ExpectedChildren, (m, f) =>
+            {
+                m.ExpectedChildren = details ?? f.ExpectedChildren;
+            });
         }
 
         [HttpGet]
         public ActionResult ExistingChildren(string id)
         {
-            var model = new ExistingChildren();
-            return View(model);
+            return ExistingChildren_Render(id, null);
         }
 
         [HttpPost]
@@ -135,7 +142,7 @@ namespace FormUI.Controllers.Bsg
             if (WasClicked(BsgButtons.AddChild))
             {
                 existingChildren.Children.Add(new ExistingChild());
-                return View(existingChildren);
+                return ExistingChildren_Render(id, existingChildren);
             }
 
             if (WasClicked(BsgButtons.RemoveChild))
@@ -143,7 +150,7 @@ namespace FormUI.Controllers.Bsg
                 var childIndex = int.Parse(Request.Form[BsgButtons.RemoveChild]);
                 existingChildren.Children.RemoveAt(childIndex);
                 RemoveModelStateArray<ExistingChildren>(m => m.Children, childIndex);
-                return View(existingChildren);
+                return ExistingChildren_Render(id, existingChildren);
             }
 
             var cmd = new AddExistingChildren
@@ -154,7 +161,15 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.ApplicantBenefits1(id)),
-                failure: () => View(existingChildren));
+                failure: () => ExistingChildren_Render(id, existingChildren));
+        }
+
+        private ActionResult ExistingChildren_Render(string formId, ExistingChildren details)
+        {
+            return NavigableView<ExistingChildrenModel>(formId, Sections.ExistingChildren, (m, f) =>
+            {
+                m.ExistingChildren = details ?? f.ExistingChildren ?? new ExistingChildren();
+            });
         }
 
         [HttpGet]

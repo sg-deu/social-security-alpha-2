@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<ExpectedChildren>
+﻿@inherits WebViewPage<ExpectedChildrenModel>
 @{
     ViewBag.Title = "Best Start Grant - Expected Children";
 }
@@ -6,20 +6,25 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>If a baby is expected ...</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.ExpectedChildren))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
 
-            @Html.LabelledInputDate(m => m.ExpectancyDate)
+            @form.Html.LabelledInputDate(m => m.ExpectancyDate)
 
-            @Html.LabelledInputInt(m => m.ExpectedBabyCount)
+            @form.Html.LabelledInputInt(m => m.ExpectedBabyCount)
 
-            @Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext()
 
-        </form>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

@@ -143,6 +143,21 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExpectedChildren_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExpectedChildren(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ExpectedChildren });
+                response.Doc.Form<ExpectedChildren>(1).GetText(m => m.ExpectedBabyCount).Should().Be(detail.ExpectedChildren.ExpectedBabyCount.ToString());
+            });
+        }
+
+        [Test]
         public void ExpectedChildren_POST_StoresData()
         {
             WebAppTest(client =>
@@ -176,6 +191,21 @@ namespace FormUI.Tests.Controllers.Bsg
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void ExistingChildren_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExistingChildren(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ExistingChildren });
+                response.Doc.Form<ExistingChildren>(1).GetText(m => m.Children[1].Surname).Should().Be(detail.ExistingChildren.Children[1].Surname);
             });
         }
 

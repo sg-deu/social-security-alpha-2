@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<ExistingChildren>
+﻿@inherits WebViewPage<ExistingChildrenModel>
 @{
     ViewBag.Title = "Best Start Grant - Existing Children";
 }
@@ -6,30 +6,37 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>If the baby has already been born...</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.ExistingChildren))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
-            @for (var i = 0; i < Model.Children.Count; i++) {
+            for(var i = 0; i < Model.ExistingChildren.Children.Count; i++)
+            {
                 <h3 class="existing-child">Child @(i + 1)</h3>
 
-                @Html.LabelledInputText(m => m.Children[i].FirstName)
-                @Html.LabelledInputText(m => m.Children[i].Surname)
-                @Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
-                @Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
-                @Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
-                @Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
+                @form.Html.LabelledInputText(m => m.Children[i].FirstName)
+                @form.Html.LabelledInputText(m => m.Children[i].Surname)
+                @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
+                @form.Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
+                @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
+                @form.Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
 
-                @Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i+1}")
+                @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
             }
 
-            @Html.FormButton(BsgButtons.AddChild, "Add Child")
+            @form.Html.FormButton(BsgButtons.AddChild, "Add Child")
 
-            @Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext()
 
-        </form>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
 
     </div><!--
 --></div>
