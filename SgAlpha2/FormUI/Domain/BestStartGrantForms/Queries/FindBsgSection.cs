@@ -5,7 +5,8 @@ namespace FormUI.Domain.BestStartGrantForms.Queries
 {
     public class FindBsgSection : Query<BsgDetail>
     {
-        public string FormId;
+        public string   FormId;
+        public Sections Section;
 
         public override BsgDetail Find()
         {

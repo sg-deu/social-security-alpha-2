@@ -52,8 +52,8 @@ namespace FormUI.Tests.Controllers.Util
             var executableType = executable.GetType();
             var interfaces = executable.GetType().GetInterfaces();
 
-            var commandInterface = typeof(Command<>);
-            var queryInterface = typeof(Query<>);
+            var commandInterface = typeof(ICommand<>);
+            var queryInterface = typeof(IQuery<>);
 
             foreach (var intrface in interfaces)
             {

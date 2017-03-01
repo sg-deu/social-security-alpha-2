@@ -19,9 +19,9 @@ namespace FormUI.Controllers.Shared
             return Exec(ModelState, () => PresentationRegistry.NewExecutor(ModelState.IsValid).Execute(cmd), success, failure);
         }
 
-        protected ActionResult Exec<T>(Query<T> query, Func<T, ActionResult> success, Func<ActionResult> failure)
+        protected TReturn Exec<TReturn>(Query<TReturn> query)
         {
-            return Exec(ModelState, () => PresentationRegistry.NewExecutor(ModelState.IsValid).Execute(query), success, failure);
+            return PresentationRegistry.NewExecutor(ModelState.IsValid).Execute(query);
         }
 
         private static ActionResult Exec<TReturn>(ModelStateDictionary modelState, Func<TReturn> run, Func<TReturn, ActionResult> success, Func<ActionResult> failure)

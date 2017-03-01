@@ -16,7 +16,12 @@ namespace FormUI.Domain.Util
         }
     }
 
-    public abstract class Command<T> : IExecutable
+    public interface ICommand<T>
+    {
+        T Execute();
+    }
+
+    public abstract class Command<T> : IExecutable, ICommand<T>
     {
         protected static IRepository Repository { [DebuggerStepThrough] get { return DomainRegistry.Repository; } }
 

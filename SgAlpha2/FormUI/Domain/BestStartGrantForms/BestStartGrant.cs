@@ -27,7 +27,14 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             return new BsgDetail
             {
-                Consent = Consent,
+                Consent             = Consent,
+                ApplicantDetails    = ApplicantDetails,
+                ExpectedChildren    = ExpectedChildren,
+                ExistingChildren    = ExistingChildren,
+                ApplicantBenefits   = ApplicantBenefits,
+                HealthProfessional  = HealthProfessional,
+                PaymentDetails      = PaymentDetails,
+                Declaration         = Declaration,
             };
         }
 

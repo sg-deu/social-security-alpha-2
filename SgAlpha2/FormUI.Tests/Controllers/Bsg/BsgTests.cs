@@ -4,11 +4,15 @@ using System.Net;
 using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
+using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Queries;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
+using FormUI.Tests.Domain.BestStartGrantForms;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Controllers.Bsg
@@ -62,13 +66,17 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        public void ApplicantDetails_GET()
+        public void ApplicantDetails_GET_PopulatesExistingDetails()
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.ApplicantDetails("form123"));
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
 
-                response.Doc.Document.Body.TextContent.Should().Contain("About You");
+                var response = client.Get(BsgActions.ApplicantDetails(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ApplicantDetails });
+                response.Doc.Form<ApplicantDetails>(1).GetText(m => m.FirstName).Should().Be(detail.ApplicantDetails.FirstName);
             });
         }
 
@@ -443,6 +451,25 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 response.Text.ToLower().Should().Contain("received");
             });
+        }
+
+        private static BsgDetail NewBsgDetail(string formId)
+        {
+            var detail = new BsgDetail
+            {
+                Id = formId,
+
+                Consent             = ConsentBuilder.NewValid(),
+                ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
+                ExpectedChildren    = ExpectedChildrenBuilder.NewValid(),
+                ExistingChildren    = ExistingChildrenBuilder.NewValid(),
+                ApplicantBenefits   = ApplicantBenefitsBuilder.NewValid(Part.Part2),
+                HealthProfessional  = HealthProfessionalBuilder.NewValid(),
+                PaymentDetails      = PaymentDetailsBuilder.NewValid(),
+                Declaration         = DeclarationBuilder.NewValid(),
+            };
+
+            return detail;
         }
     }
 }

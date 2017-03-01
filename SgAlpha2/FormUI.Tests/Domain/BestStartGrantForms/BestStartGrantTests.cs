@@ -13,7 +13,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class BestStartGrantTests : DomainTest
     {
         [Test]
-        public void Start_Validation()
+        public void Consent_Validation()
         {
             ConsentShouldBeValid(m => { });
 

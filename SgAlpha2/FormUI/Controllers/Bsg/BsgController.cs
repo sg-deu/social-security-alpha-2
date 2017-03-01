@@ -1,7 +1,10 @@
 ﻿using System.Web.Mvc;
 using FormUI.Controllers.Shared;
+using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Queries;
+using FormUI.Domain.BestStartGrantForms.Responses;
 
 namespace FormUI.Controllers.Bsg
 {
@@ -56,7 +59,8 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
         {
-            return View();
+            var form = FindForm(id, Sections.ApplicantDetails);
+            return ApplicantDetails_Render(form.ApplicantDetails);
         }
 
         [HttpPost]
@@ -70,7 +74,12 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.ExpectedChildren(id)),
-                failure: () => ApplicantDetails(id));
+                failure: () => ApplicantDetails_Render(applicantDetails));
+        }
+
+        private ActionResult ApplicantDetails_Render(ApplicantDetails details)
+        {
+            return View(details);
         }
 
         [HttpGet]
@@ -234,6 +243,19 @@ namespace FormUI.Controllers.Bsg
         public ActionResult Complete()
         {
             return View();
+        }
+
+        private BsgDetail FindForm(string formId, Sections section)
+        {
+            var query = new FindBsgSection
+            {
+                FormId = formId,
+                Section = section,
+            };
+
+            var form = Exec(query);
+
+            return form;
         }
     }
 }
