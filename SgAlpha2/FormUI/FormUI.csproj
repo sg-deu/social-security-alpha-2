@@ -156,6 +156,7 @@
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
     <Compile Include="Controllers\Shared\FormController.cs" />
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
+    <Compile Include="Controllers\Shared\SharedViews.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\Complete.cs" />
@@ -279,6 +280,7 @@
     <Content Include="Controllers\Harness\CheckBoxes.cshtml" />
     <Content Include="Controllers\Bsg\Declaration.cshtml" />
     <Content Include="Controllers\Bsg\Consent.cshtml" />
+    <Content Include="Controllers\Shared\SsaContactDetails.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
