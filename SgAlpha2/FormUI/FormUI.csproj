@@ -168,6 +168,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Responses\BsgDetail.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Consent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Declaration.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessional.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\PaymentDetails.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSection.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Sections.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />
     <Compile Include="Domain\Util\Attributes\InputMasks.cs" />
@@ -330,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Domain\BestStartGrantForms\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

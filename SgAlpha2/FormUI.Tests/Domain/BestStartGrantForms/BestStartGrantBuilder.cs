@@ -1,4 +1,5 @@
 ﻿using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Tests.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
@@ -8,6 +9,19 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public BestStartGrantBuilder(string formId)
         {
             With(f => f.Id, formId);
+        }
+
+        public BestStartGrantBuilder WithCompletedSections()
+        {
+            With(f => f.Consent,            ConsentBuilder.NewValid());
+            With(f => f.ApplicantDetails,   ApplicantDetailsBuilder.NewValid());
+            With(f => f.ExpectedChildren,   ExpectedChildrenBuilder.NewValid());
+            With(f => f.ExistingChildren,   ExistingChildrenBuilder.NewValid());
+            With(f => f.ApplicantBenefits,  ApplicantBenefitsBuilder.NewValid(Part.Part2));
+            With(f => f.HealthProfessional, HealthProfessionalBuilder.NewValid());
+            With(f => f.PaymentDetails,     PaymentDetailsBuilder.NewValid());
+            With(f => f.Declaration,        DeclarationBuilder.NewValid());
+            return this;
         }
     }
 }

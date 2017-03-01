@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Forms;
 using FormUI.Domain.Util;
 
@@ -21,6 +22,14 @@ namespace FormUI.Domain.BestStartGrantForms
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
         public Declaration          Declaration         { get; protected set; }
+
+        public BsgDetail FindSection()
+        {
+            return new BsgDetail
+            {
+                Consent = Consent,
+            };
+        }
 
         public static string Start(Consent consent)
         {
