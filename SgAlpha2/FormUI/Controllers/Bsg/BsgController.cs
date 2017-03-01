@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
@@ -35,7 +36,15 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult Overview()
         {
-            return View();
+            var firstSection = Navigation.Order.First(); // should really be behind a domain Query
+            var firstAction = SectionActionStrategy.For(firstSection).Action(null);
+
+            var model = new OverviewModel
+            {
+                FirstAction = firstAction,
+            };
+
+            return View(model);
         }
 
         [HttpGet]
