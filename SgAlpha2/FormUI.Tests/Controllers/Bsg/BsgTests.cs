@@ -12,7 +12,7 @@ using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
-using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Controllers.Bsg

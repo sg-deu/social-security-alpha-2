@@ -2,7 +2,7 @@
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 
-namespace FormUI.Tests.Domain.BestStartGrantForms
+namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     public class ApplicantBenefitsBuilder
     {

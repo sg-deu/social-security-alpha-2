@@ -2,7 +2,7 @@
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Util;
 
-namespace FormUI.Tests.Domain.BestStartGrantForms
+namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     public class ExpectedChildrenBuilder
     {
