@@ -175,7 +175,7 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult ApplicantBenefits1(string id)
         {
-            return View();
+            return ApplicantBenefits1_Render(id, null);
         }
 
         [HttpPost]
@@ -190,13 +190,21 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.ApplicantBenefits2(id)),
-                failure: () => ApplicantBenefits1(id));
+                failure: () => ApplicantBenefits1_Render(id, applicantBenefits));
+        }
+
+        private ActionResult ApplicantBenefits1_Render(string formId, ApplicantBenefits details)
+        {
+            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits1, (m, f) =>
+            {
+                m.ApplicantBenefits = details ?? f.ApplicantBenefits;
+            });
         }
 
         [HttpGet]
         public ActionResult ApplicantBenefits2(string id)
         {
-            return View();
+            return ApplicantBenefits2_Render(id, null);
         }
 
         [HttpPost]
@@ -211,7 +219,15 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.HealthProfessional(id)),
-                failure: () => ApplicantBenefits2(id));
+                failure: () => ApplicantBenefits2_Render(id, applicantBenefits));
+        }
+
+        private ActionResult ApplicantBenefits2_Render(string formId, ApplicantBenefits details)
+        {
+            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits2, (m, f) =>
+            {
+                m.ApplicantBenefits = details ?? f.ApplicantBenefits;
+            });
         }
 
         [HttpGet]

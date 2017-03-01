@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<ApplicantBenefits>
+﻿@inherits WebViewPage<ApplicantBenefitsModel>
 @{
     ViewBag.Title = "Best Start Grant - Your Benefits part 2";
 }
@@ -6,21 +6,26 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>Your benefits</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.ApplicantBenefits))
+        {
 
-            @Html.ValidationSummary()
-
-
-            @Html.LabelledRadioYesNo(m => m.ReceivingBenefitForUnder20)
-
-            @Html.LabelledRadioYesNo(m => m.YouOrPartnerInvolvedInTradeDispute)
+            @form.Html.ValidationSummary()
 
 
-            @Html.ButtonSubmitNext()
+            @form.Html.LabelledRadioYesNo(m => m.ReceivingBenefitForUnder20)
 
-        </form>
+            @form.Html.LabelledRadioYesNo(m => m.YouOrPartnerInvolvedInTradeDispute)
+
+
+            @form.Html.ButtonSubmitNext()
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

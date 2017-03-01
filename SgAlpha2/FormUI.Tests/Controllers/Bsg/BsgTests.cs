@@ -309,6 +309,21 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ApplicantBenefits1_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ApplicantBenefits1(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ApplicantBenefits1 });
+                response.Doc.Form<ApplicantBenefits>(1).GetText(m => m.HasExistingBenefit).Should().Be(detail.ApplicantBenefits.HasExistingBenefit.ToString());
+            });
+        }
+
+        [Test]
         public void ApplicantBenefits1_POST_CanAddApplicantBenefits()
         {
             WebAppTest(client =>
@@ -342,6 +357,22 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void ApplicantBenefits2_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                detail.ApplicantBenefits.ReceivingBenefitForUnder20 = true;
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ApplicantBenefits2(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ApplicantBenefits2 });
+                response.Doc.Form<ApplicantBenefits>(1).GetText(m => m.ReceivingBenefitForUnder20).Should().Be("True");
             });
         }
 
