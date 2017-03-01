@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
@@ -17,7 +18,7 @@ namespace FormUI.Controllers.Bsg
     public static class BsgActions
     {
         public static string    Overview()                          { return $"~/bsg/overview"; }
-        public static string    Consent()                           { return $"~/bsg/consent"; }
+        public static string    Consent(string formId = null)       { return $"~/bsg/consent/{formId}"; }
         public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
@@ -59,8 +60,7 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
         {
-            var form = FindForm(id, Sections.ApplicantDetails);
-            return ApplicantDetails_Render(form.ApplicantDetails);
+            return ApplicantDetails_Render(id, null);
         }
 
         [HttpPost]
@@ -74,17 +74,15 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.ExpectedChildren(id)),
-                failure: () => ApplicantDetails_Render(applicantDetails));
+                failure: () => ApplicantDetails_Render(id, applicantDetails));
         }
 
-        private ActionResult ApplicantDetails_Render(ApplicantDetails details)
+        private ActionResult ApplicantDetails_Render(string formId, ApplicantDetails details)
         {
-            var model = new ApplicantDetailsModel
+            return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
             {
-                ApplicantDetails = details,
-            };
-
-            return View(model);
+                m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
         }
 
         [HttpGet]
@@ -261,6 +259,24 @@ namespace FormUI.Controllers.Bsg
             var form = Exec(query);
 
             return form;
+        }
+
+        private ActionResult NavigableView<TModel>(string formId, Sections section, Action<TModel, BsgDetail> mutator)
+            where TModel : NavigableModel, new()
+        {
+            var form = FindForm(formId, section);
+
+            var model = new TModel();
+
+            var previousSection = form.PreviousSection;
+
+            if (previousSection.HasValue)
+                model.PreviousAction = SectionActionStrategy.For(previousSection.Value).Action(formId);
+
+            if (mutator != null)
+                mutator(model, form);
+
+            return View(model);
         }
     }
 }

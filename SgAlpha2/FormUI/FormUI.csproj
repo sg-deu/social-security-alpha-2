@@ -137,6 +137,8 @@
     <Compile Include="App_Start\GlobalStartup.cs" />
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
+    <Compile Include="Controllers\Bsg\NavigableModel.cs" />
+    <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
     <Compile Include="Controllers\Helpers\Controls\ConfirmCheckBox.cs" />

@@ -29,5 +29,15 @@ namespace FormUI.Controllers.Helpers
 
             return anchor;
         }
+
+        public static IHtmlString BackLink<T>(this HtmlHelper<T> helper, string actionUrl)
+        {
+            if (string.IsNullOrWhiteSpace(actionUrl))
+                return null;
+
+            var urlHelper = helper.UrlHelper();
+
+            return new LinkTag("Back", urlHelper.Content(actionUrl));
+        }
     }
 }

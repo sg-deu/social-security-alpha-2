@@ -2,10 +2,8 @@
 
 namespace FormUI.Controllers.Bsg
 {
-    public class ApplicantDetailsModel
+    public class ApplicantDetailsModel : NavigableModel
     {
-        // GET
-
         // POST
         public ApplicantDetails ApplicantDetails;
     }
