@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<Consent>
+﻿@inherits WebViewPage<ConsentModel>
 @{
     ViewBag.Title = "Best Start Grant - Consent";
 }
@@ -6,11 +6,14 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>Consent</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.Consent))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
             <p>
                 The Social Security Agency is an agency of the Scottish Government responsible for
@@ -26,17 +29,19 @@
                 in your BSG application for the purposes described above, please tick the box below.
             </p>
 
-            @Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true))
+            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true))
 
             <p>
                 If you need any further information, please contact us at:
             </p>
 
-            @Html.Partial(SharedViews.SsaContactDetails)
+            @form.Html.Partial(SharedViews.SsaContactDetails)
 
-            @Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext()
 
-        </form>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

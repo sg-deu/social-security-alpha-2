@@ -12,6 +12,12 @@ namespace FormUI.Tests.Controllers.Util.Html
             return form.GetSingle(formName).Value;
         }
 
+        public static bool GetConfirm<T>(this TypedForm<T> form, Expression<Func<T, bool>> property)
+        {
+            var formName = FormName(property);
+            return form.GetSingle(formName).Value == "True";
+        }
+
         public static TypedForm<T> SetText<T, U>(this TypedForm<T> form, Expression<Func<T, U>> property, string value)
         {
             var formName = FormName(property);

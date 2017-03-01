@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FluentAssertions;
@@ -28,6 +29,35 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.Overview());
 
                 response.Doc.Document.Body.TextContent.Should().Contain("Overview");
+            });
+        }
+
+        [Test]
+        public void FirstSectionDoesNotNeedId()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupQuery<FindBsgSection, BsgDetail>((cmd, r) => { throw new DomainException("cannot call FindBsgSection with a null id"); });
+
+                var firstSection = Navigation.Order.First();
+                var firstAction = SectionActionStrategy.For(firstSection).Action(null);
+
+                client.Get(firstAction);
+            });
+        }
+
+        [Test]
+        public void Consent_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Consent(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.Consent });
+                response.Doc.Form<Consent>(1).GetConfirm(m => m.AgreedToConsent).Should().Be(detail.Consent.AgreedToConsent);
             });
         }
 

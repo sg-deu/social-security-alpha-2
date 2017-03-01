@@ -137,6 +137,7 @@
     <Compile Include="App_Start\GlobalStartup.cs" />
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
+    <Compile Include="Controllers\Bsg\ConsentModel.cs" />
     <Compile Include="Controllers\Bsg\NavigableModel.cs" />
     <Compile Include="Controllers\Bsg\OverviewModel.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />

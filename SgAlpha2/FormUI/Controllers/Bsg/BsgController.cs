@@ -48,9 +48,9 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
-        public ActionResult Consent()
+        public ActionResult Consent(string id)
         {
-            return View();
+            return Consent_Render(id, null);
         }
 
         [HttpPost]
@@ -63,7 +63,15 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: formId => Redirect(BsgActions.ApplicantDetails(formId)),
-                failure: () => Consent());
+                failure: () => Consent_Render(id, consent));
+        }
+
+        private ActionResult Consent_Render(string formId, Consent details)
+        {
+            return NavigableView<ConsentModel>(formId, Sections.Consent, (m, f) =>
+            {
+                m.Consent = details ?? f.Consent;
+            });
         }
 
         [HttpGet]
@@ -273,7 +281,9 @@ namespace FormUI.Controllers.Bsg
         private ActionResult NavigableView<TModel>(string formId, Sections section, Action<TModel, BsgDetail> mutator)
             where TModel : NavigableModel, new()
         {
-            var form = FindForm(formId, section);
+            var form = !string.IsNullOrWhiteSpace(formId)
+                ? FindForm(formId, section)
+                : new BsgDetail();
 
             var model = new TModel();
 

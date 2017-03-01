@@ -142,10 +142,10 @@ namespace FormUI.Tests.Controllers.Util
         public ExecutorStub SetupQuery<TQuery, TReturn>(TQuery queryType, TReturn result)
             where TQuery : Query<TReturn>
         {
-            return SetupQuery<TQuery, TReturn>(queryType, (exe, def) => result);
+            return SetupQuery<TQuery, TReturn>((exe, def) => result);
         }
 
-        public ExecutorStub SetupQuery<TQuery, TReturn>(TQuery queryType, Func<TQuery, TReturn, TReturn> setup)
+        public ExecutorStub SetupQuery<TQuery, TReturn>(Func<TQuery, TReturn, TReturn> setup)
             where TQuery : Query<TReturn>
         {
             return SetupObjectResult<TQuery>((exe, def) => setup((TQuery)exe, (TReturn)def));
