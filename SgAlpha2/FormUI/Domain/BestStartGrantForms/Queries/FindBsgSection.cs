@@ -11,7 +11,7 @@ namespace FormUI.Domain.BestStartGrantForms.Queries
         public override BsgDetail Find()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            return form.FindSection();
+            return form.FindSection(Section);
         }
     }
 }

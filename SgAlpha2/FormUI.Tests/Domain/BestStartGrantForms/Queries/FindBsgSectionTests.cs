@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
@@ -18,11 +19,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
             var query = new FindBsgSection
             {
                 FormId = "form123",
+                Section = Sections.ExistingChildren,
             };
 
             var detail = query.Find();
 
             detail.Consent.Should().NotBeNull();
+            detail.PreviousSection.Should().Be(Sections.ExpectedChildren);
         }
     }
 }

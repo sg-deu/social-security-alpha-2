@@ -190,6 +190,7 @@
     <Compile Include="Domain\BestStartGrantForms\ExistingChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\ExpectedChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\HealthProfessionalBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\NavigationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\PaymentDetailsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSectionTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />

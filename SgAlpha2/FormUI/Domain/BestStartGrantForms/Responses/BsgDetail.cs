@@ -14,5 +14,7 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
         public HealthProfessional   HealthProfessional;
         public PaymentDetails       PaymentDetails;
         public Declaration          Declaration;
+
+        public Sections?            PreviousSection;
     }
 }

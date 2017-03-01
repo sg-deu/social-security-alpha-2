@@ -171,6 +171,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Navigation.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\BsgDetail.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Consent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />

@@ -23,9 +23,9 @@ namespace FormUI.Domain.BestStartGrantForms
         public PaymentDetails       PaymentDetails      { get; protected set; }
         public Declaration          Declaration         { get; protected set; }
 
-        public BsgDetail FindSection()
+        public BsgDetail FindSection(Sections section)
         {
-            return new BsgDetail
+            var detail = new BsgDetail
             {
                 Consent             = Consent,
                 ApplicantDetails    = ApplicantDetails,
@@ -36,6 +36,10 @@ namespace FormUI.Domain.BestStartGrantForms
                 PaymentDetails      = PaymentDetails,
                 Declaration         = Declaration,
             };
+
+            Navigation.Populate(detail, section);
+
+            return detail;
         }
 
         public static string Start(Consent consent)
