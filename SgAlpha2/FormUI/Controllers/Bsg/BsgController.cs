@@ -79,7 +79,12 @@ namespace FormUI.Controllers.Bsg
 
         private ActionResult ApplicantDetails_Render(ApplicantDetails details)
         {
-            return View(details);
+            var model = new ApplicantDetailsModel
+            {
+                ApplicantDetails = details,
+            };
+
+            return View(model);
         }
 
         [HttpGet]

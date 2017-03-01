@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<ApplicantDetails>
+﻿@inherits WebViewPage<ApplicantDetailsModel>
 @{
     ViewBag.Title = "Best Start Grant - About You";
 }
@@ -12,52 +12,53 @@
 
         <p>You must complete all fields, unless they're marked as (optional)...</p>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.ApplicantDetails))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
 
             <h2>Your Personal  Details</h2>
 
-            @Html.LabelledInputText(m => m.Title)
+            @form.Html.LabelledInputText(m => m.Title)
 
-            @Html.LabelledInputText(m => m.FirstName)
+            @form.Html.LabelledInputText(m => m.FirstName)
 
-            @Html.LabelledInputText(m => m.OtherNames)
+            @form.Html.LabelledInputText(m => m.OtherNames)
 
-            @Html.LabelledInputText(m => m.SurnameOrFamilyName)
+            @form.Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
-            @Html.LabelledInputDate(m => m.DateOfBirth)
+            @form.Html.LabelledInputDate(m => m.DateOfBirth)
 
-            @Html.LabelledInputText(m => m.NationalInsuranceNumber)
+            @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
 
             <h2>Your Address</h2>
 
             <p>Please tell us your current address</p>
 
-            @Html.LabelledInputText(m => m.CurrentAddress.Street1)
-            @Html.LabelledInputText(m => m.CurrentAddress.Street2)
+            @form.Html.LabelledInputText(m => m.CurrentAddress.Street1)
+            @form.Html.LabelledInputText(m => m.CurrentAddress.Street2)
 
-            @Html.LabelledInputText(m => m.CurrentAddress.TownOrCity)
+            @form.Html.LabelledInputText(m => m.CurrentAddress.TownOrCity)
 
-            @Html.LabelledInputText(m => m.CurrentAddress.Postcode)
+            @form.Html.LabelledInputText(m => m.CurrentAddress.Postcode)
 
-            @Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
+            @form.Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
 
-            @Html.LabelledRadio(m => m.CurrentAddressStatus)
+            @form.Html.LabelledRadio(m => m.CurrentAddressStatus)
 
-            @Html.LabelledRadio(m => m.ContactPreference)
+            @form.Html.LabelledRadio(m => m.ContactPreference)
 
-            @Html.LabelledInputText(m => m.EmailAddress)
+            @form.Html.LabelledInputText(m => m.EmailAddress)
 
-            @Html.LabelledInputText(m => m.PhoneNumer)
+            @form.Html.LabelledInputText(m => m.PhoneNumer)
 
-            @Html.LabelledInputText(m => m.MobilePhoneNumber)
+            @form.Html.LabelledInputText(m => m.MobilePhoneNumber)
 
 
-            @Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext()
 
-        </form>
+        }
 
     </div><!--
 --></div>

@@ -12,6 +12,27 @@ namespace FormUI.Controllers.Helpers
 {
     public static class FormHelpers
     {
+        public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel)
+        {
+            var form = new FormTag().NoClosingTag();
+            helper.ViewContext.Writer.Write(form.ToHtmlString());
+
+            var newHelper = helper.ForModel(postModel);
+            return new ScopedHtmlHelper<TPostModel>(newHelper, () =>
+            {
+                helper.ViewContext.Writer.Write($"</{form.TagName()}>");
+            });
+        }
+
+        public static HtmlHelper<TPostModel> ForModel<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel)
+        {
+            var viewData = new ViewDataDictionary(helper.ViewData);
+            viewData.Model = postModel;
+            var data = new ViewDataContainer { ViewData = viewData };
+            var newHelper = new HtmlHelper<TPostModel>(helper.ViewContext, data);
+            return newHelper;
+        }
+
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper)
         {
             return helper.ButtonSubmit("Submit");
@@ -183,6 +204,11 @@ namespace FormUI.Controllers.Helpers
             }
 
             return formRow;
+        }
+
+        private class ViewDataContainer : IViewDataContainer
+        {
+            public ViewDataDictionary ViewData { get; set; }
         }
     }
 }
