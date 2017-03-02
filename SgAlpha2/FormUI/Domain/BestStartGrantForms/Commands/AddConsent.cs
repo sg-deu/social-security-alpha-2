@@ -3,7 +3,7 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class StartBestStartGrant : Command<string>
+    public class AddConsent : Command<string>
     {
         public Consent Consent;
 

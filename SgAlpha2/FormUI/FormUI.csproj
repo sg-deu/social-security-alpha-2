@@ -172,7 +172,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\Part.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddConsent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />

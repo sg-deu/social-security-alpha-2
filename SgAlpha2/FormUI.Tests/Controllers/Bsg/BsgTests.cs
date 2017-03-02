@@ -66,13 +66,13 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), "form123");
+                ExecutorStub.SetupCommand(It.IsAny<AddConsent>(), "form123");
 
                 var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
                     .SelectConfirm(m => m.AgreedToConsent, true)
                     .Submit(client);
 
-                ExecutorStub.Executed<StartBestStartGrant>(0).ShouldBeEquivalentTo(new StartBestStartGrant
+                ExecutorStub.Executed<AddConsent>(0).ShouldBeEquivalentTo(new AddConsent
                 {
                     Consent = new Consent { AgreedToConsent = true },
                 });
@@ -86,7 +86,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand<StartBestStartGrant, string>((cmd, r) => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddConsent, string>((cmd, r) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));

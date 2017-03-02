@@ -56,7 +56,7 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult Consent(string id, Consent consent)
         {
-            var cmd = new StartBestStartGrant
+            var cmd = new AddConsent
             {
                 Consent = consent,
             };

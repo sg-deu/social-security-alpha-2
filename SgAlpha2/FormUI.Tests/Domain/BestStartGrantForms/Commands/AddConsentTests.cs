@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 {
     [TestFixture]
-    public class StartBestStartGrantTests : DomainTest
+    public class AddConsentTests : DomainTest
     {
         [Test]
         public void Execute_CreatesForm()
@@ -17,7 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
             var consent = ConsentBuilder.NewValid(m =>
                 m.AgreedToConsent = true);
 
-            var cmd = new StartBestStartGrant
+            var cmd = new AddConsent
             {
                 Consent = consent,
             };
