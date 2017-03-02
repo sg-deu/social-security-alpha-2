@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
@@ -40,6 +41,18 @@ namespace FormUI.Domain.BestStartGrantForms
             Navigation.Populate(detail, section);
 
             return detail;
+        }
+
+        public static NextSection Start()
+        {
+            var form = new BestStartGrant();
+            Repository.Insert(form);
+
+            return new NextSection
+            {
+                Id = form.Id,
+                Section = Navigation.Order.First(),
+            };
         }
 
         public static string Start(Consent consent)
