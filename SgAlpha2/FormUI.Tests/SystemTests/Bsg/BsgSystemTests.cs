@@ -18,10 +18,11 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.GoTo(BsgActions.Overview());
             App.VerifyCanSeeText("Overview");
 
-            App.ClickLinkButton("Next");
+            App.Submit();
             App.VerifyCanSeeText("Consent");
 
             {
+
                 var form = App.FormForModel<Consent>();
                 form.Check(m => m.AgreedToConsent, true);
             }

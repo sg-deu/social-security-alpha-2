@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
@@ -19,7 +18,8 @@ namespace FormUI.Controllers.Bsg
     public static class BsgActions
     {
         public static string    Overview()                          { return $"~/bsg/overview"; }
-        public static string    Consent(string formId = null)       { return $"~/bsg/consent/{formId}"; }
+        public static string    Start()                             { return $"~/bsg/start"; }
+        public static string    Consent(string formId)              { return $"~/bsg/consent/{formId}"; }
         public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
@@ -36,15 +36,17 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult Overview()
         {
-            var firstSection = Navigation.Order.First(); // should really be behind a domain Query
-            var firstAction = SectionActionStrategy.For(firstSection).Action(null);
+            return View();
+        }
 
-            var model = new OverviewModel
-            {
-                FirstAction = firstAction,
-            };
+        [HttpPost]
+        public ActionResult Overview(object notUsed)
+        {
+            var cmd = new StartBestStartGrant();
 
-            return View(model);
+            return Exec(cmd,
+                success: next => Redirect(BsgActions.Consent(next.Id)),
+                failure: () => View());
         }
 
         [HttpGet]
@@ -58,11 +60,12 @@ namespace FormUI.Controllers.Bsg
         {
             var cmd = new AddConsent
             {
+                FormId = id,
                 Consent = consent,
             };
 
             return Exec(cmd,
-                success: formId => Redirect(BsgActions.ApplicantDetails(formId)),
+                success: () => Redirect(BsgActions.ApplicantDetails(id)),
                 failure: () => Consent_Render(id, consent));
         }
 

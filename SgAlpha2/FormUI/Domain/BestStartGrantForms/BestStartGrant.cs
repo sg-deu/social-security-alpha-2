@@ -55,17 +55,12 @@ namespace FormUI.Domain.BestStartGrantForms
             };
         }
 
-        public static string Start(Consent consent)
+        public void AddConsent(Consent consent)
         {
             Validate(consent);
 
-            var form = new BestStartGrant
-            {
-                Consent = consent,
-            };
-
-            Repository.Insert(form);
-            return form.Id;
+            Consent = consent;
+            Repository.Update(this);
         }
 
         public void AddApplicantDetails(ApplicantDetails applicantDetails)

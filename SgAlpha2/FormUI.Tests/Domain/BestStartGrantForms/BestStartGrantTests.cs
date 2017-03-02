@@ -16,9 +16,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Consent_Validation()
         {
-            ConsentShouldBeValid(m => { });
+            var form = new BestStartGrantBuilder("form").Insert();
 
-            ConsentShouldBeInvalid(m => m.AgreedToConsent = false);
+            ConsentShouldBeValid(form, m => { });
+
+            ConsentShouldBeInvalid(form, m => m.AgreedToConsent = false);
         }
 
         [Test]
@@ -259,14 +261,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         #region test helpers
 
-        protected void ConsentShouldBeValid(Action<Consent> mutator)
+        protected void ConsentShouldBeValid(BestStartGrant form, Action<Consent> mutator)
         {
-            ShouldBeValid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddConsent(ConsentBuilder.NewValid(mutator)));
         }
 
-        protected void ConsentShouldBeInvalid(Action<Consent> mutator)
+        protected void ConsentShouldBeInvalid(BestStartGrant form, Action<Consent> mutator)
         {
-            ShouldBeInvalid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddConsent(ConsentBuilder.NewValid(mutator)));
         }
 
         protected void ApplicantDetailsShouldBeValid(BestStartGrant form, Action<ApplicantDetails> mutator, Action<ApplicantDetails> postVerify = null)

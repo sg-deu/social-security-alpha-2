@@ -33,6 +33,26 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Overview_POST_StartsForm()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), new NextSection
+                {
+                    Id = "form123",
+                    Section = Sections.Consent,
+                });
+
+                var response = client.Get(BsgActions.Overview()).Form<object>(1)
+                    .Submit(client);
+
+                ExecutorStub.Executed<StartBestStartGrant>().Length.Should().Be(1);
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Consent("form123"));
+            });
+        }
+
+        [Test]
         public void FirstSectionDoesNotNeedId()
         {
             WebAppTest(client =>
@@ -62,18 +82,17 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        public void Consent_POST_StartsForm()
+        public void Consent_POST_PopulatesConsent()
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand(It.IsAny<AddConsent>(), "form123");
-
-                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
                     .SelectConfirm(m => m.AgreedToConsent, true)
                     .Submit(client);
 
                 ExecutorStub.Executed<AddConsent>(0).ShouldBeEquivalentTo(new AddConsent
                 {
+                    FormId = "form123",
                     Consent = new Consent { AgreedToConsent = true },
                 });
 
@@ -86,9 +105,9 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand<AddConsent, string>((cmd, r) => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddConsent>(), cmd => { throw new DomainException("simulated logic error"); });
 
-                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
