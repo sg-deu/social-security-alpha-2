@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
@@ -15,5 +17,23 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Are you or your partner involved in a trade dispute?")]
         [HintText("We use trade dispute to mean a strike, a walkout, a lockout or another dispute at work")]
         public bool? YouOrPartnerInvolvedInTradeDispute { get; set; }
+
+        public void CopyTo(ApplicantBenefits dest, Part part)
+        {
+            switch(part)
+            {
+                case Part.Part1:
+                    dest.HasExistingBenefit = HasExistingBenefit;
+                    break;
+
+                case Part.Part2:
+                    dest.ReceivingBenefitForUnder20 = ReceivingBenefitForUnder20;
+                    dest.YouOrPartnerInvolvedInTradeDispute = YouOrPartnerInvolvedInTradeDispute;
+                    break;
+
+                default:
+                    throw new Exception("Unhandled part : " + part);
+            }
+        }
     }
 }

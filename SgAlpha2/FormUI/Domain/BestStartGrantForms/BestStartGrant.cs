@@ -91,21 +91,10 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             Validate(part, applicantBenefits);
 
-            if (part == Part.Part1)
-                ApplicantBenefits = applicantBenefits;
-
-            UpdateApplicantBenefits(part, applicantBenefits);
+            ApplicantBenefits = ApplicantBenefits ?? new ApplicantBenefits();
+            applicantBenefits.CopyTo(ApplicantBenefits, part);
 
             Repository.Update(this);
-        }
-
-        private void UpdateApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
-        {
-            if (part == Part.Part2)
-            {
-                ApplicantBenefits.ReceivingBenefitForUnder20 = applicantBenefits.ReceivingBenefitForUnder20;
-                ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute = applicantBenefits.YouOrPartnerInvolvedInTradeDispute;
-            }
         }
 
         public void AddHealthProfessional(HealthProfessional healthProfessional)

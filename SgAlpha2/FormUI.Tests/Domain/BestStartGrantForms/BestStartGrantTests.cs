@@ -153,6 +153,23 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddApplicantBenefits_Part1DoesNotOverwritePart2()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantBenefits, ApplicantBenefitsBuilder.NewValid(Part.Part2, ab => ab.ReceivingBenefitForUnder20 = true))
+                .Insert();
+
+            var part1 = new ApplicantBenefits
+            {
+                HasExistingBenefit = false,
+            };
+
+            form.AddApplicantBenefits(Part.Part1, part1);
+
+            form.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
+        }
+
+        [Test]
         public void AddApplicantBenefits_Part2DoesNotOverwritePart1()
         {
             var form = new BestStartGrantBuilder("form").Insert();
