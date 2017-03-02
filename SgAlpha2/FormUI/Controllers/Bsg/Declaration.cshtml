@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<Declaration>
+﻿@inherits WebViewPage<DeclarationModel>
 @{
     ViewBag.Title = "Best Start Grant - Declaration";
 }
@@ -6,11 +6,14 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>Declaration</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.Declaration))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
             <h2>By sending this application you agree that:</h2>
 
@@ -25,12 +28,14 @@
                 You could be prosecuted or have to pay a financial penalty if you deliberately give wrong or incomplete information or don't report changes.
             </p>
 
-            @Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true))
+            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true))
 
 
-            @Html.ButtonSubmit()
+            @form.Html.ButtonSubmit()
 
-        </form>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

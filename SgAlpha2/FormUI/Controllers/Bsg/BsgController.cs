@@ -236,7 +236,7 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult HealthProfessional(string id)
         {
-            return View();
+            return HealthProfessional_Render(id, null);
         }
 
         [HttpPost]
@@ -250,13 +250,21 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.PaymentDetails(id)),
-                failure: () => HealthProfessional(id));
+                failure: () => HealthProfessional_Render(id, healthProfessional));
+        }
+
+        private ActionResult HealthProfessional_Render(string formId, HealthProfessional details)
+        {
+            return NavigableView<HealthProfessionalModel>(formId, Sections.HealthProfessional, (m, f) =>
+            {
+                m.HealthProfessional = details ?? f.HealthProfessional;
+            });
         }
 
         [HttpGet]
         public ActionResult PaymentDetails(string id)
         {
-            return View();
+            return PaymentDetails_Render(id, null);
         }
 
         [HttpPost]
@@ -270,13 +278,21 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.Declaration(id)),
-                failure: () => PaymentDetails(id));
+                failure: () => PaymentDetails_Render(id, paymentDetails));
+        }
+
+        private ActionResult PaymentDetails_Render(string formId, PaymentDetails details)
+        {
+            return NavigableView<PaymentDetailsModel>(formId, Sections.PaymentDetails, (m, f) =>
+            {
+                m.PaymentDetails = details ?? f.PaymentDetails;
+            });
         }
 
         [HttpGet]
         public ActionResult Declaration(string id)
         {
-            return View();
+            return Declaration_Render(id, null);
         }
 
         [HttpPost]
@@ -290,7 +306,15 @@ namespace FormUI.Controllers.Bsg
 
             return Exec(cmd,
                 success: () => Redirect(BsgActions.Complete()),
-                failure: () => Declaration(id));
+                failure: () => Declaration_Render(id, declaration));
+        }
+
+        private ActionResult Declaration_Render(string formId, Declaration details)
+        {
+            return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
+            {
+                m.Declaration = details ?? f.Declaration;
+            });
         }
 
         [HttpGet]

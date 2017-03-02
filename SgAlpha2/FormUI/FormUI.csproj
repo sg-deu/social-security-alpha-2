@@ -139,9 +139,12 @@
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />
     <Compile Include="Controllers\Bsg\ConsentModel.cs" />
+    <Compile Include="Controllers\Bsg\DeclarationModel.cs" />
     <Compile Include="Controllers\Bsg\ExistingChildrenModel.cs" />
     <Compile Include="Controllers\Bsg\ExpectedChildrenModel.cs" />
+    <Compile Include="Controllers\Bsg\HealthProfessionalModel.cs" />
     <Compile Include="Controllers\Bsg\NavigableModel.cs" />
+    <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />

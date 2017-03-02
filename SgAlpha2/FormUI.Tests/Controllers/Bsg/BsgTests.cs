@@ -435,6 +435,21 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void HealthProfessional_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.HealthProfessional(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.HealthProfessional });
+                response.Doc.Form<HealthProfessional>(1).GetText(m => m.Pin).Should().Be(detail.HealthProfessional.Pin);
+            });
+        }
+
+        [Test]
         public void HealthProfessional_POST_StoresData()
         {
             WebAppTest(client =>
@@ -467,6 +482,21 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void PaymentDetails_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.PaymentDetails(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.PaymentDetails });
+                response.Doc.Form<PaymentDetails>(1).GetText(m => m.NameOfAccountHolder).Should().Be(detail.PaymentDetails.NameOfAccountHolder);
             });
         }
 
@@ -513,6 +543,21 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void Declaration_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.Declaration });
+                response.Doc.Form<Declaration>(1).GetConfirm(m => m.AgreedToLegalStatement).Should().Be(detail.Declaration.AgreedToLegalStatement);
             });
         }
 

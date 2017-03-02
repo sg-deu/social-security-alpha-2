@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<PaymentDetails>
+﻿@inherits WebViewPage<PaymentDetailsModel>
 @{
     ViewBag.Title = "Best Start Grant - Payment Details";
 }
@@ -6,29 +6,34 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>Payment Details ...</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.PaymentDetails))
+        {
 
-            @Html.ValidationSummary()
-
-
-            @Html.LabelledRadioYesNo(m => m.LackingBankAccount)
-
-            @Html.LabelledInputText(m => m.NameOfAccountHolder)
-
-            @Html.LabelledInputText(m => m.NameOfBank)
-
-            @Html.LabelledInputText(m => m.SortCode)
-
-            @Html.LabelledInputText(m => m.AccountNumber)
-
-            @Html.LabelledInputText(m => m.RollNumber)
+            @form.Html.ValidationSummary()
 
 
-            @Html.ButtonSubmitNext()
+            @form.Html.LabelledRadioYesNo(m => m.LackingBankAccount)
 
-        </form>
+            @form.Html.LabelledInputText(m => m.NameOfAccountHolder)
+
+            @form.Html.LabelledInputText(m => m.NameOfBank)
+
+            @form.Html.LabelledInputText(m => m.SortCode)
+
+            @form.Html.LabelledInputText(m => m.AccountNumber)
+
+            @form.Html.LabelledInputText(m => m.RollNumber)
+
+
+            @form.Html.ButtonSubmitNext()
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>
