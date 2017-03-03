@@ -62,8 +62,9 @@
         rootElement.find('[data-ajax-change]').each(function (index, e) {
 
             var element = $(e);
+            var inputs = element.find('input');
 
-            element.find('input').change(function (evt) {
+            inputs.change(function (evt) {
                 var actionUrl = element.attr('data-ajax-change');
                 var form = element.closest('form');
                 var formData = form.serialize();
@@ -94,15 +95,18 @@
                 });
             });
 
+            if (inputs.length > 0)
+                $(inputs[0]).trigger('change');
+
         });
 
         function ShowHide(targetId, show) {
             var target = $('#' + targetId);
 
             if (show)
-                target.show();
+                target.show('fast');
             else
-                target.hide();
+                target.hide('fast');
         }
 
     }

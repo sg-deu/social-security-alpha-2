@@ -15,6 +15,7 @@ namespace FormUI.Controllers.Harness
         public static string CheckBoxes()   { return "~/harness/checkBoxes/"; }
         public static string Form()         { return "~/harness/form/"; }
         public static string AjaxForm()     { return "~/harness/ajaxForm"; }
+        public static string AjaxPostback() { return "~/harness/ajaxPostback"; }
     }
 
     public class HarnessController : Controller
@@ -52,14 +53,13 @@ namespace FormUI.Controllers.Harness
             return Content(json);
         }
 
-        [HttpGet]
-        public ActionResult AjaxForm()
+        public ActionResult AjaxForm(AjaxFormModel model)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AjaxForm(AjaxFormModel model)
+        public ActionResult AjaxPostback(AjaxFormModel model)
         {
             var showString1 = false;
             var showString2 = false;
