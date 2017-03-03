@@ -149,6 +149,7 @@
     <Compile Include="Controllers\Harness\AjaxFormModel.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
+    <Compile Include="Controllers\Helpers\AjaxAction.cs" />
     <Compile Include="Controllers\Helpers\Controls\ConfirmCheckBox.cs" />
     <Compile Include="Controllers\Helpers\Controls\Control.cs" />
     <Compile Include="Controllers\Helpers\Controls\FormContext.cs" />

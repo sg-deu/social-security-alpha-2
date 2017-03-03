@@ -60,12 +60,50 @@
         }
 
         rootElement.find('[data-ajax-change]').each(function (index, e) {
+
             var element = $(e);
+
             element.find('input').change(function (evt) {
-                var action = element.attr('data-ajax-change');
-                alert(action);
+                var actionUrl = element.attr('data-ajax-change');
+                var form = element.closest('form');
+                var formData = form.serialize();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: actionUrl,
+                    data: formData,
+                    error: function (jqXHR, textStatus, errorThrown) { alert(textStatus + '; ' + errorThrown); },
+                    success: function (data, textStatus, jqXHR) {
+
+                        var actions = data;
+
+                        for (var i = 0; i < actions.length; i++) {
+                            var action = actions[i];
+
+                            switch (action.Action) {
+
+                                case 'ShowHide':
+                                    ShowHide(action.TargetId, action.Show);
+                                    break;
+
+                                default: alert('Unhandled action: ' + action.Action);
+                            }
+                        }
+
+                    }
+                });
             });
+
         });
+
+        function ShowHide(targetId, show) {
+            var target = $('#' + targetId);
+
+            if (show)
+                target.show();
+            else
+                target.hide();
+        }
 
     }
 

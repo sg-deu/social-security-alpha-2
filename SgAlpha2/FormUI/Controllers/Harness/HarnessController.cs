@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using FormUI.Controllers.Helpers;
 using Newtonsoft.Json;
 
 namespace FormUI.Controllers.Harness
@@ -55,6 +56,29 @@ namespace FormUI.Controllers.Harness
         public ActionResult AjaxForm()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AjaxForm(AjaxFormModel model)
+        {
+            var showString1 = false;
+            var showString2 = false;
+
+            if (model.Date.HasValue)
+            {
+                var modelDate = model.Date.Value.Date;
+                var today = DateTime.Now.Date;
+                var yesterday = today - TimeSpan.FromDays(1);
+
+                showString1 = modelDate == today || modelDate == yesterday;
+                showString2 = modelDate == yesterday;
+            }
+
+            return Json(new []
+            {
+                AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String1, showString1),
+                AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String2, showString2),
+            });
         }
     }
 }
