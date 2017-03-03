@@ -16,5 +16,6 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
         public Declaration          Declaration;
 
         public Sections?            PreviousSection;
+        public bool                 IsFinalSection;
     }
 }

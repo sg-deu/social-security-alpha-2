@@ -26,6 +26,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (index > 0)
                 detail.PreviousSection = _order[index - 1];
+
+            detail.IsFinalSection = index == _order.Count - 1;
         }
     }
 }

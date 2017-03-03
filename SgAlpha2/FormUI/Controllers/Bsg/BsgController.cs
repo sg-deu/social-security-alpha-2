@@ -350,6 +350,8 @@ namespace FormUI.Controllers.Bsg
             if (previousSection.HasValue)
                 model.PreviousAction = SectionActionStrategy.For(previousSection.Value).Action(formId);
 
+            model.IsFinalPage = form.IsFinalSection;
+
             if (mutator != null)
                 mutator(model, form);
 

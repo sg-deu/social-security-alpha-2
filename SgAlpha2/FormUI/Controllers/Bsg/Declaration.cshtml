@@ -31,7 +31,7 @@
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true))
 
 
-            @form.Html.ButtonSubmit()
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 
         }
 

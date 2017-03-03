@@ -38,9 +38,10 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonSubmit("Submit");
         }
 
-        public static IHtmlString ButtonSubmitNext<T>(this HtmlHelper<T> helper)
+        public static IHtmlString ButtonSubmitNext<T>(this HtmlHelper<T> helper, bool isFinalPage)
         {
-            return helper.ButtonSubmit("Next");
+            var text = isFinalPage ? "Submit" : "Next";
+            return helper.ButtonSubmit(text);
         }
 
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper, string text)

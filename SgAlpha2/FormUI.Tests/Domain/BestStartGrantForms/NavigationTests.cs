@@ -14,6 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public void Populate_SetsPreviousSection()
         {
             var firstSection = Navigation.Order.First();
+            var lastSection = Navigation.Order.Last();
 
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
             {
@@ -24,6 +25,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                     detail.PreviousSection.Should().BeNull();
                 else
                     detail.PreviousSection.Should().Be(Navigation.Order.ToList()[Navigation.Order.ToList().IndexOf(section) - 1]);
+
+                if (section == lastSection)
+                    detail.IsFinalSection.Should().BeTrue();
+                else
+                    detail.IsFinalSection.Should().BeFalse();
             }
         }
     }
