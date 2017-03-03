@@ -146,6 +146,7 @@
     <Compile Include="Controllers\Bsg\NavigableModel.cs" />
     <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
+    <Compile Include="Controllers\Harness\AjaxFormModel.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
     <Compile Include="Controllers\Harness\HarnessModel.cs" />
     <Compile Include="Controllers\Helpers\Controls\ConfirmCheckBox.cs" />
@@ -293,6 +294,7 @@
     <Content Include="Controllers\Bsg\Declaration.cshtml" />
     <Content Include="Controllers\Bsg\Consent.cshtml" />
     <Content Include="Controllers\Shared\SsaContactDetails.cshtml" />
+    <Content Include="Controllers\Harness\AjaxForm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

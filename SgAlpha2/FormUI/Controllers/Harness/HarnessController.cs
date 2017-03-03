@@ -13,6 +13,7 @@ namespace FormUI.Controllers.Harness
         public static string Radio()        { return "~/harness/radio/"; }
         public static string CheckBoxes()   { return "~/harness/checkBoxes/"; }
         public static string Form()         { return "~/harness/form/"; }
+        public static string AjaxForm()     { return "~/harness/ajaxForm"; }
     }
 
     public class HarnessController : Controller
@@ -48,6 +49,12 @@ namespace FormUI.Controllers.Harness
 
             var json = JsonConvert.SerializeObject(model);
             return Content(json);
+        }
+
+        [HttpGet]
+        public ActionResult AjaxForm()
+        {
+            return View();
         }
     }
 }

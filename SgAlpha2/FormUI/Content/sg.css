@@ -11,6 +11,9 @@
 .sg .validation-summary-errors {
   color: red; }
 
+.js .sg .form-group.initially-hidden {
+  display: none; }
+
 .sg .form-group label {
   font-weight: normal; }
 
