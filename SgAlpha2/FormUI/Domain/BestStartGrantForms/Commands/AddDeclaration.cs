@@ -3,7 +3,7 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class Complete : Command
+    public class AddDeclaration : Command
     {
         public string       FormId;
         public Declaration  Declaration;
@@ -11,7 +11,7 @@ namespace FormUI.Domain.BestStartGrantForms.Commands
         public override void Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.Complete(Declaration);
+            form.AddDeclaration(Declaration);
         }
     }
 }

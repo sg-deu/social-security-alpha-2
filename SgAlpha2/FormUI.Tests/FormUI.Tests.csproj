@@ -182,7 +182,7 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantDetailsTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\CompleteTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddDeclarationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildrenTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildrenTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessionalTests.cs" />

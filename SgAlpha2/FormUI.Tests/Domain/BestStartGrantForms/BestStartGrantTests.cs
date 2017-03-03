@@ -354,12 +354,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void DeclarationShouldBeValid(BestStartGrant form, Action<Declaration> mutator)
         {
-            ShouldBeValid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddDeclaration(DeclarationBuilder.NewValid(mutator)));
         }
 
         protected void DeclarationShouldBeInvalid(BestStartGrant form, Action<Declaration> mutator)
         {
-            ShouldBeInvalid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddDeclaration(DeclarationBuilder.NewValid(mutator)));
         }
 
         #endregion

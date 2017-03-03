@@ -298,7 +298,7 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult Declaration(string id, Declaration declaration)
         {
-            var cmd = new Complete
+            var cmd = new AddDeclaration
             {
                 FormId = id,
                 Declaration = declaration,

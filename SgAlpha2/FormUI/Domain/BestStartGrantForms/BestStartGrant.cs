@@ -113,7 +113,7 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Update(this);
         }
 
-        public void Complete(Declaration declaration)
+        public void AddDeclaration(Declaration declaration)
         {
             Validate(declaration);
 

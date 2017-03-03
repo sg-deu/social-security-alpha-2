@@ -168,7 +168,7 @@
     <Compile Include="Controllers\Shared\SharedViews.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantDetails.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\Complete.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddDeclaration.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />

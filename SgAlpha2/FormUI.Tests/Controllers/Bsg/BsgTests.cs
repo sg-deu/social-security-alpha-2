@@ -570,7 +570,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SelectConfirm(m => m.AgreedToLegalStatement, true)
                     .Submit(client);
 
-                ExecutorStub.Executed<Complete>(0).ShouldBeEquivalentTo(new Complete
+                ExecutorStub.Executed<AddDeclaration>(0).ShouldBeEquivalentTo(new AddDeclaration
                 {
                     FormId = "form123",
                     Declaration = new Declaration
@@ -588,7 +588,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<Complete>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupVoidCommand(It.IsAny<AddDeclaration>(), cmd => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
