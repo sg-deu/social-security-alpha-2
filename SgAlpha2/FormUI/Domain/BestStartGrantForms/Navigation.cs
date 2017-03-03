@@ -29,5 +29,21 @@ namespace FormUI.Domain.BestStartGrantForms
 
             detail.IsFinalSection = index == _order.Count - 1;
         }
+
+        public static NextSection Next(BestStartGrant form, Sections completedSection)
+        {
+            var index = _order.IndexOf(completedSection);
+
+            Sections? nextSection = null;
+
+            if (index < _order.Count - 1)
+                nextSection = _order[index + 1];
+
+            return new NextSection
+            {
+                Id = form.Id,
+                Section = nextSection,
+            };
+        }
     }
 }

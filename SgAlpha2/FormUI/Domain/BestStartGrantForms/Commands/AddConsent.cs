@@ -1,17 +1,18 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class AddConsent : Command
+    public class AddConsent : Command<NextSection>
     {
         public string   FormId;
         public Consent  Consent;
 
-        public override void Execute()
+        public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.AddConsent(Consent);
+            return form.AddConsent(Consent);
         }
     }
 }

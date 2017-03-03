@@ -105,7 +105,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddConsent>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddConsent, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -153,8 +153,9 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand<AddApplicantDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
                 var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1)
-                    .SetDate(m => m.DateOfBirth, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -205,8 +206,9 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand<AddExpectedChildren, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
                 var response = client.Get(BsgActions.ExpectedChildren("form123")).Form<ExpectedChildren>(1)
-                    .SetDate(m => m.ExpectancyDate, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -318,7 +320,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddExistingChildren>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddExistingChildren, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -370,7 +372,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddApplicantBenefits, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -425,7 +427,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddApplicantBenefits, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -476,7 +478,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddHealthProfessional>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddHealthProfessional, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.HealthProfessional("form123")).Form<HealthProfessional>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -537,7 +539,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddPaymentDetails>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddPaymentDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.PaymentDetails("form123")).Form<AddPaymentDetails>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -588,7 +590,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddDeclaration>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddDeclaration, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));

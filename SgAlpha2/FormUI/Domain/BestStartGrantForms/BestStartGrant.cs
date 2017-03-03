@@ -55,70 +55,80 @@ namespace FormUI.Domain.BestStartGrantForms
             };
         }
 
-        public void AddConsent(Consent consent)
+        public NextSection AddConsent(Consent consent)
         {
             Validate(consent);
 
             Consent = consent;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.Consent);
         }
 
-        public void AddApplicantDetails(ApplicantDetails applicantDetails)
+        public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
         {
             Validate(applicantDetails);
 
             ApplicantDetails = applicantDetails;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
-        public void AddExpectedChildren(ExpectedChildren expectedChildren)
+        public NextSection AddExpectedChildren(ExpectedChildren expectedChildren)
         {
             Validate(expectedChildren);
 
             ExpectedChildren = expectedChildren;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ExpectedChildren);
         }
 
-        public void AddExistingChildren(ExistingChildren existingChildren)
+        public NextSection AddExistingChildren(ExistingChildren existingChildren)
         {
             Validate(existingChildren);
 
             ExistingChildren = existingChildren;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ExistingChildren);
         }
 
-        public void AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
+        public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
         {
             Validate(part, applicantBenefits);
 
             ApplicantBenefits = ApplicantBenefits ?? new ApplicantBenefits();
             applicantBenefits.CopyTo(ApplicantBenefits, part);
 
-            Repository.Update(this);
+            var section = part == Part.Part1
+                ? Sections.ApplicantBenefits1
+                : Sections.ApplicantBenefits2;
+
+            return OnSectionCompleted(section);
         }
 
-        public void AddHealthProfessional(HealthProfessional healthProfessional)
+        public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
         {
             Validate(healthProfessional);
 
             HealthProfessional = healthProfessional;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.HealthProfessional);
         }
 
-        public void AddPaymentDetails(PaymentDetails paymentDetails)
+        public NextSection AddPaymentDetails(PaymentDetails paymentDetails)
         {
             Validate(paymentDetails);
 
             PaymentDetails = paymentDetails;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.PaymentDetails);
         }
 
-        public void AddDeclaration(Declaration declaration)
+        public NextSection AddDeclaration(Declaration declaration)
         {
             Validate(declaration);
 
             Declaration = declaration;
+            return OnSectionCompleted(Sections.Declaration);
+        }
+
+        private NextSection OnSectionCompleted(Sections section)
+        {
             Repository.Update(this);
+            return Navigation.Next(this, section);
         }
 
         private static void Validate(Consent consent)

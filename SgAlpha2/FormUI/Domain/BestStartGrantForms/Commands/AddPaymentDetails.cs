@@ -1,17 +1,18 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class AddPaymentDetails : Command
+    public class AddPaymentDetails : Command<NextSection>
     {
         public string           FormId;
         public PaymentDetails   PaymentDetails;
 
-        public override void Execute()
+        public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.AddPaymentDetails(PaymentDetails);
+            return form.AddPaymentDetails(PaymentDetails);
         }
     }
 }

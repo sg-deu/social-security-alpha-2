@@ -65,7 +65,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ApplicantDetails(id)),
+                success: next => Redirect(BsgActions.ApplicantDetails(id)),
                 failure: () => Consent_Render(id, consent));
         }
 
@@ -93,7 +93,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ExpectedChildren(id)),
+                success: next => Redirect(BsgActions.ExpectedChildren(id)),
                 failure: () => ApplicantDetails_Render(id, applicantDetails));
         }
 
@@ -121,7 +121,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ExistingChildren(id)),
+                success: next => Redirect(BsgActions.ExistingChildren(id)),
                 failure: () => ExpectedChildren_Render(id, expectedChildren));
         }
 
@@ -163,7 +163,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ApplicantBenefits1(id)),
+                success: next => Redirect(BsgActions.ApplicantBenefits1(id)),
                 failure: () => ExistingChildren_Render(id, existingChildren));
         }
 
@@ -192,7 +192,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ApplicantBenefits2(id)),
+                success: next => Redirect(BsgActions.ApplicantBenefits2(id)),
                 failure: () => ApplicantBenefits1_Render(id, applicantBenefits));
         }
 
@@ -221,7 +221,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.HealthProfessional(id)),
+                success: next => Redirect(BsgActions.HealthProfessional(id)),
                 failure: () => ApplicantBenefits2_Render(id, applicantBenefits));
         }
 
@@ -249,7 +249,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.PaymentDetails(id)),
+                success: next => Redirect(BsgActions.PaymentDetails(id)),
                 failure: () => HealthProfessional_Render(id, healthProfessional));
         }
 
@@ -277,7 +277,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Declaration(id)),
+                success: next => Redirect(BsgActions.Declaration(id)),
                 failure: () => PaymentDetails_Render(id, paymentDetails));
         }
 
@@ -305,7 +305,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Complete()),
+                success: next => Redirect(BsgActions.Complete()),
                 failure: () => Declaration_Render(id, declaration));
         }
 
