@@ -9,7 +9,7 @@
 
             @Html.ValidationSummary()
 
-            @Html.LabelledInputDate(m => m.Date)
+            @Html.LabelledInputDate(m => m.Date).AjaxOnChange(HarnessActions.AjaxForm())
 
             @Html.LabelledInputText(m => m.String1).InitiallyHidden()
             @Html.LabelledInputText(m => m.String2).InitiallyHidden()

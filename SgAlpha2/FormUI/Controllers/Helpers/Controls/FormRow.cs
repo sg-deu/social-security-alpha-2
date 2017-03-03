@@ -20,6 +20,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private string          _beforeControlHtml;
         private ControlWidth?   _controlWidth;
         private bool            _initiallyHidden;
+        private string          _ajaxOnChangeAction;
 
         public FormRow(string id, string labelText, TControl control)
         {
@@ -55,6 +56,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public FormRow<TControl> InitiallyHidden(bool initiallyHidden = true)
         {
             _initiallyHidden = initiallyHidden;
+            return this;
+        }
+
+        public FormRow<TControl> AjaxOnChange(string ajaxAction)
+        {
+            _ajaxOnChangeAction = ajaxAction;
             return this;
         }
 
@@ -94,6 +101,9 @@ namespace FormUI.Controllers.Helpers.Controls
 
             if (_initiallyHidden)
                 formGroup.AddClasses("initially-hidden");
+
+            if (!string.IsNullOrWhiteSpace(_ajaxOnChangeAction))
+                formGroup.Attr("data-ajax-change", _ajaxOnChangeAction);
 
             return formGroup;
         }

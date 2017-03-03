@@ -46,8 +46,8 @@
         if (window.orientation == null)
             isMobile = false;
 
-        if (!isMobile) // the input mask doesn't work with a mobile's virtual keyboard
-            rootElement.find('[data-input-mask]').each(function (i, e) {
+        if (!isMobile) { // the input mask doesn't work with a mobile's virtual keyboard
+            rootElement.find('[data-input-mask]').each(function (index, e) {
                 var input = $(e)
                 var maskName = input.attr('data-input-mask');
                 var mask = namedMasks[maskName];
@@ -57,6 +57,15 @@
 
                 input.inputmask(mask);
             });
+        }
+
+        rootElement.find('[data-ajax-change]').each(function (index, e) {
+            var element = $(e);
+            element.find('input').change(function (evt) {
+                var action = element.attr('data-ajax-change');
+                alert(action);
+            });
+        });
 
     }
 
