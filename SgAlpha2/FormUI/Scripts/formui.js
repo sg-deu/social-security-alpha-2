@@ -10,7 +10,7 @@
         localStorage['scrollTop'] = $(document).scrollTop();
     });
 
-    if (localStorage['page'] == document.URL && $('.validation-summary-errors').length == 0) {
+    if (localStorage['page'] === document.URL && $('.validation-summary-errors').length === 0) {
         $(document).scrollTop(localStorage['scrollTop']);
     }
 
@@ -43,7 +43,7 @@
         var isMobile = true;
 
         // this simple check is enough for Alpha2
-        if (window.orientation == null)
+        if (window.orientation === null)
             isMobile = false;
 
         if (!isMobile) { // the input mask doesn't work with a mobile's virtual keyboard
@@ -52,7 +52,7 @@
                 var maskName = input.attr('data-input-mask');
                 var mask = namedMasks[maskName];
 
-                if (mask == null)
+                if (mask === null)
                     alert('Cannot find named mask: ' + maskName);
 
                 input.inputmask(mask);

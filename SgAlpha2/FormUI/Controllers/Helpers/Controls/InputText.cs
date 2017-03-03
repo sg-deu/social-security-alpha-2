@@ -1,4 +1,5 @@
-﻿using FormUI.App_Start;
+﻿using System.Web.Mvc;
+using FormUI.App_Start;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
@@ -7,7 +8,7 @@ namespace FormUI.Controllers.Helpers.Controls
     {
         public int? _maxLength;
 
-        public InputText(ControlContext controlContext) : base(controlContext)
+        public InputText(HtmlHelper helper, ControlContext controlContext) : base(helper, controlContext)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
@@ -22,7 +23,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private bool            _initiallyHidden;
         private string          _ajaxOnChangeAction;
 
-        public FormRow(string id, string labelText, TControl control)
+        public FormRow(HtmlHelper helper, string id, string labelText, TControl control) : base(helper)
         {
             _id = id;
             _labelText = labelText;
@@ -103,7 +104,7 @@ namespace FormUI.Controllers.Helpers.Controls
                 formGroup.AddClasses("initially-hidden");
 
             if (!string.IsNullOrWhiteSpace(_ajaxOnChangeAction))
-                formGroup.Attr("data-ajax-change", _ajaxOnChangeAction);
+                formGroup.Attr("data-ajax-change", UrlHelper.Content(_ajaxOnChangeAction));
 
             return formGroup;
         }

@@ -8,7 +8,7 @@ namespace FormUI.Controllers.Helpers.Controls
         protected ControlContext        ControlContext;
         protected ModelStateDictionary  ModelState;
 
-        public InputControl(ControlContext controlContext)
+        public InputControl(HtmlHelper helper, ControlContext controlContext) : base(helper)
         {
             ControlContext = controlContext;
             ModelState = controlContext.Helper.ViewData.ModelState;
