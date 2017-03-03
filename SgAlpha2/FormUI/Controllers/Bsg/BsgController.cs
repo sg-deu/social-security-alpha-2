@@ -45,7 +45,7 @@ namespace FormUI.Controllers.Bsg
             var cmd = new StartBestStartGrant();
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.Consent(next.Id)),
+                success: next => RedirectNext(next),
                 failure: () => View());
         }
 
@@ -65,7 +65,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.ApplicantDetails(id)),
+                success: next => RedirectNext(next),
                 failure: () => Consent_Render(id, consent));
         }
 
@@ -93,7 +93,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.ExpectedChildren(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantDetails_Render(id, applicantDetails));
         }
 
@@ -121,7 +121,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.ExistingChildren(id)),
+                success: next => RedirectNext(next),
                 failure: () => ExpectedChildren_Render(id, expectedChildren));
         }
 
@@ -163,7 +163,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.ApplicantBenefits1(id)),
+                success: next => RedirectNext(next),
                 failure: () => ExistingChildren_Render(id, existingChildren));
         }
 
@@ -192,7 +192,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.ApplicantBenefits2(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantBenefits1_Render(id, applicantBenefits));
         }
 
@@ -221,7 +221,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.HealthProfessional(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantBenefits2_Render(id, applicantBenefits));
         }
 
@@ -249,7 +249,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.PaymentDetails(id)),
+                success: next => RedirectNext(next),
                 failure: () => HealthProfessional_Render(id, healthProfessional));
         }
 
@@ -277,7 +277,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.Declaration(id)),
+                success: next => RedirectNext(next),
                 failure: () => PaymentDetails_Render(id, paymentDetails));
         }
 
@@ -305,7 +305,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: next => Redirect(BsgActions.Complete()),
+                success: next => RedirectNext(next),
                 failure: () => Declaration_Render(id, declaration));
         }
 
@@ -321,6 +321,15 @@ namespace FormUI.Controllers.Bsg
         public ActionResult Complete()
         {
             return View();
+        }
+
+        private RedirectResult RedirectNext(NextSection next)
+        {
+            if (!next.Section.HasValue)
+                return Redirect(BsgActions.Complete());
+
+            var action = SectionActionStrategy.For(next.Section.Value).Action(next.Id);
+            return Redirect(action);
         }
 
         private BsgDetail FindForm(string formId, Sections section)
