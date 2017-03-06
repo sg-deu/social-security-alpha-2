@@ -24,6 +24,32 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void ApplicantDetails_RequiresCareQuestion()
+        {
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            var applicantDetails = ApplicantDetailsBuilder.NewValid();
+
+            applicantDetails.DateOfBirth = null;
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if DoB not supplied");
+
+            // applicant is 25 today
+            applicantDetails.DateOfBirth = new DateTime(1984, 08, 07);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant >= 25");
+
+            // applicant is 25 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1984, 08, 08);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("ask question if applicant is still 24");
+
+            // applicant is 18 today
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 07);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("ask question if applicant has turned 18");
+
+            // applicant is 18 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 08);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant is under 18");
+        }
+
+        [Test]
         public void AddApplicantDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();

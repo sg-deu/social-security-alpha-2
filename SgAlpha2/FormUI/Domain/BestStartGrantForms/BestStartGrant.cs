@@ -55,6 +55,27 @@ namespace FormUI.Domain.BestStartGrantForms
             };
         }
 
+        public static bool ShouldAskCareQuestion(ApplicantDetails applicantDetails)
+        {
+            if (!applicantDetails.DateOfBirth.HasValue)
+                return false;
+
+            var dob = applicantDetails.DateOfBirth.Value;
+            var age = Age(dob);
+            return age >= 18 && age < 25;
+        }
+
+        private static int Age(DateTime dateOfBirth)
+        {
+            var today = DomainRegistry.NowUtc().ToLocalTime().Date;
+            var age = today.Year - dateOfBirth.Year;
+
+            if (dateOfBirth.AddYears(age) > today)
+                age--; // birthday has not happened this year
+
+            return age;
+        }
+
         public NextSection AddConsent(Consent consent)
         {
             Validate(consent);
