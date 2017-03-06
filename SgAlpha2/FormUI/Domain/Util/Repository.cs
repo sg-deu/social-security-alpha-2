@@ -116,7 +116,7 @@ namespace FormUI.Domain.Util
             using (_client) { }
         }
 
-        private class RepositoryContractResolver : DefaultContractResolver
+        public class RepositoryContractResolver : DefaultContractResolver
         {
             protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
             {

@@ -73,5 +73,25 @@ namespace FormUI.Tests.Controllers.Harness
                 boundModel.Radio1.Should().Be(RValues1.Value2);
             });
         }
+
+        [Test]
+        public void AjaxDateTime()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(HarnessActions.AjaxForm());
+                var form = response.Form<AjaxFormModel>(1);
+
+                var ajaxActions = form
+                    .SetDate(f => f.Date, "", "", "")
+                    .OnChange(f => f.Date, client);
+
+                ajaxActions.Length.Should().Be(2);
+
+                ajaxActions[0].Action.Should().Be("ShowHide");
+                ajaxActions[0].TargetId.Should().Be("String1_FormGroup");
+                ajaxActions[0].Show.Should().BeFalse();
+            });
+        }
     }
 }
