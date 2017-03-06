@@ -112,7 +112,7 @@ namespace FormUI.Controllers.Bsg
         {
             var config = Exec(new FindApplicantDetailsConfig { ApplicantDetails = applicantDetails });
 
-            return Json(new[]
+            return AjaxActions(new[]
             {
                 AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.PreviouslyLookedAfter, config.ShouldAskCareQuestion),
                 AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.FullTimeEducation, config.ShouldAskEducationQuestion),

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using FormUI.Controllers.Helpers;
+using FormUI.Controllers.Shared;
 using Newtonsoft.Json;
 
 namespace FormUI.Controllers.Harness
@@ -18,7 +19,7 @@ namespace FormUI.Controllers.Harness
         public static string AjaxPostback() { return "~/harness/ajaxPostback"; }
     }
 
-    public class HarnessController : Controller
+    public class HarnessController : FormController
     {
         public ActionResult Index()         { return View(); }
         public ActionResult Layout()        { return View(); }
@@ -74,7 +75,7 @@ namespace FormUI.Controllers.Harness
                 showString2 = modelDate == yesterday;
             }
 
-            return Json(new []
+            return AjaxActions(new []
             {
                 AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String1, showString1),
                 AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String2, showString2),
