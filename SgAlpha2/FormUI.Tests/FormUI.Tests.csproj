@@ -204,6 +204,7 @@
     <Compile Include="Domain\Util\LocalRepository.cs" />
     <Compile Include="Domain\Util\TaskUtilTests.cs" />
     <Compile Include="SystemTests\Bsg\BsgSystemTests.cs" />
+    <Compile Include="SystemTests\Harness\AjaxSystemTests.cs" />
     <Compile Include="SystemTests\SetUpFixture.cs" />
     <Compile Include="SystemTests\Util\BrowserApp.cs" />
     <Compile Include="SystemTests\Util\DevWebServer.cs" />

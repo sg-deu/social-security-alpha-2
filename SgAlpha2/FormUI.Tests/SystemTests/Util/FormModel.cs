@@ -19,6 +19,12 @@ namespace FormUI.Tests.SystemTests.Util
             _app.TypeText(name, text);
         }
 
+        public void GetText(string testText, Expression<Func<T, object>> property, Action<string> verify)
+        {
+            var name = property.GetExpressionText();
+            _app.GetText(testText, name, verify);
+        }
+
         public void TypeDate(Expression<Func<T, object>> property, string dayText, string monthText, string yearText)
         {
             var name = property.GetExpressionText();
@@ -35,6 +41,12 @@ namespace FormUI.Tests.SystemTests.Util
             TypeDate(property, dayText, monthText, yearText);
         }
 
+        public void BlurDate(Expression<Func<T, object>> property)
+        {
+            var name = property.GetExpressionText();
+            _app.Blur(name + "_year");
+        }
+
         public void SelectRadio<TValue>(Expression<Func<T, TValue>> property, TValue value)
         {
             var name = property.GetExpressionText();
@@ -46,6 +58,12 @@ namespace FormUI.Tests.SystemTests.Util
         {
             var name = property.GetExpressionText();
             _app.Check(name, check);
+        }
+
+        public string CssSelectFormGroup(Expression<Func<T, object>> property)
+        {
+            var name = property.GetExpressionText();
+            return "#" + name + "_FormGroup";
         }
     }
 }

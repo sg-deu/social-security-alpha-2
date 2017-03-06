@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
@@ -78,6 +79,26 @@ namespace FormUI.Tests.SystemTests.Util
             });
         }
 
+        public void FindElement(string testText, By by, Action<IWebElement> verify)
+        {
+            Console.WriteLine(testText);
+            Wait.For(() =>
+            {
+                var element = _browser.FindElement(by);
+                verify(element);
+            });
+        }
+
+        public void FindElements(string testText, By by, Action<ReadOnlyCollection<IWebElement>> verify)
+        {
+            Console.WriteLine(testText);
+            Wait.For(() =>
+            {
+                var elements = _browser.FindElements(by);
+                verify(elements);
+            });
+        }
+
         public void VerifyCanSeeText(string text)
         {
             Console.WriteLine("Verify can see text '{0}'", text);
@@ -110,7 +131,30 @@ namespace FormUI.Tests.SystemTests.Util
             Wait.For(() =>
             {
                 var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
+                input.Clear();
                 input.SendKeys(text);
+            });
+        }
+
+        public void Blur(string name)
+        {
+            Console.WriteLine("Tab off " + name);
+            Wait.For(() =>
+            {
+                var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
+                input.SendKeys(Keys.Tab);
+            });
+        }
+
+        public void GetText(string testText, string name, Action<string> verify)
+        {
+            Console.WriteLine(testText);
+            Wait.For(() =>
+            {
+                var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
+                input.Displayed.Should().BeTrue(testText);
+                var value = input.GetAttribute("value");
+                verify(value);
             });
         }
 
