@@ -14,7 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 FirstName = "test first name",
                 OtherNames = "test other names",
                 SurnameOrFamilyName = "test surname or family name",
-                DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(20 * 365),
+                DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-20),
                 NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = new Address
                 {

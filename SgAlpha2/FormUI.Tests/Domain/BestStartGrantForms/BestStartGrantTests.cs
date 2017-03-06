@@ -29,6 +29,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
             var applicantDetails = ApplicantDetailsBuilder.NewValid();
 
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("default builder should ask question");
+
             applicantDetails.DateOfBirth = null;
             BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if DoB not supplied");
 
