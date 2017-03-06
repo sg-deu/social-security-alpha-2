@@ -40,6 +40,10 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public Address              CurrentAddress          { get; set; }
 
+        [DisplayName("Date You or your Partner moved into this address")]
+        [HintText("For example, 01 01 2012")]
+        public DateTime?            DateMovedIn { get; set; }
+
         [DisplayName("Is this address Permanent or Temporary?")]
         public AddressStatus?       CurrentAddressStatus    { get; set; }
 

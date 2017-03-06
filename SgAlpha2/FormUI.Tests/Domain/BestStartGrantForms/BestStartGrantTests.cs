@@ -102,7 +102,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Street1 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.TownOrCity = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.DateMovedIn = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.ContactPreference = null);
         }

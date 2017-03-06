@@ -46,7 +46,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 form.TypeText(m => m.CurrentAddress.Street2, "system test ca.Street2");
                 form.TypeText(m => m.CurrentAddress.TownOrCity, "system test ca.TownOrCity");
                 form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
-                form.TypeDate(m => m.CurrentAddress.DateMovedIn, "02", "03", "2004");
+                form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
                 form.SelectRadio(m => m.CurrentAddressStatus, AddressStatus.Permanent);
                 form.SelectRadio(m => m.ContactPreference, ContactPreference.Email);
                 form.TypeText(m => m.EmailAddress, "test.system@system.test");
@@ -152,7 +152,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ApplicantDetails.CurrentAddress.Street2.Should().Be("system test ca.Street2");
                 doc.ApplicantDetails.CurrentAddress.TownOrCity.Should().Be("system test ca.TownOrCity");
                 doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
-                doc.ApplicantDetails.CurrentAddress.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
+                doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
                 doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
                 doc.ApplicantDetails.ContactPreference.Should().Be( ContactPreference.Email);
                 doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");

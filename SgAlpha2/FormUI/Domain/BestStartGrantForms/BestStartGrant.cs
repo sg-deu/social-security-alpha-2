@@ -190,7 +190,7 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
             ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
-            ctx.Required(m => m.CurrentAddress.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
+            ctx.Required(m => m.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
             ctx.Required(m => m.ContactPreference, "Please supply a contact preference");
 
