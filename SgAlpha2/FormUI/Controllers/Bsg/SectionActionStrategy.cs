@@ -10,6 +10,7 @@ namespace FormUI.Controllers.Bsg
         {
             { Sections.Consent,             () => new ConsentActions() },
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
+            { Sections.GuardianDetails,     () => new GuardianDetailsActions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
             { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
@@ -37,6 +38,11 @@ namespace FormUI.Controllers.Bsg
         private class ApplicantDetailsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.ApplicantDetails(formId); }
+        }
+
+        private class GuardianDetailsActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianDetails(formId); }
         }
 
         private class ExpectedChildrenActions : SectionActionStrategy

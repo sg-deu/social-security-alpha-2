@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
+using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using NUnit.Framework;
@@ -44,6 +45,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 var next = Navigation.Next(form, section);
 
                 next.Id.Should().Be("form123");
+
+                if (FeatureToggles.WorkingOnGuardianDetails && section == Sections.ApplicantDetails)
+                {
+                    next.Section.Should().Be(Sections.ExpectedChildren);
+                    continue;
+                }
 
                 if (section == lastSection)
                     next.Section.Should().BeNull();

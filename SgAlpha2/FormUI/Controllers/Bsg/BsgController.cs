@@ -23,6 +23,7 @@ namespace FormUI.Controllers.Bsg
         public static string    Consent(string formId)              { return $"~/bsg/consent/{formId}"; }
         public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
         public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
+        public static string    GuardianDetails(string formId)      { return $"~/bsg/guardianDetails/{formId}"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
         public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }

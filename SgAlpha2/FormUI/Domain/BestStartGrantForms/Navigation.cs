@@ -9,6 +9,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             Sections.Consent,
             Sections.ApplicantDetails,
+            Sections.GuardianDetails,
             Sections.ExpectedChildren,
             Sections.ExistingChildren,
             Sections.ApplicantBenefits1,
@@ -38,6 +39,9 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (index < _order.Count - 1)
                 nextSection = _order[index + 1];
+
+            if (FeatureToggles.WorkingOnGuardianDetails && nextSection == Sections.GuardianDetails)
+                nextSection = Sections.ExpectedChildren;
 
             return new NextSection
             {

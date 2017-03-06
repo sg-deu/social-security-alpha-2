@@ -4,6 +4,7 @@
     {
         Consent = 1,
         ApplicantDetails,
+        GuardianDetails,
         ExpectedChildren,
         ExistingChildren,
         ApplicantBenefits1,

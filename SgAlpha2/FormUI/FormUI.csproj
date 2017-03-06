@@ -198,6 +198,7 @@
     <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSection.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\NextSection.cs" />
     <Compile Include="Domain\BestStartGrantForms\Sections.cs" />
+    <Compile Include="Domain\FeatureToggles.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />
     <Compile Include="Domain\Util\Attributes\InputMasks.cs" />
