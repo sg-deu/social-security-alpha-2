@@ -89,11 +89,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeValid(form, m => m.OtherNames = null);
             ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Street2 = null);
             ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
+            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.PreviouslyLookedAfter = null; });
+            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.FullTimeEducation = null; });
 
             ApplicantDetailsShouldBeInvalid(form, m => m.FirstName = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.SurnameOrFamilyName = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = TestNowUtc);
+            ApplicantDetailsShouldBeInvalid(form, m => m.PreviouslyLookedAfter = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.FullTimeEducation = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Street1 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.TownOrCity = null);

@@ -179,6 +179,13 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.SurnameOrFamilyName, "Please supply a Surname or family name");
             ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
             ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
+
+            if (ShouldAskCareQuestion(applicantDetails))
+                ctx.Required(m => m.PreviouslyLookedAfter, "Please indicate if you have previously been looked after");
+
+            if (ShouldAskEducationQuestion(applicantDetails))
+                ctx.Required(m => m.FullTimeEducation, "Please indicate if you are 18/19 in full time education and part of your parents' or guardians' benefit claim");
+
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
             ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
             ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");

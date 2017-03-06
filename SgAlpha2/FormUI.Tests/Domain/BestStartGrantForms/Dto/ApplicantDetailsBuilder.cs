@@ -15,6 +15,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 OtherNames = "test other names",
                 SurnameOrFamilyName = "test surname or family name",
                 DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-19),
+                PreviouslyLookedAfter = false,
+                FullTimeEducation = false,
                 NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = new Address
                 {
