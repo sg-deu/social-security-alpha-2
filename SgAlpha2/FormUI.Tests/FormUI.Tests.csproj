@@ -196,6 +196,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessionalBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\NavigationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\PaymentDetailsBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Queries\FindApplicantDetailsConfigTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSectionTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />

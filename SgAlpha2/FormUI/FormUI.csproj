@@ -184,6 +184,8 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Navigation.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Queries\FindApplicantDetailsConfig.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Responses\ApplicantDetailsConfig.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\BsgDetail.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Consent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
