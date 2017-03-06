@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using FluentAssertions;
 using FormUI.Controllers.Helpers;
+using FormUI.Tests.Controllers.Util.Html;
 
 namespace FormUI.Tests.Controllers.Util
 {
@@ -15,8 +16,10 @@ namespace FormUI.Tests.Controllers.Util
             return action;
         }
 
-        public static void ShouldShowHide(this AjaxAction action, bool visible)
+        public static void ShouldShowHide(this AjaxAction action, DocumentWrapper doc, bool visible)
         {
+            var target = doc.Find("#" + action.TargetId);
+            target.Should().NotBeNull("Could not find {0} in form", action.TargetId);
             action.Action.Should().Be("ShowHide", "action should be ShowHide");
             action.Show.Should().Be(visible, "action should have Show=" + visible);
         }

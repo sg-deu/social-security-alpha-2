@@ -163,6 +163,30 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ApplicantDetails_AjaxShowsHidesQuestions()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ApplicantDetails("form123"));
+
+                ExecutorStub.SetupQuery(It.IsAny<FindApplicantDetailsConfig>(), new ApplicantDetailsConfig
+                {
+                    ShouldAskCareQuestion = true,
+                    ShouldAskEducationQuestion = false,
+                });
+
+                var ajaxActions = response.Form<ApplicantDetails>(1)
+                    .OnChange(f => f.DateOfBirth, client);
+
+                ajaxActions.Should().NotBeNull();
+                ajaxActions.Length.Should().Be(2);
+
+                ajaxActions.ForFormGroup<ApplicantDetails>(f => f.PreviouslyLookedAfter).ShouldShowHide(response.Doc, true);
+                ajaxActions.ForFormGroup<ApplicantDetails>(f => f.FullTimeEducation).ShouldShowHide(response.Doc, false);
+            });
+        }
+
+        [Test]
         public void ExpectedChildren_GET_PopulatesExistingDetails()
         {
             WebAppTest(client =>

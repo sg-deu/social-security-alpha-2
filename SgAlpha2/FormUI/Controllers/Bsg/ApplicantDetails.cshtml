@@ -30,7 +30,11 @@
 
             @form.Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
-            @form.Html.LabelledInputDate(m => m.DateOfBirth)
+            @form.Html.LabelledInputDate(m => m.DateOfBirth).AjaxOnChange(BsgActions.Ajax_DobChanged())
+
+            @form.Html.LabelledRadioYesNo(m => m.PreviouslyLookedAfter).InitiallyHidden()
+
+            @form.Html.LabelledRadioYesNo(m => m.FullTimeEducation).InitiallyHidden()
 
             @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
 

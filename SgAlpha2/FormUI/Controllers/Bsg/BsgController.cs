@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
@@ -21,6 +22,7 @@ namespace FormUI.Controllers.Bsg
         public static string    Start()                             { return $"~/bsg/start"; }
         public static string    Consent(string formId)              { return $"~/bsg/consent/{formId}"; }
         public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
+        public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
         public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
@@ -102,6 +104,18 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
             {
                 m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Ajax_DobChanged(ApplicantDetails applicantDetails)
+        {
+            var config = Exec(new FindApplicantDetailsConfig { ApplicantDetails = applicantDetails });
+
+            return Json(new[]
+            {
+                AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.PreviouslyLookedAfter, config.ShouldAskCareQuestion),
+                AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.FullTimeEducation, config.ShouldAskEducationQuestion),
             });
         }
 
