@@ -52,6 +52,34 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void ApplicantDetails_RequiresEducationQuestion()
+        {
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            var applicantDetails = ApplicantDetailsBuilder.NewValid();
+
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("default builder should ask question");
+
+            applicantDetails.DateOfBirth = null;
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if DoB not supplied");
+
+            // applicant is 20 today
+            applicantDetails.DateOfBirth = new DateTime(1989, 08, 07);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant >= 20");
+
+            // applicant is 20 tomorrow (still 19)
+            applicantDetails.DateOfBirth = new DateTime(1989, 08, 08);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("ask question if applicant is still 19");
+
+            // applicant is 18 today
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 07);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("ask question if applicant has turned 18");
+
+            // applicant is 18 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 08);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant is under 18");
+        }
+
+        [Test]
         public void AddApplicantDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();

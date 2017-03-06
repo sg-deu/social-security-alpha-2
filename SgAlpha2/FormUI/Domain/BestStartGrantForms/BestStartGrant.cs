@@ -65,6 +65,16 @@ namespace FormUI.Domain.BestStartGrantForms
             return age >= 18 && age < 25;
         }
 
+        public static bool ShouldAskEducationQuestion(ApplicantDetails applicantDetails)
+        {
+            if (!applicantDetails.DateOfBirth.HasValue)
+                return false;
+
+            var dob = applicantDetails.DateOfBirth.Value;
+            var age = Age(dob);
+            return age == 18 || age == 19;
+        }
+
         private static int Age(DateTime dateOfBirth)
         {
             var today = DomainRegistry.NowUtc().ToLocalTime().Date;
