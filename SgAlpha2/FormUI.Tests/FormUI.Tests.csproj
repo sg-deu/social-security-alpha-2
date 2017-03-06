@@ -148,6 +148,7 @@
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\SetUpFixture.cs" />
     <Compile Include="Controllers\Shared\FormUiContraintsTests.cs" />
+    <Compile Include="Controllers\Util\AjaxActionExtensions.cs" />
     <Compile Include="Controllers\Util\ExecutorStub.cs" />
     <Compile Include="Controllers\Util\FakeStartup.cs" />
     <Compile Include="Controllers\Util\Hosting\AppDomainProxy.cs" />

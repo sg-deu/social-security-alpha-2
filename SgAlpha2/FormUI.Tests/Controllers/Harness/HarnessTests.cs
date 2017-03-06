@@ -88,9 +88,8 @@ namespace FormUI.Tests.Controllers.Harness
 
                 ajaxActions.Length.Should().Be(2);
 
-                ajaxActions[0].Action.Should().Be("ShowHide");
-                ajaxActions[0].TargetId.Should().Be("String1_FormGroup");
-                ajaxActions[0].Show.Should().BeFalse();
+                ajaxActions.ForFormGroup<AjaxFormModel>(f => f.String1).ShouldShowHide(false);
+                ajaxActions.ForFormGroup<AjaxFormModel>(f => f.String2).ShouldShowHide(false);
             });
         }
     }
