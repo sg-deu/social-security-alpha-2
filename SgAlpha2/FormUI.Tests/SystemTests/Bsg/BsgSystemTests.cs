@@ -29,13 +29,18 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             App.Submit();
 
+            var dob = DateTime.Now.Date.AddYears(-19);
+
             {
                 var form = App.FormForModel<ApplicantDetails>();
                 form.TypeText(m => m.Title, "system test Title");
                 form.TypeText(m => m.FirstName, "system test FirstName");
                 form.TypeText(m => m.OtherNames, "system test OtherNames");
                 form.TypeText(m => m.SurnameOrFamilyName, "system test FamilyName");
-                form.TypeDate(m => m.DateOfBirth, "01", "02", "2003");
+                form.TypeDate(m => m.DateOfBirth, dob);
+                form.BlurDate(m => m.DateOfBirth);
+                form.SelectRadio(m => m.PreviouslyLookedAfter, true);
+                form.SelectRadio(m => m.FullTimeEducation, true);
                 form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
                 form.TypeText(m => m.CurrentAddress.Street1, "system test ca.Street1");
                 form.TypeText(m => m.CurrentAddress.Street2, "system test ca.Street2");
@@ -139,7 +144,9 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
                 doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
                 doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
-                doc.ApplicantDetails.DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
+                doc.ApplicantDetails.DateOfBirth.Should().Be(dob);
+                doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
+                doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
                 doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
                 doc.ApplicantDetails.CurrentAddress.Street1.Should().Be("system test ca.Street1");
                 doc.ApplicantDetails.CurrentAddress.Street2.Should().Be("system test ca.Street2");
