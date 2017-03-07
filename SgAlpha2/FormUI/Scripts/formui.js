@@ -38,15 +38,27 @@
 
     };
 
+    // http://stackoverflow.com/a/21742107/357728
+    function isMobileDevice() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        if (/windows phone/i.test(userAgent))
+            return true;
+
+        if (/android/i.test(userAgent))
+            return true;
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)
+            return true;
+
+        return false;
+    }
+
     function init(rootElement) {
 
-        var isMobile = true;
-
-        // this simple check is enough for Alpha2
-        if (window.orientation === null)
-            isMobile = false;
-
-        if (!isMobile) { // the input mask doesn't work with a mobile's virtual keyboard
+        if (!isMobileDevice()) { // the input mask doesn't work with a mobile's virtual keyboard
             rootElement.find('[data-input-mask]').each(function (index, e) {
                 var input = $(e)
                 var maskName = input.attr('data-input-mask');
