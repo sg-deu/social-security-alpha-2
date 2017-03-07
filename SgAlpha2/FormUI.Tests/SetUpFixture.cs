@@ -33,7 +33,7 @@ namespace FormUI.Tests
                         throw new Exception("Could not obtain semaphore: " + semaphoreName);
                 }
 
-                Console.WriteLine("aquired");
+                Console.WriteLine("Aquired");
             }
             catch
             {

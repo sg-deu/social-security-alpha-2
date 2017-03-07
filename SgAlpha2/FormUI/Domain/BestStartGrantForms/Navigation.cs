@@ -9,10 +9,10 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             Sections.Consent,
             Sections.ApplicantDetails,
-            Sections.GuardianDetails1,
-            Sections.GuardianDetails2,
             Sections.ExpectedChildren,
             Sections.ExistingChildren,
+            Sections.GuardianDetails1,
+            Sections.GuardianDetails2,
             Sections.ApplicantBenefits1,
             Sections.ApplicantBenefits2,
             Sections.HealthProfessional,

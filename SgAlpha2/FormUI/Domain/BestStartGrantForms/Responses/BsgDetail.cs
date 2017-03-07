@@ -8,9 +8,9 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
 
         public Consent              Consent;
         public ApplicantDetails     ApplicantDetails;
-        public GuardianDetails      GuardianDetails;
         public ExpectedChildren     ExpectedChildren;
         public ExistingChildren     ExistingChildren;
+        public GuardianDetails      GuardianDetails;
         public ApplicantBenefits    ApplicantBenefits;
         public HealthProfessional   HealthProfessional;
         public PaymentDetails       PaymentDetails;

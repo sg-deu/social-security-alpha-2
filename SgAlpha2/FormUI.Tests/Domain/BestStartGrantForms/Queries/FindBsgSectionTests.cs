@@ -29,9 +29,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
             {
                 Consent = existingForm.Consent,
                 ApplicantDetails = existingForm.ApplicantDetails,
-                GuardianDetails = existingForm.GuardianDetails,
                 ExpectedChildren = existingForm.ExpectedChildren,
                 ExistingChildren = existingForm.ExistingChildren,
+                GuardianDetails = existingForm.GuardianDetails,
                 ApplicantBenefits = existingForm.ApplicantBenefits,
                 HealthProfessional = existingForm.HealthProfessional,
                 PaymentDetails = existingForm.PaymentDetails,
