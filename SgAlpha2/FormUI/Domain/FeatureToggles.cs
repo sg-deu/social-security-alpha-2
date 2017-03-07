@@ -2,6 +2,5 @@
 {
     public static class FeatureToggles
     {
-        public static bool WorkingOnGuardianDetails = true;
     }
 }

@@ -41,9 +41,6 @@ namespace FormUI.Domain.BestStartGrantForms
             if (index < _order.Count - 1)
                 nextSection = _order[index + 1];
 
-            if (FeatureToggles.WorkingOnGuardianDetails && nextSection == Sections.GuardianDetails1)
-                nextSection = Sections.ExpectedChildren;
-
             return new NextSection
             {
                 Id = form.Id,
