@@ -224,6 +224,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = TestNowUtc);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);

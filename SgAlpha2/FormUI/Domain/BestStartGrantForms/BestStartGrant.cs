@@ -317,6 +317,7 @@ namespace FormUI.Domain.BestStartGrantForms
             {
                 ctx.Required(m => m.FullName, "Please supply a Full name");
                 ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
+                ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
                 ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(guardianDetails));
                 ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
             }
