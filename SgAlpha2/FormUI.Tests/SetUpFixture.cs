@@ -13,7 +13,7 @@ namespace FormUI.Tests
         [SetUp]
         public void SetUp()
         {
-            Console.Write("Waiting for existing test run to complete ... ");
+            Console.Write("Aquiring machine-wide lock ... ");
 
             try
             {
@@ -33,7 +33,7 @@ namespace FormUI.Tests
                         throw new Exception("Could not obtain semaphore: " + semaphoreName);
                 }
 
-                Console.WriteLine("existing tests complete");
+                Console.WriteLine("aquired");
             }
             catch
             {
@@ -57,6 +57,7 @@ namespace FormUI.Tests
                         _enforceSingleInstance.Release();
 
                     _enforceSingleInstance = null;
+                    Console.WriteLine("Released machine-wide lock");
                 }
         }
     }
