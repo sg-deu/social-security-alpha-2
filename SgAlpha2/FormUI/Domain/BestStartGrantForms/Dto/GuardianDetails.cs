@@ -27,7 +27,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [UiInputMask(InputMasks.NationalInsuranceNumber)]
         public string       NationalInsuranceNumber { get; set; }
 
-        [DisplayName("Relationship to  applicant")]
+        [DisplayName("Relationship to applicant")]
         public string       RelationshipToApplicant { get; set; }
 
         public Address      Address                 { get; set; }

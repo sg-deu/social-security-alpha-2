@@ -284,10 +284,17 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (part == Part.Part1)
             {
+                ctx.Required(m => m.FullName, "Please supply a Full name");
+                ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
+                ctx.Required(m => m.NationalInsuranceNumber, "Please supply a National Insurance number");
+                ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
             }
 
             if (part == Part.Part2)
             {
+                ctx.Required(m => m.Address.Street1, "Please supply an Address Street");
+                ctx.Required(m => m.Address.TownOrCity, "Please supply a Town or City");
+                ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
             }
 
             ctx.ThrowIfError();

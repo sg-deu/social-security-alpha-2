@@ -182,6 +182,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddGuardianDetails_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => { });
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Title = null);
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Street2 = null);
+            GuardianDetailsShouldBeValid(form, Part.Part2, m => { });
+
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Street1 = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.TownOrCity = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Postcode = null);
+        }
+
+        [Test]
         public void AddExpectedChildren_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
@@ -360,6 +379,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         protected void ApplicantDetailsShouldBeInvalid(BestStartGrant form, Action<ApplicantDetails> mutator)
         {
             ShouldBeInvalid(() => form.AddApplicantDetails(ApplicantDetailsBuilder.NewValid(mutator)));
+        }
+
+        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        {
+            ShouldBeValid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
+        }
+
+        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        {
+            ShouldBeInvalid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
         }
 
         protected void ExpectedChildrenShouldBeValid(BestStartGrant form, Action<ExpectedChildren> mutator)
