@@ -1,11 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class GuardianDetails
     {
+        public GuardianDetails()
+        {
+            Address = new Address();
+        }
+
         [DisplayName("Title")]
         public string       Title                   { get; set; }
 
@@ -25,5 +31,29 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string       RelationshipToApplicant { get; set; }
 
         public Address      Address                 { get; set; }
+
+        public void CopyTo(GuardianDetails dest, Part part)
+        {
+            switch (part)
+            {
+                case Part.Part1:
+                    dest.Title = Title;
+                    dest.FullName = FullName;
+                    dest.DateOfBirth = DateOfBirth;
+                    dest.NationalInsuranceNumber = NationalInsuranceNumber;
+                    dest.RelationshipToApplicant = RelationshipToApplicant;
+                    break;
+
+                case Part.Part2:
+                    dest.Address.Street1 = Address.Street1;
+                    dest.Address.Street2 = Address.Street2;
+                    dest.Address.TownOrCity = Address.TownOrCity;
+                    dest.Address.Postcode = Address.Postcode;
+                    break;
+
+                default:
+                    throw new Exception("Unhandled part : " + part);
+            }
+        }
     }
 }

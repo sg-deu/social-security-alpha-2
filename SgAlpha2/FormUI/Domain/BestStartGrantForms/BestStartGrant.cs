@@ -17,6 +17,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public Consent              Consent             { get; protected set; }
         public ApplicantDetails     ApplicantDetails    { get; protected set; }
+        public GuardianDetails      GuardianDetails     { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
         public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
@@ -30,6 +31,7 @@ namespace FormUI.Domain.BestStartGrantForms
             {
                 Consent             = Consent,
                 ApplicantDetails    = ApplicantDetails,
+                GuardianDetails     = GuardianDetails,
                 ExpectedChildren    = ExpectedChildren,
                 ExistingChildren    = ExistingChildren,
                 ApplicantBenefits   = ApplicantBenefits,
@@ -100,6 +102,20 @@ namespace FormUI.Domain.BestStartGrantForms
 
             ApplicantDetails = applicantDetails;
             return OnSectionCompleted(Sections.ApplicantDetails);
+        }
+
+        public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
+        {
+            Validate(part, guardianDetails);
+
+            GuardianDetails = GuardianDetails ?? new GuardianDetails();
+            guardianDetails.CopyTo(GuardianDetails, part);
+
+            var section = part == Part.Part1
+                ? Sections.GuardianDetails1
+                : Sections.GuardianDetails2;
+
+            return OnSectionCompleted(section);
         }
 
         public NextSection AddExpectedChildren(ExpectedChildren expectedChildren)
@@ -260,6 +276,21 @@ namespace FormUI.Domain.BestStartGrantForms
             applicantDetails.NationalInsuranceNumber = ni;
 
             return null;
+        }
+
+        private static void Validate(Part part, GuardianDetails guardianDetails)
+        {
+            var ctx = new ValidationContext<GuardianDetails>(guardianDetails);
+
+            if (part == Part.Part1)
+            {
+            }
+
+            if (part == Part.Part2)
+            {
+            }
+
+            ctx.ThrowIfError();
         }
 
         private static void Validate(ExpectedChildren expectedChildren)
