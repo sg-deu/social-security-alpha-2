@@ -17,7 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
                 .With(f => f.GuardianDetails, GuardianDetailsBuilder.NewValid(Part.Part1))
                 .Insert();
 
-            existingForm.GuardianDetails.Address.Street1.Should().BeNull("no data stored before executing command");
+            existingForm.GuardianDetails.Address.Line1.Should().BeNull("no data stored before executing command");
 
             var cmd = new AddGuardianDetails
             {
@@ -30,7 +30,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 
             var updatedForm = Repository.Load<BestStartGrant>("form123");
             updatedForm.GuardianDetails.Should().NotBeNull();
-            updatedForm.GuardianDetails.Address.Street1.Should().Be(cmd.GuardianDetails.Address.Street1);
+            updatedForm.GuardianDetails.Address.Line1.Should().Be(cmd.GuardianDetails.Address.Line1);
         }
     }
 }

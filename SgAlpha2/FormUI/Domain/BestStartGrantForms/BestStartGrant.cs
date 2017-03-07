@@ -203,8 +203,8 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(m => m.FullTimeEducation, "Please indicate if you are 18/19 in full time education and part of your parents' or guardians' benefit claim");
 
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
-            ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
-            ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
+            ctx.Required(m => m.CurrentAddress.Line1, "Please supply an Address line 1");
+            ctx.Required(m => m.CurrentAddress.Line2, "Please supply an Address line 2");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
             ctx.Required(m => m.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
@@ -292,8 +292,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (part == Part.Part2)
             {
-                ctx.Required(m => m.Address.Street1, "Please supply an Address Street");
-                ctx.Required(m => m.Address.TownOrCity, "Please supply a Town or City");
+                ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
+                ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
                 ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
             }
 

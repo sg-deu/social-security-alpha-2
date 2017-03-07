@@ -249,7 +249,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.GuardianDetails2(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails2 });
-                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Address.Street1).Should().Be(detail.GuardianDetails.Address.Street1);
+                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Address.Line1).Should().Be(detail.GuardianDetails.Address.Line1);
             });
         }
 
@@ -259,7 +259,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<GuardianDetails>(1)
-                    .SetText(m => m.Address.Street1, "street 1")
+                    .SetText(m => m.Address.Line1, "line 1")
                     .Submit(client);
 
                 ExecutorStub.Executed<AddGuardianDetails>(0).ShouldBeEquivalentTo(new AddGuardianDetails
@@ -268,7 +268,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     Part = Part.Part2,
                     GuardianDetails = new GuardianDetails
                     {
-                        Address = new Address { Street1 = "street 1" },
+                        Address = new Address { Line1 = "line 1" },
                     },
                 });
 

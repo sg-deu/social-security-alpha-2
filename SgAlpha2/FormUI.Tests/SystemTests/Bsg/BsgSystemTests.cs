@@ -42,9 +42,9 @@ namespace FormUI.Tests.SystemTests.Bsg
                 form.SelectRadio(m => m.PreviouslyLookedAfter, true);
                 form.SelectRadio(m => m.FullTimeEducation, true);
                 form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
-                form.TypeText(m => m.CurrentAddress.Street1, "system test ca.Street1");
-                form.TypeText(m => m.CurrentAddress.Street2, "system test ca.Street2");
-                form.TypeText(m => m.CurrentAddress.TownOrCity, "system test ca.TownOrCity");
+                form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
+                form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
+                form.TypeText(m => m.CurrentAddress.Line3, "system test ca.line3");
                 form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
                 form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
                 form.SelectRadio(m => m.CurrentAddressStatus, AddressStatus.Permanent);
@@ -148,9 +148,9 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
                 doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
                 doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
-                doc.ApplicantDetails.CurrentAddress.Street1.Should().Be("system test ca.Street1");
-                doc.ApplicantDetails.CurrentAddress.Street2.Should().Be("system test ca.Street2");
-                doc.ApplicantDetails.CurrentAddress.TownOrCity.Should().Be("system test ca.TownOrCity");
+                doc.ApplicantDetails.CurrentAddress.Line1.Should().Be("system test ca.line1");
+                doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
+                doc.ApplicantDetails.CurrentAddress.Line3.Should().Be("system test ca.line3");
                 doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
                 doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
                 doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);

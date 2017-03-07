@@ -20,10 +20,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
             if (part == Part.Part2)
             {
-                value.Address.Street1 = "guardian street 1";
-                value.Address.Street2 = "guardian street 2";
-                value.Address.TownOrCity = "guardian town";
-                value.Address.Postcode = "GU1 1AR";
+                value.Address = AddressBuilder.NewValid();
             }
 
             if (mutator != null)

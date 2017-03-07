@@ -45,9 +45,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
                     break;
 
                 case Part.Part2:
-                    dest.Address.Street1 = Address.Street1;
-                    dest.Address.Street2 = Address.Street2;
-                    dest.Address.TownOrCity = Address.TownOrCity;
+                    dest.Address.Line1 = Address.Line1;
+                    dest.Address.Line2 = Address.Line2;
+                    dest.Address.Line3 = Address.Line3;
                     dest.Address.Postcode = Address.Postcode;
                     break;
 

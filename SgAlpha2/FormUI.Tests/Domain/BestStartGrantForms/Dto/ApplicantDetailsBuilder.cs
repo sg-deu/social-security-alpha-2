@@ -18,13 +18,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 PreviouslyLookedAfter = false,
                 FullTimeEducation = false,
                 NationalInsuranceNumber = "AB123456C",
-                CurrentAddress = new Address
-                {
-                    Street1 = "test street 1",
-                    Street2 = "test street 2",
-                    TownOrCity = "test town or city",
-                    Postcode = "test postcode",
-                },
+                CurrentAddress = AddressBuilder.NewValid(),
                 DateMovedIn = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(365),
                 CurrentAddressStatus = AddressStatus.Permanent,
                 ContactPreference = ContactPreference.Email,

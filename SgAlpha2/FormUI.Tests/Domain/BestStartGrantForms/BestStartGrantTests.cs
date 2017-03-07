@@ -87,7 +87,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeValid(form, m => { });
             ApplicantDetailsShouldBeValid(form, m => m.Title = null);
             ApplicantDetailsShouldBeValid(form, m => m.OtherNames = null);
-            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Street2 = null);
+            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line3 = null);
             ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
             ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.PreviouslyLookedAfter = null; });
             ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.FullTimeEducation = null; });
@@ -99,8 +99,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeInvalid(form, m => m.PreviouslyLookedAfter = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.FullTimeEducation = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Street1 = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.TownOrCity = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line1 = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line2 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);
@@ -188,15 +188,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             GuardianDetailsShouldBeValid(form, Part.Part1, m => { });
             GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Title = null);
-            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Street2 = null);
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line3 = null);
             GuardianDetailsShouldBeValid(form, Part.Part2, m => { });
 
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Street1 = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.TownOrCity = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line2 = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Postcode = null);
         }
 
