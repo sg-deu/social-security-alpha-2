@@ -232,9 +232,9 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static string ValidateNationalInsuranceNumber(ApplicantDetails applicantDetails)
+        private static string ValidateNationalInsuranceNumber(INationalInsuranceNumberHolder holder)
         {
-            var ni = applicantDetails.NationalInsuranceNumber;
+            var ni = holder.NationalInsuranceNumber;
 
             if (string.IsNullOrWhiteSpace(ni))
                 return "Please supply a National Insurance number";
@@ -273,7 +273,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ni.Substring(6, 2),     // {3} 56
                 ni.Substring(8, 1));    // {4} C
 
-            applicantDetails.NationalInsuranceNumber = ni;
+            holder.NationalInsuranceNumber = ni;
 
             return null;
         }
@@ -286,7 +286,7 @@ namespace FormUI.Domain.BestStartGrantForms
             {
                 ctx.Required(m => m.FullName, "Please supply a Full name");
                 ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
-                ctx.Required(m => m.NationalInsuranceNumber, "Please supply a National Insurance number");
+                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(guardianDetails));
                 ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
             }
 

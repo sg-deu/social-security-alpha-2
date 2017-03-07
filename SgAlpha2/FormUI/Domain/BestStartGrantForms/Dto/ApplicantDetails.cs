@@ -4,7 +4,7 @@ using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
-    public class ApplicantDetails
+    public class ApplicantDetails : INationalInsuranceNumberHolder
     {
         public ApplicantDetails()
         {

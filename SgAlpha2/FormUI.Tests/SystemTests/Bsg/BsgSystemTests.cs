@@ -185,7 +185,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.GuardianDetails.Title.Should().Be("g.title");
                 doc.GuardianDetails.FullName.Should().Be("g.fullname");
                 doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
-                //doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
+                doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
                 doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
                 doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
                 doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");

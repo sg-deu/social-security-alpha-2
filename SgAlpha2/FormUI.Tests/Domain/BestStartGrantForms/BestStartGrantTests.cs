@@ -201,6 +201,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddGuardianDetails_FormatsNationalInsuranceNumber()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            var details = GuardianDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
+            form.AddGuardianDetails(Part.Part1, details);
+
+            form.GuardianDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
+        }
+
+        [Test]
         public void AddExpectedChildren_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();

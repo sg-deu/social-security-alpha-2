@@ -13,8 +13,7 @@ namespace FormUI.Tests
         [SetUp]
         public void SetUp()
         {
-            Console.Write("Aquiring machine-wide lock ... ");
-            Console.Out.Flush();
+            Console.WriteLine("Aquiring machine-wide lock ... ");
 
             try
             {
