@@ -10,7 +10,8 @@ namespace FormUI.Controllers.Bsg
         {
             { Sections.Consent,             () => new ConsentActions() },
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
-            { Sections.GuardianDetails,     () => new GuardianDetailsActions() },
+            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
+            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
             { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
@@ -40,9 +41,14 @@ namespace FormUI.Controllers.Bsg
             public override string Action(string formId) { return BsgActions.ApplicantDetails(formId); }
         }
 
-        private class GuardianDetailsActions : SectionActionStrategy
+        private class GuardianDetails1Actions : SectionActionStrategy
         {
-            public override string Action(string formId) { return BsgActions.GuardianDetails(formId); }
+            public override string Action(string formId) { return BsgActions.GuardianDetails1(formId); }
+        }
+
+        private class GuardianDetails2Actions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianDetails2(formId); }
         }
 
         private class ExpectedChildrenActions : SectionActionStrategy
