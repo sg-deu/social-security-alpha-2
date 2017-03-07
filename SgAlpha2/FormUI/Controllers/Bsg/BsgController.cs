@@ -122,6 +122,64 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
+        public ActionResult GuardianDetails1(string id)
+        {
+            return GuardianDetails1_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails1(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part1,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails1_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails1_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails1, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianDetails2(string id)
+        {
+            return GuardianDetails2_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails2(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part2,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails2_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails2_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails2, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
+            });
+        }
+
+        [HttpGet]
         public ActionResult ExpectedChildren(string id)
         {
             return ExpectedChildren_Render(id, null);
