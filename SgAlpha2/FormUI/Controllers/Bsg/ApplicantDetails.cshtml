@@ -42,12 +42,7 @@
 
             <p>Please tell us your current address</p>
 
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Street1)
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Street2)
-
-            @form.Html.LabelledInputText(m => m.CurrentAddress.TownOrCity)
-
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Postcode)
+            @form.Html.PartialFor(m => m.CurrentAddress, BsgViews.Address)
 
             @form.Html.LabelledInputDate(m => m.DateMovedIn)
 

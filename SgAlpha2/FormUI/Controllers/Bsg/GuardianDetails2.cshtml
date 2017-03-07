@@ -15,13 +15,7 @@
 
             @form.Html.ValidationSummary()
 
-
-            @form.Html.LabelledInputText(m => m.Address.Street1)
-            @form.Html.LabelledInputText(m => m.Address.Street2)
-
-            @form.Html.LabelledInputText(m => m.Address.TownOrCity)
-
-            @form.Html.LabelledInputText(m => m.Address.Postcode)
+            @form.Html.PartialFor(m => m.Address, BsgViews.Address)
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

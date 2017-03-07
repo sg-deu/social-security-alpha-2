@@ -1,5 +1,8 @@
-﻿using System.Web;
+﻿using System;
+using System.Linq.Expressions;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers
@@ -38,6 +41,14 @@ namespace FormUI.Controllers.Helpers
             var urlHelper = helper.UrlHelper();
 
             return new LinkTag("Back", urlHelper.Content(actionUrl));
+        }
+
+        public static IHtmlString PartialFor<T>(this HtmlHelper<T> helper, Expression<Func<T, object>> property, string view)
+        {
+            var prefix = property.GetExpressionText();
+            var templateInfo = new TemplateInfo { HtmlFieldPrefix = prefix };
+            var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
+            return helper.Partial(view, metaData.Model, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
         }
     }
 }

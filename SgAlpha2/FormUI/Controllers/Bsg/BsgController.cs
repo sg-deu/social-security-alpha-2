@@ -35,6 +35,11 @@ namespace FormUI.Controllers.Bsg
         public static string    Complete()                          { return $"~/bsg/complete"; }
     }
 
+    public class BsgViews
+    {
+        public const string Address = "Address";
+    }
+
     public class BsgController : FormController
     {
         [HttpGet]

@@ -172,8 +172,9 @@ namespace FormUI.Controllers.Helpers
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
             where TControl : Control
         {
-            var name = property.GetExpressionText();
-            var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            var propertyName = property.GetExpressionText();
+            var name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName);
+            var id = TagBuilder.CreateSanitizedId(name);
             var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
 
             var controlContext = new ControlContext

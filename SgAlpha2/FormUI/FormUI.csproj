@@ -304,6 +304,7 @@
     <Content Include="Controllers\Harness\AjaxForm.cshtml" />
     <Content Include="Controllers\Bsg\GuardianDetails1.cshtml" />
     <Content Include="Controllers\Bsg\GuardianDetails2.cshtml" />
+    <Content Include="Controllers\Bsg\Address.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
