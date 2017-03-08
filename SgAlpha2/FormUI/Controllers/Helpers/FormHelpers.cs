@@ -14,7 +14,7 @@ namespace FormUI.Controllers.Helpers
     {
         public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel)
         {
-            var form = new FormTag().NoClosingTag();
+            var form = new FormTag().AddClasses("sg-form").NoClosingTag();
             helper.ViewContext.Writer.Write(form.ToHtmlString());
 
             var newHelper = helper.ForModel(postModel);

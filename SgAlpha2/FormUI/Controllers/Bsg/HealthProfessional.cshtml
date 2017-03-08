@@ -8,15 +8,17 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Health Professional ...</h1>
+        <h1>Health Professional</h1>
 
         @using (var form = Html.FormFor(Model.HealthProfessional))
         {
 
             @form.Html.ValidationSummary()
 
+            <h2>Health Professional details</h2>
 
             @form.Html.LabelledInputText(m => m.Pin)
+
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

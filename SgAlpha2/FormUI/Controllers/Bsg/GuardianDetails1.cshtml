@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<GuardianDetailsModel>
 @{
-    ViewBag.Title = "Best Start Grant - Your Parent/Legal Guardian's details part 1";
+    ViewBag.Title = "Best Start Grant - Your Legal Guardian part 1";
 }
 
 <div class="grid"><!--
@@ -8,12 +8,14 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Your Parent/Legal Guardian</h1>
+        <h1>Your Legal Guardian</h1>
 
         @using (var form = Html.FormFor(Model.GuardianDetails))
         {
 
             @form.Html.ValidationSummary()
+
+            <h2>Your legal guardian's details</h2>
 
             @form.Html.LabelledInputText(m => m.Title)
 

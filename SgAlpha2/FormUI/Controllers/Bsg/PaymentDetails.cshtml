@@ -8,13 +8,14 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Payment Details ...</h1>
+        <h1>Payment details</h1>
 
         @using (var form = Html.FormFor(Model.PaymentDetails))
         {
 
             @form.Html.ValidationSummary()
 
+            <h2>How we pay you</h2>
 
             @form.Html.LabelledRadioYesNo(m => m.LackingBankAccount)
 

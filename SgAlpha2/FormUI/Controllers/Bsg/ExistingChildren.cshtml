@@ -8,12 +8,16 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>If the baby has already been born...</h1>
+        <h1>If the baby has already been born</h1>
+
+        <p class="asterisk-note">If you have any other children in the household, please list all children below:</p>
 
         @using (var form = Html.FormFor(Model.ExistingChildren))
         {
 
             @form.Html.ValidationSummary()
+
+            <h2>Existing children</h2>
 
             for(var i = 0; i < Model.ExistingChildren.Children.Count; i++)
             {
@@ -30,6 +34,7 @@
             }
 
             @form.Html.FormButton(BsgButtons.AddChild, "Add Child")
+
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 
