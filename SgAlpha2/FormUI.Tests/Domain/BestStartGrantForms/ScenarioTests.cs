@@ -16,6 +16,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void AgedUnder16()
         {
+            // under 16 is automatically eligible, but need legal parent/guardian details
             var next = new StartBestStartGrant().Execute();
             var formId = next.Id;
 
@@ -30,6 +31,27 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddGuardianDetails2(next);
 
             next.Section.Should().Be(Sections.HealthProfessional, "under 16 should not be prompted for applicant benefits");
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void Aged16()
+        {
+            // 16/17 is automatically eligible, but no need gather legal parent/guardian details
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Aged16(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+
+            next.Section.Should().Be(Sections.HealthProfessional, "under 16 should not be prompted for guardian details or applicant benefits");
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);

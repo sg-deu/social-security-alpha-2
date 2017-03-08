@@ -51,10 +51,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private class GuardianDetails1Actions : SectionStrategy
         {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
         }
 
         private class GuardianDetails2Actions : SectionStrategy
         {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
         }
 
         private class ApplicantBenefits1Actions : SectionStrategy

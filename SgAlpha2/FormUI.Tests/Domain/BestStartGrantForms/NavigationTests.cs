@@ -69,15 +69,39 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresApplicantBenefits(form).Should().BeTrue();
 
+            // 18 tomorrow
+            form.ApplicantDetails.DateOfBirth = new DateTime(1991, 08, 08);
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("under 18 does not require applicant benefits");
+
+            // 18 today
+            form.ApplicantDetails.DateOfBirth = new DateTime(1991, 08, 07);
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue();
+        }
+
+        [Test]
+        public void RequiresGuardianDetails()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+
+            form.ApplicantDetails.DateOfBirth = null;
+
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
+
             // 16 tomorrow
             form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 08);
 
-            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("under 16 does not require applicant benefits");
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
 
             // 16 today
             form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
 
-            Navigation.RequiresApplicantBenefits(form).Should().BeTrue();
+            Navigation.RequiresGuardianDetails(form).Should().BeFalse("over 16 does not require a legal guradian/parent");
         }
     }
 }

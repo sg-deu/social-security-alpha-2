@@ -61,10 +61,19 @@ namespace FormUI.Domain.BestStartGrantForms
             var applicantDetails = form.ApplicantDetails;
 
             if (applicantDetails != null)
-            {
-                if (applicantDetails.Age() < 16)
+                if (applicantDetails.Age() < 18)
                     return false;
-            }
+
+            return true;
+        }
+
+        public static bool RequiresGuardianDetails(BestStartGrant form)
+        {
+            var applicantDetails = form.ApplicantDetails;
+
+            if (applicantDetails != null)
+                if (applicantDetails.Age() >= 16)
+                    return false;
 
             return true;
         }
