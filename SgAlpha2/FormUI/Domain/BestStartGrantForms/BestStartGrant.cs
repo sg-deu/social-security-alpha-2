@@ -134,6 +134,17 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(section);
         }
 
+        public bool RequiresApplicantBenefits()
+        {
+            if (ApplicantDetails != null && ApplicantDetails.DateOfBirth.HasValue)
+            {
+                if (Age(ApplicantDetails.DateOfBirth.Value) <= 16)
+                    return false;
+            }
+
+            return true;
+        }
+
         public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
         {
             Validate(part, applicantBenefits);

@@ -4,7 +4,7 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
-    public class ApplicantDetailsBuilder
+    public static class ApplicantDetailsBuilder
     {
         public static ApplicantDetails NewValid(Action<ApplicantDetails> mutator = null)
         {
@@ -31,6 +31,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 mutator(value);
 
             return value;
+        }
+
+        public static ApplicantDetails Under16(this ApplicantDetails applicantDetails, DateTime nowUtc)
+        {
+            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-15);
+            return applicantDetails;
         }
     }
 }

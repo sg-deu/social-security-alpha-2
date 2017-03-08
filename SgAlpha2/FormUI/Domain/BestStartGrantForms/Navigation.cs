@@ -34,12 +34,20 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static NextSection Next(BestStartGrant form, Sections completedSection)
         {
-            var index = _order.IndexOf(completedSection);
+            var index = _order.IndexOf(completedSection) + 1;
 
             Sections? nextSection = null;
 
-            if (index < _order.Count - 1)
-                nextSection = _order[index + 1];
+            while (!nextSection.HasValue && index < _order.Count)
+            {
+                var section = _order[index];
+                var strategy = SectionStrategy.For(section);
+
+                if (strategy.Required(form))
+                    nextSection = section;
+
+                index++;
+            }
 
             return new NextSection
             {

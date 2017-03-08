@@ -38,18 +38,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var lastSection = Navigation.Order.Last();
             var form = new BestStartGrantBuilder("form123").Value();
+            bool lastSectionReached = false;
 
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
             {
                 var next = Navigation.Next(form, section);
-
                 next.Id.Should().Be("form123");
 
                 if (section == lastSection)
                     next.Section.Should().BeNull();
-                else
-                    next.Section.Should().Be(Navigation.Order.ToList()[Navigation.Order.ToList().IndexOf(section) + 1]);
+                else if (next.Section == lastSection)
+                    lastSectionReached = true;
             }
+
+            lastSectionReached.Should().BeTrue("last section should be reached");
         }
     }
 }
