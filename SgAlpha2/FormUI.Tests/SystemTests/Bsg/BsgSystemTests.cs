@@ -40,10 +40,10 @@ namespace FormUI.Tests.SystemTests.Bsg
             //FillInGuardianDetails2();
             //App.Submit();
 
-            FillInExistingBenefit();
+            FillInApplicantBenefits1();
             App.Submit();
 
-            FillInApplicantBenefits();
+            FillInApplicantBenefits2();
             App.Submit();
 
             FillInHealthProfessional();
@@ -61,64 +61,15 @@ namespace FormUI.Tests.SystemTests.Bsg
             {
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
-                doc.ApplicantDetails.Title.Should().Be("system test Title");
-                doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
-                doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
-                doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
-                doc.ApplicantDetails.DateOfBirth.Should().Be(dob);
-                doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
-                doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
-                doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
-                doc.ApplicantDetails.CurrentAddress.Line1.Should().Be("system test ca.line1");
-                doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
-                doc.ApplicantDetails.CurrentAddress.Line3.Should().Be("system test ca.line3");
-                doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
-                doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
-                doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
-                doc.ApplicantDetails.ContactPreference.Should().Be( ContactPreference.Email);
-                doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
-
-                doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
-                doc.ExpectedChildren.ExpectedBabyCount.Should().Be(3);
-
-                doc.ExistingChildren.Children.Count.Should().Be(2);
-
-                doc.ExistingChildren.Children[0].FirstName.Should().Be("c1 first name");
-                doc.ExistingChildren.Children[0].Surname.Should().Be("c1 last name");
-                doc.ExistingChildren.Children[0].DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
-                doc.ExistingChildren.Children[0].RelationshipToChild.Should().Be("c1 relationship");
-                doc.ExistingChildren.Children[0].ChildBenefit.Should().BeTrue();
-                doc.ExistingChildren.Children[0].FormalKinshipCare.Should().BeFalse();
-
-                doc.ExistingChildren.Children[1].FirstName.Should().Be("c2 first name");
-                doc.ExistingChildren.Children[1].Surname.Should().Be("c2 last name");
-                doc.ExistingChildren.Children[1].DateOfBirth.Should().Be(new DateTime(2004, 03, 02));
-                doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
-                doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
-                doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
-
-                //doc.GuardianDetails.Title.Should().Be("g.title");
-                //doc.GuardianDetails.FullName.Should().Be("g.fullname");
-                //doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
-                //doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
-                //doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
-                //doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
-                //doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");
-                //doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
-                //doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
-
-                doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
-                doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
-                doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
-
-                doc.HealthProfessional.Pin.Should().Be("XYZ54321");
-
-                doc.PaymentDetails.LackingBankAccount.Should().BeFalse();
-                doc.PaymentDetails.NameOfAccountHolder.Should().Be("system test account holder");
-                doc.PaymentDetails.NameOfBank.Should().Be("system test bank name");
-                doc.PaymentDetails.SortCode.Should().Be("01-02-03");
-                doc.PaymentDetails.AccountNumber.Should().Be("01234567");
-                doc.PaymentDetails.RollNumber.Should().Be("roll_number");
+                VerifyConsent(doc);
+                VerifyApplicantDetails(doc, dob);
+                VerifyExpectedChildren(doc, expectancyDate);
+                VerifyExistingChildren(doc);
+                //VerifyGuardianDetails(doc);
+                VerifyApplicantBenefits(doc);
+                VerifyHealthProfessional(doc);
+                VerifyPaymentDetails(doc);
+                VerifyDeclaration(doc);
             });
         }
 
@@ -126,6 +77,11 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Consent>();
             form.Check(m => m.AgreedToConsent, true);
+        }
+
+        private void VerifyConsent(BestStartGrant doc)
+        {
+            doc.Consent.AgreedToConsent.Should().BeTrue();
         }
 
         private void FillInApplicantDetails(DateTime dob)
@@ -150,11 +106,37 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.EmailAddress, "test.system@system.test");
         }
 
+        private void VerifyApplicantDetails(BestStartGrant doc, DateTime dob)
+        {
+            doc.ApplicantDetails.Title.Should().Be("system test Title");
+            doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
+            doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
+            doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
+            doc.ApplicantDetails.DateOfBirth.Should().Be(dob);
+            doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
+            doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
+            doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
+            doc.ApplicantDetails.CurrentAddress.Line1.Should().Be("system test ca.line1");
+            doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
+            doc.ApplicantDetails.CurrentAddress.Line3.Should().Be("system test ca.line3");
+            doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
+            doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
+            doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
+            doc.ApplicantDetails.ContactPreference.Should().Be(ContactPreference.Email);
+            doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
+        }
+
         private void FillInExpectedChildren(DateTime expectancyDate)
         {
             var form = App.FormForModel<ExpectedChildren>();
             form.TypeDate(m => m.ExpectancyDate, expectancyDate);
             form.TypeText(m => m.ExpectedBabyCount, "3");
+        }
+
+        private void VerifyExpectedChildren(BestStartGrant doc, DateTime expectancyDate)
+        {
+            doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
+            doc.ExpectedChildren.ExpectedBabyCount.Should().Be(3);
         }
 
         private void FillInExistingChildren()
@@ -180,6 +162,25 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
         }
 
+        private void VerifyExistingChildren(BestStartGrant doc)
+        {
+            doc.ExistingChildren.Children.Count.Should().Be(2);
+
+            doc.ExistingChildren.Children[0].FirstName.Should().Be("c1 first name");
+            doc.ExistingChildren.Children[0].Surname.Should().Be("c1 last name");
+            doc.ExistingChildren.Children[0].DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
+            doc.ExistingChildren.Children[0].RelationshipToChild.Should().Be("c1 relationship");
+            doc.ExistingChildren.Children[0].ChildBenefit.Should().BeTrue();
+            doc.ExistingChildren.Children[0].FormalKinshipCare.Should().BeFalse();
+
+            doc.ExistingChildren.Children[1].FirstName.Should().Be("c2 first name");
+            doc.ExistingChildren.Children[1].Surname.Should().Be("c2 last name");
+            doc.ExistingChildren.Children[1].DateOfBirth.Should().Be(new DateTime(2004, 03, 02));
+            doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
+            doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
+            doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
+        }
+
         private void FillInGuardianDetails1(DateTime guardianDob)
         {
             var form = App.FormForModel<GuardianDetails>();
@@ -201,14 +202,27 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.Address.Postcode, "ga.postcode");
         }
 
-        private void FillInExistingBenefit()
+        private void VerifyGuardianDetails(BestStartGrant doc, DateTime guardianDob)
+        {
+            doc.GuardianDetails.Title.Should().Be("g.title");
+            doc.GuardianDetails.FullName.Should().Be("g.fullname");
+            doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
+            doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
+            doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
+            doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
+            doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");
+            doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
+            doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
+        }
+
+        private void FillInApplicantBenefits1()
         {
             var form = App.FormForModel<ApplicantBenefits>();
 
             form.SelectRadio(m => m.HasExistingBenefit, false);
         }
 
-        private void FillInApplicantBenefits()
+        private void FillInApplicantBenefits2()
         {
             var form = App.FormForModel<ApplicantBenefits>();
 
@@ -216,11 +230,23 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
         }
 
+        private void VerifyApplicantBenefits(BestStartGrant doc)
+        {
+            doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+            doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
+            doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
+        }
+
         private void FillInHealthProfessional()
         {
             var form = App.FormForModel<HealthProfessional>();
 
             form.TypeText(m => m.Pin, "XYZ54321");
+        }
+
+        private void VerifyHealthProfessional(BestStartGrant doc)
+        {
+            doc.HealthProfessional.Pin.Should().Be("XYZ54321");
         }
 
         private void FillInPaymentDetails()
@@ -235,11 +261,26 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.RollNumber, "roll_number");
         }
 
+        private void VerifyPaymentDetails(BestStartGrant doc)
+        {
+            doc.PaymentDetails.LackingBankAccount.Should().BeFalse();
+            doc.PaymentDetails.NameOfAccountHolder.Should().Be("system test account holder");
+            doc.PaymentDetails.NameOfBank.Should().Be("system test bank name");
+            doc.PaymentDetails.SortCode.Should().Be("01-02-03");
+            doc.PaymentDetails.AccountNumber.Should().Be("01234567");
+            doc.PaymentDetails.RollNumber.Should().Be("roll_number");
+        }
+
         private void FillInDeclaration()
         {
             var form = App.FormForModel<Declaration>();
 
             form.Check(m => m.AgreedToLegalStatement, true);
+        }
+
+        private void VerifyDeclaration(BestStartGrant doc)
+        {
+            doc.Declaration.AgreedToLegalStatement.Should().BeTrue();
         }
     }
 }
