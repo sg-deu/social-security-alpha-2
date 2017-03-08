@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
@@ -12,6 +13,18 @@ namespace FormUI.Tests.SystemTests.Bsg
     [TestFixture]
     public class BsgSystemTests : SystemTest
     {
+        private IList<Sections> _verifiedSections = new List<Sections>();
+
+        [TestFixtureTearDown]
+        protected void TestFixtureTearDown()
+        {
+            base.TearDown();
+
+            // verify each section has been tested
+            foreach (Sections section in Enum.GetValues(typeof(Sections)))
+                _verifiedSections.Should().Contain(section, "section {0} should be filled in and verified", section);
+        }
+
         [Test]
         public void CompleteApplication()
         {
@@ -23,7 +36,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-19);
-            FillInApplicantDetails(dob);
+            FillInApplicantDetails(dob, fillInPreviouslyLookedAfter: true, fillInFullTimeEducation: true);
             App.Submit();
 
             var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
@@ -32,13 +45,6 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             FillInExistingChildren();
             App.ClickButton("");
-
-            //var guardianDob = DateTime.Now.Date.AddYears(-39);
-            //FillInGuardianDetails1(guardianDob);
-            //App.Submit();
-
-            //FillInGuardianDetails2();
-            //App.Submit();
 
             FillInApplicantBenefits1();
             App.Submit();
@@ -65,11 +71,46 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyApplicantDetails(doc, dob);
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
-                //VerifyGuardianDetails(doc);
                 VerifyApplicantBenefits(doc);
                 VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
                 VerifyDeclaration(doc);
+            });
+        }
+
+        [Test]
+        public void IncludingGuardianDetails()
+        {
+            App.GoTo(BsgActions.Overview());
+            App.VerifyCanSeeText("Overview");
+            App.Submit();
+
+            FillInConsent();
+            App.Submit();
+
+            var dob = DateTime.Now.Date.AddYears(-15);
+            FillInApplicantDetails(dob, fillInPreviouslyLookedAfter: false, fillInFullTimeEducation: false);
+            App.Submit();
+
+            var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
+            FillInExpectedChildren(expectancyDate);
+            App.Submit();
+
+            App.VerifyCanSeeText("already been born");
+            App.ClickButton("");
+
+            var guardianDob = DateTime.Now.Date.AddYears(-39);
+            FillInGuardianDetails1(guardianDob);
+            App.Submit();
+
+            FillInGuardianDetails2();
+            App.Submit();
+
+            Db(r =>
+            {
+                var doc = r.Query<BestStartGrant>().ToList().Single();
+
+                VerifyGuardianDetails(doc, guardianDob);
             });
         }
 
@@ -82,9 +123,10 @@ namespace FormUI.Tests.SystemTests.Bsg
         private void VerifyConsent(BestStartGrant doc)
         {
             doc.Consent.AgreedToConsent.Should().BeTrue();
+            _verifiedSections.Add(Sections.Consent);
         }
 
-        private void FillInApplicantDetails(DateTime dob)
+        private void FillInApplicantDetails(DateTime dob, bool fillInPreviouslyLookedAfter, bool fillInFullTimeEducation)
         {
             var form = App.FormForModel<ApplicantDetails>();
             form.TypeText(m => m.Title, "system test Title");
@@ -93,8 +135,13 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.SurnameOrFamilyName, "system test FamilyName");
             form.TypeDate(m => m.DateOfBirth, dob);
             form.BlurDate(m => m.DateOfBirth);
-            form.SelectRadio(m => m.PreviouslyLookedAfter, true);
-            form.SelectRadio(m => m.FullTimeEducation, true);
+
+            if (fillInPreviouslyLookedAfter)
+                form.SelectRadio(m => m.PreviouslyLookedAfter, true);
+
+            if (fillInFullTimeEducation)
+                form.SelectRadio(m => m.FullTimeEducation, true);
+
             form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
             form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
             form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
@@ -124,6 +171,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
             doc.ApplicantDetails.ContactPreference.Should().Be(ContactPreference.Email);
             doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
+            _verifiedSections.Add(Sections.ApplicantDetails);
         }
 
         private void FillInExpectedChildren(DateTime expectancyDate)
@@ -137,6 +185,7 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
             doc.ExpectedChildren.ExpectedBabyCount.Should().Be(3);
+            _verifiedSections.Add(Sections.ExpectedChildren);
         }
 
         private void FillInExistingChildren()
@@ -179,6 +228,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
             doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
             doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
+            _verifiedSections.Add(Sections.ExistingChildren);
         }
 
         private void FillInGuardianDetails1(DateTime guardianDob)
@@ -209,10 +259,13 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
             doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
             doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
+            _verifiedSections.Add(Sections.GuardianDetails1);
+
             doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
             doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");
             doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
             doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
+            _verifiedSections.Add(Sections.GuardianDetails2);
         }
 
         private void FillInApplicantBenefits1()
@@ -233,8 +286,11 @@ namespace FormUI.Tests.SystemTests.Bsg
         private void VerifyApplicantBenefits(BestStartGrant doc)
         {
             doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+            _verifiedSections.Add(Sections.ApplicantBenefits1);
+
             doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
             doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
+            _verifiedSections.Add(Sections.ApplicantBenefits2);
         }
 
         private void FillInHealthProfessional()
@@ -247,6 +303,7 @@ namespace FormUI.Tests.SystemTests.Bsg
         private void VerifyHealthProfessional(BestStartGrant doc)
         {
             doc.HealthProfessional.Pin.Should().Be("XYZ54321");
+            _verifiedSections.Add(Sections.HealthProfessional);
         }
 
         private void FillInPaymentDetails()
@@ -269,6 +326,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.PaymentDetails.SortCode.Should().Be("01-02-03");
             doc.PaymentDetails.AccountNumber.Should().Be("01234567");
             doc.PaymentDetails.RollNumber.Should().Be("roll_number");
+            _verifiedSections.Add(Sections.PaymentDetails);
         }
 
         private void FillInDeclaration()
@@ -281,6 +339,7 @@ namespace FormUI.Tests.SystemTests.Bsg
         private void VerifyDeclaration(BestStartGrant doc)
         {
             doc.Declaration.AgreedToLegalStatement.Should().BeTrue();
+            _verifiedSections.Add(Sections.Declaration);
         }
     }
 }
