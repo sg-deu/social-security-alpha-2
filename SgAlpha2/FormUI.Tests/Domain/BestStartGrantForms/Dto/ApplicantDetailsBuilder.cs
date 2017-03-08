@@ -44,5 +44,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-16);
             return applicantDetails;
         }
+
+        public static ApplicantDetails Over25(this ApplicantDetails applicantDetails, DateTime nowUtc)
+        {
+            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-28);
+            return applicantDetails;
+        }
     }
 }

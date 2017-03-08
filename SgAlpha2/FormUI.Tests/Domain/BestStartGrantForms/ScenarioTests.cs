@@ -14,6 +14,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class ScenarioTests : DomainTest
     {
         [Test]
+        public void AgedOver25()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+            next = AddApplicantBenefits1(next);
+            next = AddApplicantBenefits2(next);
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
         public void AgedUnder16()
         {
             // under 16 is automatically eligible, but need legal parent/guardian details
