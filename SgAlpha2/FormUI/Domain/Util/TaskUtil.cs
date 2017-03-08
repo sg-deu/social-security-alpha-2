@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace FormUI.Domain.Util
@@ -15,32 +14,16 @@ namespace FormUI.Domain.Util
         /// <summary> await the result synchronously by using a separate thread to wait for the .Result on </summary>
         public static T Result<T>(Func<Task<T>> taskFunc)
         {
-            T result = default(T);
-            Exception threadException = null;
-            var thread = new Thread(() =>
+            // taken from:  http://stackoverflow.com/a/17094801/357728
+            try
             {
-                try
-                {
-                    result = taskFunc().Result;
-                }
-                catch (Exception ex)
-                {
-                    threadException = ex;
-                }
-            });
-            thread.Start();
-            Thread.Sleep(0);
-            thread.Join();
-
-            var aggregateException = threadException as AggregateException;
-
-            if (aggregateException != null)
-                throw aggregateException.GetBaseException();
-
-            if (threadException != null)
-                throw threadException;
-
-            return result;
+                var t = Task.Run(taskFunc);
+                return t.Result;
+            }
+            catch (AggregateException ae)
+            {
+                throw ae.GetBaseException();
+            }
         }
     }
 }

@@ -38,9 +38,10 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonSubmit("Submit");
         }
 
-        public static IHtmlString ButtonSubmitNext<T>(this HtmlHelper<T> helper)
+        public static IHtmlString ButtonSubmitNext<T>(this HtmlHelper<T> helper, bool isFinalPage)
         {
-            return helper.ButtonSubmit("Next");
+            var text = isFinalPage ? "Submit" : "Next";
+            return helper.ButtonSubmit(text);
         }
 
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper, string text)
@@ -62,13 +63,13 @@ namespace FormUI.Controllers.Helpers
         public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
-                new InputText(controlContext));
+                new InputText(helper, controlContext));
         }
 
         public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
-                new InputPassword(controlContext));
+                new InputPassword(helper, controlContext));
         }
 
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, Expression<Func<T, DateTime?>> property)
@@ -79,7 +80,7 @@ namespace FormUI.Controllers.Helpers
         public static FormRow<InputDate> LabelledInputDate<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
-                new InputDate(controlContext));
+                new InputDate(helper, controlContext));
         }
 
         public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, Expression<Func<T, int?>> property)
@@ -90,7 +91,7 @@ namespace FormUI.Controllers.Helpers
         public static FormRow<InputText> LabelledInputInt<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int?>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>
-                new InputText(controlContext));
+                new InputText(helper, controlContext));
         }
 
         public static FormRow<Radios> LabelledRadio<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, Nullable<TEnum>>> property)
@@ -119,7 +120,7 @@ namespace FormUI.Controllers.Helpers
             var descriptionTexts = descriptions.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value);
 
             return helper.LabelledControl(labelText, property, controlContext =>
-                new Radios(controlContext, values, descriptionTexts));
+                new Radios(helper, controlContext, values, descriptionTexts));
         }
 
         public static FormRow<Radios> LabelledRadioYesNo<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property)
@@ -133,7 +134,7 @@ namespace FormUI.Controllers.Helpers
             var descriptionTexts = new Dictionary<string, string> { { "True", "Yes" }, { "False", "No" }, };
 
             return helper.LabelledControl(labelText, property, controlContext =>
-                new Radios(controlContext, values, descriptionTexts));
+                new Radios(helper, controlContext, values, descriptionTexts));
         }
 
         public static FormRow<ConfirmCheckBox> LabelledConfirmCheckBox<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
@@ -144,7 +145,7 @@ namespace FormUI.Controllers.Helpers
         public static FormRow<ConfirmCheckBox> LabelledConfirmCheckBox<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool>> property)
         {
             return helper.LabelledControl("", property, controlContext =>
-                new ConfirmCheckBox(controlContext, labelText));
+                new ConfirmCheckBox(helper, controlContext, labelText));
         }
 
         public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label)
@@ -171,8 +172,9 @@ namespace FormUI.Controllers.Helpers
         private static FormRow<TControl> LabelledControl<TModel, TProperty, TControl>(this HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProperty>> property, ControlFactory<TControl> factory)
             where TControl : Control
         {
-            var name = property.GetExpressionText();
-            var id = TagBuilder.CreateSanitizedId(helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            var propertyName = property.GetExpressionText();
+            var name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName);
+            var id = TagBuilder.CreateSanitizedId(name);
             var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
 
             var controlContext = new ControlContext
@@ -188,7 +190,7 @@ namespace FormUI.Controllers.Helpers
 
             var control = factory(controlContext);
 
-            var formRow = new FormRow<TControl>(id, labelText, control);
+            var formRow = new FormRow<TControl>(helper, id, labelText, control);
 
             if (metaData.AdditionalValues.ContainsKey(Metadata.HintText))
                 formRow.Hint((string)metaData.AdditionalValues[Metadata.HintText]);

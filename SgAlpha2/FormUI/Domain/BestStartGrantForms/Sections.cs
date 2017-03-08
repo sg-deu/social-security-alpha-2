@@ -6,6 +6,8 @@
         ApplicantDetails,
         ExpectedChildren,
         ExistingChildren,
+        GuardianDetails1,
+        GuardianDetails2,
         ApplicantBenefits1,
         ApplicantBenefits2,
         HealthProfessional,

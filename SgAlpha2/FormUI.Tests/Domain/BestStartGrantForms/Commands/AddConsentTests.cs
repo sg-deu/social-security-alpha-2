@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -12,23 +11,24 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
     public class AddConsentTests : DomainTest
     {
         [Test]
-        public void Execute_CreatesForm()
+        public void Execute_StoresConsent()
         {
-            var consent = ConsentBuilder.NewValid(m =>
-                m.AgreedToConsent = true);
+            var existingForm = new BestStartGrantBuilder("form123")
+                .Insert();
+
+            existingForm.Consent.Should().BeNull("no data stored before executing command");
 
             var cmd = new AddConsent
             {
-                Consent = consent,
+                FormId = "form123",
+                Consent = ConsentBuilder.NewValid(),
             };
 
-            var id = cmd.Execute();
+            cmd.Execute();
 
-            var createdForm = Repository.Query<BestStartGrant>().ToList().FirstOrDefault();
-            createdForm.Should().NotBeNull("form should be in database");
-            createdForm.Consent.AgreedToConsent.Should().BeTrue();
-
-            createdForm.Id.Should().Be(id);
+            var updatedForm = Repository.Load<BestStartGrant>("form123");
+            updatedForm.Consent.Should().NotBeNull();
+            updatedForm.Consent.AgreedToConsent.Should().Be(cmd.Consent.AgreedToConsent);
         }
     }
 }

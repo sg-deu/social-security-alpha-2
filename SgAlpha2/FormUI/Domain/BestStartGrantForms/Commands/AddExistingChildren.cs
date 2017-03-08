@@ -1,17 +1,18 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class AddExistingChildren : Command
+    public class AddExistingChildren : Command<NextSection>
     {
         public string           FormId;
         public ExistingChildren ExistingChildren;
 
-        public override void Execute()
+        public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.AddExistingChildren(ExistingChildren);
+            return form.AddExistingChildren(ExistingChildren);
         }
     }
 }

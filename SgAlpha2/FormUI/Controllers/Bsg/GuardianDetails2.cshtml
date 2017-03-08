@@ -1,0 +1,28 @@
+﻿@inherits WebViewPage<GuardianDetailsModel>
+@{
+    ViewBag.Title = "Best Start Grant - Your Parent/Legal Guardian's details part 2";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Your Parent/Legal Guardian's address</h1>
+
+        @using (var form = Html.FormFor(Model.GuardianDetails))
+        {
+
+            @form.Html.ValidationSummary()
+
+            @form.Html.PartialFor(m => m.Address, BsgViews.Address)
+
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>

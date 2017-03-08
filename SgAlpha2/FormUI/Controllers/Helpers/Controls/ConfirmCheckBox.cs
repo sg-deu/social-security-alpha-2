@@ -1,4 +1,5 @@
-﻿using HtmlTags;
+﻿using System.Web.Mvc;
+using HtmlTags;
 
 namespace FormUI.Controllers.Helpers.Controls
 {
@@ -7,7 +8,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private string  _labelText;
         private bool    _emphasise;
 
-        public ConfirmCheckBox(ControlContext controlContext, string labelText) : base(controlContext)
+        public ConfirmCheckBox(HtmlHelper helper, ControlContext controlContext, string labelText) : base(helper, controlContext)
         {
             _labelText = labelText;
         }

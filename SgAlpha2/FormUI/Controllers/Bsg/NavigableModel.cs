@@ -3,6 +3,7 @@
     public class NavigableModel
     {
         // GET
-        public string PreviousAction;
+        public string   PreviousAction;
+        public bool     IsFinalPage;
     }
 }

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 {
     [TestFixture]
-    public class CompleteTests : DomainTest
+    public class AddDeclarationTests : DomainTest
     {
         [Test]
         public void Execute_StoresDeclaration()
@@ -18,7 +18,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 
             existingForm.Declaration.Should().BeNull("no data stored before executing command");
 
-            var cmd = new Complete
+            var cmd = new AddDeclaration
             {
                 FormId = "form123",
                 Declaration = DeclarationBuilder.NewValid(),

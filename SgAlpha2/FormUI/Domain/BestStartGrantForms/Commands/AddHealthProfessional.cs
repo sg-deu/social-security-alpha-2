@@ -1,17 +1,18 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class AddHealthProfessional : Command
+    public class AddHealthProfessional : Command<NextSection>
     {
         public string               FormId;
         public HealthProfessional   HealthProfessional;
 
-        public override void Execute()
+        public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.AddHealthProfessional(HealthProfessional);
+            return form.AddHealthProfessional(HealthProfessional);
         }
     }
 }

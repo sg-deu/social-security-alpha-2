@@ -18,6 +18,12 @@
 
     .form-group {
 
+        &.initially-hidden {
+            .js &{
+                display: none;
+            }
+        }
+
         label {
             font-weight: normal;
         }

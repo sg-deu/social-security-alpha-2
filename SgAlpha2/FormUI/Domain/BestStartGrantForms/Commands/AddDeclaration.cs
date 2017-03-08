@@ -1,17 +1,18 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 
 namespace FormUI.Domain.BestStartGrantForms.Commands
 {
-    public class Complete : Command
+    public class AddDeclaration : Command<NextSection>
     {
         public string       FormId;
         public Declaration  Declaration;
 
-        public override void Execute()
+        public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            form.Complete(Declaration);
+            return form.AddDeclaration(Declaration);
         }
     }
 }

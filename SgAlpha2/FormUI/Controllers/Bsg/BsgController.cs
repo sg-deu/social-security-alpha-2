@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
+using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
@@ -19,10 +19,14 @@ namespace FormUI.Controllers.Bsg
     public static class BsgActions
     {
         public static string    Overview()                          { return $"~/bsg/overview"; }
-        public static string    Consent(string formId = null)       { return $"~/bsg/consent/{formId}"; }
+        public static string    Start()                             { return $"~/bsg/start"; }
+        public static string    Consent(string formId)              { return $"~/bsg/consent/{formId}"; }
         public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
+        public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
+        public static string    GuardianDetails1(string formId)     { return $"~/bsg/guardianDetails1/{formId}"; }
+        public static string    GuardianDetails2(string formId)     { return $"~/bsg/guardianDetails2/{formId}"; }
         public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
         public static string    ApplicantBenefits2(string formId)   { return $"~/bsg/applicantBenefits2/{formId}"; }
         public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
@@ -31,20 +35,27 @@ namespace FormUI.Controllers.Bsg
         public static string    Complete()                          { return $"~/bsg/complete"; }
     }
 
+    public class BsgViews
+    {
+        public const string Address = "Address";
+    }
+
     public class BsgController : FormController
     {
         [HttpGet]
         public ActionResult Overview()
         {
-            var firstSection = Navigation.Order.First(); // should really be behind a domain Query
-            var firstAction = SectionActionStrategy.For(firstSection).Action(null);
+            return View();
+        }
 
-            var model = new OverviewModel
-            {
-                FirstAction = firstAction,
-            };
+        [HttpPost]
+        public ActionResult Overview(object notUsed)
+        {
+            var cmd = new StartBestStartGrant();
 
-            return View(model);
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => View());
         }
 
         [HttpGet]
@@ -58,11 +69,12 @@ namespace FormUI.Controllers.Bsg
         {
             var cmd = new AddConsent
             {
+                FormId = id,
                 Consent = consent,
             };
 
             return Exec(cmd,
-                success: formId => Redirect(BsgActions.ApplicantDetails(formId)),
+                success: next => RedirectNext(next),
                 failure: () => Consent_Render(id, consent));
         }
 
@@ -90,7 +102,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ExpectedChildren(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantDetails_Render(id, applicantDetails));
         }
 
@@ -99,6 +111,18 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
             {
                 m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Ajax_DobChanged(ApplicantDetails applicantDetails)
+        {
+            var config = Exec(new FindApplicantDetailsConfig { ApplicantDetails = applicantDetails });
+
+            return AjaxActions(new[]
+            {
+                AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.PreviouslyLookedAfter, config.ShouldAskCareQuestion),
+                AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.FullTimeEducation, config.ShouldAskEducationQuestion),
             });
         }
 
@@ -118,7 +142,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ExistingChildren(id)),
+                success: next => RedirectNext(next),
                 failure: () => ExpectedChildren_Render(id, expectedChildren));
         }
 
@@ -160,7 +184,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ApplicantBenefits1(id)),
+                success: next => RedirectNext(next),
                 failure: () => ExistingChildren_Render(id, existingChildren));
         }
 
@@ -169,6 +193,64 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ExistingChildrenModel>(formId, Sections.ExistingChildren, (m, f) =>
             {
                 m.ExistingChildren = details ?? f.ExistingChildren ?? new ExistingChildren();
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianDetails1(string id)
+        {
+            return GuardianDetails1_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails1(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part1,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails1_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails1_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails1, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianDetails2(string id)
+        {
+            return GuardianDetails2_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails2(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part2,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails2_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails2_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails2, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
             });
         }
 
@@ -189,7 +271,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.ApplicantBenefits2(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantBenefits1_Render(id, applicantBenefits));
         }
 
@@ -218,7 +300,7 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.HealthProfessional(id)),
+                success: next => RedirectNext(next),
                 failure: () => ApplicantBenefits2_Render(id, applicantBenefits));
         }
 
@@ -233,7 +315,7 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult HealthProfessional(string id)
         {
-            return View();
+            return HealthProfessional_Render(id, null);
         }
 
         [HttpPost]
@@ -246,14 +328,22 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.PaymentDetails(id)),
-                failure: () => HealthProfessional(id));
+                success: next => RedirectNext(next),
+                failure: () => HealthProfessional_Render(id, healthProfessional));
+        }
+
+        private ActionResult HealthProfessional_Render(string formId, HealthProfessional details)
+        {
+            return NavigableView<HealthProfessionalModel>(formId, Sections.HealthProfessional, (m, f) =>
+            {
+                m.HealthProfessional = details ?? f.HealthProfessional;
+            });
         }
 
         [HttpGet]
         public ActionResult PaymentDetails(string id)
         {
-            return View();
+            return PaymentDetails_Render(id, null);
         }
 
         [HttpPost]
@@ -266,34 +356,59 @@ namespace FormUI.Controllers.Bsg
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Declaration(id)),
-                failure: () => PaymentDetails(id));
+                success: next => RedirectNext(next),
+                failure: () => PaymentDetails_Render(id, paymentDetails));
+        }
+
+        private ActionResult PaymentDetails_Render(string formId, PaymentDetails details)
+        {
+            return NavigableView<PaymentDetailsModel>(formId, Sections.PaymentDetails, (m, f) =>
+            {
+                m.PaymentDetails = details ?? f.PaymentDetails;
+            });
         }
 
         [HttpGet]
         public ActionResult Declaration(string id)
         {
-            return View();
+            return Declaration_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult Declaration(string id, Declaration declaration)
         {
-            var cmd = new Complete
+            var cmd = new AddDeclaration
             {
                 FormId = id,
                 Declaration = declaration,
             };
 
             return Exec(cmd,
-                success: () => Redirect(BsgActions.Complete()),
-                failure: () => Declaration(id));
+                success: next => RedirectNext(next),
+                failure: () => Declaration_Render(id, declaration));
+        }
+
+        private ActionResult Declaration_Render(string formId, Declaration details)
+        {
+            return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
+            {
+                m.Declaration = details ?? f.Declaration;
+            });
         }
 
         [HttpGet]
         public ActionResult Complete()
         {
             return View();
+        }
+
+        private RedirectResult RedirectNext(NextSection next)
+        {
+            if (!next.Section.HasValue)
+                return Redirect(BsgActions.Complete());
+
+            var action = SectionActionStrategy.For(next.Section.Value).Action(next.Id);
+            return Redirect(action);
         }
 
         private BsgDetail FindForm(string formId, Sections section)
@@ -322,6 +437,8 @@ namespace FormUI.Controllers.Bsg
 
             if (previousSection.HasValue)
                 model.PreviousAction = SectionActionStrategy.For(previousSection.Value).Action(formId);
+
+            model.IsFinalPage = form.IsFinalSection;
 
             if (mutator != null)
                 mutator(model, form);

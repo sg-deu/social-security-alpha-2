@@ -11,6 +11,8 @@ namespace FormUI.Domain.BestStartGrantForms
             Sections.ApplicantDetails,
             Sections.ExpectedChildren,
             Sections.ExistingChildren,
+            Sections.GuardianDetails1,
+            Sections.GuardianDetails2,
             Sections.ApplicantBenefits1,
             Sections.ApplicantBenefits2,
             Sections.HealthProfessional,
@@ -26,6 +28,24 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (index > 0)
                 detail.PreviousSection = _order[index - 1];
+
+            detail.IsFinalSection = index == _order.Count - 1;
+        }
+
+        public static NextSection Next(BestStartGrant form, Sections completedSection)
+        {
+            var index = _order.IndexOf(completedSection);
+
+            Sections? nextSection = null;
+
+            if (index < _order.Count - 1)
+                nextSection = _order[index + 1];
+
+            return new NextSection
+            {
+                Id = form.Id,
+                Section = nextSection,
+            };
         }
     }
 }

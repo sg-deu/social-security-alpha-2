@@ -1,0 +1,29 @@
+﻿@inherits WebViewPage<AjaxFormModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>Ajax form example</h2>
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+            @(Html.LabelledInputDate(m => m.Date)
+                .Hint("Select today's or yesterday's date to see hidden controls")
+                .AjaxOnChange(HarnessActions.AjaxPostback()))
+
+            @(Html.LabelledInputText(m => m.String1)
+                .Hint("Only shown when today's or yesterday's date is selected")
+                .InitiallyHidden())
+
+            @(Html.LabelledInputText(m => m.String2)
+                .Hint("Only shown when yesterday's date is selected")
+                .InitiallyHidden())
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>

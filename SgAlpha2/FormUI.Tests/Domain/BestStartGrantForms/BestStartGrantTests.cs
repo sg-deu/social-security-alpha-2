@@ -16,9 +16,67 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         [Test]
         public void Consent_Validation()
         {
-            ConsentShouldBeValid(m => { });
+            var form = new BestStartGrantBuilder("form").Insert();
 
-            ConsentShouldBeInvalid(m => m.AgreedToConsent = false);
+            ConsentShouldBeValid(form, m => { });
+
+            ConsentShouldBeInvalid(form, m => m.AgreedToConsent = false);
+        }
+
+        [Test]
+        public void ApplicantDetails_RequiresCareQuestion()
+        {
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            var applicantDetails = ApplicantDetailsBuilder.NewValid();
+
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("default builder should ask question");
+
+            applicantDetails.DateOfBirth = null;
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if DoB not supplied");
+
+            // applicant is 25 today
+            applicantDetails.DateOfBirth = new DateTime(1984, 08, 07);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant >= 25");
+
+            // applicant is 25 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1984, 08, 08);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("ask question if applicant is still 24");
+
+            // applicant is 18 today
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 07);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeTrue("ask question if applicant has turned 18");
+
+            // applicant is 18 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 08);
+            BestStartGrant.ShouldAskCareQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant is under 18");
+        }
+
+        [Test]
+        public void ApplicantDetails_RequiresEducationQuestion()
+        {
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            var applicantDetails = ApplicantDetailsBuilder.NewValid();
+
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("default builder should ask question");
+
+            applicantDetails.DateOfBirth = null;
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if DoB not supplied");
+
+            // applicant is 20 today
+            applicantDetails.DateOfBirth = new DateTime(1989, 08, 07);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant >= 20");
+
+            // applicant is 20 tomorrow (still 19)
+            applicantDetails.DateOfBirth = new DateTime(1989, 08, 08);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("ask question if applicant is still 19");
+
+            // applicant is 18 today
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 07);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeTrue("ask question if applicant has turned 18");
+
+            // applicant is 18 tomorrow
+            applicantDetails.DateOfBirth = new DateTime(1991, 08, 08);
+            BestStartGrant.ShouldAskEducationQuestion(applicantDetails).Should().BeFalse("no need to ask question if applicant is under 18");
         }
 
         [Test]
@@ -29,18 +87,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeValid(form, m => { });
             ApplicantDetailsShouldBeValid(form, m => m.Title = null);
             ApplicantDetailsShouldBeValid(form, m => m.OtherNames = null);
-            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Street2 = null);
+            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line3 = null);
             ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
+            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.PreviouslyLookedAfter = null; });
+            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.FullTimeEducation = null; });
 
             ApplicantDetailsShouldBeInvalid(form, m => m.FirstName = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.SurnameOrFamilyName = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateOfBirth = TestNowUtc);
+            ApplicantDetailsShouldBeInvalid(form, m => m.PreviouslyLookedAfter = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.FullTimeEducation = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Street1 = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.TownOrCity = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line1 = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line2 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.DateMovedIn = null);
+            ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.ContactPreference = null);
         }
@@ -148,6 +210,54 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = TestNowUtc);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].RelationshipToChild = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
+        }
+
+        [Test]
+        public void AddGuardianDetails_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => { });
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Title = null);
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line3 = null);
+            GuardianDetailsShouldBeValid(form, Part.Part2, m => { });
+
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = TestNowUtc);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line2 = null);
+            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Postcode = null);
+        }
+
+        [Test]
+        public void AddGuardianDetails_FormatsNationalInsuranceNumber()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            var details = GuardianDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
+            form.AddGuardianDetails(Part.Part1, details);
+
+            form.GuardianDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
+        }
+
+        [Test]
+        public void AddApplicantBenefits_Part1DoesNotOverwritePart2()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantBenefits, ApplicantBenefitsBuilder.NewValid(Part.Part2, ab => ab.ReceivingBenefitForUnder20 = true))
+                .Insert();
+
+            var part1 = new ApplicantBenefits
+            {
+                HasExistingBenefit = false,
+            };
+
+            form.AddApplicantBenefits(Part.Part1, part1);
+
+            form.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
         }
 
         [Test]
@@ -259,14 +369,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         #region test helpers
 
-        protected void ConsentShouldBeValid(Action<Consent> mutator)
+        protected void ConsentShouldBeValid(BestStartGrant form, Action<Consent> mutator)
         {
-            ShouldBeValid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddConsent(ConsentBuilder.NewValid(mutator)));
         }
 
-        protected void ConsentShouldBeInvalid(Action<Consent> mutator)
+        protected void ConsentShouldBeInvalid(BestStartGrant form, Action<Consent> mutator)
         {
-            ShouldBeInvalid(() => BestStartGrant.Start(ConsentBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddConsent(ConsentBuilder.NewValid(mutator)));
         }
 
         protected void ApplicantDetailsShouldBeValid(BestStartGrant form, Action<ApplicantDetails> mutator, Action<ApplicantDetails> postVerify = null)
@@ -303,6 +413,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeInvalid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
         }
 
+        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        {
+            ShouldBeValid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
+        }
+
+        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        {
+            ShouldBeInvalid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
+        }
+
         protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
         {
             ShouldBeValid(() => form.AddApplicantBenefits(part, ApplicantBenefitsBuilder.NewValid(part, mutator)));
@@ -335,12 +455,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void DeclarationShouldBeValid(BestStartGrant form, Action<Declaration> mutator)
         {
-            ShouldBeValid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddDeclaration(DeclarationBuilder.NewValid(mutator)));
         }
 
         protected void DeclarationShouldBeInvalid(BestStartGrant form, Action<Declaration> mutator)
         {
-            ShouldBeInvalid(() => form.Complete(DeclarationBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddDeclaration(DeclarationBuilder.NewValid(mutator)));
         }
 
         #endregion

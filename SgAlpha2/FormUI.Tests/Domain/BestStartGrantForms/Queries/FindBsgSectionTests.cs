@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Queries;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -24,8 +25,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             var detail = query.Find();
 
-            detail.Consent.Should().NotBeNull();
-            detail.PreviousSection.Should().Be(Sections.ExpectedChildren);
+            detail.ShouldBeEquivalentTo(new BsgDetail
+            {
+                Consent = existingForm.Consent,
+                ApplicantDetails = existingForm.ApplicantDetails,
+                ExpectedChildren = existingForm.ExpectedChildren,
+                ExistingChildren = existingForm.ExistingChildren,
+                GuardianDetails = existingForm.GuardianDetails,
+                ApplicantBenefits = existingForm.ApplicantBenefits,
+                HealthProfessional = existingForm.HealthProfessional,
+                PaymentDetails = existingForm.PaymentDetails,
+                Declaration = existingForm.Declaration,
+
+                PreviousSection = Sections.ExpectedChildren,
+            });
         }
     }
 }

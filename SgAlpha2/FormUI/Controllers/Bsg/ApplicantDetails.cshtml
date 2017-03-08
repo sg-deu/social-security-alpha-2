@@ -30,7 +30,11 @@
 
             @form.Html.LabelledInputText(m => m.SurnameOrFamilyName)
 
-            @form.Html.LabelledInputDate(m => m.DateOfBirth)
+            @form.Html.LabelledInputDate(m => m.DateOfBirth).AjaxOnChange(BsgActions.Ajax_DobChanged())
+
+            @form.Html.LabelledRadioYesNo(m => m.PreviouslyLookedAfter).InitiallyHidden()
+
+            @form.Html.LabelledRadioYesNo(m => m.FullTimeEducation).InitiallyHidden()
 
             @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
 
@@ -38,14 +42,9 @@
 
             <p>Please tell us your current address</p>
 
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Street1)
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Street2)
+            @form.Html.PartialFor(m => m.CurrentAddress, BsgViews.Address)
 
-            @form.Html.LabelledInputText(m => m.CurrentAddress.TownOrCity)
-
-            @form.Html.LabelledInputText(m => m.CurrentAddress.Postcode)
-
-            @form.Html.LabelledInputDate(m => m.CurrentAddress.DateMovedIn)
+            @form.Html.LabelledInputDate(m => m.DateMovedIn)
 
             @form.Html.LabelledRadio(m => m.CurrentAddressStatus)
 
@@ -58,7 +57,7 @@
             @form.Html.LabelledInputText(m => m.MobilePhoneNumber)
 
 
-            @form.Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 
         }
 

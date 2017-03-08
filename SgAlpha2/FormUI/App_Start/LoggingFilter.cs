@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
@@ -17,6 +18,15 @@ namespace FormUI.App_Start
             var method = request.HttpMethod;
             var url = request.Url.OriginalString;
             sb.AppendFormat("{0} {1}", method, url);
+
+            if (request.Form.Count > 0)
+            {
+                var keys = request.Form.Keys.Cast<string>();
+                var pairs = keys.Select(k => $"{k}={request.Form[k]}");
+                var formValues = string.Join("; ", pairs);
+                sb.AppendFormat(" FORM={0}", formValues);
+            }
+
             Info(sb.ToString());
         }
 

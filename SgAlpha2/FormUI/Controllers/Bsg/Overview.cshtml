@@ -1,5 +1,4 @@
-﻿@inherits WebViewPage<OverviewModel>
-@{
+﻿@{
     ViewBag.Title = "Best Start Grant - Overview";
 }
 
@@ -41,7 +40,9 @@
             and can be redeemed at registered retailers.
         </p>
 
-        @Html.ButtonLinkNext(Model.FirstAction)
+        <form method="post">
+            @Html.ButtonSubmitNext(false)
+        </form>
 
     </div><!--
 --></div>

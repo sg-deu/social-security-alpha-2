@@ -19,6 +19,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public ApplicantDetails     ApplicantDetails    { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
+        public GuardianDetails      GuardianDetails     { get; protected set; }
         public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
@@ -32,6 +33,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ApplicantDetails    = ApplicantDetails,
                 ExpectedChildren    = ExpectedChildren,
                 ExistingChildren    = ExistingChildren,
+                GuardianDetails     = GuardianDetails,
                 ApplicantBenefits   = ApplicantBenefits,
                 HealthProfessional  = HealthProfessional,
                 PaymentDetails      = PaymentDetails,
@@ -55,86 +57,125 @@ namespace FormUI.Domain.BestStartGrantForms
             };
         }
 
-        public static string Start(Consent consent)
+        public static bool ShouldAskCareQuestion(ApplicantDetails applicantDetails)
+        {
+            if (!applicantDetails.DateOfBirth.HasValue)
+                return false;
+
+            var dob = applicantDetails.DateOfBirth.Value;
+            var age = Age(dob);
+            return age >= 18 && age < 25;
+        }
+
+        public static bool ShouldAskEducationQuestion(ApplicantDetails applicantDetails)
+        {
+            if (!applicantDetails.DateOfBirth.HasValue)
+                return false;
+
+            var dob = applicantDetails.DateOfBirth.Value;
+            var age = Age(dob);
+            return age == 18 || age == 19;
+        }
+
+        private static int Age(DateTime dateOfBirth)
+        {
+            var today = DomainRegistry.NowUtc().ToLocalTime().Date;
+            var age = today.Year - dateOfBirth.Year;
+
+            if (dateOfBirth.AddYears(age) > today)
+                age--; // birthday has not happened this year
+
+            return age;
+        }
+
+        public NextSection AddConsent(Consent consent)
         {
             Validate(consent);
 
-            var form = new BestStartGrant
-            {
-                Consent = consent,
-            };
-
-            Repository.Insert(form);
-            return form.Id;
+            Consent = consent;
+            return OnSectionCompleted(Sections.Consent);
         }
 
-        public void AddApplicantDetails(ApplicantDetails applicantDetails)
+        public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
         {
             Validate(applicantDetails);
 
             ApplicantDetails = applicantDetails;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
-        public void AddExpectedChildren(ExpectedChildren expectedChildren)
+        public NextSection AddExpectedChildren(ExpectedChildren expectedChildren)
         {
             Validate(expectedChildren);
 
             ExpectedChildren = expectedChildren;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ExpectedChildren);
         }
 
-        public void AddExistingChildren(ExistingChildren existingChildren)
+        public NextSection AddExistingChildren(ExistingChildren existingChildren)
         {
             Validate(existingChildren);
 
             ExistingChildren = existingChildren;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.ExistingChildren);
         }
 
-        public void AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
+        public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
+        {
+            Validate(part, guardianDetails);
+
+            GuardianDetails = GuardianDetails ?? new GuardianDetails();
+            guardianDetails.CopyTo(GuardianDetails, part);
+
+            var section = part == Part.Part1
+                ? Sections.GuardianDetails1
+                : Sections.GuardianDetails2;
+
+            return OnSectionCompleted(section);
+        }
+
+        public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
         {
             Validate(part, applicantBenefits);
 
-            if (part == Part.Part1)
-                ApplicantBenefits = applicantBenefits;
+            ApplicantBenefits = ApplicantBenefits ?? new ApplicantBenefits();
+            applicantBenefits.CopyTo(ApplicantBenefits, part);
 
-            UpdateApplicantBenefits(part, applicantBenefits);
+            var section = part == Part.Part1
+                ? Sections.ApplicantBenefits1
+                : Sections.ApplicantBenefits2;
 
-            Repository.Update(this);
+            return OnSectionCompleted(section);
         }
 
-        private void UpdateApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
-        {
-            if (part == Part.Part2)
-            {
-                ApplicantBenefits.ReceivingBenefitForUnder20 = applicantBenefits.ReceivingBenefitForUnder20;
-                ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute = applicantBenefits.YouOrPartnerInvolvedInTradeDispute;
-            }
-        }
-
-        public void AddHealthProfessional(HealthProfessional healthProfessional)
+        public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
         {
             Validate(healthProfessional);
 
             HealthProfessional = healthProfessional;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.HealthProfessional);
         }
 
-        public void AddPaymentDetails(PaymentDetails paymentDetails)
+        public NextSection AddPaymentDetails(PaymentDetails paymentDetails)
         {
             Validate(paymentDetails);
 
             PaymentDetails = paymentDetails;
-            Repository.Update(this);
+            return OnSectionCompleted(Sections.PaymentDetails);
         }
 
-        public void Complete(Declaration declaration)
+        public NextSection AddDeclaration(Declaration declaration)
         {
             Validate(declaration);
 
             Declaration = declaration;
+            return OnSectionCompleted(Sections.Declaration);
+        }
+
+        private NextSection OnSectionCompleted(Sections section)
+        {
             Repository.Update(this);
+            return Navigation.Next(this, section);
         }
 
         private static void Validate(Consent consent)
@@ -154,11 +195,18 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Required(m => m.SurnameOrFamilyName, "Please supply a Surname or family name");
             ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
             ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
+
+            if (ShouldAskCareQuestion(applicantDetails))
+                ctx.Required(m => m.PreviouslyLookedAfter, "Please indicate if you have previously been looked after");
+
+            if (ShouldAskEducationQuestion(applicantDetails))
+                ctx.Required(m => m.FullTimeEducation, "Please indicate if you are 18/19 in full time education and part of your parents' or guardians' benefit claim");
+
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
-            ctx.Required(m => m.CurrentAddress.Street1, "Please supply an Address Street");
-            ctx.Required(m => m.CurrentAddress.TownOrCity, "Please supply a Town or City");
+            ctx.Required(m => m.CurrentAddress.Line1, "Please supply an Address line 1");
+            ctx.Required(m => m.CurrentAddress.Line2, "Please supply an Address line 2");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
-            ctx.Required(m => m.CurrentAddress.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
+            ctx.Required(m => m.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
             ctx.Required(m => m.ContactPreference, "Please supply a contact preference");
 
@@ -184,9 +232,9 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static string ValidateNationalInsuranceNumber(ApplicantDetails applicantDetails)
+        private static string ValidateNationalInsuranceNumber(INationalInsuranceNumberHolder holder)
         {
-            var ni = applicantDetails.NationalInsuranceNumber;
+            var ni = holder.NationalInsuranceNumber;
 
             if (string.IsNullOrWhiteSpace(ni))
                 return "Please supply a National Insurance number";
@@ -225,7 +273,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ni.Substring(6, 2),     // {3} 56
                 ni.Substring(8, 1));    // {4} C
 
-            applicantDetails.NationalInsuranceNumber = ni;
+            holder.NationalInsuranceNumber = ni;
 
             return null;
         }
@@ -256,6 +304,29 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.InPast(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth in the past");
                 ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
                 ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
+            }
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(Part part, GuardianDetails guardianDetails)
+        {
+            var ctx = new ValidationContext<GuardianDetails>(guardianDetails);
+
+            if (part == Part.Part1)
+            {
+                ctx.Required(m => m.FullName, "Please supply a Full name");
+                ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
+                ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
+                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(guardianDetails));
+                ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
+            }
+
+            if (part == Part.Part2)
+            {
+                ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
+                ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
+                ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
             }
 
             ctx.ThrowIfError();

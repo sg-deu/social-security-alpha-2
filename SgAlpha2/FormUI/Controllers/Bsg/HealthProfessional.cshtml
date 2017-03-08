@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<HealthProfessional>
+﻿@inherits WebViewPage<HealthProfessionalModel>
 @{
     ViewBag.Title = "Best Start Grant - Health Professional";
 }
@@ -6,18 +6,23 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
+        @Html.BackLink(Model.PreviousAction)
+
         <h1>Health Professional ...</h1>
 
-        <form method="post">
+        @using (var form = Html.FormFor(Model.HealthProfessional))
+        {
 
-            @Html.ValidationSummary()
+            @form.Html.ValidationSummary()
 
 
-            @Html.LabelledInputText(m => m.Pin)
+            @form.Html.LabelledInputText(m => m.Pin)
 
-            @Html.ButtonSubmitNext()
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 
-        </form>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

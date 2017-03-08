@@ -18,15 +18,18 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.GoTo(BsgActions.Overview());
             App.VerifyCanSeeText("Overview");
 
-            App.ClickLinkButton("Next");
+            App.Submit();
             App.VerifyCanSeeText("Consent");
 
             {
+
                 var form = App.FormForModel<Consent>();
                 form.Check(m => m.AgreedToConsent, true);
             }
 
             App.Submit();
+
+            var dob = DateTime.Now.Date.AddYears(-19);
 
             {
                 var form = App.FormForModel<ApplicantDetails>();
@@ -34,13 +37,16 @@ namespace FormUI.Tests.SystemTests.Bsg
                 form.TypeText(m => m.FirstName, "system test FirstName");
                 form.TypeText(m => m.OtherNames, "system test OtherNames");
                 form.TypeText(m => m.SurnameOrFamilyName, "system test FamilyName");
-                form.TypeDate(m => m.DateOfBirth, "01", "02", "2003");
+                form.TypeDate(m => m.DateOfBirth, dob);
+                form.BlurDate(m => m.DateOfBirth);
+                form.SelectRadio(m => m.PreviouslyLookedAfter, true);
+                form.SelectRadio(m => m.FullTimeEducation, true);
                 form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
-                form.TypeText(m => m.CurrentAddress.Street1, "system test ca.Street1");
-                form.TypeText(m => m.CurrentAddress.Street2, "system test ca.Street2");
-                form.TypeText(m => m.CurrentAddress.TownOrCity, "system test ca.TownOrCity");
+                form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
+                form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
+                form.TypeText(m => m.CurrentAddress.Line3, "system test ca.line3");
                 form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
-                form.TypeDate(m => m.CurrentAddress.DateMovedIn, "02", "03", "2004");
+                form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
                 form.SelectRadio(m => m.CurrentAddressStatus, AddressStatus.Permanent);
                 form.SelectRadio(m => m.ContactPreference, ContactPreference.Email);
                 form.TypeText(m => m.EmailAddress, "test.system@system.test");
@@ -81,6 +87,31 @@ namespace FormUI.Tests.SystemTests.Bsg
             }
 
             App.ClickButton("");
+
+            var guardianDob = DateTime.Now.Date.AddYears(-39);
+
+            {
+                var form = App.FormForModel<GuardianDetails>();
+
+                form.TypeText(m => m.Title, "g.title");
+                form.TypeText(m => m.FullName, "g.fullname");
+                form.TypeDate(m => m.DateOfBirth, guardianDob);
+                form.TypeText(m => m.NationalInsuranceNumber, "BC234567D");
+                form.TypeText(m => m.RelationshipToApplicant, "ga.parent");
+            }
+
+            App.Submit();
+
+            {
+                var form = App.FormForModel<GuardianDetails>();
+
+                form.TypeText(m => m.Address.Line1, "ga.line1");
+                form.TypeText(m => m.Address.Line2, "ga.line2");
+                form.TypeText(m => m.Address.Line3, "ga.line3");
+                form.TypeText(m => m.Address.Postcode, "ga.postcode");
+            }
+
+            App.Submit();
 
             {
                 var form = App.FormForModel<ApplicantBenefits>();
@@ -138,13 +169,15 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
                 doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
                 doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
-                doc.ApplicantDetails.DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
+                doc.ApplicantDetails.DateOfBirth.Should().Be(dob);
+                doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
+                doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
                 doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
-                doc.ApplicantDetails.CurrentAddress.Street1.Should().Be("system test ca.Street1");
-                doc.ApplicantDetails.CurrentAddress.Street2.Should().Be("system test ca.Street2");
-                doc.ApplicantDetails.CurrentAddress.TownOrCity.Should().Be("system test ca.TownOrCity");
+                doc.ApplicantDetails.CurrentAddress.Line1.Should().Be("system test ca.line1");
+                doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
+                doc.ApplicantDetails.CurrentAddress.Line3.Should().Be("system test ca.line3");
                 doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
-                doc.ApplicantDetails.CurrentAddress.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
+                doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
                 doc.ApplicantDetails.CurrentAddressStatus.Should().Be(AddressStatus.Permanent);
                 doc.ApplicantDetails.ContactPreference.Should().Be( ContactPreference.Email);
                 doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
@@ -167,6 +200,16 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
                 doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
                 doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
+
+                doc.GuardianDetails.Title.Should().Be("g.title");
+                doc.GuardianDetails.FullName.Should().Be("g.fullname");
+                doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
+                doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
+                doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
+                doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
+                doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");
+                doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
+                doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
 
                 doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
                 doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();

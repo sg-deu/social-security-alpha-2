@@ -5,7 +5,7 @@ namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputPassword : InputText
     {
-        public InputPassword(ControlContext controlContext) : base(controlContext)
+        public InputPassword(HtmlHelper helper, ControlContext controlContext) : base(helper, controlContext)
         {
         }
 

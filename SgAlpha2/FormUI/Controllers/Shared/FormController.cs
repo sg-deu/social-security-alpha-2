@@ -68,5 +68,10 @@ namespace FormUI.Controllers.Shared
                 ModelState.Remove(key);
             }
         }
+
+        protected JsonResult AjaxActions(AjaxAction[] actions)
+        {
+            return Json(actions);
+        }
     }
 }

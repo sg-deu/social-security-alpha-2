@@ -33,6 +33,26 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Overview_POST_StartsForm()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<StartBestStartGrant>(), new NextSection
+                {
+                    Id = "form123",
+                    Section = Sections.Consent,
+                });
+
+                var response = client.Get(BsgActions.Overview()).Form<object>(1)
+                    .Submit(client);
+
+                ExecutorStub.Executed<StartBestStartGrant>().Length.Should().Be(1);
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
         public void FirstSectionDoesNotNeedId()
         {
             WebAppTest(client =>
@@ -62,22 +82,21 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        public void Consent_POST_StartsForm()
+        public void Consent_POST_PopulatesConsent()
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand(It.IsAny<AddConsent>(), "form123");
-
-                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
                     .SelectConfirm(m => m.AgreedToConsent, true)
                     .Submit(client);
 
                 ExecutorStub.Executed<AddConsent>(0).ShouldBeEquivalentTo(new AddConsent
                 {
+                    FormId = "form123",
                     Consent = new Consent { AgreedToConsent = true },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantDetails("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -86,9 +105,9 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand<AddConsent, string>((cmd, r) => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddConsent, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
-                var response = client.Get(BsgActions.Consent()).Form<Consent>(1)
+                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -125,7 +144,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     ApplicantDetails = new ApplicantDetails { FirstName = "first name" },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ExpectedChildren("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -134,11 +153,36 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand<AddApplicantDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
                 var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1)
-                    .SetDate(m => m.DateOfBirth, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void ApplicantDetails_AjaxShowsHidesQuestions()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ApplicantDetails("form123"));
+
+                ExecutorStub.SetupQuery(It.IsAny<FindApplicantDetailsConfig>(), new ApplicantDetailsConfig
+                {
+                    ShouldAskCareQuestion = true,
+                    ShouldAskEducationQuestion = false,
+                });
+
+                var ajaxActions = response.Form<ApplicantDetails>(1)
+                    .OnChange(f => f.DateOfBirth, client);
+
+                ajaxActions.Should().NotBeNull();
+                ajaxActions.Length.Should().Be(2);
+
+                ajaxActions.ForFormGroup<ApplicantDetails>(f => f.PreviouslyLookedAfter).ShouldShowHide(response.Doc, true);
+                ajaxActions.ForFormGroup<ApplicantDetails>(f => f.FullTimeEducation).ShouldShowHide(response.Doc, false);
             });
         }
 
@@ -177,7 +221,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ExistingChildren("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -186,8 +230,9 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand<AddExpectedChildren, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
                 var response = client.Get(BsgActions.ExpectedChildren("form123")).Form<ExpectedChildren>(1)
-                    .SetDate(m => m.ExpectancyDate, "in", "va", "lid")
                     .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -260,7 +305,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantBenefits1("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -299,9 +344,113 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddExistingChildren>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddExistingChildren, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void GuardianDetails1_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.GuardianDetails1(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails1 });
+                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Title).Should().Be(detail.GuardianDetails.Title);
+            });
+        }
+
+        [Test]
+        public void GuardianDetails1_POST_CanAddGuardianDetails()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<GuardianDetails>(1)
+                    .SetText(m => m.Title, "test title")
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddGuardianDetails>(0).ShouldBeEquivalentTo(new AddGuardianDetails
+                {
+                    FormId = "form123",
+                    Part = Part.Part1,
+                    GuardianDetails = new GuardianDetails
+                    {
+                        Title = "test title",
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
+        public void GuardianDetails1_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand<AddGuardianDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<GuardianDetails>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void GuardianDetails2_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.GuardianDetails2(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails2 });
+                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Address.Line1).Should().Be(detail.GuardianDetails.Address.Line1);
+            });
+        }
+
+        [Test]
+        public void GuardianDetails2_POST_CanAddGuardianDetails()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<GuardianDetails>(1)
+                    .SetText(m => m.Address.Line1, "line 1")
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddGuardianDetails>(0).ShouldBeEquivalentTo(new AddGuardianDetails
+                {
+                    FormId = "form123",
+                    Part = Part.Part2,
+                    GuardianDetails = new GuardianDetails
+                    {
+                        Address = new Address { Line1 = "line 1" },
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
+        public void GuardianDetails2_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand<AddGuardianDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<GuardianDetails>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -342,7 +491,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ApplicantBenefits2("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -351,7 +500,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddApplicantBenefits, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -397,7 +546,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.HealthProfessional("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -406,12 +555,27 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddApplicantBenefits>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddApplicantBenefits, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.ApplicantBenefits1("form123")).Form<ApplicantBenefits>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void HealthProfessional_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.HealthProfessional(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.HealthProfessional });
+                response.Doc.Form<HealthProfessional>(1).GetText(m => m.Pin).Should().Be(detail.HealthProfessional.Pin);
             });
         }
 
@@ -433,7 +597,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.PaymentDetails("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -442,12 +606,27 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddHealthProfessional>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddHealthProfessional, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.HealthProfessional("form123")).Form<HealthProfessional>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
+        public void PaymentDetails_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.PaymentDetails(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.PaymentDetails });
+                response.Doc.Form<PaymentDetails>(1).GetText(m => m.NameOfAccountHolder).Should().Be(detail.PaymentDetails.NameOfAccountHolder);
             });
         }
 
@@ -479,7 +658,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     },
                 });
 
-                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Declaration("form123"));
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
             });
         }
 
@@ -488,7 +667,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<AddPaymentDetails>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddPaymentDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.PaymentDetails("form123")).Form<AddPaymentDetails>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -498,15 +677,32 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Declaration_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.Declaration });
+                response.Doc.Form<Declaration>(1).GetConfirm(m => m.AgreedToLegalStatement).Should().Be(detail.Declaration.AgreedToLegalStatement);
+            });
+        }
+
+        [Test]
         public void Declaration_POST_CompletesForm()
         {
             WebAppTest(client =>
             {
+                ExecutorStub.SetupCommand(It.IsAny<AddDeclaration>(), new NextSection { Section = null });
+
                 var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
                     .SelectConfirm(m => m.AgreedToLegalStatement, true)
                     .Submit(client);
 
-                ExecutorStub.Executed<Complete>(0).ShouldBeEquivalentTo(new Complete
+                ExecutorStub.Executed<AddDeclaration>(0).ShouldBeEquivalentTo(new AddDeclaration
                 {
                     FormId = "form123",
                     Declaration = new Declaration
@@ -524,7 +720,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupVoidCommand(It.IsAny<Complete>(), cmd => { throw new DomainException("simulated logic error"); });
+                ExecutorStub.SetupCommand<AddDeclaration, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
@@ -552,6 +748,7 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 Consent             = ConsentBuilder.NewValid(),
                 ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
+                GuardianDetails     = GuardianDetailsBuilder.NewValid(Part.Part2),
                 ExpectedChildren    = ExpectedChildrenBuilder.NewValid(),
                 ExistingChildren    = ExistingChildrenBuilder.NewValid(),
                 ApplicantBenefits   = ApplicantBenefitsBuilder.NewValid(Part.Part2),
