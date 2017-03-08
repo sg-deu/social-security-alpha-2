@@ -17,146 +17,42 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             App.GoTo(BsgActions.Overview());
             App.VerifyCanSeeText("Overview");
-
             App.Submit();
-            App.VerifyCanSeeText("Consent");
 
-            {
-
-                var form = App.FormForModel<Consent>();
-                form.Check(m => m.AgreedToConsent, true);
-            }
-
+            FillInConsent();
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-19);
-
-            {
-                var form = App.FormForModel<ApplicantDetails>();
-                form.TypeText(m => m.Title, "system test Title");
-                form.TypeText(m => m.FirstName, "system test FirstName");
-                form.TypeText(m => m.OtherNames, "system test OtherNames");
-                form.TypeText(m => m.SurnameOrFamilyName, "system test FamilyName");
-                form.TypeDate(m => m.DateOfBirth, dob);
-                form.BlurDate(m => m.DateOfBirth);
-                form.SelectRadio(m => m.PreviouslyLookedAfter, true);
-                form.SelectRadio(m => m.FullTimeEducation, true);
-                form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
-                form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
-                form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
-                form.TypeText(m => m.CurrentAddress.Line3, "system test ca.line3");
-                form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
-                form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
-                form.SelectRadio(m => m.CurrentAddressStatus, AddressStatus.Permanent);
-                form.SelectRadio(m => m.ContactPreference, ContactPreference.Email);
-                form.TypeText(m => m.EmailAddress, "test.system@system.test");
-            }
-
+            FillInApplicantDetails(dob);
             App.Submit();
 
             var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
-
-            {
-                var form = App.FormForModel<ExpectedChildren>();
-                form.TypeDate(m => m.ExpectancyDate, expectancyDate);
-                form.TypeText(m => m.ExpectedBabyCount, "3");
-            }
-
+            FillInExpectedChildren(expectancyDate);
             App.Submit();
 
-            {
-                App.ClickButton(BsgButtons.AddChild);
-                App.VerifyCanSeeText("Child 1");
-                App.ClickButton(BsgButtons.AddChild);
-                App.VerifyCanSeeText("Child 2");
-
-                var form = App.FormForModel<ExistingChildren>();
-
-                form.TypeText(m => m.Children[0].FirstName, "c1 first name");
-                form.TypeText(m => m.Children[0].Surname, "c1 last name");
-                form.TypeDate(m => m.Children[0].DateOfBirth, "01", "02", "2003");
-                form.TypeText(m => m.Children[0].RelationshipToChild, "c1 relationship");
-                form.SelectRadio(m => m.Children[0].ChildBenefit, true);
-                form.SelectRadio(m => m.Children[0].FormalKinshipCare, false);
-
-                form.TypeText(m => m.Children[1].FirstName, "c2 first name");
-                form.TypeText(m => m.Children[1].Surname, "c2 last name");
-                form.TypeDate(m => m.Children[1].DateOfBirth, "02", "03", "2004");
-                form.TypeText(m => m.Children[1].RelationshipToChild, "c2 relationship");
-                form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
-            }
-
+            FillInExistingChildren();
             App.ClickButton("");
 
             //var guardianDob = DateTime.Now.Date.AddYears(-39);
-
-            //{
-            //    var form = App.FormForModel<GuardianDetails>();
-
-            //    form.TypeText(m => m.Title, "g.title");
-            //    form.TypeText(m => m.FullName, "g.fullname");
-            //    form.TypeDate(m => m.DateOfBirth, guardianDob);
-            //    form.TypeText(m => m.NationalInsuranceNumber, "BC234567D");
-            //    form.TypeText(m => m.RelationshipToApplicant, "ga.parent");
-            //}
-
+            //FillInGuardianDetails1(guardianDob);
             //App.Submit();
 
-            //{
-            //    var form = App.FormForModel<GuardianDetails>();
-
-            //    form.TypeText(m => m.Address.Line1, "ga.line1");
-            //    form.TypeText(m => m.Address.Line2, "ga.line2");
-            //    form.TypeText(m => m.Address.Line3, "ga.line3");
-            //    form.TypeText(m => m.Address.Postcode, "ga.postcode");
-            //}
-
+            //FillInGuardianDetails2();
             //App.Submit();
 
-            {
-                var form = App.FormForModel<ApplicantBenefits>();
-
-                form.SelectRadio(m => m.HasExistingBenefit, false);
-            }
-
+            FillInExistingBenefit();
             App.Submit();
 
-            {
-                var form = App.FormForModel<ApplicantBenefits>();
-
-                form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
-                form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
-            }
-
+            FillInApplicantBenefits();
             App.Submit();
 
-            {
-                var form = App.FormForModel<HealthProfessional>();
-
-                form.TypeText(m => m.Pin, "XYZ54321");
-            }
-
+            FillInHealthProfessional();
             App.Submit();
 
-            {
-                var form = App.FormForModel<PaymentDetails>();
-
-                form.SelectRadio(m => m.LackingBankAccount, false);
-                form.TypeText(m => m.NameOfAccountHolder, "system test account holder");
-                form.TypeText(m => m.NameOfBank, "system test bank name");
-                form.TypeText(m => m.SortCode, "01-02-03");
-                form.TypeText(m => m.AccountNumber, "01234567");
-                form.TypeText(m => m.RollNumber, "roll_number");
-            }
-
+            FillInPaymentDetails();
             App.Submit();
 
-            {
-                var form = App.FormForModel<Declaration>();
-
-                form.Check(m => m.AgreedToLegalStatement, true);
-            }
-
+            FillInDeclaration();
             App.Submit();
 
             App.VerifyCanSeeText("Thank you");
@@ -224,6 +120,126 @@ namespace FormUI.Tests.SystemTests.Bsg
                 doc.PaymentDetails.AccountNumber.Should().Be("01234567");
                 doc.PaymentDetails.RollNumber.Should().Be("roll_number");
             });
+        }
+
+        private void FillInConsent()
+        {
+            var form = App.FormForModel<Consent>();
+            form.Check(m => m.AgreedToConsent, true);
+        }
+
+        private void FillInApplicantDetails(DateTime dob)
+        {
+            var form = App.FormForModel<ApplicantDetails>();
+            form.TypeText(m => m.Title, "system test Title");
+            form.TypeText(m => m.FirstName, "system test FirstName");
+            form.TypeText(m => m.OtherNames, "system test OtherNames");
+            form.TypeText(m => m.SurnameOrFamilyName, "system test FamilyName");
+            form.TypeDate(m => m.DateOfBirth, dob);
+            form.BlurDate(m => m.DateOfBirth);
+            form.SelectRadio(m => m.PreviouslyLookedAfter, true);
+            form.SelectRadio(m => m.FullTimeEducation, true);
+            form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
+            form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
+            form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
+            form.TypeText(m => m.CurrentAddress.Line3, "system test ca.line3");
+            form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
+            form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
+            form.SelectRadio(m => m.CurrentAddressStatus, AddressStatus.Permanent);
+            form.SelectRadio(m => m.ContactPreference, ContactPreference.Email);
+            form.TypeText(m => m.EmailAddress, "test.system@system.test");
+        }
+
+        private void FillInExpectedChildren(DateTime expectancyDate)
+        {
+            var form = App.FormForModel<ExpectedChildren>();
+            form.TypeDate(m => m.ExpectancyDate, expectancyDate);
+            form.TypeText(m => m.ExpectedBabyCount, "3");
+        }
+
+        private void FillInExistingChildren()
+        {
+            App.ClickButton(BsgButtons.AddChild);
+            App.VerifyCanSeeText("Child 1");
+            App.ClickButton(BsgButtons.AddChild);
+            App.VerifyCanSeeText("Child 2");
+
+            var form = App.FormForModel<ExistingChildren>();
+
+            form.TypeText(m => m.Children[0].FirstName, "c1 first name");
+            form.TypeText(m => m.Children[0].Surname, "c1 last name");
+            form.TypeDate(m => m.Children[0].DateOfBirth, "01", "02", "2003");
+            form.TypeText(m => m.Children[0].RelationshipToChild, "c1 relationship");
+            form.SelectRadio(m => m.Children[0].ChildBenefit, true);
+            form.SelectRadio(m => m.Children[0].FormalKinshipCare, false);
+
+            form.TypeText(m => m.Children[1].FirstName, "c2 first name");
+            form.TypeText(m => m.Children[1].Surname, "c2 last name");
+            form.TypeDate(m => m.Children[1].DateOfBirth, "02", "03", "2004");
+            form.TypeText(m => m.Children[1].RelationshipToChild, "c2 relationship");
+            form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
+        }
+
+        private void FillInGuardianDetails1(DateTime guardianDob)
+        {
+            var form = App.FormForModel<GuardianDetails>();
+
+            form.TypeText(m => m.Title, "g.title");
+            form.TypeText(m => m.FullName, "g.fullname");
+            form.TypeDate(m => m.DateOfBirth, guardianDob);
+            form.TypeText(m => m.NationalInsuranceNumber, "BC234567D");
+            form.TypeText(m => m.RelationshipToApplicant, "ga.parent");
+        }
+
+        private void FillInGuardianDetails2()
+        {
+            var form = App.FormForModel<GuardianDetails>();
+
+            form.TypeText(m => m.Address.Line1, "ga.line1");
+            form.TypeText(m => m.Address.Line2, "ga.line2");
+            form.TypeText(m => m.Address.Line3, "ga.line3");
+            form.TypeText(m => m.Address.Postcode, "ga.postcode");
+        }
+
+        private void FillInExistingBenefit()
+        {
+            var form = App.FormForModel<ApplicantBenefits>();
+
+            form.SelectRadio(m => m.HasExistingBenefit, false);
+        }
+
+        private void FillInApplicantBenefits()
+        {
+            var form = App.FormForModel<ApplicantBenefits>();
+
+            form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
+            form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
+        }
+
+        private void FillInHealthProfessional()
+        {
+            var form = App.FormForModel<HealthProfessional>();
+
+            form.TypeText(m => m.Pin, "XYZ54321");
+        }
+
+        private void FillInPaymentDetails()
+        {
+            var form = App.FormForModel<PaymentDetails>();
+
+            form.SelectRadio(m => m.LackingBankAccount, false);
+            form.TypeText(m => m.NameOfAccountHolder, "system test account holder");
+            form.TypeText(m => m.NameOfBank, "system test bank name");
+            form.TypeText(m => m.SortCode, "01-02-03");
+            form.TypeText(m => m.AccountNumber, "01234567");
+            form.TypeText(m => m.RollNumber, "roll_number");
+        }
+
+        private void FillInDeclaration()
+        {
+            var form = App.FormForModel<Declaration>();
+
+            form.Check(m => m.AgreedToLegalStatement, true);
         }
     }
 }
