@@ -85,7 +85,6 @@
                     type: 'POST',
                     url: actionUrl,
                     data: formData,
-                    error: function (jqXHR, textStatus, errorThrown) { alert(textStatus + '; ' + errorThrown); },
                     success: function (data, textStatus, jqXHR) {
 
                         var actions = data;
