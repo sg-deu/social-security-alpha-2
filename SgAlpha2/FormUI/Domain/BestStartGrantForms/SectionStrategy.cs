@@ -59,12 +59,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private class ApplicantBenefits1Actions : SectionStrategy
         {
-            public override bool Required(BestStartGrant form) { return form.RequiresApplicantBenefits(); }
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
         }
 
         private class ApplicantBenefits2Actions : SectionStrategy
         {
-            public override bool Required(BestStartGrant form) { return form.RequiresApplicantBenefits(); }
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
         }
 
         private class HealthProfessionalActions : SectionStrategy

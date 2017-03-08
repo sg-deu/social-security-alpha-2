@@ -55,5 +55,18 @@ namespace FormUI.Domain.BestStartGrantForms
                 Section = nextSection,
             };
         }
+
+        public static bool RequiresApplicantBenefits(BestStartGrant form)
+        {
+            var applicantDetails = form.ApplicantDetails;
+
+            if (applicantDetails != null)
+            {
+                if (applicantDetails.Age() < 16)
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

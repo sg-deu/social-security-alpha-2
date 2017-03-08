@@ -3,12 +3,14 @@ using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Responses;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
+using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms
 {
     [TestFixture]
-    public class NavigationTests
+    public class NavigationTests : DomainTest
     {
         [Test]
         public void Populate_SetsPreviousSection()
@@ -52,6 +54,30 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             }
 
             lastSectionReached.Should().BeTrue("last section should be reached");
+        }
+
+        [Test]
+        public void RequiresApplicantBenefits()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+
+            form.ApplicantDetails.DateOfBirth = null;
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue();
+
+            // 16 tomorrow
+            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 08);
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("under 16 does not require applicant benefits");
+
+            // 16 today
+            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue();
         }
     }
 }

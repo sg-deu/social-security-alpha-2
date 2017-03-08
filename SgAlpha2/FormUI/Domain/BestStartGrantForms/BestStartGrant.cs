@@ -59,33 +59,22 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool ShouldAskCareQuestion(ApplicantDetails applicantDetails)
         {
-            if (!applicantDetails.DateOfBirth.HasValue)
+            var age = applicantDetails.Age();
+
+            if (!age.HasValue)
                 return false;
 
-            var dob = applicantDetails.DateOfBirth.Value;
-            var age = Age(dob);
             return age >= 18 && age < 25;
         }
 
         public static bool ShouldAskEducationQuestion(ApplicantDetails applicantDetails)
         {
-            if (!applicantDetails.DateOfBirth.HasValue)
+            var age = applicantDetails.Age();
+
+            if (!age.HasValue)
                 return false;
 
-            var dob = applicantDetails.DateOfBirth.Value;
-            var age = Age(dob);
             return age == 18 || age == 19;
-        }
-
-        private static int Age(DateTime dateOfBirth)
-        {
-            var today = DomainRegistry.NowUtc().ToLocalTime().Date;
-            var age = today.Year - dateOfBirth.Year;
-
-            if (dateOfBirth.AddYears(age) > today)
-                age--; // birthday has not happened this year
-
-            return age;
         }
 
         public NextSection AddConsent(Consent consent)
@@ -132,17 +121,6 @@ namespace FormUI.Domain.BestStartGrantForms
                 : Sections.GuardianDetails2;
 
             return OnSectionCompleted(section);
-        }
-
-        public bool RequiresApplicantBenefits()
-        {
-            if (ApplicantDetails != null && ApplicantDetails.DateOfBirth.HasValue)
-            {
-                if (Age(ApplicantDetails.DateOfBirth.Value) <= 16)
-                    return false;
-            }
-
-            return true;
         }
 
         public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)

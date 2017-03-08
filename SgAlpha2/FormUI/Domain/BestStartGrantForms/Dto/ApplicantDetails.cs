@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using FormUI.Domain.Util;
 using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
@@ -58,5 +59,20 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         [DisplayName("Mobile phone number")]
         public string               MobilePhoneNumber       { get; set; }
+
+        internal int? Age()
+        {
+            if (!DateOfBirth.HasValue)
+                return null;
+
+            var today = DomainRegistry.NowUtc().ToLocalTime().Date;
+            var dob = DateOfBirth.Value;
+            var age = today.Year - dob.Year;
+
+            if (dob.AddYears(age) > today)
+                age--; // birthday has not happened this year
+
+            return age;
+        }
     }
 }
