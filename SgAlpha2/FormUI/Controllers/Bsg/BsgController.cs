@@ -38,7 +38,8 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgViews
     {
-        public const string Address = "Address";
+        public const string Address     = "Address";
+        public const string Benefits    = "Benefits";
     }
 
     public class BsgController : FormController
@@ -219,9 +220,11 @@ namespace FormUI.Controllers.Bsg
 
         private ActionResult ApplicantBenefits_Render(string formId, Benefits details)
         {
-            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits, (m, f) =>
+            return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.ApplicantBenefits, (m, f) =>
             {
-                m.ApplicantBenefits = details ?? f.ApplicantBenefits;
+                m.Title     = "Your benefits";
+                m.Question  = "Do you get any of these benefits?";
+                m.Benefits  = details ?? f.ApplicantBenefits;
             });
         }
 
@@ -247,9 +250,11 @@ namespace FormUI.Controllers.Bsg
 
         private ActionResult GuardianBenefits_Render(string formId, Benefits details)
         {
-            return NavigableView<GuardianBenefitsModel>(formId, Sections.GuardianBenefits, (m, f) =>
+            return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianBenefits, (m, f) =>
             {
-                m.GuardianBenefits = details ?? f.GuardianBenefits;
+                m.Title     = "Your Parent/Legal Guardian's benefits";
+                m.Question  = "Is your legal guardian currently receiving any of these benefits?";
+                m.Benefits  = details ?? f.GuardianBenefits;
             });
         }
 
@@ -275,9 +280,11 @@ namespace FormUI.Controllers.Bsg
 
         private ActionResult GuardianPartnerBenefits_Render(string formId, Benefits details)
         {
-            return NavigableView<GuardianPartnerBenefitsModel>(formId, Sections.GuardianPartnerBenefits, (m, f) =>
+            return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianPartnerBenefits, (m, f) =>
             {
-                m.GuardianPartnerBenefits = details ?? f.GuardianPartnerBenefits;
+                m.Title     = "Your Parent/Legal Guardian's Partner's benefits";
+                m.Question  = "Is your Parent/Legal Guardian's Partner currently receiving any of these benefits?";
+                m.Benefits  = details ?? f.GuardianPartnerBenefits;
             });
         }
 
@@ -454,6 +461,12 @@ namespace FormUI.Controllers.Bsg
         private ActionResult NavigableView<TModel>(string formId, Sections section, Action<TModel, BsgDetail> mutator)
             where TModel : NavigableModel, new()
         {
+            return NavigableView(formId, null, section, mutator);
+        }
+
+        private ActionResult NavigableView<TModel>(string formId, string view, Sections section, Action<TModel, BsgDetail> mutator)
+            where TModel : NavigableModel, new()
+        {
             var form = !string.IsNullOrWhiteSpace(formId)
                 ? FindForm(formId, section)
                 : new BsgDetail();
@@ -470,7 +483,7 @@ namespace FormUI.Controllers.Bsg
             if (mutator != null)
                 mutator(model, form);
 
-            return View(model);
+            return View(view, model);
         }
     }
 }

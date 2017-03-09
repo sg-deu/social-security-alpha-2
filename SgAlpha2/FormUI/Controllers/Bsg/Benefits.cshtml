@@ -1,6 +1,6 @@
-﻿@inherits WebViewPage<GuardianPartnerBenefitsModel>
+﻿@inherits WebViewPage<BenefitsModel>
 @{
-    ViewBag.Title = "Best Start Grant - Your Parent/Legal Guardian's Partners benefits";
+    ViewBag.Title = "Best Start Grant - " + Model.Title;
 }
 
 <div class="grid"><!--
@@ -8,17 +8,17 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Your Parent/Legal Guardian's Partners benefits</h1>
+        <h1>@Model.Title</h1>
 
-        @using (var form = Html.FormFor(Model.GuardianPartnerBenefits))
+        @using (var form = Html.FormFor(Model.Benefits))
         {
 
             @form.Html.ValidationSummary()
 
-            <h2>Your Parent/Legal Guardian's Partners benefits</h2>
+            <h2>@Model.Title</h2>
 
             @(form.Html.LabelledRadio(m => m.HasExistingBenefit)
-                    .Label("Is your Parent/Legal Guardian's Partner currently receiving any of these benefits?")
+                    .Label(Model.Question)
                     .Control(c => c.AddVisualPause(YesNoDk.DontKnow))
                     .BeforeControl(@"
                 <ul class='before-control'>
