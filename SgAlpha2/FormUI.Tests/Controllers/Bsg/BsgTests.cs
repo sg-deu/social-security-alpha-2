@@ -374,7 +374,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.ApplicantBenefits("form123")).Form<Benefits>(1)
-                    .SelectNo(m => m.HasExistingBenefit)
+                    .SetText(m => m.HasExistingBenefit, YesNoDk.No.ToString())
                     .Submit(client);
 
                 ExecutorStub.Executed<AddApplicantBenefits>(0).ShouldBeEquivalentTo(new AddApplicantBenefits
@@ -382,7 +382,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     FormId = "form123",
                     ApplicantBenefits = new Benefits
                     {
-                        HasExistingBenefit = false,
+                        HasExistingBenefit = YesNoDk.No,
                     },
                 });
 

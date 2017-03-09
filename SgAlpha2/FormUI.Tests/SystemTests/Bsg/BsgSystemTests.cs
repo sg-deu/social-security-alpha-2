@@ -232,12 +232,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, false);
+            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.DontKnow);
         }
 
         private void VerifyApplicantBenefits(BestStartGrant doc)
         {
-            doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+            doc.ApplicantBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
             _verifiedSections.Add(Sections.ApplicantBenefits);
         }
 

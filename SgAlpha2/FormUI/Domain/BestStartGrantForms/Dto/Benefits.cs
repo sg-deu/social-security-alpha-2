@@ -2,6 +2,6 @@
 {
     public class Benefits
     {
-        public bool? HasExistingBenefit { get; set; }
+        public YesNoDk? HasExistingBenefit { get; set; }
     }
 }

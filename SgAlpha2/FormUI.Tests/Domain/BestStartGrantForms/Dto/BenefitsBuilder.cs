@@ -9,7 +9,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
         {
             var value = new Benefits
             {
-                HasExistingBenefit = true,
+                HasExistingBenefit = YesNoDk.Yes,
             };
 
             if (mutator != null)

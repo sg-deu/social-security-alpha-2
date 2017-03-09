@@ -187,6 +187,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\Benefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\GuardianDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\INationalInsuranceNumberHolder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\YesNoDk.cs" />
     <Compile Include="Domain\BestStartGrantForms\Navigation.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindApplicantDetailsConfig.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\ApplicantDetailsConfig.cs" />
