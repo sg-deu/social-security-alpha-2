@@ -35,19 +35,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
         public static ApplicantDetails Under16(this ApplicantDetails applicantDetails, DateTime nowUtc)
         {
-            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-15);
-            return applicantDetails;
+            return applicantDetails.Aged(nowUtc, 15);
         }
 
         public static ApplicantDetails Aged16(this ApplicantDetails applicantDetails, DateTime nowUtc)
         {
-            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-16);
-            return applicantDetails;
+            return applicantDetails.Aged(nowUtc, 16);
         }
 
         public static ApplicantDetails Over25(this ApplicantDetails applicantDetails, DateTime nowUtc)
         {
-            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-28);
+            return applicantDetails.Aged(nowUtc, 28);
+        }
+
+        public static ApplicantDetails Aged(this ApplicantDetails applicantDetails, DateTime nowUtc, int age)
+        {
+            applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-age);
             return applicantDetails;
         }
     }

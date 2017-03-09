@@ -93,5 +93,17 @@ namespace FormUI.Domain.BestStartGrantForms
 
             return true;
         }
+
+        public static bool RequiresGuardianBenefits(BestStartGrant form)
+        {
+            var applicantDetails = form.ApplicantDetails;
+
+            if (applicantDetails != null)
+                if (BestStartGrant.ShouldAskEducationQuestion(applicantDetails))
+                    if (applicantDetails.FullTimeEducation == true)
+                        return true;
+
+            return false;
+        }
     }
 }

@@ -108,5 +108,37 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresGuardianDetails(form).Should().BeFalse("over 16 does not require a legal guradian/parent");
         }
+
+        [Test]
+        public void RequiresGuardianBenefits()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+
+            form.ApplicantDetails.DateOfBirth = null;
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeFalse();
+
+            form.ApplicantDetails.Over25(TestNowUtc.Value);
+            form.ApplicantDetails.FullTimeEducation = true;
+            BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeFalse("question not relevant");
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeFalse("should not ask for guardian benefits if not 18 or 19");
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 18);
+            form.ApplicantDetails.FullTimeEducation = false;
+            BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeFalse("should not ask for guardian benefits if not in full time education");
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 19);
+            form.ApplicantDetails.FullTimeEducation = true;
+            BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeTrue("should ask for guardian benefits if responded in full time education");
+        }
     }
 }
