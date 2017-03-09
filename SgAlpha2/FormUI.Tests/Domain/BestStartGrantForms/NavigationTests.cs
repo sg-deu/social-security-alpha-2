@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
@@ -116,8 +117,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
                 .Value();
 
-            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
-
             form.ApplicantDetails.DateOfBirth = null;
 
             Navigation.RequiresGuardianBenefits(form).Should().BeFalse();
@@ -139,6 +138,28 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
 
             Navigation.RequiresGuardianBenefits(form).Should().BeTrue("should ask for guardian benefits if responded in full time education");
+        }
+
+        [Test]
+        public void RequiresGuardianPartnerBenefits()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.GuardianBenefits, null)
+                .Value();
+
+            Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("guardian partner benefits not required if guardian benefits not asked");
+
+            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.Yes));
+
+            Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("guardian partner benefits not required if guardian benefits positive");
+
+            form.GuardianBenefits.HasExistingBenefit = YesNoDk.No;
+
+            Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'no'");
+
+            form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+
+            Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'don't know'");
         }
     }
 }

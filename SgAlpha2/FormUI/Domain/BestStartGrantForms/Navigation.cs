@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
 
 namespace FormUI.Domain.BestStartGrantForms
@@ -102,6 +103,17 @@ namespace FormUI.Domain.BestStartGrantForms
                 if (BestStartGrant.ShouldAskEducationQuestion(applicantDetails))
                     if (applicantDetails.FullTimeEducation == true)
                         return true;
+
+            return false;
+        }
+
+        public static bool RequiresGuardianPartnerBenefits(BestStartGrant form)
+        {
+            var guardianBenefits = form.GuardianBenefits;
+
+            if (guardianBenefits != null)
+                if (guardianBenefits.HasExistingBenefit != YesNoDk.Yes)
+                    return true;
 
             return false;
         }
