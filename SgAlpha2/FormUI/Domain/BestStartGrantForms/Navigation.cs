@@ -24,13 +24,6 @@ namespace FormUI.Domain.BestStartGrantForms
             while (index >= 0 && !detail.PreviousSection.HasValue)
             {
                 var previousSection = _order[index];
-
-                if (FeatureToggles.WorkingOnGuardianBenefits(previousSection))
-                {
-                    index--;
-                    continue;
-                }
-
                 var strategy = SectionStrategy.For(previousSection);
 
                 if (strategy.Required(form))
@@ -51,13 +44,6 @@ namespace FormUI.Domain.BestStartGrantForms
             while (!nextSection.HasValue && index < _order.Count)
             {
                 var section = _order[index];
-
-                if (FeatureToggles.WorkingOnGuardianBenefits(section))
-                {
-                    index++;
-                    continue;
-                }
-
                 var strategy = SectionStrategy.For(section);
 
                 if (strategy.Required(form))

@@ -42,7 +42,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-19);
-            FillInApplicantDetails(dob, fillInPreviouslyLookedAfter: true, fillInFullTimeEducation: true);
+            FillInApplicantDetails(dob, previouslyLookedAfter: false, fullTimeEducation: false);
             App.Submit();
 
             var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
@@ -71,7 +71,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyConsent(doc);
-                VerifyApplicantDetails(doc, dob);
+                VerifyApplicantDetails(doc, dob, false, false);
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
                 VerifyApplicantBenefits(doc);
@@ -92,7 +92,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-15);
-            FillInApplicantDetails(dob, fillInPreviouslyLookedAfter: false, fillInFullTimeEducation: false);
+            FillInApplicantDetails(dob, previouslyLookedAfter: null, fullTimeEducation: null);
             App.Submit();
 
             var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
@@ -129,7 +129,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.Consent);
         }
 
-        private void FillInApplicantDetails(DateTime dob, bool fillInPreviouslyLookedAfter, bool fillInFullTimeEducation)
+        private void FillInApplicantDetails(DateTime dob, bool? previouslyLookedAfter, bool? fullTimeEducation)
         {
             var form = App.FormForModel<ApplicantDetails>();
             form.TypeText(m => m.Title, "system test Title");
@@ -139,11 +139,11 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeDate(m => m.DateOfBirth, dob);
             form.BlurDate(m => m.DateOfBirth);
 
-            if (fillInPreviouslyLookedAfter)
-                form.SelectRadio(m => m.PreviouslyLookedAfter, true);
+            if (previouslyLookedAfter.HasValue)
+                form.SelectRadio(m => m.PreviouslyLookedAfter, previouslyLookedAfter.Value);
 
-            if (fillInFullTimeEducation)
-                form.SelectRadio(m => m.FullTimeEducation, true);
+            if (fullTimeEducation.HasValue)
+                form.SelectRadio(m => m.FullTimeEducation, fullTimeEducation.Value);
 
             form.TypeText(m => m.NationalInsuranceNumber, "AB123456C");
             form.TypeText(m => m.CurrentAddress.Line1, "system test ca.line1");
@@ -156,15 +156,15 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.EmailAddress, "test.system@system.test");
         }
 
-        private void VerifyApplicantDetails(BestStartGrant doc, DateTime dob)
+        private void VerifyApplicantDetails(BestStartGrant doc, DateTime dob, bool? previouslyLookedAfter, bool? fullTimeEducation)
         {
             doc.ApplicantDetails.Title.Should().Be("system test Title");
             doc.ApplicantDetails.FirstName.Should().Be("system test FirstName");
             doc.ApplicantDetails.OtherNames.Should().Be("system test OtherNames");
             doc.ApplicantDetails.SurnameOrFamilyName.Should().Be("system test FamilyName");
             doc.ApplicantDetails.DateOfBirth.Should().Be(dob);
-            doc.ApplicantDetails.PreviouslyLookedAfter.Should().BeTrue();
-            doc.ApplicantDetails.FullTimeEducation.Should().BeTrue();
+            doc.ApplicantDetails.PreviouslyLookedAfter.Should().Be(previouslyLookedAfter);
+            doc.ApplicantDetails.FullTimeEducation.Should().Be(fullTimeEducation);
             doc.ApplicantDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
             doc.ApplicantDetails.CurrentAddress.Line1.Should().Be("system test ca.line1");
             doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
