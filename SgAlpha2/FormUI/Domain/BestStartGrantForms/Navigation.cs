@@ -1,23 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FormUI.Domain.BestStartGrantForms.Responses;
 
 namespace FormUI.Domain.BestStartGrantForms
 {
     public static class Navigation
     {
-        private static readonly IList<Sections> _order = new List<Sections>
+        private static readonly IList<Sections> _order;
+
+        static Navigation()
         {
-            Sections.Consent,
-            Sections.ApplicantDetails,
-            Sections.ExpectedChildren,
-            Sections.ExistingChildren,
-            Sections.ApplicantBenefits,
-            Sections.GuardianDetails1,
-            Sections.GuardianDetails2,
-            Sections.HealthProfessional,
-            Sections.PaymentDetails,
-            Sections.Declaration,
-        };
+            _order = Enum.GetValues(typeof(Sections)).Cast<Sections>().ToList();
+        }
 
         public static IEnumerable<Sections> Order { get { return _order; } }
 
