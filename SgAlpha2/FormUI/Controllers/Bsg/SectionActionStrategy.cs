@@ -8,16 +8,18 @@ namespace FormUI.Controllers.Bsg
     {
         private static IDictionary<Sections, Func<SectionActionStrategy>> _strategies = new Dictionary<Sections, Func<SectionActionStrategy>>
         {
-            { Sections.Consent,             () => new ConsentActions() },
-            { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
-            { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
-            { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
-            { Sections.ApplicantBenefits,   () => new ApplicantBenefitsActions() },
-            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
-            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
-            { Sections.HealthProfessional,  () => new HealthProfessionalActions() },
-            { Sections.PaymentDetails,      () => new PaymentDetailsActions() },
-            { Sections.Declaration,         () => new DeclarationActions() },
+            { Sections.Consent,                 () => new ConsentActions() },
+            { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
+            { Sections.ExpectedChildren,        () => new ExpectedChildrenActions() },
+            { Sections.ExistingChildren,        () => new ExistingChildrenActions() },
+            { Sections.ApplicantBenefits,       () => new ApplicantBenefitsActions() },
+            { Sections.GuardianBenefits,        () => new GuardianBenefitsActions() },
+            { Sections.GuardianPartnerBenefits, () => new GuardianPartnerBenefitsActions() },
+            { Sections.GuardianDetails1,        () => new GuardianDetails1Actions() },
+            { Sections.GuardianDetails2,        () => new GuardianDetails2Actions() },
+            { Sections.HealthProfessional,      () => new HealthProfessionalActions() },
+            { Sections.PaymentDetails,          () => new PaymentDetailsActions() },
+            { Sections.Declaration,             () => new DeclarationActions() },
         };
 
         public static SectionActionStrategy For(Sections section)
@@ -53,6 +55,16 @@ namespace FormUI.Controllers.Bsg
         private class ApplicantBenefitsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.ApplicantBenefits(formId); }
+        }
+
+        private class GuardianBenefitsActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianBenefits(formId); }
+        }
+
+        private class GuardianPartnerBenefitsActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianPartnerBenefits(formId); }
         }
 
         private class GuardianDetails1Actions : SectionActionStrategy
