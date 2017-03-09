@@ -25,10 +25,10 @@ namespace FormUI.Controllers.Bsg
         public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
-        public static string    GuardianDetails1(string formId)     { return $"~/bsg/guardianDetails1/{formId}"; }
-        public static string    GuardianDetails2(string formId)     { return $"~/bsg/guardianDetails2/{formId}"; }
         public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
         public static string    ApplicantBenefits2(string formId)   { return $"~/bsg/applicantBenefits2/{formId}"; }
+        public static string    GuardianDetails1(string formId)     { return $"~/bsg/guardianDetails1/{formId}"; }
+        public static string    GuardianDetails2(string formId)     { return $"~/bsg/guardianDetails2/{formId}"; }
         public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    PaymentDetails(string formId)       { return $"~/bsg/paymentDetails/{formId}"; }
         public static string    Declaration(string formId)          { return $"~/bsg/declaration/{formId}"; }
@@ -197,64 +197,6 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
-        public ActionResult GuardianDetails1(string id)
-        {
-            return GuardianDetails1_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult GuardianDetails1(string id, GuardianDetails guardianDetails)
-        {
-            var cmd = new AddGuardianDetails
-            {
-                FormId = id,
-                Part = Part.Part1,
-                GuardianDetails = guardianDetails,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => GuardianDetails1_Render(id, guardianDetails));
-        }
-
-        private ActionResult GuardianDetails1_Render(string formId, GuardianDetails details)
-        {
-            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails1, (m, f) =>
-            {
-                m.GuardianDetails = details ?? f.GuardianDetails;
-            });
-        }
-
-        [HttpGet]
-        public ActionResult GuardianDetails2(string id)
-        {
-            return GuardianDetails2_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult GuardianDetails2(string id, GuardianDetails guardianDetails)
-        {
-            var cmd = new AddGuardianDetails
-            {
-                FormId = id,
-                Part = Part.Part2,
-                GuardianDetails = guardianDetails,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => GuardianDetails2_Render(id, guardianDetails));
-        }
-
-        private ActionResult GuardianDetails2_Render(string formId, GuardianDetails details)
-        {
-            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails2, (m, f) =>
-            {
-                m.GuardianDetails = details ?? f.GuardianDetails;
-            });
-        }
-
-        [HttpGet]
         public ActionResult ApplicantBenefits1(string id)
         {
             return ApplicantBenefits1_Render(id, null);
@@ -309,6 +251,64 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits2, (m, f) =>
             {
                 m.ApplicantBenefits = details ?? f.ApplicantBenefits;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianDetails1(string id)
+        {
+            return GuardianDetails1_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails1(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part1,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails1_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails1_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails1, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianDetails2(string id)
+        {
+            return GuardianDetails2_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianDetails2(string id, GuardianDetails guardianDetails)
+        {
+            var cmd = new AddGuardianDetails
+            {
+                FormId = id,
+                Part = Part.Part2,
+                GuardianDetails = guardianDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianDetails2_Render(id, guardianDetails));
+        }
+
+        private ActionResult GuardianDetails2_Render(string formId, GuardianDetails details)
+        {
+            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails2, (m, f) =>
+            {
+                m.GuardianDetails = details ?? f.GuardianDetails;
             });
         }
 

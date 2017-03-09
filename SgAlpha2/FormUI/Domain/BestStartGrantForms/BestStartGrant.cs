@@ -19,8 +19,8 @@ namespace FormUI.Domain.BestStartGrantForms
         public ApplicantDetails     ApplicantDetails    { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
-        public GuardianDetails      GuardianDetails     { get; protected set; }
         public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
+        public GuardianDetails      GuardianDetails     { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
         public Declaration          Declaration         { get; protected set; }
@@ -33,8 +33,8 @@ namespace FormUI.Domain.BestStartGrantForms
                 ApplicantDetails    = ApplicantDetails,
                 ExpectedChildren    = ExpectedChildren,
                 ExistingChildren    = ExistingChildren,
-                GuardianDetails     = GuardianDetails,
                 ApplicantBenefits   = ApplicantBenefits,
+                GuardianDetails     = GuardianDetails,
                 HealthProfessional  = HealthProfessional,
                 PaymentDetails      = PaymentDetails,
                 Declaration         = Declaration,
@@ -109,20 +109,6 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.ExistingChildren);
         }
 
-        public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
-        {
-            Validate(part, guardianDetails);
-
-            GuardianDetails = GuardianDetails ?? new GuardianDetails();
-            guardianDetails.CopyTo(GuardianDetails, part);
-
-            var section = part == Part.Part1
-                ? Sections.GuardianDetails1
-                : Sections.GuardianDetails2;
-
-            return OnSectionCompleted(section);
-        }
-
         public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
         {
             Validate(part, applicantBenefits);
@@ -133,6 +119,20 @@ namespace FormUI.Domain.BestStartGrantForms
             var section = part == Part.Part1
                 ? Sections.ApplicantBenefits1
                 : Sections.ApplicantBenefits2;
+
+            return OnSectionCompleted(section);
+        }
+
+        public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
+        {
+            Validate(part, guardianDetails);
+
+            GuardianDetails = GuardianDetails ?? new GuardianDetails();
+            guardianDetails.CopyTo(GuardianDetails, part);
+
+            var section = part == Part.Part1
+                ? Sections.GuardianDetails1
+                : Sections.GuardianDetails2;
 
             return OnSectionCompleted(section);
         }
@@ -298,6 +298,24 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
+        private static void Validate(Part part, ApplicantBenefits applicantBenefits)
+        {
+            var ctx = new ValidationContext<ApplicantBenefits>(applicantBenefits);
+
+            if (part == Part.Part1)
+            {
+                ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
+            }
+
+            if (part == Part.Part2)
+            {
+                ctx.Required(b => b.ReceivingBenefitForUnder20, "Please indicate if you are receiving benefit for the parent of the baby, or an expectant mother, because they are under 20 years of age");
+                ctx.Required(b => b.YouOrPartnerInvolvedInTradeDispute, "Please indicate if you or your partner are involved in a trade dispute");
+            }
+
+            ctx.ThrowIfError();
+        }
+
         private static void Validate(Part part, GuardianDetails guardianDetails)
         {
             var ctx = new ValidationContext<GuardianDetails>(guardianDetails);
@@ -316,24 +334,6 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
                 ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
                 ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
-            }
-
-            ctx.ThrowIfError();
-        }
-
-        private static void Validate(Part part, ApplicantBenefits applicantBenefits)
-        {
-            var ctx = new ValidationContext<ApplicantBenefits>(applicantBenefits);
-
-            if (part == Part.Part1)
-            {
-                ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
-            }
-
-            if (part == Part.Part2)
-            {
-                ctx.Required(b => b.ReceivingBenefitForUnder20, "Please indicate if you are receiving benefit for the parent of the baby, or an expectant mother, because they are under 20 years of age");
-                ctx.Required(b => b.YouOrPartnerInvolvedInTradeDispute, "Please indicate if you or your partner are involved in a trade dispute");
             }
 
             ctx.ThrowIfError();

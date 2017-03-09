@@ -11,10 +11,10 @@ namespace FormUI.Domain.BestStartGrantForms
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
-            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
-            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
             { Sections.ApplicantBenefits2,  () => new ApplicantBenefits2Actions() },
+            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
+            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.HealthProfessional,  () => new HealthProfessionalActions() },
             { Sections.PaymentDetails,      () => new PaymentDetailsActions() },
             { Sections.Declaration,         () => new DeclarationActions() },
@@ -49,16 +49,6 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        private class GuardianDetails1Actions : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
-        }
-
-        private class GuardianDetails2Actions : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
-        }
-
         private class ApplicantBenefits1Actions : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
@@ -67,6 +57,16 @@ namespace FormUI.Domain.BestStartGrantForms
         private class ApplicantBenefits2Actions : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
+        }
+
+        private class GuardianDetails1Actions : SectionStrategy
+        {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
+        }
+
+        private class GuardianDetails2Actions : SectionStrategy
+        {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
         }
 
         private class HealthProfessionalActions : SectionStrategy

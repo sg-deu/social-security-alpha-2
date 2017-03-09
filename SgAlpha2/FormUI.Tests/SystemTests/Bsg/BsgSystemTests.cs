@@ -231,6 +231,31 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.ExistingChildren);
         }
 
+        private void FillInApplicantBenefits1()
+        {
+            var form = App.FormForModel<ApplicantBenefits>();
+
+            form.SelectRadio(m => m.HasExistingBenefit, false);
+        }
+
+        private void FillInApplicantBenefits2()
+        {
+            var form = App.FormForModel<ApplicantBenefits>();
+
+            form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
+            form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
+        }
+
+        private void VerifyApplicantBenefits(BestStartGrant doc)
+        {
+            doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
+            _verifiedSections.Add(Sections.ApplicantBenefits1);
+
+            doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
+            doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
+            _verifiedSections.Add(Sections.ApplicantBenefits2);
+        }
+
         private void FillInGuardianDetails1(DateTime guardianDob)
         {
             var form = App.FormForModel<GuardianDetails>();
@@ -266,31 +291,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
             doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
             _verifiedSections.Add(Sections.GuardianDetails2);
-        }
-
-        private void FillInApplicantBenefits1()
-        {
-            var form = App.FormForModel<ApplicantBenefits>();
-
-            form.SelectRadio(m => m.HasExistingBenefit, false);
-        }
-
-        private void FillInApplicantBenefits2()
-        {
-            var form = App.FormForModel<ApplicantBenefits>();
-
-            form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
-            form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
-        }
-
-        private void VerifyApplicantBenefits(BestStartGrant doc)
-        {
-            doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
-            _verifiedSections.Add(Sections.ApplicantBenefits1);
-
-            doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
-            doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
-            _verifiedSections.Add(Sections.ApplicantBenefits2);
         }
 
         private void FillInHealthProfessional()

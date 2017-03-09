@@ -12,10 +12,10 @@ namespace FormUI.Controllers.Bsg
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
-            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
-            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
             { Sections.ApplicantBenefits2,  () => new ApplicantBenefits2Actions() },
+            { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
+            { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.HealthProfessional,  () => new HealthProfessionalActions() },
             { Sections.PaymentDetails,      () => new PaymentDetailsActions() },
             { Sections.Declaration,         () => new DeclarationActions() },
@@ -51,16 +51,6 @@ namespace FormUI.Controllers.Bsg
             public override string Action(string formId) { return BsgActions.ExistingChildren(formId); }
         }
 
-        private class GuardianDetails1Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.GuardianDetails1(formId); }
-        }
-
-        private class GuardianDetails2Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.GuardianDetails2(formId); }
-        }
-
         private class ApplicantBenefits1Actions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.ApplicantBenefits1(formId); }
@@ -69,6 +59,16 @@ namespace FormUI.Controllers.Bsg
         private class ApplicantBenefits2Actions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.ApplicantBenefits2(formId); }
+        }
+
+        private class GuardianDetails1Actions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianDetails1(formId); }
+        }
+
+        private class GuardianDetails2Actions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianDetails2(formId); }
         }
 
         private class HealthProfessionalActions : SectionActionStrategy
