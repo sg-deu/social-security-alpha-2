@@ -159,7 +159,9 @@
     <Compile Include="Controllers\Util\It.cs" />
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianDetailsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetailsBuilder.cs" />

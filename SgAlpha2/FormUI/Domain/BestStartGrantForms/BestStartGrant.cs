@@ -15,29 +15,33 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        public Consent              Consent             { get; protected set; }
-        public ApplicantDetails     ApplicantDetails    { get; protected set; }
-        public ExpectedChildren     ExpectedChildren    { get; protected set; }
-        public ExistingChildren     ExistingChildren    { get; protected set; }
-        public Benefits             ApplicantBenefits   { get; protected set; }
-        public GuardianDetails      GuardianDetails     { get; protected set; }
-        public HealthProfessional   HealthProfessional  { get; protected set; }
-        public PaymentDetails       PaymentDetails      { get; protected set; }
-        public Declaration          Declaration         { get; protected set; }
+        public Consent              Consent                 { get; protected set; }
+        public ApplicantDetails     ApplicantDetails        { get; protected set; }
+        public ExpectedChildren     ExpectedChildren        { get; protected set; }
+        public ExistingChildren     ExistingChildren        { get; protected set; }
+        public Benefits             ApplicantBenefits       { get; protected set; }
+        public Benefits             GuardianBenefits        { get; protected set; }
+        public Benefits             GuardianPartnerBenefits { get; protected set; }
+        public GuardianDetails      GuardianDetails         { get; protected set; }
+        public HealthProfessional   HealthProfessional      { get; protected set; }
+        public PaymentDetails       PaymentDetails          { get; protected set; }
+        public Declaration          Declaration             { get; protected set; }
 
         public BsgDetail FindSection(Sections section)
         {
             var detail = new BsgDetail
             {
-                Consent             = Consent,
-                ApplicantDetails    = ApplicantDetails,
-                ExpectedChildren    = ExpectedChildren,
-                ExistingChildren    = ExistingChildren,
-                ApplicantBenefits   = ApplicantBenefits,
-                GuardianDetails     = GuardianDetails,
-                HealthProfessional  = HealthProfessional,
-                PaymentDetails      = PaymentDetails,
-                Declaration         = Declaration,
+                Consent                 = Consent,
+                ApplicantDetails        = ApplicantDetails,
+                ExpectedChildren        = ExpectedChildren,
+                ExistingChildren        = ExistingChildren,
+                ApplicantBenefits       = ApplicantBenefits,
+                GuardianBenefits        = GuardianBenefits,
+                GuardianPartnerBenefits = GuardianPartnerBenefits,
+                GuardianDetails         = GuardianDetails,
+                HealthProfessional      = HealthProfessional,
+                PaymentDetails          = PaymentDetails,
+                Declaration             = Declaration,
             };
 
             Navigation.Populate(detail, section, this);
@@ -115,6 +119,22 @@ namespace FormUI.Domain.BestStartGrantForms
 
             ApplicantBenefits = applicantBenefits;
             return OnSectionCompleted(Sections.ApplicantBenefits);
+        }
+
+        public NextSection AddGuardianBenefits(Benefits guardianBenefits)
+        {
+            Validate(guardianBenefits);
+
+            GuardianBenefits = guardianBenefits;
+            return OnSectionCompleted(Sections.GuardianBenefits);
+        }
+
+        public NextSection AddGuardianPartnerBenefits(Benefits guardianPartnerBenefits)
+        {
+            Validate(guardianPartnerBenefits);
+
+            GuardianPartnerBenefits = guardianPartnerBenefits;
+            return OnSectionCompleted(Sections.GuardianPartnerBenefits);
         }
 
         public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)

@@ -32,6 +32,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
                 ExpectedChildren = existingForm.ExpectedChildren,
                 ExistingChildren = existingForm.ExistingChildren,
                 ApplicantBenefits = existingForm.ApplicantBenefits,
+                GuardianBenefits = existingForm.GuardianBenefits,
+                GuardianPartnerBenefits = existingForm.GuardianPartnerBenefits,
                 GuardianDetails = existingForm.GuardianDetails,
                 HealthProfessional = existingForm.HealthProfessional,
                 PaymentDetails = existingForm.PaymentDetails,

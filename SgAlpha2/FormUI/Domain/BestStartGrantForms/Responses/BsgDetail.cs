@@ -11,6 +11,8 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
         public ExpectedChildren     ExpectedChildren;
         public ExistingChildren     ExistingChildren;
         public Benefits             ApplicantBenefits;
+        public Benefits             GuardianBenefits;
+        public Benefits             GuardianPartnerBenefits;
         public GuardianDetails      GuardianDetails;
         public HealthProfessional   HealthProfessional;
         public PaymentDetails       PaymentDetails;
