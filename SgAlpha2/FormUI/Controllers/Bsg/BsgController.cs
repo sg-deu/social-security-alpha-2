@@ -18,20 +18,22 @@ namespace FormUI.Controllers.Bsg
 
     public static class BsgActions
     {
-        public static string    Overview()                          { return $"~/bsg/overview"; }
-        public static string    Start()                             { return $"~/bsg/start"; }
-        public static string    Consent(string formId)              { return $"~/bsg/consent/{formId}"; }
-        public static string    ApplicantDetails(string formId)     { return $"~/bsg/applicantDetails/{formId}"; }
-        public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
-        public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
-        public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
-        public static string    ApplicantBenefits(string formId)    { return $"~/bsg/applicantBenefits/{formId}"; }
-        public static string    GuardianDetails1(string formId)     { return $"~/bsg/guardianDetails1/{formId}"; }
-        public static string    GuardianDetails2(string formId)     { return $"~/bsg/guardianDetails2/{formId}"; }
-        public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
-        public static string    PaymentDetails(string formId)       { return $"~/bsg/paymentDetails/{formId}"; }
-        public static string    Declaration(string formId)          { return $"~/bsg/declaration/{formId}"; }
-        public static string    Complete()                          { return $"~/bsg/complete"; }
+        public static string    Overview()                              { return $"~/bsg/overview"; }
+        public static string    Start()                                 { return $"~/bsg/start"; }
+        public static string    Consent(string formId)                  { return $"~/bsg/consent/{formId}"; }
+        public static string    ApplicantDetails(string formId)         { return $"~/bsg/applicantDetails/{formId}"; }
+        public static string    Ajax_DobChanged()                       { return $"~/bsg/ajax_dobChanged"; }
+        public static string    ExpectedChildren(string formId)         { return $"~/bsg/expectedChildren/{formId}"; }
+        public static string    ExistingChildren(string formId)         { return $"~/bsg/existingChildren/{formId}"; }
+        public static string    ApplicantBenefits(string formId)        { return $"~/bsg/applicantBenefits/{formId}"; }
+        public static string    GuardianBenefits(string formId)         { return $"~/bsg/guardianBenefits/{formId}"; }
+        public static string    GuardianPartnerBenefits(string formId)  { return $"~/bsg/guardianPartnerBenefits/{formId}"; }
+        public static string    GuardianDetails1(string formId)         { return $"~/bsg/guardianDetails1/{formId}"; }
+        public static string    GuardianDetails2(string formId)         { return $"~/bsg/guardianDetails2/{formId}"; }
+        public static string    HealthProfessional(string formId)       { return $"~/bsg/healthProfessional/{formId}"; }
+        public static string    PaymentDetails(string formId)           { return $"~/bsg/paymentDetails/{formId}"; }
+        public static string    Declaration(string formId)              { return $"~/bsg/declaration/{formId}"; }
+        public static string    Complete()                              { return $"~/bsg/complete"; }
     }
 
     public class BsgViews
@@ -220,6 +222,62 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits, (m, f) =>
             {
                 m.ApplicantBenefits = details ?? f.ApplicantBenefits;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianBenefits(string id)
+        {
+            return GuardianBenefits_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianBenefits(string id, Benefits guardianBenefits)
+        {
+            var cmd = new AddGuardianBenefits
+            {
+                FormId = id,
+                GuardianBenefits = guardianBenefits,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianBenefits_Render(id, guardianBenefits));
+        }
+
+        private ActionResult GuardianBenefits_Render(string formId, Benefits details)
+        {
+            return NavigableView<GuardianBenefitsModel>(formId, Sections.GuardianBenefits, (m, f) =>
+            {
+                m.GuardianBenefits = details ?? f.GuardianBenefits;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GuardianPartnerBenefits(string id)
+        {
+            return GuardianPartnerBenefits_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult GuardianPartnerBenefits(string id, Benefits guardianPartnerBenefits)
+        {
+            var cmd = new AddGuardianPartnerBenefits
+            {
+                FormId = id,
+                GuardianPartnerBenefits = guardianPartnerBenefits,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => GuardianPartnerBenefits_Render(id, guardianPartnerBenefits));
+        }
+
+        private ActionResult GuardianPartnerBenefits_Render(string formId, Benefits details)
+        {
+            return NavigableView<GuardianPartnerBenefitsModel>(formId, Sections.GuardianPartnerBenefits, (m, f) =>
+            {
+                m.GuardianPartnerBenefits = details ?? f.GuardianPartnerBenefits;
             });
         }
 

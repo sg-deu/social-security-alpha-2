@@ -142,7 +142,9 @@
     <Compile Include="Controllers\Bsg\DeclarationModel.cs" />
     <Compile Include="Controllers\Bsg\ExistingChildrenModel.cs" />
     <Compile Include="Controllers\Bsg\ExpectedChildrenModel.cs" />
+    <Compile Include="Controllers\Bsg\GuardianBenefitsModel.cs" />
     <Compile Include="Controllers\Bsg\GuardianDetailsModel.cs" />
+    <Compile Include="Controllers\Bsg\GuardianPartnerBenefitsModel.cs" />
     <Compile Include="Controllers\Bsg\HealthProfessionalModel.cs" />
     <Compile Include="Controllers\Bsg\NavigableModel.cs" />
     <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
@@ -309,6 +311,8 @@
     <Content Include="Controllers\Bsg\GuardianDetails1.cshtml" />
     <Content Include="Controllers\Bsg\GuardianDetails2.cshtml" />
     <Content Include="Controllers\Bsg\Address.cshtml" />
+    <Content Include="Controllers\Bsg\GuardianPartnerBenefits.cshtml" />
+    <Content Include="Controllers\Bsg\GuardianBenefits.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

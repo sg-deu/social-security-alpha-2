@@ -1,0 +1,43 @@
+﻿@inherits WebViewPage<GuardianPartnerBenefitsModel>
+@{
+    ViewBag.Title = "Best Start Grant - Your Parent/Legal Guardian's Partners benefits";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Your Parent/Legal Guardian's Partners benefits</h1>
+
+        @using (var form = Html.FormFor(Model.GuardianPartnerBenefits))
+        {
+
+            @form.Html.ValidationSummary()
+
+            <h2>Your Parent/Legal Guardian's Partners benefits</h2>
+
+            @(form.Html.LabelledRadio(m => m.HasExistingBenefit)
+                    .Label("Is your Parent/Legal Guardian's Partner currently receiving any of these benefits?")
+                    .Control(c => c.AddVisualPause(YesNoDk.DontKnow))
+                    .BeforeControl(@"
+                <ul class='before-control'>
+                    <li>Income Support</li>
+                    <li>Income-based Jobseekers Allowance (JSA)</li>
+                    <li>Income-related Employment and Support Allowance (ESA)</li>
+                    <li>Universal Credit (Healthy Start limit of £408 a month)</li>
+                    <li>Child Tax Credit (for Healthy Start needs to have family income of less than £16,190 and can't be receiving Working Tax Credit - apart from the 4 week run-on)</li>
+                    <li>Working Tax Credit</li>
+                    <li>Housing Benefit</li>
+                    <li>Pension Credit</li>
+                </ul>"))
+
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>
