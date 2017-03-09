@@ -40,7 +40,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 Declaration         = Declaration,
             };
 
-            Navigation.Populate(detail, section);
+            Navigation.Populate(detail, section, this);
 
             return detail;
         }

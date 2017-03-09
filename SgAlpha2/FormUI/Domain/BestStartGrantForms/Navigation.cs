@@ -16,16 +16,27 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static IEnumerable<Sections> Order { get { return _order; } }
 
-        public static void Populate(BsgDetail detail, Sections section)
+        public static void Populate(BsgDetail detail, Sections section, BestStartGrant form)
         {
-            var index = _order.IndexOf(section);
+            var index = _order.IndexOf(section) - 1;
 
-            if (index > 0)
-                detail.PreviousSection = _order[index - 1];
+            while (index > 0 && !detail.PreviousSection.HasValue)
+            {
+                var previousSection = _order[index];
 
-            if (detail.PreviousSection.HasValue)
-                while (FeatureToggles.WorkingOnGuardianBenefits(detail.PreviousSection.Value))
-                    detail.PreviousSection = _order[_order.IndexOf(detail.PreviousSection.Value) - 1];
+                if (FeatureToggles.WorkingOnGuardianBenefits(previousSection))
+                {
+                    index--;
+                    continue;
+                }
+
+                var strategy = SectionStrategy.For(previousSection);
+
+                if (strategy.Required(form))
+                    detail.PreviousSection = previousSection;
+
+                index--;
+            }
 
             detail.IsFinalSection = index == _order.Count - 1;
         }

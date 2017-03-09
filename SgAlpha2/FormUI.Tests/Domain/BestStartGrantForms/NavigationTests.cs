@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using FluentAssertions;
-using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -14,27 +13,31 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class NavigationTests : DomainTest
     {
         [Test]
-        [Ignore("Working on navigaing backwards")]
         public void Populate_SetsPreviousSection()
         {
-            var firstSection = Navigation.Order.First();
-            var lastSection = Navigation.Order.Last();
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Under16(TestNowUtc.Value))
+                .Value();
 
-            foreach (Sections section in Enum.GetValues(typeof(Sections)))
-            {
-                var detail = new BsgDetail();
-                Navigation.Populate(detail, section);
+            var detail = new BsgDetail();
 
-                if (section == firstSection)
-                    detail.PreviousSection.Should().BeNull();
-                else
-                    detail.PreviousSection.Should().Be(Navigation.Order.ToList()[Navigation.Order.ToList().IndexOf(section) - 1]);
+            Navigation.Populate(detail, Sections.GuardianDetails1, form);
 
-                if (section == lastSection)
-                    detail.IsFinalSection.Should().BeTrue();
-                else
-                    detail.IsFinalSection.Should().BeFalse();
-            }
+            detail.PreviousSection.Should().Be(Sections.ExistingChildren,
+                "Navigating backwards from guardian details for a 16 year old should go back to existing children (and skip applicant benefits)");
+        }
+
+        [Test]
+        public void Populate_NoPreviousSectionFromFirstSection()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .Value();
+
+            var detail = new BsgDetail();
+
+            Navigation.Populate(detail, Navigation.Order.First(), form);
+
+            detail.PreviousSection.Should().BeNull();
         }
 
         [Test]
