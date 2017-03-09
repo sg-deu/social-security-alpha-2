@@ -3,6 +3,7 @@ using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
@@ -83,61 +84,74 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         private NextSection AddConsent(NextSection current, Action<Consent> mutator = null)
         {
             current.Section.Should().Be(Sections.Consent);
-            return new AddConsent { FormId = current.Id, Consent = ConsentBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddConsent { FormId = current.Id, Consent = ConsentBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddApplicantDetails(NextSection current, Action<ApplicantDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.ApplicantDetails);
-            return new AddApplicantDetails { FormId = current.Id, ApplicantDetails = ApplicantDetailsBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddApplicantDetails { FormId = current.Id, ApplicantDetails = ApplicantDetailsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddExpectedChildren(NextSection current, Action<ExpectedChildren> mutator = null)
         {
             current.Section.Should().Be(Sections.ExpectedChildren);
-            return new AddExpectedChildren { FormId = current.Id, ExpectedChildren = ExpectedChildrenBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddExpectedChildren { FormId = current.Id, ExpectedChildren = ExpectedChildrenBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddExistingChildren(NextSection current, Action<ExistingChildren> mutator = null)
         {
             current.Section.Should().Be(Sections.ExistingChildren);
-            return new AddExistingChildren { FormId = current.Id, ExistingChildren = ExistingChildrenBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddExistingChildren { FormId = current.Id, ExistingChildren = ExistingChildrenBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddApplicantBenefits(NextSection current, Action<Benefits> mutator = null)
         {
             current.Section.Should().Be(Sections.ApplicantBenefits);
-            return new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddGuardianDetails1(NextSection current, Action<GuardianDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianDetails1);
-            return new AddGuardianDetails { FormId = current.Id, Part = Part.Part1, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute();
+            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part1, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
         }
 
         private NextSection AddGuardianDetails2(NextSection current, Action<GuardianDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianDetails2);
-            return new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute();
+            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
         }
 
         private NextSection AddHealthProfessional(NextSection current, Action<HealthProfessional> mutator = null)
         {
             current.Section.Should().Be(Sections.HealthProfessional);
-            return new AddHealthProfessional { FormId = current.Id, HealthProfessional = HealthProfessionalBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddHealthProfessional { FormId = current.Id, HealthProfessional = HealthProfessionalBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddPaymentDetails(NextSection current, Action<PaymentDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.PaymentDetails);
-            return new AddPaymentDetails { FormId = current.Id, PaymentDetails = PaymentDetailsBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddPaymentDetails { FormId = current.Id, PaymentDetails = PaymentDetailsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddDeclaration(NextSection current, Action<Declaration> mutator = null)
         {
             current.Section.Should().Be(Sections.Declaration);
-            return new AddDeclaration { FormId = current.Id, Declaration = DeclarationBuilder.NewValid(mutator) }.Execute();
+            return NextSection(current.Section, () => new AddDeclaration { FormId = current.Id, Declaration = DeclarationBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection NextSection(Sections? currentSection, Func<NextSection> nextSection)
+        {
+            var next = nextSection();
+
+            if (next.Section.HasValue)
+            {
+                var detail = new FindBsgSection { FormId = next.Id, Section = next.Section.Value }.Find();
+                detail.PreviousSection.Should().Be(currentSection);
+            }
+
+            return next;
         }
 
         #endregion

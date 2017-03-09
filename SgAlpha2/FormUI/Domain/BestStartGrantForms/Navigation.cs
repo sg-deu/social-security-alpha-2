@@ -20,7 +20,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var index = _order.IndexOf(section) - 1;
 
-            while (index > 0 && !detail.PreviousSection.HasValue)
+            while (index >= 0 && !detail.PreviousSection.HasValue)
             {
                 var previousSection = _order[index];
 
