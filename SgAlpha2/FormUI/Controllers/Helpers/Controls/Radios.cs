@@ -8,11 +8,19 @@ namespace FormUI.Controllers.Helpers.Controls
     {
         private IList<string>               _values;
         private IDictionary<string, string> _labels;
+        private IList<string>               _valuesWithPause;
 
         public Radios(HtmlHelper helper, ControlContext controlContext, IList<string> values, IDictionary<string, string> labels) : base(helper, controlContext)
         {
             _values = values;
             _labels = labels;
+            _valuesWithPause = new List<string>();
+        }
+
+        public Radios AddVisualPause(object value)
+        {
+            _valuesWithPause.Add((value ?? "").ToString());
+            return this;
         }
 
         protected override HtmlTag CreateTag()
@@ -42,6 +50,9 @@ namespace FormUI.Controllers.Helpers.Controls
 
             var labelText = _labels.ContainsKey(value) ? _labels[value] : value;
             var text = new HtmlTag("span").Text(labelText);
+
+            if (_valuesWithPause.Contains(value))
+                label.AddClasses("visual-pause");
 
             return label.Append(input).Append(text);
         }

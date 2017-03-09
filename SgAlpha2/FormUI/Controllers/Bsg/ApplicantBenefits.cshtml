@@ -17,8 +17,10 @@
 
 
             @(form.Html.LabelledRadio(m => m.HasExistingBenefit)
+                    .Label("Do you get any of these benefits?")
+                    .Control(c => c.AddVisualPause(YesNoDk.DontKnow))
                     .BeforeControl(@"
-                <ul>
+                <ul class='before-control'>
                     <li>Income Support</li>
                     <li>Income-based Jobseekers Allowance (JSA)</li>
                     <li>Income-related Employment and Support Allowance (ESA)</li>

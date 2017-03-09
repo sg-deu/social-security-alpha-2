@@ -48,6 +48,11 @@
 
         }
 
+        .before-control {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
     }
 
     .date-input {
@@ -96,6 +101,8 @@
         .radio-item {
             position: relative;
             padding: 8px 10px 9px 50px;
+
+            &.visual-pause { margin-top: 30px; }
 
             input {
                 position: absolute;

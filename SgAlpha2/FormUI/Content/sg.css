@@ -29,6 +29,10 @@
 .sg .form-group .input-wrapper.control-width-small {
   width: 100px; }
 
+.sg .form-group .before-control {
+  margin-top: 20px;
+  margin-bottom: 40px; }
+
 .sg .date-input {
   padding: 3px;
   /* the overflow prevents the float cascaing onto the next element: http://www.quirksmode.org/css/clearing.html#link3 */
@@ -60,6 +64,8 @@
 .sg .radio .radio-item {
   position: relative;
   padding: 8px 10px 9px 50px; }
+  .sg .radio .radio-item.visual-pause {
+    margin-top: 30px; }
   .sg .radio .radio-item input {
     position: absolute;
     left: 0;

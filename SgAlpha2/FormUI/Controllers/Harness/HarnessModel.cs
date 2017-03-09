@@ -53,7 +53,7 @@ namespace FormUI.Controllers.Harness
         [Description("Value 2")]
         Value2,
 
-        [Description("Value 3")]
+        [Description("Value 3 (with visual pause)")]
         Value3,
     }
 }

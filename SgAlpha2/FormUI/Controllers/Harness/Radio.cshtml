@@ -13,7 +13,7 @@
             @(Html.LabelledRadio("Radio2", m => m.Radio2, RValues1Util.Descriptions)
                 .Hint("Supplying specific descriptions"))
 
-            @Html.LabelledRadio("Radio3", m => m.Radio3)
+            @Html.LabelledRadio("Radio3", m => m.Radio3).Control(c => c.AddVisualPause(RValues2.Value3))
 
             @(Html.LabelledRadioYesNo(m => m.Radio4)
                 .Hint("An example of an inline yes/no radio mapping to a nullable boolean in the model"))
