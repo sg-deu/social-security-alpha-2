@@ -79,6 +79,57 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next.Section.Should().BeNull();
         }
 
+        [Test]
+        public void Aged18PartOfGuardianBenefits()
+        {
+            // 18, living with parents, and guardian's partner has a qualifying benefit
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+            next = AddApplicantBenefits(next);
+
+            next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
+            next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+
+            next.Section.Should().Be(Sections.HealthProfessional, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void Aged18PartOfGuardianPartnerBenefits()
+        {
+            // 18, living with parents, and guardian's partner has a qualifying benefit
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+            next = AddApplicantBenefits(next);
+
+            next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
+            next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+
+            next.Section.Should().Be(Sections.GuardianPartnerBenefits, "when guardian does not have a qualifying benefit, should be prompted for the guardian's partner's benefits");
+            next = AddGuardianPartnerBenefits(next);
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
         #region command execution helpers
 
         private NextSection AddConsent(NextSection current, Action<Consent> mutator = null)
@@ -109,6 +160,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.ApplicantBenefits);
             return NextSection(current.Section, () => new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddGuardianBenefits(NextSection current, Action<Benefits> mutator = null)
+        {
+            current.Section.Should().Be(Sections.GuardianBenefits);
+            return NextSection(current.Section, () => new AddGuardianBenefits { FormId = current.Id, GuardianBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddGuardianPartnerBenefits(NextSection current, Action<Benefits> mutator = null)
+        {
+            current.Section.Should().Be(Sections.GuardianPartnerBenefits);
+            return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddGuardianDetails1(NextSection current, Action<GuardianDetails> mutator = null)

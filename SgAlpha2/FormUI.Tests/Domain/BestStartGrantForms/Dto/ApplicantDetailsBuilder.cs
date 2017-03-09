@@ -53,5 +53,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-age);
             return applicantDetails;
         }
+
+        public static ApplicantDetails PartOfGuardianBenefits(this ApplicantDetails applicantDetails, DateTime nowUtc)
+        {
+            applicantDetails.Aged(nowUtc, 18);
+            applicantDetails.FullTimeEducation = true;
+            return applicantDetails;
+        }
     }
 }
