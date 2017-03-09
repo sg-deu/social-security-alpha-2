@@ -23,6 +23,10 @@ namespace FormUI.Domain.BestStartGrantForms
             if (index > 0)
                 detail.PreviousSection = _order[index - 1];
 
+            if (detail.PreviousSection.HasValue)
+                while (FeatureToggles.WorkingOnGuardianBenefits(detail.PreviousSection.Value))
+                    detail.PreviousSection = _order[_order.IndexOf(detail.PreviousSection.Value) - 1];
+
             detail.IsFinalSection = index == _order.Count - 1;
         }
 
@@ -35,6 +39,13 @@ namespace FormUI.Domain.BestStartGrantForms
             while (!nextSection.HasValue && index < _order.Count)
             {
                 var section = _order[index];
+
+                if (FeatureToggles.WorkingOnGuardianBenefits(section))
+                {
+                    index++;
+                    continue;
+                }
+
                 var strategy = SectionStrategy.For(section);
 
                 if (strategy.Required(form))

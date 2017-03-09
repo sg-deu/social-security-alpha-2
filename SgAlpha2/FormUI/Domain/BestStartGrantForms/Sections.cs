@@ -7,6 +7,8 @@
         ExpectedChildren,
         ExistingChildren,
         ApplicantBenefits,
+        GuardianBenefits,
+        GuardianPartnerBenefits,
         GuardianDetails1,
         GuardianDetails2,
         HealthProfessional,

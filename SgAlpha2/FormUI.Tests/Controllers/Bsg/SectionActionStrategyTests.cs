@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
+using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using NUnit.Framework;
 
@@ -17,6 +18,9 @@ namespace FormUI.Tests.Controllers.Bsg
 
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
             {
+                if (FeatureToggles.WorkingOnGuardianBenefits(section))
+                    continue;
+
                 var strategy = SectionActionStrategy.For(section);
                 var action = strategy.Action("formId");
                 action.Should().NotBeNullOrWhiteSpace();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
+using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.SystemTests.Util;
@@ -22,7 +23,12 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             // verify each section has been tested
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
+            {
+                if (FeatureToggles.WorkingOnGuardianBenefits(section))
+                    continue;
+
                 _verifiedSections.Should().Contain(section, "section {0} should be filled in and verified", section);
+            }
         }
 
         [Test]
