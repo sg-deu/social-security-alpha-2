@@ -184,7 +184,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\Benefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\GuardianDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\INationalInsuranceNumberHolder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Navigation.cs" />
@@ -243,7 +243,7 @@
     </Content>
     <Content Include="Content\sg.scss" />
     <Content Include="Controllers\Bsg\ApplicantDetails.cshtml" />
-    <Content Include="Controllers\Bsg\ApplicantBenefits1.cshtml" />
+    <Content Include="Controllers\Bsg\ApplicantBenefits.cshtml" />
     <Content Include="Controllers\Shared\_MyGovLayout.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -298,7 +298,6 @@
     <Content Include="Controllers\Bsg\ExistingChildren.cshtml" />
     <Content Include="Controllers\Bsg\HealthProfessional.cshtml" />
     <Content Include="Controllers\Bsg\PaymentDetails.cshtml" />
-    <Content Include="Controllers\Bsg\ApplicantBenefits2.cshtml" />
     <Content Include="Controllers\Harness\CheckBoxes.cshtml" />
     <Content Include="Controllers\Bsg\Declaration.cshtml" />
     <Content Include="Controllers\Bsg\Consent.cshtml" />

@@ -23,8 +23,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits1(next);
-            next = AddApplicantBenefits2(next);
+            next = AddApplicantBenefits(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -105,6 +104,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             return new AddExistingChildren { FormId = current.Id, ExistingChildren = ExistingChildrenBuilder.NewValid(mutator) }.Execute();
         }
 
+        private NextSection AddApplicantBenefits(NextSection current, Action<Benefits> mutator = null)
+        {
+            current.Section.Should().Be(Sections.ApplicantBenefits);
+            return new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute();
+        }
+
         private NextSection AddGuardianDetails1(NextSection current, Action<GuardianDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianDetails1);
@@ -115,18 +120,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.GuardianDetails2);
             return new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute();
-        }
-
-        private NextSection AddApplicantBenefits1(NextSection current, Action<ApplicantBenefits> mutator = null)
-        {
-            current.Section.Should().Be(Sections.ApplicantBenefits1);
-            return new AddApplicantBenefits { FormId = current.Id, Part = Part.Part1, ApplicantBenefits = ApplicantBenefitsBuilder.NewValid(Part.Part1, mutator) }.Execute();
-        }
-
-        private NextSection AddApplicantBenefits2(NextSection current, Action<ApplicantBenefits> mutator = null)
-        {
-            current.Section.Should().Be(Sections.ApplicantBenefits2);
-            return new AddApplicantBenefits { FormId = current.Id, Part = Part.Part2, ApplicantBenefits = ApplicantBenefitsBuilder.NewValid(Part.Part2, mutator) }.Execute();
         }
 
         private NextSection AddHealthProfessional(NextSection current, Action<HealthProfessional> mutator = null)

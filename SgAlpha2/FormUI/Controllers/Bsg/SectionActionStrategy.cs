@@ -12,8 +12,7 @@ namespace FormUI.Controllers.Bsg
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
-            { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
-            { Sections.ApplicantBenefits2,  () => new ApplicantBenefits2Actions() },
+            { Sections.ApplicantBenefits,   () => new ApplicantBenefitsActions() },
             { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
             { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.HealthProfessional,  () => new HealthProfessionalActions() },
@@ -51,14 +50,9 @@ namespace FormUI.Controllers.Bsg
             public override string Action(string formId) { return BsgActions.ExistingChildren(formId); }
         }
 
-        private class ApplicantBenefits1Actions : SectionActionStrategy
+        private class ApplicantBenefitsActions : SectionActionStrategy
         {
-            public override string Action(string formId) { return BsgActions.ApplicantBenefits1(formId); }
-        }
-
-        private class ApplicantBenefits2Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.ApplicantBenefits2(formId); }
+            public override string Action(string formId) { return BsgActions.ApplicantBenefits(formId); }
         }
 
         private class GuardianDetails1Actions : SectionActionStrategy

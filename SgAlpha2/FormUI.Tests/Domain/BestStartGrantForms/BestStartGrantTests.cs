@@ -213,62 +213,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void AddApplicantBenefits_Part1DoesNotOverwritePart2()
-        {
-            var form = new BestStartGrantBuilder("form")
-                .With(f => f.ApplicantBenefits, ApplicantBenefitsBuilder.NewValid(Part.Part2, ab => ab.ReceivingBenefitForUnder20 = true))
-                .Insert();
-
-            var part1 = new ApplicantBenefits
-            {
-                HasExistingBenefit = false,
-            };
-
-            form.AddApplicantBenefits(Part.Part1, part1);
-
-            form.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
-        }
-
-        [Test]
-        public void AddApplicantBenefits_Part2DoesNotOverwritePart1()
-        {
-            var form = new BestStartGrantBuilder("form").Insert();
-
-            var part1 = new ApplicantBenefits
-            {
-                HasExistingBenefit = false,
-            };
-
-            form.AddApplicantBenefits(Part.Part1, part1);
-
-            form.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
-
-            var part2 = new ApplicantBenefits
-            {
-                ReceivingBenefitForUnder20 = true,
-                YouOrPartnerInvolvedInTradeDispute = false,
-            };
-
-            form.AddApplicantBenefits(Part.Part2, part2);
-
-            form.ApplicantBenefits.HasExistingBenefit.Should().BeFalse("part1 should not be lost");
-            form.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
-            form.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
-        }
-
-        [Test]
         public void AddApplicantBenefits_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => { });
-            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => m.ReceivingBenefitForUnder20 = null);
-            ApplicantBenefitsShouldBeValid(form, Part.Part1, m => m.YouOrPartnerInvolvedInTradeDispute = null);
-            ApplicantBenefitsShouldBeValid(form, Part.Part2, m => { });
+            ApplicantBenefitsShouldBeValid(form, m => { });
 
-            ApplicantBenefitsShouldBeInvalid(form, Part.Part1, m => m.HasExistingBenefit = null);
-            ApplicantBenefitsShouldBeInvalid(form, Part.Part2, m => m.ReceivingBenefitForUnder20 = null);
-            ApplicantBenefitsShouldBeInvalid(form, Part.Part2, m => m.YouOrPartnerInvolvedInTradeDispute = null);
+            ApplicantBenefitsShouldBeInvalid(form, m => m.HasExistingBenefit = null);
         }
 
         [Test]
@@ -413,14 +364,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeInvalid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
         }
 
-        protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
+        protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)
         {
-            ShouldBeValid(() => form.AddApplicantBenefits(part, ApplicantBenefitsBuilder.NewValid(part, mutator)));
+            ShouldBeValid(() => form.AddApplicantBenefits(BenefitsBuilder.NewValid(mutator)));
         }
 
-        protected void ApplicantBenefitsShouldBeInvalid(BestStartGrant form, Part part, Action<ApplicantBenefits> mutator)
+        protected void ApplicantBenefitsShouldBeInvalid(BestStartGrant form, Action<Benefits> mutator)
         {
-            ShouldBeInvalid(() => form.AddApplicantBenefits(part, ApplicantBenefitsBuilder.NewValid(part, mutator)));
+            ShouldBeInvalid(() => form.AddApplicantBenefits(BenefitsBuilder.NewValid(mutator)));
         }
 
         protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)

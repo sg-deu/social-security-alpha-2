@@ -5,6 +5,6 @@ namespace FormUI.Controllers.Bsg
     public class ApplicantBenefitsModel : NavigableModel
     {
         // POST
-        public ApplicantBenefits ApplicantBenefits;
+        public Benefits ApplicantBenefits;
     }
 }

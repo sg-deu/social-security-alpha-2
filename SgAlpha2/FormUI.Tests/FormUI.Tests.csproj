@@ -162,9 +162,8 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressBuilder.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetailsBuilder.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantBenefitsBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefitsTests.cs" />

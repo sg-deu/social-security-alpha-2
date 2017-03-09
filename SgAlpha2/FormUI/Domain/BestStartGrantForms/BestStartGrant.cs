@@ -19,7 +19,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public ApplicantDetails     ApplicantDetails    { get; protected set; }
         public ExpectedChildren     ExpectedChildren    { get; protected set; }
         public ExistingChildren     ExistingChildren    { get; protected set; }
-        public ApplicantBenefits    ApplicantBenefits   { get; protected set; }
+        public Benefits             ApplicantBenefits   { get; protected set; }
         public GuardianDetails      GuardianDetails     { get; protected set; }
         public HealthProfessional   HealthProfessional  { get; protected set; }
         public PaymentDetails       PaymentDetails      { get; protected set; }
@@ -109,18 +109,12 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.ExistingChildren);
         }
 
-        public NextSection AddApplicantBenefits(Part part, ApplicantBenefits applicantBenefits)
+        public NextSection AddApplicantBenefits(Benefits applicantBenefits)
         {
-            Validate(part, applicantBenefits);
+            Validate(applicantBenefits);
 
-            ApplicantBenefits = ApplicantBenefits ?? new ApplicantBenefits();
-            applicantBenefits.CopyTo(ApplicantBenefits, part);
-
-            var section = part == Part.Part1
-                ? Sections.ApplicantBenefits1
-                : Sections.ApplicantBenefits2;
-
-            return OnSectionCompleted(section);
+            ApplicantBenefits = applicantBenefits;
+            return OnSectionCompleted(Sections.ApplicantBenefits);
         }
 
         public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
@@ -298,20 +292,11 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static void Validate(Part part, ApplicantBenefits applicantBenefits)
+        private static void Validate(Benefits benefits)
         {
-            var ctx = new ValidationContext<ApplicantBenefits>(applicantBenefits);
+            var ctx = new ValidationContext<Benefits>(benefits);
 
-            if (part == Part.Part1)
-            {
-                ctx.Required(b => b.HasExistingBenefit, "Please indicate if you have one of the stated benefits");
-            }
-
-            if (part == Part.Part2)
-            {
-                ctx.Required(b => b.ReceivingBenefitForUnder20, "Please indicate if you are receiving benefit for the parent of the baby, or an expectant mother, because they are under 20 years of age");
-                ctx.Required(b => b.YouOrPartnerInvolvedInTradeDispute, "Please indicate if you or your partner are involved in a trade dispute");
-            }
+            ctx.Required(b => b.HasExistingBenefit, "Please indicate if one of the stated benefits applies");
 
             ctx.ThrowIfError();
         }

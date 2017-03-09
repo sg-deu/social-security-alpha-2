@@ -25,8 +25,7 @@ namespace FormUI.Controllers.Bsg
         public static string    Ajax_DobChanged()                   { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)     { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)     { return $"~/bsg/existingChildren/{formId}"; }
-        public static string    ApplicantBenefits1(string formId)   { return $"~/bsg/applicantBenefits1/{formId}"; }
-        public static string    ApplicantBenefits2(string formId)   { return $"~/bsg/applicantBenefits2/{formId}"; }
+        public static string    ApplicantBenefits(string formId)    { return $"~/bsg/applicantBenefits/{formId}"; }
         public static string    GuardianDetails1(string formId)     { return $"~/bsg/guardianDetails1/{formId}"; }
         public static string    GuardianDetails2(string formId)     { return $"~/bsg/guardianDetails2/{formId}"; }
         public static string    HealthProfessional(string formId)   { return $"~/bsg/healthProfessional/{formId}"; }
@@ -197,58 +196,28 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
-        public ActionResult ApplicantBenefits1(string id)
+        public ActionResult ApplicantBenefits(string id)
         {
-            return ApplicantBenefits1_Render(id, null);
+            return ApplicantBenefits_Render(id, null);
         }
 
         [HttpPost]
-        public ActionResult ApplicantBenefits1(string id, ApplicantBenefits applicantBenefits)
+        public ActionResult ApplicantBenefits(string id, Benefits applicantBenefits)
         {
             var cmd = new AddApplicantBenefits
             {
                 FormId = id,
-                Part = Part.Part1,
                 ApplicantBenefits = applicantBenefits,
             };
 
             return Exec(cmd,
                 success: next => RedirectNext(next),
-                failure: () => ApplicantBenefits1_Render(id, applicantBenefits));
+                failure: () => ApplicantBenefits_Render(id, applicantBenefits));
         }
 
-        private ActionResult ApplicantBenefits1_Render(string formId, ApplicantBenefits details)
+        private ActionResult ApplicantBenefits_Render(string formId, Benefits details)
         {
-            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits1, (m, f) =>
-            {
-                m.ApplicantBenefits = details ?? f.ApplicantBenefits;
-            });
-        }
-
-        [HttpGet]
-        public ActionResult ApplicantBenefits2(string id)
-        {
-            return ApplicantBenefits2_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult ApplicantBenefits2(string id, ApplicantBenefits applicantBenefits)
-        {
-            var cmd = new AddApplicantBenefits
-            {
-                FormId = id,
-                Part = Part.Part2,
-                ApplicantBenefits = applicantBenefits,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => ApplicantBenefits2_Render(id, applicantBenefits));
-        }
-
-        private ActionResult ApplicantBenefits2_Render(string formId, ApplicantBenefits details)
-        {
-            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits2, (m, f) =>
+            return NavigableView<ApplicantBenefitsModel>(formId, Sections.ApplicantBenefits, (m, f) =>
             {
                 m.ApplicantBenefits = details ?? f.ApplicantBenefits;
             });

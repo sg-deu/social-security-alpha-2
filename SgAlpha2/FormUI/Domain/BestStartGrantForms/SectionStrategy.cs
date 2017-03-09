@@ -11,8 +11,7 @@ namespace FormUI.Domain.BestStartGrantForms
             { Sections.ApplicantDetails,    () => new ApplicantDetailsActions() },
             { Sections.ExpectedChildren,    () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,    () => new ExistingChildrenActions() },
-            { Sections.ApplicantBenefits1,  () => new ApplicantBenefits1Actions() },
-            { Sections.ApplicantBenefits2,  () => new ApplicantBenefits2Actions() },
+            { Sections.ApplicantBenefits,   () => new ApplicantBenefitsActions() },
             { Sections.GuardianDetails1,    () => new GuardianDetails1Actions() },
             { Sections.GuardianDetails2,    () => new GuardianDetails2Actions() },
             { Sections.HealthProfessional,  () => new HealthProfessionalActions() },
@@ -49,12 +48,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-        private class ApplicantBenefits1Actions : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
-        }
-
-        private class ApplicantBenefits2Actions : SectionStrategy
+        private class ApplicantBenefitsActions : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
         }

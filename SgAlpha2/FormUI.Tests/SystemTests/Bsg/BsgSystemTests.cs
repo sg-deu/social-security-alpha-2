@@ -46,10 +46,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInExistingChildren();
             App.ClickButton("");
 
-            FillInApplicantBenefits1();
-            App.Submit();
-
-            FillInApplicantBenefits2();
+            FillInApplicantBenefits();
             App.Submit();
 
             FillInHealthProfessional();
@@ -231,29 +228,17 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.ExistingChildren);
         }
 
-        private void FillInApplicantBenefits1()
+        private void FillInApplicantBenefits()
         {
-            var form = App.FormForModel<ApplicantBenefits>();
+            var form = App.FormForModel<Benefits>();
 
             form.SelectRadio(m => m.HasExistingBenefit, false);
-        }
-
-        private void FillInApplicantBenefits2()
-        {
-            var form = App.FormForModel<ApplicantBenefits>();
-
-            form.SelectRadio(m => m.ReceivingBenefitForUnder20, true);
-            form.SelectRadio(m => m.YouOrPartnerInvolvedInTradeDispute, false);
         }
 
         private void VerifyApplicantBenefits(BestStartGrant doc)
         {
             doc.ApplicantBenefits.HasExistingBenefit.Should().BeFalse();
-            _verifiedSections.Add(Sections.ApplicantBenefits1);
-
-            doc.ApplicantBenefits.ReceivingBenefitForUnder20.Should().BeTrue();
-            doc.ApplicantBenefits.YouOrPartnerInvolvedInTradeDispute.Should().BeFalse();
-            _verifiedSections.Add(Sections.ApplicantBenefits2);
+            _verifiedSections.Add(Sections.ApplicantBenefits);
         }
 
         private void FillInGuardianDetails1(DateTime guardianDob)
