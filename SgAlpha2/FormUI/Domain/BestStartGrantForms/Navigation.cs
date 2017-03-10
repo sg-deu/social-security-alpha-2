@@ -67,6 +67,9 @@ namespace FormUI.Domain.BestStartGrantForms
                 if (applicantDetails.Age() < 18)
                     return false;
 
+            if (RequiresGuardianBenefits(form))
+                return false;
+
             return true;
         }
 

@@ -87,6 +87,26 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void RequiresApplicantBenefits_NotRequiredWhenAskingGuardianBenefits()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 18);
+            form.ApplicantDetails.FullTimeEducation = false;
+            BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should ask for applicant benefits if not asking for guardian benefits");
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 19);
+            form.ApplicantDetails.FullTimeEducation = true;
+            BestStartGrant.ShouldAskEducationQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("should not ask for applicant benefits if asking for guardian benefits");
+        }
+
+        [Test]
         public void RequiresGuardianDetails()
         {
             var form = new BestStartGrantBuilder("form")

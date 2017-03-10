@@ -90,7 +90,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next);
 
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
             next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
@@ -115,7 +114,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next);
 
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
             next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
