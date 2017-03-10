@@ -15,7 +15,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class ScenarioTests : DomainTest
     {
         [Test]
-        public void AgedOver25()
+        public void AgedOver25OnBenefits()
         {
             var next = new StartBestStartGrant().Execute();
             var formId = next.Id;
@@ -24,7 +24,26 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next);
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void AgedOver25PartnerOnBenefits()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+            next = AddPartnerBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -158,6 +177,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.ApplicantBenefits);
             return NextSection(current.Section, () => new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddPartnerBenefits(NextSection current, Action<Benefits> mutator = null)
+        {
+            current.Section.Should().Be(Sections.PartnerBenefits);
+            return NextSection(current.Section, () => new AddPartnerBenefits { FormId = current.Id, PartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddGuardianBenefits(NextSection current, Action<Benefits> mutator = null)

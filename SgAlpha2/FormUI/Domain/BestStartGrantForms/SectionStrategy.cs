@@ -12,6 +12,7 @@ namespace FormUI.Domain.BestStartGrantForms
             { Sections.ExpectedChildren,        () => new SectionStrategy.ExpectedChildren() },
             { Sections.ExistingChildren,        () => new SectionStrategy.ExistingChildren() },
             { Sections.ApplicantBenefits,       () => new SectionStrategy.ApplicantBenefits() },
+            { Sections.PartnerBenefits,         () => new SectionStrategy.PartnerBenefits() },
             { Sections.GuardianBenefits,        () => new SectionStrategy.GuardianBenefits() },
             { Sections.GuardianPartnerBenefits, () => new SectionStrategy.GuardianPartnerBenefits() },
             { Sections.GuardianDetails1,        () => new SectionStrategy.GuardianDetails1() },
@@ -53,6 +54,11 @@ namespace FormUI.Domain.BestStartGrantForms
         private class ApplicantBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
+        }
+
+        private class PartnerBenefits : SectionStrategy
+        {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerBenefits(form); }
         }
 
         private class GuardianBenefits : SectionStrategy

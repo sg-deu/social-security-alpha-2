@@ -29,7 +29,7 @@ namespace FormUI.Tests
 
                     _enforceSingleInstance = new Semaphore(1, 1, semaphoreName, out createdNew_notUsed, security);
 
-                    if (!_enforceSingleInstance.WaitOne(TimeSpan.FromSeconds(180)))
+                    if (!_enforceSingleInstance.WaitOne(TimeSpan.FromSeconds(240)))
                         throw new Exception("Could not obtain semaphore: " + semaphoreName);
                 }
 
@@ -53,11 +53,17 @@ namespace FormUI.Tests
             lock (typeof(SetUpFixture))
                 if (_enforceSingleInstance != null)
                 {
-                    using (_enforceSingleInstance)
-                        _enforceSingleInstance.Release();
-
-                    _enforceSingleInstance = null;
-                    Console.WriteLine("Released machine-wide lock");
+                    try
+                    {
+                        using (_enforceSingleInstance)
+                            _enforceSingleInstance.Release();
+                    }
+                    catch { }
+                    finally
+                    {
+                        _enforceSingleInstance = null;
+                        Console.WriteLine("Released machine-wide lock");
+                    }
                 }
         }
     }

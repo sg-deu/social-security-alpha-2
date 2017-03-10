@@ -13,6 +13,7 @@ namespace FormUI.Controllers.Bsg
             { Sections.ExpectedChildren,        () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,        () => new ExistingChildrenActions() },
             { Sections.ApplicantBenefits,       () => new ApplicantBenefitsActions() },
+            { Sections.PartnerBenefits,         () => new PartnerBenefitsActions() },
             { Sections.GuardianBenefits,        () => new GuardianBenefitsActions() },
             { Sections.GuardianPartnerBenefits, () => new GuardianPartnerBenefitsActions() },
             { Sections.GuardianDetails1,        () => new GuardianDetails1Actions() },
@@ -55,6 +56,11 @@ namespace FormUI.Controllers.Bsg
         private class ApplicantBenefitsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.ApplicantBenefits(formId); }
+        }
+
+        private class PartnerBenefitsActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.PartnerBenefits(formId); }
         }
 
         private class GuardianBenefitsActions : SectionActionStrategy

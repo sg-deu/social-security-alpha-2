@@ -51,6 +51,10 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInApplicantBenefits();
             App.Submit();
 
+            App.VerifyCanSeeText("Partner's benefits");
+            FillInPartnerBenefits();
+            App.Submit();
+
             FillInHealthProfessional();
             App.Submit();
 
@@ -71,6 +75,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
                 VerifyApplicantBenefits(doc);
+                VerifyPartnerBenefits(doc);
                 VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
                 VerifyDeclaration(doc);
@@ -279,6 +284,19 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.ApplicantBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
             _verifiedSections.Add(Sections.ApplicantBenefits);
+        }
+
+        private void FillInPartnerBenefits()
+        {
+            var form = App.FormForModel<Benefits>();
+
+            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.Yes);
+        }
+
+        private void VerifyPartnerBenefits(BestStartGrant doc)
+        {
+            doc.PartnerBenefits.HasExistingBenefit.Should().Be(YesNoDk.Yes);
+            _verifiedSections.Add(Sections.PartnerBenefits);
         }
 
         private void FillInGuardianBenefits()
