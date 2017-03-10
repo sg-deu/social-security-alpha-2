@@ -223,6 +223,36 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddPartnerBenefits_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            PartnerBenefitsShouldBeValid(form, m => { });
+
+            PartnerBenefitsShouldBeInvalid(form, m => m.HasExistingBenefit = null);
+        }
+
+        [Test]
+        public void AddGuardianBenefits_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            GuardianBenefitsShouldBeValid(form, m => { });
+
+            GuardianBenefitsShouldBeInvalid(form, m => m.HasExistingBenefit = null);
+        }
+
+        [Test]
+        public void AddGuardianPartnerBenefits_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            GuardianPartnerBenefitsShouldBeValid(form, m => { });
+
+            GuardianPartnerBenefitsShouldBeInvalid(form, m => m.HasExistingBenefit = null);
+        }
+
+        [Test]
         public void AddGuardianDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
@@ -372,6 +402,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         protected void ApplicantBenefitsShouldBeInvalid(BestStartGrant form, Action<Benefits> mutator)
         {
             ShouldBeInvalid(() => form.AddApplicantBenefits(BenefitsBuilder.NewValid(mutator)));
+        }
+
+        protected void PartnerBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)
+        {
+            ShouldBeValid(() => form.AddPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
+        }
+
+        protected void PartnerBenefitsShouldBeInvalid(BestStartGrant form, Action<Benefits> mutator)
+        {
+            ShouldBeInvalid(() => form.AddPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
         }
 
         protected void GuardianBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)

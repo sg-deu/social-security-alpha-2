@@ -121,6 +121,14 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.ApplicantBenefits);
         }
 
+        public NextSection AddPartnerBenefits(Benefits partnerBenefits)
+        {
+            Validate(partnerBenefits);
+
+            //PartnerBenefits = partnerBenefits; // no failing test yet
+            return OnSectionCompleted(Sections.PartnerBenefits);
+        }
+
         public NextSection AddGuardianBenefits(Benefits guardianBenefits)
         {
             Validate(guardianBenefits);
