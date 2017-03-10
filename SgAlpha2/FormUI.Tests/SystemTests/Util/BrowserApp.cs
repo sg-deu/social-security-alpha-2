@@ -125,13 +125,18 @@ namespace FormUI.Tests.SystemTests.Util
             return new FormModel<T>(this);
         }
 
-        public void TypeText(string name, string text)
+        public void TypeText(string name, string text, bool clearFirst = true)
         {
             Console.WriteLine("Type text '{0}' into '{1}'", text, name);
             Wait.For(() =>
             {
                 var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
-                input.Clear();
+
+                if (clearFirst)
+                {
+                    input.Clear();
+                    input.GetAttribute("value").Should().BeNullOrEmpty();
+                }
                 input.SendKeys(text);
             });
         }

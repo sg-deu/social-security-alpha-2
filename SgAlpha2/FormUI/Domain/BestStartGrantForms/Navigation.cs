@@ -24,10 +24,14 @@ namespace FormUI.Domain.BestStartGrantForms
             while (index >= 0 && !detail.PreviousSection.HasValue)
             {
                 var previousSection = _order[index];
-                var strategy = SectionStrategy.For(previousSection);
 
-                if (strategy.Required(form))
-                    detail.PreviousSection = previousSection;
+                if (!FeatureToggles.SkipWorkInProgressSection(previousSection))
+                {
+                    var strategy = SectionStrategy.For(previousSection);
+
+                    if (strategy.Required(form))
+                        detail.PreviousSection = previousSection;
+                }
 
                 index--;
             }
@@ -44,10 +48,14 @@ namespace FormUI.Domain.BestStartGrantForms
             while (!nextSection.HasValue && index < _order.Count)
             {
                 var section = _order[index];
-                var strategy = SectionStrategy.For(section);
 
-                if (strategy.Required(form))
-                    nextSection = section;
+                if (!FeatureToggles.SkipWorkInProgressSection(section))
+                {
+                    var strategy = SectionStrategy.For(section);
+
+                    if (strategy.Required(form))
+                        nextSection = section;
+                }
 
                 index++;
             }
