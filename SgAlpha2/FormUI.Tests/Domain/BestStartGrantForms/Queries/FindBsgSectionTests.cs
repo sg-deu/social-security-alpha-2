@@ -25,22 +25,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             var detail = query.Find();
 
-            detail.ShouldBeEquivalentTo(new BsgDetail
-            {
-                Consent = existingForm.Consent,
-                ApplicantDetails = existingForm.ApplicantDetails,
-                ExpectedChildren = existingForm.ExpectedChildren,
-                ExistingChildren = existingForm.ExistingChildren,
-                ApplicantBenefits = existingForm.ApplicantBenefits,
-                GuardianBenefits = existingForm.GuardianBenefits,
-                GuardianPartnerBenefits = existingForm.GuardianPartnerBenefits,
-                GuardianDetails = existingForm.GuardianDetails,
-                HealthProfessional = existingForm.HealthProfessional,
-                PaymentDetails = existingForm.PaymentDetails,
-                Declaration = existingForm.Declaration,
+            var expectedDetail = new BsgDetail { PreviousSection = Sections.ExpectedChildren };
+            BestStartGrantBuilder.CopySectionsFrom(existingForm, expectedDetail);
 
-                PreviousSection = Sections.ExpectedChildren,
-            });
+            detail.ShouldBeEquivalentTo(expectedDetail);
         }
     }
 }

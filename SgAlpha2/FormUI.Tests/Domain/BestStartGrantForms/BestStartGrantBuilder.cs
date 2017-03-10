@@ -1,5 +1,6 @@
 ﻿using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
+using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
 
@@ -19,6 +20,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.ExpectedChildren,           ExpectedChildrenBuilder.NewValid());
             With(f => f.ExistingChildren,           ExistingChildrenBuilder.NewValid());
             With(f => f.ApplicantBenefits,          BenefitsBuilder.NewValid());
+            With(f => f.PartnerBenefits,            BenefitsBuilder.NewValid());
             With(f => f.GuardianBenefits,           BenefitsBuilder.NewValid());
             With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewValid());
             With(f => f.GuardianDetails,            GuardianDetailsBuilder.NewValid(Part.Part2));
@@ -26,6 +28,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
             return this;
+        }
+
+        public static void CopySectionsFrom(BestStartGrant form, BsgDetail detail)
+        {
+            detail.Consent = form.Consent;
+            detail.ApplicantDetails = form.ApplicantDetails;
+            detail.ExpectedChildren = form.ExpectedChildren;
+            detail.ExistingChildren = form.ExistingChildren;
+            detail.ApplicantBenefits = form.ApplicantBenefits;
+            detail.PartnerBenefits = form.PartnerBenefits;
+            detail.GuardianBenefits = form.GuardianBenefits;
+            detail.GuardianPartnerBenefits = form.GuardianPartnerBenefits;
+            detail.GuardianDetails = form.GuardianDetails;
+            detail.HealthProfessional = form.HealthProfessional;
+            detail.PaymentDetails = form.PaymentDetails;
+            detail.Declaration = form.Declaration;
         }
     }
 }

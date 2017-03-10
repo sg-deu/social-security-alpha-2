@@ -37,6 +37,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ExpectedChildren        = ExpectedChildren,
                 ExistingChildren        = ExistingChildren,
                 ApplicantBenefits       = ApplicantBenefits,
+                PartnerBenefits         = PartnerBenefits,
                 GuardianBenefits        = GuardianBenefits,
                 GuardianPartnerBenefits = GuardianPartnerBenefits,
                 GuardianDetails         = GuardianDetails,
