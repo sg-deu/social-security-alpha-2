@@ -20,6 +20,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public ExpectedChildren     ExpectedChildren        { get; protected set; }
         public ExistingChildren     ExistingChildren        { get; protected set; }
         public Benefits             ApplicantBenefits       { get; protected set; }
+        public Benefits             PartnerBenefits         { get; protected set; }
         public Benefits             GuardianBenefits        { get; protected set; }
         public Benefits             GuardianPartnerBenefits { get; protected set; }
         public GuardianDetails      GuardianDetails         { get; protected set; }
@@ -125,7 +126,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             Validate(partnerBenefits);
 
-            //PartnerBenefits = partnerBenefits; // no failing test yet
+            PartnerBenefits = partnerBenefits;
             return OnSectionCompleted(Sections.PartnerBenefits);
         }
 
