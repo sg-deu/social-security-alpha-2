@@ -107,27 +107,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void RequiresGuardianDetails()
+        public void RequiresPartnerBenefits()
         {
             var form = new BestStartGrantBuilder("form")
-                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .With(f => f.ApplicantBenefits, null)
                 .Value();
 
-            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            Navigation.RequiresPartnerBenefits(form).Should().BeFalse("partner benefits not required if applicant benefits not asked");
 
-            form.ApplicantDetails.DateOfBirth = null;
+            Builder.Modify(form).With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.Yes));
 
-            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
+            Navigation.RequiresPartnerBenefits(form).Should().BeFalse("partner benefits not required if applicant benefits positive");
 
-            // 16 tomorrow
-            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 08);
+            form.ApplicantBenefits.HasExistingBenefit = YesNoDk.No;
 
-            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
+            Navigation.RequiresPartnerBenefits(form).Should().BeTrue("partner benefits required if applicant benefits asked but answered 'no'");
 
-            // 16 today
-            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
+            form.ApplicantBenefits.HasExistingBenefit = YesNoDk.DontKnow;
 
-            Navigation.RequiresGuardianDetails(form).Should().BeFalse("over 16 does not require a legal guradian/parent");
+            Navigation.RequiresPartnerBenefits(form).Should().BeTrue("partner benefits required if applicant benefits asked but answered 'don't know'");
         }
 
         [Test]
@@ -180,6 +178,30 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'don't know'");
+        }
+
+        [Test]
+        public void RequiresGuardianDetails()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+
+            form.ApplicantDetails.DateOfBirth = null;
+
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
+
+            // 16 tomorrow
+            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 08);
+
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue();
+
+            // 16 today
+            form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
+
+            Navigation.RequiresGuardianDetails(form).Should().BeFalse("over 16 does not require a legal guradian/parent");
         }
     }
 }
