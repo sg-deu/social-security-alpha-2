@@ -253,7 +253,7 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianBenefits, (m, f) =>
             {
                 m.Title     = "Your Parent/Legal Guardian's benefits";
-                m.Question  = "Is your legal guardian currently receiving any of these benefits?";
+                m.Question  = "Is your Parent/Legal Guardian currently receiving any of these benefits?";
                 m.Benefits  = details ?? f.GuardianBenefits;
             });
         }

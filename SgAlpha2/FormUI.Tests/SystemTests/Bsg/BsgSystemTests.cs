@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
-using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.SystemTests.Util;
@@ -23,12 +22,7 @@ namespace FormUI.Tests.SystemTests.Bsg
 
             // verify each section has been tested
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
-            {
-                if (FeatureToggles.WorkingOnGuardianBenefits(section))
-                    continue;
-
                 _verifiedSections.Should().Contain(section, "section {0} should be filled in and verified", section);
-            }
         }
 
         [Test]
@@ -114,6 +108,44 @@ namespace FormUI.Tests.SystemTests.Bsg
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyGuardianDetails(doc, guardianDob);
+            });
+        }
+
+        [Test]
+        public void IncludingGuardianBenefits()
+        {
+            App.GoTo(BsgActions.Overview());
+            App.VerifyCanSeeText("Overview");
+            App.Submit();
+
+            FillInConsent();
+            App.Submit();
+
+            var dob = DateTime.Now.Date.AddYears(-18);
+            FillInApplicantDetails(dob, previouslyLookedAfter: false, fullTimeEducation: true);
+            App.Submit();
+
+            var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
+            FillInExpectedChildren(expectancyDate);
+            App.Submit();
+
+            App.VerifyCanSeeText("already been born");
+            App.ClickButton("");
+
+            App.VerifyCanSeeText("Guardian's benefits");
+            FillInGuardianBenefits();
+            App.Submit();
+
+            App.VerifyCanSeeText("Guardian's Partner's benefits");
+            FillInGuardianPartnerBenefits();
+            App.Submit();
+
+            Db(r =>
+            {
+                var doc = r.Query<BestStartGrant>().ToList().Single();
+
+                VerifyGuardianBenefits(doc);
+                VerifyGuardianPartnerBenefits(doc);
             });
         }
 
@@ -245,6 +277,32 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.ApplicantBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
             _verifiedSections.Add(Sections.ApplicantBenefits);
+        }
+
+        private void FillInGuardianBenefits()
+        {
+            var form = App.FormForModel<Benefits>();
+
+            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.No);
+        }
+
+        private void VerifyGuardianBenefits(BestStartGrant doc)
+        {
+            doc.GuardianBenefits.HasExistingBenefit.Should().Be(YesNoDk.No);
+            _verifiedSections.Add(Sections.GuardianBenefits);
+        }
+
+        private void FillInGuardianPartnerBenefits()
+        {
+            var form = App.FormForModel<Benefits>();
+
+            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.Yes);
+        }
+
+        private void VerifyGuardianPartnerBenefits(BestStartGrant doc)
+        {
+            doc.GuardianPartnerBenefits.HasExistingBenefit.Should().Be(YesNoDk.Yes);
+            _verifiedSections.Add(Sections.GuardianPartnerBenefits);
         }
 
         private void FillInGuardianDetails1(DateTime guardianDob)
