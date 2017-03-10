@@ -12,6 +12,9 @@ namespace FormUI.Tests.SystemTests
         [SetUp]
         public void SetUp()
         {
+            if (TestRegistry.TestHasFailed)
+                return; // no need to setup Selenium
+
             Console.WriteLine("SetUp SystemTests");
             var runHeadless = RunHeadless();
 

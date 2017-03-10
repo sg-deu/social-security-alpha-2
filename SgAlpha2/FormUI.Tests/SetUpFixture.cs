@@ -40,6 +40,8 @@ namespace FormUI.Tests
                 TearDown();
                 throw;
             }
+
+            TestRegistry.TestHasFailed = false;
         }
 
         [TearDown]

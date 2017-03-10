@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Controllers.Shared
 {
     [TestFixture]
-    public class FormUiContraintsTests
+    public class FormUiConstraintsTests : AbstractTest
     {
         [Test]
         public void MsBuildTasks_versions_should_match()

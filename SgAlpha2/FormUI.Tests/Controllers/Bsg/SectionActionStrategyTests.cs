@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Controllers.Bsg
 {
     [TestFixture]
-    public class SectionActionStrategyTests
+    public class SectionActionStrategyTests : AbstractTest
     {
         [Test]
         public void AllSectionsHaveActions()

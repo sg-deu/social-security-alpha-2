@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     [TestFixture]
-    public class GuardianDetailsTests
+    public class GuardianDetailsTests : AbstractTest
     {
         [Test]
         public void CopyTo_CoversAllDetails()

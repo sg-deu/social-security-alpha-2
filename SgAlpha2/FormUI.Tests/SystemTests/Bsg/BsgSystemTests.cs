@@ -21,6 +21,9 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             base.TearDown();
 
+            if (TestRegistry.TestHasFailed)
+                return;
+
             // verify each section has been tested
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
                 if (!FeatureToggles.SkipWorkInProgressSection(section))

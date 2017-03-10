@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.App_Start
 {
     [TestFixture]
-    public class BinderTests
+    public class BinderTests : AbstractTest
     {
         [Test]
         public void BindDate()

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.Util
 {
     [TestFixture]
-    public abstract class DomainTest
+    public abstract class DomainTest : AbstractTest
     {
         protected LocalRepository   Repository;
         protected DateTime?         TestNowUtc;
@@ -19,9 +19,9 @@ namespace FormUI.Tests.Domain.Util
             TestNowUtc = new DateTime(2015, 07, 16, 12, 00, 00);
         }
 
-        [TearDown]
-        protected virtual void TearDown()
+        public override void TearDown()
         {
+            base.TearDown();
             using (Repository) { }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Web;
 using FluentAssertions;
@@ -9,7 +10,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Controllers.Util
 {
     [TestFixture]
-    public abstract class WebTest
+    public abstract class WebTest : AbstractTest
     {
         private static Lazy<AspNetTestHost> _webApp;
 
@@ -24,16 +25,26 @@ namespace FormUI.Tests.Controllers.Util
                 using (_webApp.Value) { }
         }
 
-        public static ExecutorStub ExecutorStub;
+        public static ExecutorStub ExecutorStub
+        {
+            [DebuggerStepThrough] get { return TestRegistry.ExecutorStub; }
+        }
 
         protected void WebAppTest(Action<SimulatedHttpClient> test)
         {
             _webApp.Value.Test(client =>
             {
-                ExecutorStub = new ExecutorStub();
+                try
+                {
+                    TestRegistry.ExecutorStub = new ExecutorStub();
 
-                client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
-                test(client);
+                    client.Cookies.Add(new HttpCookie("Alpha2Entry", "allow"));
+                    test(client);
+                }
+                finally
+                {
+                    TestRegistry.ExecutorStub = null;
+                }
             });
         }
 

@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.Util
 {
     [TestFixture]
-    public class TaskUtilTests
+    public class TaskUtilTests : AbstractTest
     {
         [Test]
         public void Await_ReThrows_Exceptions()
