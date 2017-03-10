@@ -26,6 +26,7 @@ namespace FormUI.Controllers.Bsg
         public static string    ExpectedChildren(string formId)         { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)         { return $"~/bsg/existingChildren/{formId}"; }
         public static string    ApplicantBenefits(string formId)        { return $"~/bsg/applicantBenefits/{formId}"; }
+        public static string    PartnerBenefits(string formId)          { return $"~/bsg/partnerBenefits/{formId}"; }
         public static string    GuardianBenefits(string formId)         { return $"~/bsg/guardianBenefits/{formId}"; }
         public static string    GuardianPartnerBenefits(string formId)  { return $"~/bsg/guardianPartnerBenefits/{formId}"; }
         public static string    GuardianDetails1(string formId)         { return $"~/bsg/guardianDetails1/{formId}"; }
@@ -225,6 +226,36 @@ namespace FormUI.Controllers.Bsg
                 m.Title     = "Your benefits";
                 m.Question  = "Do you get any of these benefits?";
                 m.Benefits  = details ?? f.ApplicantBenefits;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult PartnerBenefits(string id)
+        {
+            return PartnerBenefits_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult PartnerBenefits(string id, Benefits partnerBenefits)
+        {
+            var cmd = new AddPartnerBenefits
+            {
+                FormId = id,
+                PartnerBenefits = partnerBenefits,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => PartnerBenefits_Render(id, partnerBenefits));
+        }
+
+        private ActionResult PartnerBenefits_Render(string formId, Benefits details)
+        {
+            return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.PartnerBenefits, (m, f) =>
+            {
+                m.Title     = "Your Partner's benefits";
+                m.Question  = "Does your Partner get any of these benefits?";
+                m.Benefits  = details ?? f.PartnerBenefits;
             });
         }
 

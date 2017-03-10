@@ -405,6 +405,57 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void PartnerBenefits_GET_PopulatesExistingDetails()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.PartnerBenefits(detail.Id));
+
+                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.PartnerBenefits });
+                response.Doc.Form<Benefits>(1).GetText(m => m.HasExistingBenefit).Should().Be(detail.PartnerBenefits.HasExistingBenefit.ToString());
+            });
+        }
+
+        [Test]
+        public void PartnerBenefits_POST_CanAddApplicantBenefits()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.PartnerBenefits("form123")).Form<Benefits>(1)
+                    .SetText(m => m.HasExistingBenefit, YesNoDk.No.ToString())
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddPartnerBenefits>(0).ShouldBeEquivalentTo(new AddPartnerBenefits
+                {
+                    FormId = "form123",
+                    PartnerBenefits = new Benefits
+                    {
+                        HasExistingBenefit = YesNoDk.No,
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
+        public void PartnerBenefits_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand<AddPartnerBenefits, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(BsgActions.PartnerBenefits("form123")).Form<Benefits>(1)
+                    .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
+            });
+        }
+
+        [Test]
         public void GuardianBenefits_GET_PopulatesExistingDetails()
         {
             WebAppTest(client =>
@@ -797,6 +848,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 ExpectedChildren        = ExpectedChildrenBuilder.NewValid(),
                 ExistingChildren        = ExistingChildrenBuilder.NewValid(),
                 ApplicantBenefits       = BenefitsBuilder.NewValid(),
+                PartnerBenefits         = BenefitsBuilder.NewValid(),
                 GuardianBenefits        = BenefitsBuilder.NewValid(),
                 GuardianPartnerBenefits = BenefitsBuilder.NewValid(),
                 GuardianDetails         = GuardianDetailsBuilder.NewValid(Part.Part2),
