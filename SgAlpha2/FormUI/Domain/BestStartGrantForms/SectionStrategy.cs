@@ -7,18 +7,18 @@ namespace FormUI.Domain.BestStartGrantForms
     {
         private static IDictionary<Sections, Func<SectionStrategy>> _strategies = new Dictionary<Sections, Func<SectionStrategy>>
         {
-            { Sections.Consent,                 () => new ConsentActions() },
-            { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
-            { Sections.ExpectedChildren,        () => new ExpectedChildrenActions() },
-            { Sections.ExistingChildren,        () => new ExistingChildrenActions() },
-            { Sections.ApplicantBenefits,       () => new ApplicantBenefitsActions() },
-            { Sections.GuardianBenefits,        () => new GuardianBenefitsActions() },
-            { Sections.GuardianPartnerBenefits, () => new GuardianPartnerBenefitsActions() },
-            { Sections.GuardianDetails1,        () => new GuardianDetails1Actions() },
-            { Sections.GuardianDetails2,        () => new GuardianDetails2Actions() },
-            { Sections.HealthProfessional,      () => new HealthProfessionalActions() },
-            { Sections.PaymentDetails,          () => new PaymentDetailsActions() },
-            { Sections.Declaration,             () => new DeclarationActions() },
+            { Sections.Consent,                 () => new SectionStrategy.Consent() },
+            { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails() },
+            { Sections.ExpectedChildren,        () => new SectionStrategy.ExpectedChildren() },
+            { Sections.ExistingChildren,        () => new SectionStrategy.ExistingChildren() },
+            { Sections.ApplicantBenefits,       () => new SectionStrategy.ApplicantBenefits() },
+            { Sections.GuardianBenefits,        () => new SectionStrategy.GuardianBenefits() },
+            { Sections.GuardianPartnerBenefits, () => new SectionStrategy.GuardianPartnerBenefits() },
+            { Sections.GuardianDetails1,        () => new SectionStrategy.GuardianDetails1() },
+            { Sections.GuardianDetails2,        () => new SectionStrategy.GuardianDetails2() },
+            { Sections.HealthProfessional,      () => new SectionStrategy.HealthProfessional() },
+            { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails() },
+            { Sections.Declaration,             () => new SectionStrategy.Declaration() },
         };
 
         public static SectionStrategy For(Sections section)
@@ -34,56 +34,56 @@ namespace FormUI.Domain.BestStartGrantForms
             return true; // default is to require sections
         }
 
-        private class ConsentActions : SectionStrategy
+        private class Consent : SectionStrategy
         {
         }
 
-        private class ApplicantDetailsActions : SectionStrategy
+        private class ApplicantDetails : SectionStrategy
         {
         }
 
-        private class ExpectedChildrenActions : SectionStrategy
+        private class ExpectedChildren : SectionStrategy
         {
         }
 
-        private class ExistingChildrenActions : SectionStrategy
+        private class ExistingChildren : SectionStrategy
         {
         }
 
-        private class ApplicantBenefitsActions : SectionStrategy
+        private class ApplicantBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
         }
 
-        private class GuardianBenefitsActions : SectionStrategy
+        private class GuardianBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianBenefits(form); }
         }
 
-        private class GuardianPartnerBenefitsActions : SectionStrategy
+        private class GuardianPartnerBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerBenefits(form); }
         }
 
-        private class GuardianDetails1Actions : SectionStrategy
+        private class GuardianDetails1 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
         }
 
-        private class GuardianDetails2Actions : SectionStrategy
+        private class GuardianDetails2 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
         }
 
-        private class HealthProfessionalActions : SectionStrategy
+        private class HealthProfessional : SectionStrategy
         {
         }
 
-        private class PaymentDetailsActions : SectionStrategy
+        private class PaymentDetails : SectionStrategy
         {
         }
 
-        private class DeclarationActions : SectionStrategy
+        private class Declaration : SectionStrategy
         {
         }
     }
