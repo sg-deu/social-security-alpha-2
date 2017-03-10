@@ -27,7 +27,7 @@ namespace FormUI.Tests.SystemTests.Util
 
         protected void Db(Action<LocalRepository> action)
         {
-            Wait.For(() =>
+            Wait.For(null, () =>
             {
                 using (var repository = LocalRepository.New(deleteAllDocuments: false))
                 {

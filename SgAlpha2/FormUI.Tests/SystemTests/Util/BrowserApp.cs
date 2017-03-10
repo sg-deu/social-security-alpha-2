@@ -6,6 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.PhantomJS;
 
 namespace FormUI.Tests.SystemTests.Util
@@ -72,7 +73,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void GoTo(string action)
         {
             Console.WriteLine("Navigating to '{0}' ", action);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 action = action.Replace("~/", DevWebServer.RootUrl);
                 _browser.Navigate().GoToUrl(action);
@@ -82,7 +83,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void FindElement(string testText, By by, Action<IWebElement> verify)
         {
             Console.WriteLine(testText);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var element = _browser.FindElement(by);
                 verify(element);
@@ -92,7 +93,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void FindElements(string testText, By by, Action<ReadOnlyCollection<IWebElement>> verify)
         {
             Console.WriteLine(testText);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var elements = _browser.FindElements(by);
                 verify(elements);
@@ -102,7 +103,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void VerifyCanSeeText(string text)
         {
             Console.WriteLine("Verify can see text '{0}'", text);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var body = _browser.FindElement(By.TagName("body"));
                 body.Text.Should().Contain(text);
@@ -112,7 +113,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void ClickLinkButton(string linkText)
         {
             Console.WriteLine("Click link button '{0}'", linkText);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var links = _browser.FindElements(By.CssSelector("a.button"));
                 var link = links.Where(l => string.Equals(l.Text, linkText, StringComparison.OrdinalIgnoreCase)).Single();
@@ -128,23 +129,30 @@ namespace FormUI.Tests.SystemTests.Util
         public void TypeText(string name, string text, bool clearFirst = true)
         {
             Console.WriteLine("Type text '{0}' into '{1}'", text, name);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
 
+                var actions = new Actions(_browser);
+                actions.Click(input);
+
                 if (clearFirst)
                 {
-                    input.Clear();
-                    input.GetAttribute("value").Should().BeNullOrEmpty();
+                    actions.KeyDown(Keys.Control);
+                    actions.SendKeys("a");
+                    actions.KeyUp(Keys.Control);
+                    actions.SendKeys(Keys.Backspace);
                 }
-                input.SendKeys(text);
+
+                actions.SendKeys(text);
+                actions.Perform();
             });
         }
 
         public void Blur(string name)
         {
             Console.WriteLine("Tab off " + name);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
                 input.SendKeys(Keys.Tab);
@@ -154,7 +162,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void GetText(string testText, string name, Action<string> verify)
         {
             Console.WriteLine(testText);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
                 input.Displayed.Should().BeTrue(testText);
@@ -166,7 +174,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void SelectRadio(string name, string value)
         {
             Console.WriteLine("Select '{0}' for '{1}'", value, name);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var radios = _browser.FindElements(By.CssSelector($"input[name='{name}']"));
                 var radio = radios.Where(r => r.GetAttribute("value") == value).Single();
@@ -179,7 +187,7 @@ namespace FormUI.Tests.SystemTests.Util
             var display = check ? "Check" : "Uncheck";
             Console.Write("{0} {1}; ", display, name);
             var after = "";
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 var checkBox = _browser.FindElement(By.Name(name));
 
@@ -208,7 +216,7 @@ namespace FormUI.Tests.SystemTests.Util
         public void ClickButton(string name)
         {
             Console.WriteLine("Click button ", name);
-            Wait.For(() =>
+            Wait.For(_browser, () =>
             {
                 IList<IWebElement> buttons = _browser.FindElements(By.CssSelector("form[method='post'] button"));
 
