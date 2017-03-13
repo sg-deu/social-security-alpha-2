@@ -107,6 +107,24 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void RequiresApplicantBenefits_NotRequiredWhenAllChildrenKinshipCare()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ExistingChildren, ExistingChildrenBuilder.NewValid(0))
+                .Value();
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should ask for applicant benefits if no existing children with kinship care");
+
+            Builder.Modify(form).With(f => f.ExistingChildren, ExistingChildrenBuilder.NewValid(3).LastNotKinshipCare());
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should ask for applicant benefits if not all children in kinship care");
+
+            Builder.Modify(form).With(f => f.ExistingChildren, ExistingChildrenBuilder.NewValid(3).AllKinshipCare());
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("should not ask for applicant benefits is all children are kinship care");
+        }
+
+        [Test]
         public void RequiresPartnerBenefits()
         {
             var form = new BestStartGrantBuilder("form")

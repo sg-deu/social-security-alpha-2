@@ -69,6 +69,9 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresApplicantBenefits(BestStartGrant form)
         {
+            if (AllChildrenKinshipCare(form))
+                return false;
+
             var applicantDetails = form.ApplicantDetails;
 
             if (applicantDetails != null)
@@ -94,6 +97,9 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresGuardianBenefits(BestStartGrant form)
         {
+            if (AllChildrenKinshipCare(form))
+                return false;
+
             var applicantDetails = form.ApplicantDetails;
 
             if (applicantDetails != null)
@@ -124,6 +130,17 @@ namespace FormUI.Domain.BestStartGrantForms
                     return false;
 
             return true;
+        }
+
+        private static bool AllChildrenKinshipCare(BestStartGrant form)
+        {
+            var existingChildren = form.ExistingChildren;
+
+            if (existingChildren != null && existingChildren.Children != null)
+                if (existingChildren.Children.Count > 0)
+                    return existingChildren.Children.All(c => c.FormalKinshipCare == true);
+
+            return false;
         }
     }
 }

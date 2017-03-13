@@ -5,39 +5,50 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
-    public class ExistingChildrenBuilder
+    public static class ExistingChildrenBuilder
     {
-        public static ExistingChildren NewValid(Action<ExistingChildren> mutator = null)
+        public static ExistingChildren NewValid(int childCount = 2, Action<ExistingChildren> mutator = null)
         {
+            var children = new List<ExistingChild>();
+
+            for (var i = 0; i < childCount; i++)
+            {
+                children.Add(new ExistingChild
+                {
+                    FirstName = $"child {i + 1} first name",
+                    Surname = $"child {i + 1} surname",
+                    DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-(10 + i * 2)),
+                    RelationshipToChild = "guardian",
+                    ChildBenefit = false,
+                    FormalKinshipCare = false,
+                });
+            }
+
             var value = new ExistingChildren
             {
-                Children = new List<ExistingChild>()
-                {
-                    new ExistingChild()
-                    {
-                        FirstName = "child 1 first name",
-                        Surname = "child 1 surname",
-                        DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(10 * 365),
-                        RelationshipToChild = "parent",
-                        ChildBenefit = true,
-                        FormalKinshipCare = true,
-                    },
-                    new ExistingChild()
-                    {
-                        FirstName = "child 2 first name",
-                        Surname = "child 2 surname",
-                        DateOfBirth = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(12 * 365),
-                        RelationshipToChild = "guardian",
-                        ChildBenefit = false,
-                        FormalKinshipCare = false,
-                    },
-                },
+                Children = children,
             };
 
             if (mutator != null)
                 mutator(value);
 
             return value;
+        }
+
+        public static ExistingChildren LastNotKinshipCare(this ExistingChildren existingChildren)
+        {
+            for (var i = 0; i < existingChildren.Children.Count; i++)
+                existingChildren.Children[i].FormalKinshipCare = i != existingChildren.Children.Count - 1;
+
+            return existingChildren;
+        }
+
+        public static ExistingChildren AllKinshipCare(this ExistingChildren existingChildren)
+        {
+            for (var i = 0; i < existingChildren.Children.Count; i++)
+                existingChildren.Children[i].FormalKinshipCare = true;
+
+            return existingChildren;
         }
     }
 }

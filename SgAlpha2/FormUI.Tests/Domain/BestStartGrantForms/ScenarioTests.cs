@@ -52,6 +52,62 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void NoExistingChildren()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next, 0);
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void MultipleExistingChildren_OneNotKinshipCare()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next, 3, ec => ec.LastNotKinshipCare());
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void MultipleExistingChildren_AllKinshipCare()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
+
+            next.Section.Should().Be(Sections.HealthProfessional, "where all existing children are kinship care, qualifying benefits are not required");
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
         public void AgedUnder16()
         {
             // under 16 is automatically eligible, but need legal parent/guardian details
@@ -147,6 +203,27 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next.Section.Should().BeNull();
         }
 
+        [Test]
+        public void Aged18PartOfGuardianBenefits_AllChildrenKinshipCare()
+        {
+            // 18, living with parents, and all children kinship care
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
+
+            next.Section.Should().Be(Sections.HealthProfessional, "when all children kinship care, should skip all benefits");
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
         #region command execution helpers
 
         private NextSection AddConsent(NextSection current, Action<Consent> mutator = null)
@@ -167,10 +244,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             return NextSection(current.Section, () => new AddExpectedChildren { FormId = current.Id, ExpectedChildren = ExpectedChildrenBuilder.NewValid(mutator) }.Execute());
         }
 
-        private NextSection AddExistingChildren(NextSection current, Action<ExistingChildren> mutator = null)
+        private NextSection AddExistingChildren(NextSection current, int childCount = 2, Action<ExistingChildren> mutator = null)
         {
             current.Section.Should().Be(Sections.ExistingChildren);
-            return NextSection(current.Section, () => new AddExistingChildren { FormId = current.Id, ExistingChildren = ExistingChildrenBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddExistingChildren { FormId = current.Id, ExistingChildren = ExistingChildrenBuilder.NewValid(childCount, mutator) }.Execute());
         }
 
         private NextSection AddApplicantBenefits(NextSection current, Action<Benefits> mutator = null)

@@ -386,12 +386,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         protected void ExistingChildrenShouldBeValid(BestStartGrant form, Action<ExistingChildren> mutator)
         {
-            ShouldBeValid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(2, mutator)));
         }
 
         protected void ExistingChildrenShouldBeInvalid(BestStartGrant form, Action<ExistingChildren> mutator)
         {
-            ShouldBeInvalid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddExistingChildren(ExistingChildrenBuilder.NewValid(2, mutator)));
         }
 
         protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)
