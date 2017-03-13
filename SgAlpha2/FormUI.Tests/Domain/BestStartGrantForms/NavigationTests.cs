@@ -123,7 +123,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresApplicantBenefits(form).Should().BeFalse("should not ask for applicant benefits is all children are kinship care");
 
-            Builder.Modify(form).With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid().ExpectedBabyCount(1));
+            Builder.Modify(form).With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid(m => { m.ExpectancyDate = null; m.ExpectedBabyCount = 1; }));
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should not ask for applicant benefits, since an expected child is not expected to be in kinship care");
+
+            Builder.Modify(form).With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid(m => { m.ExpectancyDate = TestNowUtc.Value; m.ExpectedBabyCount = null; }));
 
             Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should not ask for applicant benefits, since an expected child is not expected to be in kinship care");
         }

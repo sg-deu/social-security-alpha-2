@@ -22,12 +22,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
         public static ExpectedChildren NoBabyExpected(this ExpectedChildren expectedChildren)
         {
+            expectedChildren.ExpectancyDate = null;
             expectedChildren.ExpectedBabyCount = null;
             return expectedChildren;
         }
 
         public static ExpectedChildren ExpectedBabyCount(this ExpectedChildren expectedChildren, int? babyCount)
         {
+            expectedChildren.ExpectancyDate = DomainRegistry.NowUtc().Date.AddDays(100);
             expectedChildren.ExpectedBabyCount = babyCount;
             return expectedChildren;
         }

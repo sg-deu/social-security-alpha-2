@@ -153,8 +153,8 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var expectedChildren = form.ExpectedChildren;
 
-            if (expectedChildren != null && expectedChildren.ExpectedBabyCount.HasValue)
-                if (expectedChildren.ExpectedBabyCount.Value > 0)
+            if (expectedChildren != null)
+                if ((expectedChildren.ExpectedBabyCount.HasValue && expectedChildren.ExpectedBabyCount > 0) || expectedChildren.ExpectancyDate.HasValue)
                     return false;
 
             var existingChildren = form.ExistingChildren;
