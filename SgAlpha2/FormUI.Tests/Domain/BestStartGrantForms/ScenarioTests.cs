@@ -59,7 +59,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddConsent(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
-            next = AddExpectedChildren(next);
+            next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 0);
             next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
             next = AddHealthProfessional(next);
@@ -77,7 +77,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddConsent(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
-            next = AddExpectedChildren(next);
+            next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.LastNotKinshipCare());
             next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
             next = AddHealthProfessional(next);
@@ -95,11 +95,32 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddConsent(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
-            next = AddExpectedChildren(next);
+            next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
 
             next.Section.Should().Be(Sections.HealthProfessional, "where all existing children are kinship care, qualifying benefits are not required");
 
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void MultipleExistingChildren_AllKinshipCare_AtLEastOneBabyExpected()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next, ec => ec.ExpectedBabyCount(1));
+            next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
+
+            next.Section.Should().Be(Sections.ApplicantBenefits, "when there is an expected child, the expected child is not expected to be kinship care");
+
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -232,7 +253,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddConsent(next);
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
-            next = AddExpectedChildren(next);
+            next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
 
             next.Section.Should().Be(Sections.HealthProfessional, "when all children kinship care, should skip all benefits");

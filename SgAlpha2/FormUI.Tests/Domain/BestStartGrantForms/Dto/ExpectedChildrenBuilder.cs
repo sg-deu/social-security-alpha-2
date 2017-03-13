@@ -4,7 +4,7 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
-    public class ExpectedChildrenBuilder
+    public static class ExpectedChildrenBuilder
     {
         public static ExpectedChildren NewValid(Action<ExpectedChildren> mutator = null)
         {
@@ -18,6 +18,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 mutator(value);
 
             return value;
+        }
+
+        public static ExpectedChildren NoBabyExpected(this ExpectedChildren expectedChildren)
+        {
+            expectedChildren.ExpectedBabyCount = null;
+            return expectedChildren;
+        }
+
+        public static ExpectedChildren ExpectedBabyCount(this ExpectedChildren expectedChildren, int? babyCount)
+        {
+            expectedChildren.ExpectedBabyCount = babyCount;
+            return expectedChildren;
         }
     }
 }

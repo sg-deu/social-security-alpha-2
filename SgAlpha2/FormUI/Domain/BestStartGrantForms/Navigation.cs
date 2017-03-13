@@ -151,6 +151,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private static bool AllChildrenKinshipCare(BestStartGrant form)
         {
+            var expectedChildren = form.ExpectedChildren;
+
+            if (expectedChildren != null && expectedChildren.ExpectedBabyCount.HasValue)
+                if (expectedChildren.ExpectedBabyCount.Value > 0)
+                    return false;
+
             var existingChildren = form.ExistingChildren;
 
             if (existingChildren != null && existingChildren.Children != null)
