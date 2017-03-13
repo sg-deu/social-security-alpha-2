@@ -55,6 +55,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
                     if (strategy.Required(form))
                         nextSection = section;
+                    else
+                        strategy.SkipSection(form);
                 }
 
                 index++;

@@ -24,6 +24,23 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void NextSectionClearsSkippedSections()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Under16(TestNowUtc.Value)))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid())
+                .With(f => f.Declaration, DeclarationBuilder.NewValid())
+                .Insert();
+
+            form.AddExistingChildren(ExistingChildrenBuilder.NewValid());
+
+            form = Repository.Load<BestStartGrant>(form.Id);
+
+            form.Declaration.Should().NotBeNull("should not be overwritten by moving to the next section");
+            form.ApplicantBenefits.Should().BeNull("intermediate 'ApplicantBenefits' section should be cleared based on answers");
+        }
+
+        [Test]
         public void ApplicantDetails_RequiresCareQuestion()
         {
             TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);

@@ -185,10 +185,17 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.Declaration);
         }
 
+        internal void OnSkipApplicantBenefits()         { ApplicantBenefits = null;         }
+        internal void OnSkipPartnerBenefits()           { PartnerBenefits = null;           }
+        internal void OnSkipGuardianBenefits()          { GuardianBenefits = null;          }
+        internal void OnSkipGuardianPartnerBenefits()   { GuardianPartnerBenefits = null;   }
+        internal void OnSkipGuardianDetails()           { GuardianDetails = null;           }
+
         private NextSection OnSectionCompleted(Sections section)
         {
+            var next = Navigation.Next(this, section);
             Repository.Update(this);
-            return Navigation.Next(this, section);
+            return next;
         }
 
         private static void Validate(Consent consent)

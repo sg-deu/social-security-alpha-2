@@ -35,6 +35,11 @@ namespace FormUI.Domain.BestStartGrantForms
             return true; // default is to require sections
         }
 
+        public virtual void SkipSection(BestStartGrant form)
+        {
+            throw new Exception("ClearSection not implemented for section: " + GetType());
+        }
+
         private class Consent : SectionStrategy
         {
         }
@@ -54,31 +59,37 @@ namespace FormUI.Domain.BestStartGrantForms
         private class ApplicantBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresApplicantBenefits(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipApplicantBenefits(); }
         }
 
         private class PartnerBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerBenefits(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipPartnerBenefits(); }
         }
 
         private class GuardianBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianBenefits(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianBenefits(); }
         }
 
         private class GuardianPartnerBenefits : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerBenefits(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianPartnerBenefits(); }
         }
 
         private class GuardianDetails1 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianDetails(); }
         }
 
         private class GuardianDetails2 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
+            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
         }
 
         private class HealthProfessional : SectionStrategy
