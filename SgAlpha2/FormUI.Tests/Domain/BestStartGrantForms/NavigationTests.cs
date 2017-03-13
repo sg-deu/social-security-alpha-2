@@ -177,6 +177,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void RequiresPartnerBenefits_NotRequiredWhenAnyBenefitsNotRequired()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Under25CareLeaver(TestNowUtc.Value))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .Value();
+
+            Navigation.RequiresPartnerBenefits(form).Should().BeFalse("should not prompt for benefits when already entitled");
+        }
+
+        [Test]
         public void RequiresGuardianBenefits()
         {
             var form = new BestStartGrantBuilder("form")
@@ -226,6 +237,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'don't know'");
+        }
+
+        [Test]
+        public void RequiresGuardianPartnerBenefits_NotRequiredWhenAnyBenefitsNotRequired()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Under25CareLeaver(TestNowUtc.Value))
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .Value();
+
+            Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("should not prompt for benefits when already entitled");
         }
 
         [Test]

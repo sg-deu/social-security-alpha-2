@@ -86,6 +86,9 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresPartnerBenefits(BestStartGrant form)
         {
+            if (BenefitsNotRequired(form))
+                return false;
+
             var applicantBenefits = form.ApplicantBenefits;
 
             if (applicantBenefits != null)
@@ -112,6 +115,9 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresGuardianPartnerBenefits(BestStartGrant form)
         {
+            if (BenefitsNotRequired(form))
+                return false;
+
             var guardianBenefits = form.GuardianBenefits;
 
             if (guardianBenefits != null)
