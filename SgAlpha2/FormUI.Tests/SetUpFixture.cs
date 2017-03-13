@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.AccessControl;
 using System.Threading;
+using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests
@@ -47,6 +48,7 @@ namespace FormUI.Tests
         [TearDown]
         public void TearDown()
         {
+            LocalRepository.AddTestDocument();
             DisposeSemaphore();
         }
 

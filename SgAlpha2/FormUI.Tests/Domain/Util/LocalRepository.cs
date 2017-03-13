@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.Util;
+using FormUI.Tests.Domain.BestStartGrantForms;
 
 namespace FormUI.Tests.Domain.Util
 {
@@ -23,6 +26,29 @@ namespace FormUI.Tests.Domain.Util
         {
             SetUp();
             return new LocalRepository(deleteAllDocuments);
+        }
+
+        public static void AddTestDocument()
+        {
+            if (!_isSetup)
+                return; // DB wasn't touched, so nothing to do here
+
+            using (var repository = New(deleteAllDocuments: false).Register())
+            {
+                var formId = "unitTest";
+
+                var existingForm = repository.Query<BestStartGrant>()
+                    .Where(f => f.Id == formId)
+                    .ToList()
+                    .FirstOrDefault();
+
+                if (existingForm != null)
+                    return;
+
+                new BestStartGrantBuilder(formId)
+                    .WithCompletedSections()
+                    .Insert();
+            }
         }
 
         private LocalRepository(bool deleteAllDocuments) : base(NewClient())
