@@ -315,16 +315,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
         }
 
-        private NextSection AddGuardianDetails1(NextSection current, Action<GuardianDetails> mutator = null)
+        private NextSection AddGuardianDetails1(NextSection current, Action<RelationDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianDetails1);
-            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part1, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
+            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part1, GuardianDetails = RelationDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
         }
 
-        private NextSection AddGuardianDetails2(NextSection current, Action<GuardianDetails> mutator = null)
+        private NextSection AddGuardianDetails2(NextSection current, Action<RelationDetails> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianDetails2);
-            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
+            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = RelationDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
         }
 
         private NextSection AddHealthProfessional(NextSection current, Action<HealthProfessional> mutator = null)

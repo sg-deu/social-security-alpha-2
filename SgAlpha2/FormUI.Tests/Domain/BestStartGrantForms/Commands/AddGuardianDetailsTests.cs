@@ -14,7 +14,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresGuardianDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
-                .With(f => f.GuardianDetails, GuardianDetailsBuilder.NewValid(Part.Part1))
+                .With(f => f.GuardianDetails, RelationDetailsBuilder.NewValid(Part.Part1))
                 .Insert();
 
             existingForm.GuardianDetails.Address.Line1.Should().BeNull("no data stored before executing command");
@@ -23,7 +23,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
             {
                 FormId = "form123",
                 Part = Part.Part2,
-                GuardianDetails = GuardianDetailsBuilder.NewValid(Part.Part2),
+                GuardianDetails = RelationDetailsBuilder.NewValid(Part.Part2),
             };
 
             cmd.Execute();

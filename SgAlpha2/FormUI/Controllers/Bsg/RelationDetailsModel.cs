@@ -2,9 +2,9 @@
 
 namespace FormUI.Controllers.Bsg
 {
-    public class GuardianDetailsModel : NavigableModel
+    public class RelationDetailsModel : NavigableModel
     {
         // POST
-        public GuardianDetails GuardianDetails;
+        public RelationDetails RelationDetails;
     }
 }

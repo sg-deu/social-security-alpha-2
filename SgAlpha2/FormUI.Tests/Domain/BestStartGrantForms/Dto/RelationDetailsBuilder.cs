@@ -5,14 +5,14 @@ using FormUI.Domain.Util;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
-    public class GuardianDetailsBuilder
+    public class RelationDetailsBuilder
     {
-        public static GuardianDetails NewValid(Part part, Action<GuardianDetails> mutator = null)
+        public static RelationDetails NewValid(Part part, Action<RelationDetails> mutator = null)
         {
-            var value = new GuardianDetails
+            var value = new RelationDetails
             {
-                Title = "guardian title",
-                FullName = "guardian name",
+                Title = "relation title",
+                FullName = "relation name",
                 DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-45),
                 NationalInsuranceNumber = "BC123456D",
                 RelationshipToApplicant = "Parent",

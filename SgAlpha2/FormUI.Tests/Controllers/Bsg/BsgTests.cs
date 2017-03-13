@@ -568,7 +568,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.GuardianDetails1(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails1 });
-                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Title).Should().Be(detail.GuardianDetails.Title);
+                response.Doc.Form<RelationDetails>(1).GetText(m => m.Title).Should().Be(detail.GuardianDetails.Title);
             });
         }
 
@@ -577,7 +577,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<GuardianDetails>(1)
+                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<RelationDetails>(1)
                     .SetText(m => m.Title, "test title")
                     .Submit(client);
 
@@ -585,7 +585,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 {
                     FormId = "form123",
                     Part = Part.Part1,
-                    GuardianDetails = new GuardianDetails
+                    GuardianDetails = new RelationDetails
                     {
                         Title = "test title",
                     },
@@ -602,7 +602,7 @@ namespace FormUI.Tests.Controllers.Bsg
             {
                 ExecutorStub.SetupCommand<AddGuardianDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
-                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<GuardianDetails>(1)
+                var response = client.Get(BsgActions.GuardianDetails1("form123")).Form<RelationDetails>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -620,7 +620,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.GuardianDetails2(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails2 });
-                response.Doc.Form<GuardianDetails>(1).GetText(m => m.Address.Line1).Should().Be(detail.GuardianDetails.Address.Line1);
+                response.Doc.Form<RelationDetails>(1).GetText(m => m.Address.Line1).Should().Be(detail.GuardianDetails.Address.Line1);
             });
         }
 
@@ -629,7 +629,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<GuardianDetails>(1)
+                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<RelationDetails>(1)
                     .SetText(m => m.Address.Line1, "line 1")
                     .Submit(client);
 
@@ -637,7 +637,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 {
                     FormId = "form123",
                     Part = Part.Part2,
-                    GuardianDetails = new GuardianDetails
+                    GuardianDetails = new RelationDetails
                     {
                         Address = new Address { Line1 = "line 1" },
                     },
@@ -654,7 +654,7 @@ namespace FormUI.Tests.Controllers.Bsg
             {
                 ExecutorStub.SetupCommand<AddGuardianDetails, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
-                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<GuardianDetails>(1)
+                var response = client.Get(BsgActions.GuardianDetails2("form123")).Form<RelationDetails>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
@@ -851,7 +851,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 PartnerBenefits         = BenefitsBuilder.NewValid(),
                 GuardianBenefits        = BenefitsBuilder.NewValid(),
                 GuardianPartnerBenefits = BenefitsBuilder.NewValid(),
-                GuardianDetails         = GuardianDetailsBuilder.NewValid(Part.Part2),
+                GuardianDetails         = RelationDetailsBuilder.NewValid(Part.Part2),
                 HealthProfessional      = HealthProfessionalBuilder.NewValid(),
                 PaymentDetails          = PaymentDetailsBuilder.NewValid(),
                 Declaration             = DeclarationBuilder.NewValid(),

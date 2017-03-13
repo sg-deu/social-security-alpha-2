@@ -182,8 +182,8 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\DeclarationBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChildrenBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExpectedChildrenBuilder.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\GuardianDetailsBuilder.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\GuardianDetailsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\RelationDetailsBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\RelationDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\HealthProfessionalBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\NavigationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\PaymentDetailsBuilder.cs" />

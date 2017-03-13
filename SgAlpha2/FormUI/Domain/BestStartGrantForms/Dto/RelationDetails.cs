@@ -5,9 +5,9 @@ using FormUI.Domain.Util.Attributes;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
-    public class GuardianDetails : INationalInsuranceNumberHolder
+    public class RelationDetails : INationalInsuranceNumberHolder
     {
-        public GuardianDetails()
+        public RelationDetails()
         {
             Address = new Address();
         }
@@ -32,7 +32,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public Address      Address                 { get; set; }
 
-        public void CopyTo(GuardianDetails dest, Part part)
+        public void CopyTo(RelationDetails dest, Part part)
         {
             switch (part)
             {

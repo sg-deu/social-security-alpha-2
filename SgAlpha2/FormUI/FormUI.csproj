@@ -142,7 +142,7 @@
     <Compile Include="Controllers\Bsg\DeclarationModel.cs" />
     <Compile Include="Controllers\Bsg\ExistingChildrenModel.cs" />
     <Compile Include="Controllers\Bsg\ExpectedChildrenModel.cs" />
-    <Compile Include="Controllers\Bsg\GuardianDetailsModel.cs" />
+    <Compile Include="Controllers\Bsg\RelationDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\HealthProfessionalModel.cs" />
     <Compile Include="Controllers\Bsg\NavigableModel.cs" />
     <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
@@ -188,7 +188,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Benefits.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\GuardianDetails.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\RelationDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\INationalInsuranceNumberHolder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\YesNoDk.cs" />
     <Compile Include="Domain\BestStartGrantForms\Navigation.cs" />
@@ -307,8 +307,8 @@
     <Content Include="Controllers\Bsg\Consent.cshtml" />
     <Content Include="Controllers\Shared\SsaContactDetails.cshtml" />
     <Content Include="Controllers\Harness\AjaxForm.cshtml" />
-    <Content Include="Controllers\Bsg\GuardianDetails1.cshtml" />
-    <Content Include="Controllers\Bsg\GuardianDetails2.cshtml" />
+    <Content Include="Controllers\Bsg\RelationDetails1.cshtml" />
+    <Content Include="Controllers\Bsg\RelationDetails2.cshtml" />
     <Content Include="Controllers\Bsg\Address.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />

@@ -1,4 +1,4 @@
-﻿@inherits WebViewPage<GuardianDetailsModel>
+﻿@inherits WebViewPage<RelationDetailsModel>
 @{
     ViewBag.Title = "Best Start Grant - Your Legal Guardian part 1";
 }
@@ -10,7 +10,7 @@
 
         <h1>Your Legal Guardian</h1>
 
-        @using (var form = Html.FormFor(Model.GuardianDetails))
+        @using (var form = Html.FormFor(Model.RelationDetails))
         {
 
             @form.Html.ValidationSummary()

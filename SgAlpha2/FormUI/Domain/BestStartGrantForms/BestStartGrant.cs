@@ -23,7 +23,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public Benefits             PartnerBenefits         { get; protected set; }
         public Benefits             GuardianBenefits        { get; protected set; }
         public Benefits             GuardianPartnerBenefits { get; protected set; }
-        public GuardianDetails      GuardianDetails         { get; protected set; }
+        public RelationDetails      GuardianDetails         { get; protected set; }
         public HealthProfessional   HealthProfessional      { get; protected set; }
         public PaymentDetails       PaymentDetails          { get; protected set; }
         public Declaration          Declaration             { get; protected set; }
@@ -147,11 +147,11 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.GuardianPartnerBenefits);
         }
 
-        public NextSection AddGuardianDetails(Part part, GuardianDetails guardianDetails)
+        public NextSection AddGuardianDetails(Part part, RelationDetails guardianDetails)
         {
             Validate(part, guardianDetails);
 
-            GuardianDetails = GuardianDetails ?? new GuardianDetails();
+            GuardianDetails = GuardianDetails ?? new RelationDetails();
             guardianDetails.CopyTo(GuardianDetails, part);
 
             var section = part == Part.Part1
@@ -341,16 +341,16 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static void Validate(Part part, GuardianDetails guardianDetails)
+        private static void Validate(Part part, RelationDetails relationDetails)
         {
-            var ctx = new ValidationContext<GuardianDetails>(guardianDetails);
+            var ctx = new ValidationContext<RelationDetails>(relationDetails);
 
             if (part == Part.Part1)
             {
                 ctx.Required(m => m.FullName, "Please supply a Full name");
                 ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
                 ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
-                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(guardianDetails));
+                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(relationDetails));
                 ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
             }
 

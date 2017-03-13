@@ -297,7 +297,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            var details = GuardianDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
+            var details = RelationDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
             form.AddGuardianDetails(Part.Part1, details);
 
             form.GuardianDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
@@ -454,14 +454,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ShouldBeInvalid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
         }
 
-        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
         {
-            ShouldBeValid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeValid(() => form.AddGuardianDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
         }
 
-        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<GuardianDetails> mutator)
+        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
         {
-            ShouldBeInvalid(() => form.AddGuardianDetails(part, GuardianDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeInvalid(() => form.AddGuardianDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
         }
 
         protected void HealthProfessionalShouldBeValid(BestStartGrant form, Action<HealthProfessional> mutator)

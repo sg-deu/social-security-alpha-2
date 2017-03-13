@@ -39,8 +39,10 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgViews
     {
-        public const string Address     = "Address";
-        public const string Benefits    = "Benefits";
+        public const string Address             = "Address";
+        public const string Benefits            = "Benefits";
+        public const string RelationDetails1    = "RelationDetails1";
+        public const string RelationDetails2    = "RelationDetails2";
     }
 
     public class BsgController : FormController
@@ -326,25 +328,25 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpPost]
-        public ActionResult GuardianDetails1(string id, GuardianDetails guardianDetails)
+        public ActionResult GuardianDetails1(string id, RelationDetails relationDetails)
         {
             var cmd = new AddGuardianDetails
             {
                 FormId = id,
                 Part = Part.Part1,
-                GuardianDetails = guardianDetails,
+                GuardianDetails = relationDetails,
             };
 
             return Exec(cmd,
                 success: next => RedirectNext(next),
-                failure: () => GuardianDetails1_Render(id, guardianDetails));
+                failure: () => GuardianDetails1_Render(id, relationDetails));
         }
 
-        private ActionResult GuardianDetails1_Render(string formId, GuardianDetails details)
+        private ActionResult GuardianDetails1_Render(string formId, RelationDetails details)
         {
-            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails1, (m, f) =>
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.GuardianDetails1, (m, f) =>
             {
-                m.GuardianDetails = details ?? f.GuardianDetails;
+                m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
 
@@ -355,7 +357,7 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpPost]
-        public ActionResult GuardianDetails2(string id, GuardianDetails guardianDetails)
+        public ActionResult GuardianDetails2(string id, RelationDetails guardianDetails)
         {
             var cmd = new AddGuardianDetails
             {
@@ -369,11 +371,11 @@ namespace FormUI.Controllers.Bsg
                 failure: () => GuardianDetails2_Render(id, guardianDetails));
         }
 
-        private ActionResult GuardianDetails2_Render(string formId, GuardianDetails details)
+        private ActionResult GuardianDetails2_Render(string formId, RelationDetails details)
         {
-            return NavigableView<GuardianDetailsModel>(formId, Sections.GuardianDetails2, (m, f) =>
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.GuardianDetails2, (m, f) =>
             {
-                m.GuardianDetails = details ?? f.GuardianDetails;
+                m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
 

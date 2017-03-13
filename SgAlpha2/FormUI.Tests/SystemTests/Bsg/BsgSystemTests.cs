@@ -330,7 +330,7 @@ namespace FormUI.Tests.SystemTests.Bsg
 
         private void FillInGuardianDetails1(DateTime guardianDob)
         {
-            var form = App.FormForModel<GuardianDetails>();
+            var form = App.FormForModel<RelationDetails>();
 
             form.TypeText(m => m.Title, "g.title");
             form.TypeText(m => m.FullName, "g.fullname");
@@ -341,7 +341,7 @@ namespace FormUI.Tests.SystemTests.Bsg
 
         private void FillInGuardianDetails2()
         {
-            var form = App.FormForModel<GuardianDetails>();
+            var form = App.FormForModel<RelationDetails>();
 
             form.TypeText(m => m.Address.Line1, "ga.line1");
             form.TypeText(m => m.Address.Line2, "ga.line2");

@@ -6,13 +6,13 @@ using NUnit.Framework;
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     [TestFixture]
-    public class GuardianDetailsTests : AbstractTest
+    public class RelationDetailsTests : AbstractTest
     {
         [Test]
         public void CopyTo_CoversAllDetails()
         {
-            var src = GuardianDetailsBuilder.NewValid(Part.Part2);
-            var dest = new GuardianDetails();
+            var src = RelationDetailsBuilder.NewValid(Part.Part2);
+            var dest = new RelationDetails();
 
             src.CopyTo(dest, Part.Part1);
 

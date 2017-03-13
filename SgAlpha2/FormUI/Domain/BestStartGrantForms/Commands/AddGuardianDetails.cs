@@ -9,7 +9,7 @@ namespace FormUI.Domain.BestStartGrantForms.Commands
     {
         public string           FormId;
         public Part?            Part;
-        public GuardianDetails  GuardianDetails;
+        public RelationDetails  GuardianDetails;
 
         public override NextSection Execute()
         {

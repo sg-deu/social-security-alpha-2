@@ -23,7 +23,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.PartnerBenefits,            BenefitsBuilder.NewValid());
             With(f => f.GuardianBenefits,           BenefitsBuilder.NewValid());
             With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewValid());
-            With(f => f.GuardianDetails,            GuardianDetailsBuilder.NewValid(Part.Part2));
+            With(f => f.GuardianDetails,            RelationDetailsBuilder.NewValid(Part.Part2));
             With(f => f.HealthProfessional,         HealthProfessionalBuilder.NewValid());
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
