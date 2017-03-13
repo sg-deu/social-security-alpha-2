@@ -38,7 +38,7 @@ namespace FormUI.Controllers.Harness
             }
             catch
             {
-                return "javascript:alert('not implemented')";
+                return "javascript:alert('SectionActionStrategy not implemented')";
             }
         }
 

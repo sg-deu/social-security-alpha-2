@@ -18,6 +18,8 @@ namespace FormUI.Controllers.Bsg
             { Sections.GuardianPartnerBenefits, () => new GuardianPartnerBenefitsActions() },
             { Sections.GuardianDetails1,        () => new GuardianDetails1Actions() },
             { Sections.GuardianDetails2,        () => new GuardianDetails2Actions() },
+            { Sections.GuardianPartnerDetails1, () => new GuardianPartnerDetails1Actions() },
+            { Sections.GuardianPartnerDetails2, () => new GuardianPartnerDetails2Actions() },
             { Sections.HealthProfessional,      () => new HealthProfessionalActions() },
             { Sections.PaymentDetails,          () => new PaymentDetailsActions() },
             { Sections.Declaration,             () => new DeclarationActions() },
@@ -81,6 +83,16 @@ namespace FormUI.Controllers.Bsg
         private class GuardianDetails2Actions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.GuardianDetails2(formId); }
+        }
+
+        private class GuardianPartnerDetails1Actions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianPartnerDetails1(formId); }
+        }
+
+        private class GuardianPartnerDetails2Actions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.GuardianPartnerDetails2(formId); }
         }
 
         private class HealthProfessionalActions : SectionActionStrategy
