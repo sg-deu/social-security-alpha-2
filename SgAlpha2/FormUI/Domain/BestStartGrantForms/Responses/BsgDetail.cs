@@ -15,6 +15,7 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
         public Benefits             GuardianBenefits;
         public Benefits             GuardianPartnerBenefits;
         public RelationDetails      GuardianDetails;
+        public RelationDetails      GuardianPartnerDetails;
         public HealthProfessional   HealthProfessional;
         public PaymentDetails       PaymentDetails;
         public Declaration          Declaration;

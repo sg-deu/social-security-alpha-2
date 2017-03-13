@@ -24,6 +24,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.GuardianBenefits,           BenefitsBuilder.NewValid());
             With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewValid());
             With(f => f.GuardianDetails,            RelationDetailsBuilder.NewValid(Part.Part2));
+            With(f => f.GuardianPartnerDetails,     RelationDetailsBuilder.NewValid(Part.Part2));
             With(f => f.HealthProfessional,         HealthProfessionalBuilder.NewValid());
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
@@ -41,6 +42,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             detail.GuardianBenefits = form.GuardianBenefits;
             detail.GuardianPartnerBenefits = form.GuardianPartnerBenefits;
             detail.GuardianDetails = form.GuardianDetails;
+            detail.GuardianPartnerDetails = form.GuardianPartnerDetails;
             detail.HealthProfessional = form.HealthProfessional;
             detail.PaymentDetails = form.PaymentDetails;
             detail.Declaration = form.Declaration;
