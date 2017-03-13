@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<RelationDetailsModel>
 @{
-    ViewBag.Title = "Best Start Grant - Your Legal Guardian part 2";
+    ViewBag.Title = "Best Start Grant - " + Model.Title;
 }
 
 <div class="grid"><!--
@@ -8,14 +8,14 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Your Legal Guardian</h1>
+        <h1>@Model.Heading</h1>
 
         @using (var form = Html.FormFor(Model.RelationDetails))
         {
 
             @form.Html.ValidationSummary()
 
-            <h2>Your legal guardian's address</h2>
+            <h2>@Model.Heading</h2>
 
             @form.Html.PartialFor(m => m.Address, BsgViews.Address)
 

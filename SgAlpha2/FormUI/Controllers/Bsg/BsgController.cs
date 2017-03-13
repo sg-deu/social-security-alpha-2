@@ -348,6 +348,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.GuardianDetails1, (m, f) =>
             {
+                m.Title = "Your Parent/Legal Guardian part 1";
+                m.Heading = "Your Parent/Legal Guardian";
                 m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
@@ -377,6 +379,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.GuardianDetails2, (m, f) =>
             {
+                m.Title = "Your Parent/Legal Guardian part 2";
+                m.Heading = "Your Parent/Legal Guardian's address";
                 m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
@@ -406,6 +410,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.GuardianPartnerDetails1, (m, f) =>
             {
+                m.Title = "Your Parent/Legal Guardian's Partner part 1";
+                m.Heading = "Your Parent/Legal Guardian's Partner";
                 m.RelationDetails = details ?? f.GuardianPartnerDetails;
             });
         }
@@ -435,6 +441,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.GuardianPartnerDetails2, (m, f) =>
             {
+                m.Title = "Your Parent/Legal Guardian's Partner part 2";
+                m.Heading = "Your Parent/Legal Guardian's Partner's address";
                 m.RelationDetails = details ?? f.GuardianPartnerDetails;
             });
         }
