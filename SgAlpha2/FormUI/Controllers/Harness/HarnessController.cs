@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
+using FormUI.Controllers.Bsg;
 using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
+using FormUI.Domain.BestStartGrantForms;
 using Newtonsoft.Json;
 
 namespace FormUI.Controllers.Harness
@@ -28,6 +30,17 @@ namespace FormUI.Controllers.Harness
         public ActionResult Radio()         { return View(); }
         public ActionResult CheckBoxes()    { return View(); }
 
+        public static string UnitTestActionFor(Sections section)
+        {
+            try
+            {
+                return SectionActionStrategy.For(section).Action("unitTest");
+            }
+            catch
+            {
+                return "javascript:alert('not implemented')";
+            }
+        }
 
         [HttpGet]
         public ActionResult Form()

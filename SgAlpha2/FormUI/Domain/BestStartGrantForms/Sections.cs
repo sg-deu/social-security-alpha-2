@@ -12,6 +12,8 @@
         GuardianPartnerBenefits,
         GuardianDetails1,
         GuardianDetails2,
+        GuardianPartnerDetails1,
+        GuardianPartnerDetails2,
         HealthProfessional,
         PaymentDetails,
         Declaration,

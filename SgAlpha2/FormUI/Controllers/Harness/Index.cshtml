@@ -1,6 +1,5 @@
 ﻿@using FormUI.Controllers.Harness
 @using FormUI.Domain.BestStartGrantForms
-@using FormUI.Controllers.Bsg
 <div>
 
     <ul>
@@ -28,7 +27,7 @@
     <ul style="margin-top: 40px;">
         @if (Request.Url.Host == "localhost") {
             foreach (Sections section in Enum.GetValues(typeof(Sections))) {
-                <li><a href="@Url.Content(SectionActionStrategy.For(section).Action("unitTest"))">unit test form - @(section)</a></li>
+                <li><a href="@Url.Content(HarnessController.UnitTestActionFor(section))">unit test form - @(section)</a></li>
             }
         }
     </ul>
