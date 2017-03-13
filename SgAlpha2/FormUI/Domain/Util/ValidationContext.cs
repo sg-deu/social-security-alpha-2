@@ -15,6 +15,8 @@ namespace FormUI.Domain.Util
             _isValid = isValid;
         }
 
+        public bool IsValid() { return _isValid; }
+
         public void AddError(LambdaExpression property, string message)
         {
             _errors.Add(property, message);
@@ -90,6 +92,13 @@ namespace FormUI.Domain.Util
         {
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentException("message cannot be empty or whitespace", "message");
+        }
+
+        public bool IsValid() { return Current.IsValid(); }
+
+        public void AddError<TProp>(Expression<Func<T, TProp>> property, string message)
+        {
+            Current.AddError(property, message);
         }
 
         public void ThrowIfError()

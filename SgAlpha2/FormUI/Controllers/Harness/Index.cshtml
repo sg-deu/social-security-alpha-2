@@ -5,6 +5,10 @@
 
         <li style="margin-bottom: 30px;"><a href="@Url.Content(FormUI.Controllers.Home.HomeActions.Index())">return to home page</a></li>
 
+        @if (Request.Url.Host == "localhost") {
+            <li style="margin-bottom: 30px;"><a href="@Url.Content(FormUI.Controllers.Bsg.BsgActions.Consent("unitTest"))">unit test form</a></li>
+        }
+
         <li><a href="@Url.Content("~/mygovTemplate/form.html")">mygov.scot example form</a></li>
 
         <li><a href="@Url.Content(HarnessActions.Layout())">Layout (empty page)</a></li>

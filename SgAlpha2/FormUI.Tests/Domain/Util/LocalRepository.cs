@@ -36,6 +36,7 @@ namespace FormUI.Tests.Domain.Util
             using (var repository = New(deleteAllDocuments: false).Register())
             {
                 DomainRegistry.ValidationContext = new ValidationContext(true);
+                DomainRegistry.NowUtc = () => DateTime.UtcNow;
 
                 var formId = "unitTest";
 
