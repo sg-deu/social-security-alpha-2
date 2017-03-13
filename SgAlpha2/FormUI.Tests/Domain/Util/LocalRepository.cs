@@ -35,6 +35,8 @@ namespace FormUI.Tests.Domain.Util
 
             using (var repository = New(deleteAllDocuments: false).Register())
             {
+                DomainRegistry.ValidationContext = new ValidationContext(true);
+
                 var formId = "unitTest";
 
                 var existingForm = repository.Query<BestStartGrant>()
