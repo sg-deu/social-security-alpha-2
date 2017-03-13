@@ -164,6 +164,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public NextSection AddGuardianPartnerDetails(Part part, RelationDetails guardianPartnerDetails)
         {
+            Validate(part, guardianPartnerDetails);
+
             GuardianPartnerDetails = GuardianPartnerDetails ?? new RelationDetails();
             guardianPartnerDetails.CopyTo(GuardianPartnerDetails, part);
 
