@@ -177,6 +177,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerBenefits.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddHealthProfessional.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
