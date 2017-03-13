@@ -302,6 +302,9 @@ namespace FormUI.Domain.BestStartGrantForms
                     ? "Please supply a number of babies between 1 and 10"
                     : null);
 
+            if (ctx.IsValid() && expectedChildren.ExpectedBabyCount.HasValue && !expectedChildren.ExpectancyDate.HasValue)
+                ctx.AddError(m => m.ExpectancyDate, "Please supply the expectancy date");
+
             ctx.ThrowIfError();
         }
 

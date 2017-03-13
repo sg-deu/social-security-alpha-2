@@ -187,11 +187,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var form = new BestStartGrantBuilder("form").Insert();
 
             ExpectedChildrenShouldBeValid(form, m => { });
+            ExpectedChildrenShouldBeValid(form, m => { m.ExpectancyDate = null; m.ExpectedBabyCount = null; });
+            ExpectedChildrenShouldBeValid(form, m => { m.ExpectancyDate = TestNowUtc; m.ExpectedBabyCount = null; });
             ExpectedChildrenShouldBeValid(form, m => m.ExpectancyDate = TestNowUtc);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 1);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 10);
 
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectancyDate = TestNowUtc - TimeSpan.FromDays(1));
+            ExpectedChildrenShouldBeInvalid(form, m => { m.ExpectancyDate = null; m.ExpectedBabyCount = 1; });
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 0);
             ExpectedChildrenShouldBeInvalid(form, m => m.ExpectedBabyCount = 11);
         }
