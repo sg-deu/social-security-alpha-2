@@ -1,13 +1,11 @@
 ﻿@using FormUI.Controllers.Harness
+@using FormUI.Domain.BestStartGrantForms
+@using FormUI.Controllers.Bsg
 <div>
 
     <ul>
 
         <li style="margin-bottom: 30px;"><a href="@Url.Content(FormUI.Controllers.Home.HomeActions.Index())">return to home page</a></li>
-
-        @if (Request.Url.Host == "localhost") {
-            <li style="margin-bottom: 30px;"><a href="@Url.Content(FormUI.Controllers.Bsg.BsgActions.Consent("unitTest"))">unit test form</a></li>
-        }
 
         <li><a href="@Url.Content("~/mygovTemplate/form.html")">mygov.scot example form</a></li>
 
@@ -25,6 +23,14 @@
 
         <li><a href="@Url.Content(HarnessActions.AjaxForm())">Ajax Form</a></li>
 
+    </ul>
+
+    <ul style="margin-top: 40px;">
+        @if (Request.Url.Host == "localhost") {
+            foreach (Sections section in Enum.GetValues(typeof(Sections))) {
+                <li><a href="@Url.Content(SectionActionStrategy.For(section).Action("unitTest"))">unit test form - @(section)</a></li>
+            }
+        }
     </ul>
 
 </div>
