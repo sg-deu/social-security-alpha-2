@@ -125,6 +125,36 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void RequiresApplicantBenefits_NotRequiredWhenCareLeaver()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
+                .Value();
+
+            form.ApplicantDetails.DateOfBirth = null;
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeFalse();
+
+            form.ApplicantDetails.Over25(TestNowUtc.Value);
+            form.ApplicantDetails.PreviouslyLookedAfter = true;
+            BestStartGrant.ShouldAskCareQuestion(form.ApplicantDetails).Should().BeFalse("question not relevant");
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should still ask for benefits if not under 25 (despite previous care)");
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 23);
+            form.ApplicantDetails.PreviouslyLookedAfter = false;
+            BestStartGrant.ShouldAskCareQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeTrue("should still ask for benefits if not previously in care");
+
+            form.ApplicantDetails.Aged(TestNowUtc.Value, 23);
+            form.ApplicantDetails.PreviouslyLookedAfter = true;
+            BestStartGrant.ShouldAskCareQuestion(form.ApplicantDetails).Should().BeTrue("ensure question is asked");
+
+            Navigation.RequiresApplicantBenefits(form).Should().BeFalse("should ask for guardian benefits if responded in full time education");
+        }
+
+        [Test]
         public void RequiresPartnerBenefits()
         {
             var form = new BestStartGrantBuilder("form")

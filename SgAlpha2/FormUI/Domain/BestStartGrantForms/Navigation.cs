@@ -69,7 +69,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresApplicantBenefits(BestStartGrant form)
         {
-            if (AllChildrenKinshipCare(form))
+            if (BenefitsNotRequired(form))
                 return false;
 
             var applicantDetails = form.ApplicantDetails;
@@ -97,7 +97,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresGuardianBenefits(BestStartGrant form)
         {
-            if (AllChildrenKinshipCare(form))
+            if (BenefitsNotRequired(form))
                 return false;
 
             var applicantDetails = form.ApplicantDetails;
@@ -132,6 +132,17 @@ namespace FormUI.Domain.BestStartGrantForms
             return true;
         }
 
+        private static bool BenefitsNotRequired(BestStartGrant form)
+        {
+            if (AllChildrenKinshipCare(form))
+                return true;
+
+            if (CareLeaver(form))
+                return true;
+
+            return false;
+        }
+
         private static bool AllChildrenKinshipCare(BestStartGrant form)
         {
             var existingChildren = form.ExistingChildren;
@@ -139,6 +150,18 @@ namespace FormUI.Domain.BestStartGrantForms
             if (existingChildren != null && existingChildren.Children != null)
                 if (existingChildren.Children.Count > 0)
                     return existingChildren.Children.All(c => c.FormalKinshipCare == true);
+
+            return false;
+        }
+
+        private static bool CareLeaver(BestStartGrant form)
+        {
+            var applicantDetails = form.ApplicantDetails;
+
+            if (applicantDetails != null && applicantDetails.PreviouslyLookedAfter.HasValue)
+                if (BestStartGrant.ShouldAskCareQuestion(applicantDetails))
+                    if (applicantDetails.PreviouslyLookedAfter == true)
+                        return true;
 
             return false;
         }

@@ -48,6 +48,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             return applicantDetails.Aged(nowUtc, 28);
         }
 
+        public static ApplicantDetails Under25CareLeaver(this ApplicantDetails applicantDetails, DateTime nowUtc)
+        {
+            applicantDetails.Aged(nowUtc, 23);
+            applicantDetails.PreviouslyLookedAfter = true;
+            return applicantDetails;
+        }
+
         public static ApplicantDetails Aged(this ApplicantDetails applicantDetails, DateTime nowUtc, int age)
         {
             applicantDetails.DateOfBirth = nowUtc.ToLocalTime().Date.AddYears(-age);

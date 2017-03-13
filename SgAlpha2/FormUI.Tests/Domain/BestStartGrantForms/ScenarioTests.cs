@@ -108,6 +108,26 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void CareLeaverUnder25()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddApplicantDetails(next, ad => ad.Under25CareLeaver(TestNowUtc.Value));
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+
+            next.Section.Should().Be(Sections.HealthProfessional, "when under 25, and was previously in care, qualifying benefits are not required");
+
+            next = AddHealthProfessional(next);
+            next = AddPaymentDetails(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
         public void AgedUnder16()
         {
             // under 16 is automatically eligible, but need legal parent/guardian details
