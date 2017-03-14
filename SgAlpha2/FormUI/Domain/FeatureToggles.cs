@@ -6,7 +6,12 @@ namespace FormUI.Domain
     {
         public static bool SkipWorkInProgressSection(Sections section)
         {
-            return false;
+            return WorkingOnPartnerDetails(section);
+        }
+
+        public static bool WorkingOnPartnerDetails(Sections section)
+        {
+            return section == Sections.PartnerDetails1 || section == Sections.PartnerDetails2;
         }
     }
 }

@@ -8,6 +8,8 @@
         ExistingChildren,
         ApplicantBenefits,
         PartnerBenefits,
+        PartnerDetails1,
+        PartnerDetails2,
         GuardianBenefits,
         GuardianPartnerBenefits,
         GuardianDetails1,
