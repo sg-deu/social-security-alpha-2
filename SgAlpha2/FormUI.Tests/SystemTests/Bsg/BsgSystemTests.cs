@@ -58,6 +58,13 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInPartnerBenefits();
             App.Submit();
 
+            var partnerDob = DateTime.Now.Date.AddYears(-21);
+            FillInPartnerDetails1(partnerDob);
+            App.Submit();
+
+            FillInPartnerDetails2();
+            App.Submit();
+
             FillInHealthProfessional();
             App.Submit();
 
@@ -79,6 +86,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyExistingChildren(doc);
                 VerifyApplicantBenefits(doc);
                 VerifyPartnerBenefits(doc);
+                VerifyPartnerDetails(doc, partnerDob);
                 VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
                 VerifyDeclaration(doc);
@@ -306,6 +314,41 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.GuardianPartnerBenefits.HasExistingBenefit.Should().Be(YesNoDk.Yes);
             _verifiedSections.Add(Sections.GuardianPartnerBenefits);
+        }
+
+        private void FillInPartnerDetails1(DateTime partnerDob)
+        {
+            var form = App.FormForModel<RelationDetails>();
+
+            form.TypeText(m => m.Title, "p.title");
+            form.TypeText(m => m.FullName, "p.fullname");
+            form.TypeDate(m => m.DateOfBirth, partnerDob);
+            form.TypeText(m => m.NationalInsuranceNumber, "EF234567G");
+        }
+
+        private void FillInPartnerDetails2()
+        {
+            var form = App.FormForModel<RelationDetails>();
+
+            form.TypeText(m => m.Address.Line1, "p.line1");
+            form.TypeText(m => m.Address.Line2, "p.line2");
+            form.TypeText(m => m.Address.Line3, "p.line3");
+            form.TypeText(m => m.Address.Postcode, "p.postcode");
+        }
+
+        private void VerifyPartnerDetails(BestStartGrant doc, DateTime partnerDob)
+        {
+            doc.PartnerDetails.Title.Should().Be("p.title");
+            doc.PartnerDetails.FullName.Should().Be("p.fullname");
+            doc.PartnerDetails.DateOfBirth.Should().Be(partnerDob);
+            doc.PartnerDetails.NationalInsuranceNumber.Should().Be("EF 23 45 67 G");
+            _verifiedSections.Add(Sections.PartnerDetails1);
+
+            doc.PartnerDetails.Address.Line1.Should().Be("p.line1");
+            doc.PartnerDetails.Address.Line2.Should().Be("p.line2");
+            doc.PartnerDetails.Address.Line3.Should().Be("p.line3");
+            doc.PartnerDetails.Address.Postcode.Should().Be("p.postcode");
+            _verifiedSections.Add(Sections.PartnerDetails2);
         }
 
         private void FillInGuardianDetails1(DateTime guardianDob)

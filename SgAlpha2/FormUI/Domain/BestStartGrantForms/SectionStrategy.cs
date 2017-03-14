@@ -87,11 +87,13 @@ namespace FormUI.Domain.BestStartGrantForms
         private class PartnerDetails1 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipPartnerDetails(); }
         }
 
         private class PartnerDetails2 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
+            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
         }
 
         private class GuardianDetails1 : SectionStrategy

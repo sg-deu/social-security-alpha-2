@@ -44,6 +44,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddExistingChildren(next);
             next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
             next = AddPartnerBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddPartnerDetails1(next);
+            next = AddPartnerDetails2(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -317,6 +319,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.GuardianPartnerBenefits);
             return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddPartnerDetails1(NextSection current, Action<RelationDetails> mutator = null)
+        {
+            current.Section.Should().Be(Sections.PartnerDetails1);
+            return NextSection(current.Section, () => new AddPartnerDetails { FormId = current.Id, Part = Part.Part1, PartnerDetails = RelationDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
+        }
+
+        private NextSection AddPartnerDetails2(NextSection current, Action<RelationDetails> mutator = null)
+        {
+            current.Section.Should().Be(Sections.PartnerDetails2);
+            return NextSection(current.Section, () => new AddPartnerDetails { FormId = current.Id, Part = Part.Part2, PartnerDetails = RelationDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
         }
 
         private NextSection AddGuardianDetails1(NextSection current, Action<RelationDetails> mutator = null)
