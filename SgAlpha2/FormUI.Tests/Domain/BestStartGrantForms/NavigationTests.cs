@@ -259,10 +259,37 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void RequiresPartnerDetails()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Over25(TestNowUtc.Value))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.PartnerBenefits, null)
+                .Value();
+
+            Navigation.RequiresPartnerBenefits(form).Should().BeTrue("test logic requires that the partner benefits are requested");
+
+            Navigation.RequiresPartnerDetails(form).Should().BeFalse("until partner benefits are collected, we don't need their details");
+
+            Builder.Modify(form).With(f => f.PartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+
+            Navigation.RequiresPartnerDetails(form).Should().BeFalse("partner details not required if we know they don't have a qualifying benefit");
+
+            form.PartnerBenefits.HasExistingBenefit = YesNoDk.Yes;
+
+            Navigation.RequiresPartnerDetails(form).Should().BeTrue("partner details required if relying in their qualifying benefits");
+
+            form.PartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+
+            Navigation.RequiresPartnerDetails(form).Should().BeTrue("partner details required if not sure if relying on their benefits");
+        }
+
+        [Test]
         public void RequiresGuardianDetails_FullTimeEducation()
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().PartOfGuardianBenefits(TestNowUtc.Value))
+                .With(f => f.GuardianBenefits, null)
                 .Value();
 
             Navigation.RequiresGuardianDetails(form).Should().BeFalse("until guardian benefits are collected, we don't need their details");
@@ -273,7 +300,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             form.GuardianBenefits.HasExistingBenefit = YesNoDk.Yes;
 
-            Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if relying on their benefits");
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if relying on their qualifying benefits");
 
             form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
 

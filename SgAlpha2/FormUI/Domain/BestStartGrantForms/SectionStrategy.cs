@@ -86,12 +86,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private class PartnerDetails1 : SectionStrategy
         {
-            public override bool Required(BestStartGrant form) { return false; }
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
         }
 
         private class PartnerDetails2 : SectionStrategy
         {
-            public override bool Required(BestStartGrant form) { return false; }
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
         }
 
         private class GuardianDetails1 : SectionStrategy

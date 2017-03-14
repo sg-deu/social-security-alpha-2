@@ -129,6 +129,17 @@ namespace FormUI.Domain.BestStartGrantForms
             return false;
         }
 
+        public static bool RequiresPartnerDetails(BestStartGrant form)
+        {
+            var partnerBenefits = form.PartnerBenefits;
+
+            if (RequiresPartnerBenefits(form) && partnerBenefits != null)
+                if (partnerBenefits.HasExistingBenefit != YesNoDk.No)
+                    return true;
+
+            return false;
+        }
+
         public static bool RequiresGuardianDetails(BestStartGrant form)
         {
             var guardianBenefits = form.GuardianBenefits;
