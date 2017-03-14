@@ -24,6 +24,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public Benefits             GuardianBenefits        { get; protected set; }
         public Benefits             GuardianPartnerBenefits { get; protected set; }
         public RelationDetails      GuardianDetails         { get; protected set; }
+        public RelationDetails      PartnerDetails          { get; protected set; }
         public RelationDetails      GuardianPartnerDetails  { get; protected set; }
         public HealthProfessional   HealthProfessional      { get; protected set; }
         public PaymentDetails       PaymentDetails          { get; protected set; }
@@ -147,6 +148,18 @@ namespace FormUI.Domain.BestStartGrantForms
 
             GuardianPartnerBenefits = guardianPartnerBenefits;
             return OnSectionCompleted(Sections.GuardianPartnerBenefits);
+        }
+
+        public NextSection AddPartnerDetails(Part part, RelationDetails partnerDetails)
+        {
+            PartnerDetails = PartnerDetails ?? new RelationDetails();
+            partnerDetails.CopyTo(PartnerDetails, part);
+
+            var section = part == Part.Part1
+                ? Sections.PartnerDetails1
+                : Sections.PartnerDetails2;
+
+            return OnSectionCompleted(section);
         }
 
         public NextSection AddGuardianDetails(Part part, RelationDetails guardianDetails)
