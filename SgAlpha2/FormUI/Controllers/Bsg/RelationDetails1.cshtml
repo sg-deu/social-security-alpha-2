@@ -25,7 +25,9 @@
 
             @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
 
-            @form.Html.LabelledInputText(m => m.RelationshipToApplicant)
+            if (!Model.HideRelationship) {
+                @form.Html.LabelledInputText(m => m.RelationshipToApplicant)
+            }
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

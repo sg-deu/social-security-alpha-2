@@ -352,6 +352,7 @@ namespace FormUI.Controllers.Bsg
             {
                 m.Title = "Your Partner part 1";
                 m.Heading = "Your Partner";
+                m.HideRelationship = true;
                 m.RelationDetails = details ?? f.PartnerDetails;
             });
         }

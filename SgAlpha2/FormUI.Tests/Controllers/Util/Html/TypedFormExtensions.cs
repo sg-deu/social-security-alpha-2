@@ -10,6 +10,12 @@ namespace FormUI.Tests.Controllers.Util.Html
 {
     public static class TypedFormExtensions
     {
+        public static FormValue[] Get<T, U>(this TypedForm<T> form, Expression<Func<T, U>> property)
+        {
+            var formName = FormName(property);
+            return form.Get(formName);
+        }
+
         public static string GetText<T, U>(this TypedForm<T> form, Expression<Func<T, U>> property)
         {
             var formName = FormName(property);

@@ -29,6 +29,8 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.PartnerDetails1 });
                 response.Doc.Form<RelationDetails>(1).GetText(m => m.Title).Should().Be(detail.PartnerDetails.Title);
+
+                response.Doc.Form<RelationDetails>(1).Get(m => m.RelationshipToApplicant).Length.Should().Be(0, "Should not ask partner's relationship");
             });
         }
 

@@ -28,7 +28,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.GuardianDetails1(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianDetails1 });
-                response.Doc.Form<RelationDetails>(1).GetText(m => m.Title).Should().Be(detail.GuardianDetails.Title);
+                response.Doc.Form<RelationDetails>(1).GetText(m => m.RelationshipToApplicant).Should().Be(detail.GuardianDetails.RelationshipToApplicant);
             });
         }
 
