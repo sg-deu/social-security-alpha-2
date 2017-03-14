@@ -17,6 +17,8 @@ namespace FormUI.Domain.BestStartGrantForms
             { Sections.GuardianPartnerBenefits, () => new SectionStrategy.GuardianPartnerBenefits() },
             { Sections.GuardianDetails1,        () => new SectionStrategy.GuardianDetails1() },
             { Sections.GuardianDetails2,        () => new SectionStrategy.GuardianDetails2() },
+            { Sections.GuardianPartnerDetails1, () => new SectionStrategy.GuardianPartnerDetails1() },
+            { Sections.GuardianPartnerDetails2, () => new SectionStrategy.GuardianPartnerDetails2() },
             { Sections.HealthProfessional,      () => new SectionStrategy.HealthProfessional() },
             { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails() },
             { Sections.Declaration,             () => new SectionStrategy.Declaration() },
@@ -90,6 +92,16 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
             public override void SkipSection(BestStartGrant form) { /* already skipped */ }
+        }
+
+        private class GuardianPartnerDetails1 : SectionStrategy
+        {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
+        }
+
+        private class GuardianPartnerDetails2 : SectionStrategy
+        {
+            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
         }
 
         private class HealthProfessional : SectionStrategy

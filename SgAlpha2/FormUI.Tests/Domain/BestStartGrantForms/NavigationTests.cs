@@ -259,7 +259,29 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void RequiresGuardianDetails()
+        public void RequiresGuardianDetails_FullTimeEducation()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().PartOfGuardianBenefits(TestNowUtc.Value))
+                .Value();
+
+            Navigation.RequiresGuardianDetails(form).Should().BeFalse("until guardian benefits are collected, we don't need their details");
+
+            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+
+            Navigation.RequiresGuardianDetails(form).Should().BeFalse("guardian details not required if we know they don't have a qualifying benefit");
+
+            form.GuardianBenefits.HasExistingBenefit = YesNoDk.Yes;
+
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if relying on their benefits");
+
+            form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+
+            Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if not sure if relying on their benefits");
+        }
+
+        [Test]
+        public void RequiresGuardianDetails_Under16()
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid())
@@ -280,6 +302,32 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             form.ApplicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
 
             Navigation.RequiresGuardianDetails(form).Should().BeFalse("over 16 does not require a legal guradian/parent");
+        }
+
+        [Test]
+        public void RequiresGuardianPartnerDetails()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().PartOfGuardianBenefits(TestNowUtc.Value))
+                .Value();
+
+            Navigation.RequiresGuardianPartnerDetails(form).Should().BeFalse("until guardian partner benefits are collected, we don't need their details");
+
+            Builder.Modify(form)
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+
+            Navigation.RequiresGuardianBenefits(form).Should().BeTrue("test logic requires that the guardian benefits are requested");
+
+            Navigation.RequiresGuardianPartnerDetails(form).Should().BeFalse("guardian partner details not required if we know they don't have a qualifying benefit");
+
+            form.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.Yes;
+
+            Navigation.RequiresGuardianPartnerDetails(form).Should().BeTrue("guardian partner details required if relying on their benefits");
+
+            form.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+
+            Navigation.RequiresGuardianPartnerDetails(form).Should().BeTrue("guardian partner details required if not sure if relying on their benefits");
         }
     }
 }

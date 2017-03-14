@@ -210,8 +210,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
             next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
 
-            next.Section.Should().Be(Sections.HealthProfessional, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
+            next.Section.Should().Be(Sections.GuardianDetails1, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
 
+            next = AddGuardianDetails1(next);
+            next = AddGuardianDetails2(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);

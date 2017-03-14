@@ -131,6 +131,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static bool RequiresGuardianDetails(BestStartGrant form)
         {
+            var guardianBenefits = form.GuardianBenefits;
+
+            if (RequiresGuardianBenefits(form) && guardianBenefits != null)
+                if (guardianBenefits.HasExistingBenefit != YesNoDk.No)
+                    return true;
+
             var applicantDetails = form.ApplicantDetails;
 
             if (applicantDetails != null)
@@ -138,6 +144,17 @@ namespace FormUI.Domain.BestStartGrantForms
                     return false;
 
             return true;
+        }
+
+        public static bool RequiresGuardianPartnerDetails(BestStartGrant form)
+        {
+            var guardianPartnerBenefits = form.GuardianPartnerBenefits;
+
+            if (RequiresGuardianPartnerBenefits(form) && guardianPartnerBenefits != null)
+                if (guardianPartnerBenefits.HasExistingBenefit != YesNoDk.No)
+                    return true;
+
+            return false;
         }
 
         private static bool BenefitsNotRequired(BestStartGrant form)
