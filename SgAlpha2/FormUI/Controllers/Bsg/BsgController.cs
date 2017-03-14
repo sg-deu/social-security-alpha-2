@@ -326,6 +326,68 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
+        public ActionResult PartnerDetails1(string id)
+        {
+            return PartnerDetails1_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult PartnerDetails1(string id, RelationDetails partnerDetails)
+        {
+            var cmd = new AddPartnerDetails
+            {
+                FormId = id,
+                Part = Part.Part1,
+                PartnerDetails = partnerDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => PartnerDetails1_Render(id, partnerDetails));
+        }
+
+        private ActionResult PartnerDetails1_Render(string formId, RelationDetails details)
+        {
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.PartnerDetails1, (m, f) =>
+            {
+                m.Title = "Your Partner part 1";
+                m.Heading = "Your Partner";
+                m.RelationDetails = details ?? f.PartnerDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult PartnerDetails2(string id)
+        {
+            return PartnerDetails2_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult PartnerDetails2(string id, RelationDetails partnerDetails)
+        {
+            var cmd = new AddPartnerDetails
+            {
+                FormId = id,
+                Part = Part.Part2,
+                PartnerDetails = partnerDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => PartnerDetails2_Render(id, partnerDetails));
+        }
+
+        private ActionResult PartnerDetails2_Render(string formId, RelationDetails details)
+        {
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.PartnerDetails2, (m, f) =>
+            {
+                m.Title = "Your Partner part 2";
+                m.Heading = "Your Partner's address";
+                m.RelationDetails = details ?? f.PartnerDetails;
+            });
+        }
+
+        [HttpGet]
         public ActionResult GuardianDetails1(string id)
         {
             return GuardianDetails1_Render(id, null);

@@ -21,6 +21,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 PartnerBenefits         = BenefitsBuilder.NewValid(),
                 GuardianBenefits        = BenefitsBuilder.NewValid(),
                 GuardianPartnerBenefits = BenefitsBuilder.NewValid(),
+                PartnerDetails          = RelationDetailsBuilder.NewValid(Part.Part2),
                 GuardianDetails         = RelationDetailsBuilder.NewValid(Part.Part2),
                 GuardianPartnerDetails  = RelationDetailsBuilder.NewValid(Part.Part2),
                 HealthProfessional      = HealthProfessionalBuilder.NewValid(),
