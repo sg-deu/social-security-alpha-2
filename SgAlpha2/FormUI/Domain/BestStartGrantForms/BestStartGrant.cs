@@ -206,6 +206,7 @@ namespace FormUI.Domain.BestStartGrantForms
         internal void OnSkipGuardianBenefits()          { GuardianBenefits = null;          }
         internal void OnSkipGuardianPartnerBenefits()   { GuardianPartnerBenefits = null;   }
         internal void OnSkipGuardianDetails()           { GuardianDetails = null;           }
+        internal void OnSkipGuardianPartnerDetails()    { GuardianPartnerDetails = null;    }
 
         private NextSection OnSectionCompleted(Sections section)
         {

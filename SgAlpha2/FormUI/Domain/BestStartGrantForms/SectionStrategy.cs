@@ -97,11 +97,13 @@ namespace FormUI.Domain.BestStartGrantForms
         private class GuardianPartnerDetails1 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
+            public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianPartnerDetails(); }
         }
 
         private class GuardianPartnerDetails2 : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
+            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
         }
 
         private class HealthProfessional : SectionStrategy

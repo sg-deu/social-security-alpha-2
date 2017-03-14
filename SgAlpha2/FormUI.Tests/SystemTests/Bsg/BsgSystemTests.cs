@@ -95,42 +95,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
-            var dob = DateTime.Now.Date.AddYears(-15);
-            FillInApplicantDetails(dob, previouslyLookedAfter: null, fullTimeEducation: null);
-            App.Submit();
-
-            var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
-            FillInExpectedChildren(expectancyDate);
-            App.Submit();
-
-            App.VerifyCanSeeText("already been born");
-            App.ClickButton("");
-
-            var guardianDob = DateTime.Now.Date.AddYears(-39);
-            FillInGuardianDetails1(guardianDob);
-            App.Submit();
-
-            FillInGuardianDetails2();
-            App.Submit();
-
-            Db(r =>
-            {
-                var doc = r.Query<BestStartGrant>().ToList().Single();
-
-                VerifyGuardianDetails(doc, guardianDob);
-            });
-        }
-
-        [Test]
-        public void IncludingGuardianBenefits()
-        {
-            App.GoTo(BsgActions.Overview());
-            App.VerifyCanSeeText("Overview");
-            App.Submit();
-
-            FillInConsent();
-            App.Submit();
-
             var dob = DateTime.Now.Date.AddYears(-18);
             FillInApplicantDetails(dob, previouslyLookedAfter: false, fullTimeEducation: true);
             App.Submit();
@@ -150,12 +114,28 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInGuardianPartnerBenefits();
             App.Submit();
 
+            var guardianDob = DateTime.Now.Date.AddYears(-39);
+            FillInGuardianDetails1(guardianDob);
+            App.Submit();
+
+            FillInGuardianDetails2();
+            App.Submit();
+
+            var guardianPartnerDob = DateTime.Now.Date.AddYears(-38);
+            FillInGuardianPartnerDetails1(guardianPartnerDob);
+            App.Submit();
+
+            FillInGuardianPartnerDetails2();
+            App.Submit();
+
             Db(r =>
             {
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyGuardianBenefits(doc);
                 VerifyGuardianPartnerBenefits(doc);
+                VerifyGuardianDetails(doc, guardianDob);
+                VerifyGuardianPartnerDetails(doc, guardianPartnerDob);
             });
         }
 
@@ -306,12 +286,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.No);
+            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.DontKnow);
         }
 
         private void VerifyGuardianBenefits(BestStartGrant doc)
         {
-            doc.GuardianBenefits.HasExistingBenefit.Should().Be(YesNoDk.No);
+            doc.GuardianBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
             _verifiedSections.Add(Sections.GuardianBenefits);
         }
 
@@ -363,6 +343,43 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
             doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
             _verifiedSections.Add(Sections.GuardianDetails2);
+        }
+
+        private void FillInGuardianPartnerDetails1(DateTime guardianPartnerDob)
+        {
+            var form = App.FormForModel<RelationDetails>();
+
+            form.TypeText(m => m.Title, "gp.title");
+            form.TypeText(m => m.FullName, "gp.fullname");
+            form.TypeDate(m => m.DateOfBirth, guardianPartnerDob);
+            form.TypeText(m => m.NationalInsuranceNumber, "CD234567E");
+            form.TypeText(m => m.RelationshipToApplicant, "gp.parent");
+        }
+
+        private void FillInGuardianPartnerDetails2()
+        {
+            var form = App.FormForModel<RelationDetails>();
+
+            form.TypeText(m => m.Address.Line1, "gp.line1");
+            form.TypeText(m => m.Address.Line2, "gp.line2");
+            form.TypeText(m => m.Address.Line3, "gp.line3");
+            form.TypeText(m => m.Address.Postcode, "gp.postcode");
+        }
+
+        private void VerifyGuardianPartnerDetails(BestStartGrant doc, DateTime guardianPartnerDob)
+        {
+            doc.GuardianPartnerDetails.Title.Should().Be("gp.title");
+            doc.GuardianPartnerDetails.FullName.Should().Be("gp.fullname");
+            doc.GuardianPartnerDetails.DateOfBirth.Should().Be(guardianPartnerDob);
+            doc.GuardianPartnerDetails.NationalInsuranceNumber.Should().Be("CD 23 45 67 E");
+            doc.GuardianPartnerDetails.RelationshipToApplicant.Should().Be("gp.parent");
+            _verifiedSections.Add(Sections.GuardianPartnerDetails1);
+
+            doc.GuardianPartnerDetails.Address.Line1.Should().Be("gp.line1");
+            doc.GuardianPartnerDetails.Address.Line2.Should().Be("gp.line2");
+            doc.GuardianPartnerDetails.Address.Line3.Should().Be("gp.line3");
+            doc.GuardianPartnerDetails.Address.Postcode.Should().Be("gp.postcode");
+            _verifiedSections.Add(Sections.GuardianPartnerDetails2);
         }
 
         private void FillInHealthProfessional()
