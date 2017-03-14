@@ -29,6 +29,8 @@ namespace FormUI.Controllers.Bsg
         public static string    PartnerBenefits(string formId)          { return $"~/bsg/partnerBenefits/{formId}"; }
         public static string    GuardianBenefits(string formId)         { return $"~/bsg/guardianBenefits/{formId}"; }
         public static string    GuardianPartnerBenefits(string formId)  { return $"~/bsg/guardianPartnerBenefits/{formId}"; }
+        public static string    PartnerDetails1(string formId)          { return $"~/bsg/partnerDetails1/{formId}"; }
+        public static string    PartnerDetails2(string formId)          { return $"~/bsg/partnerDetails2/{formId}"; }
         public static string    GuardianDetails1(string formId)         { return $"~/bsg/guardianDetails1/{formId}"; }
         public static string    GuardianDetails2(string formId)         { return $"~/bsg/guardianDetails2/{formId}"; }
         public static string    GuardianPartnerDetails1(string formId)  { return $"~/bsg/guardianPartnerDetails1/{formId}"; }
