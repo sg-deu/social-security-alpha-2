@@ -127,6 +127,8 @@
     <Compile Include="..\AssemblyInfo.cs" />
     <Compile Include="AbstractTest.cs" />
     <Compile Include="App_Start\BinderTests.cs" />
+    <Compile Include="Controllers\Bsg\BsgConsentTests.cs" />
+    <Compile Include="Controllers\Bsg\BsgSectionTest.cs" />
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategyTests.cs" />
     <Compile Include="Controllers\Harness\HarnessTests.cs" />

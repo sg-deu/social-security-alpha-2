@@ -13,13 +13,12 @@ using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
-using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Controllers.Bsg
 {
     [TestFixture]
-    public class BsgTests : WebTest
+    public class BsgTests : BsgSectionTest
     {
         [Test]
         public void Overview_GET()
@@ -63,54 +62,6 @@ namespace FormUI.Tests.Controllers.Bsg
                 var firstAction = SectionActionStrategy.For(firstSection).Action(null);
 
                 client.Get(firstAction);
-            });
-        }
-
-        [Test]
-        public void Consent_GET_PopulatesExistingDetails()
-        {
-            WebAppTest(client =>
-            {
-                var detail = NewBsgDetail("form123");
-                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
-
-                var response = client.Get(BsgActions.Consent(detail.Id));
-
-                ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.Consent });
-                response.Doc.Form<Consent>(1).GetConfirm(m => m.AgreedToConsent).Should().Be(detail.Consent.AgreedToConsent);
-            });
-        }
-
-        [Test]
-        public void Consent_POST_PopulatesConsent()
-        {
-            WebAppTest(client =>
-            {
-                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
-                    .SelectConfirm(m => m.AgreedToConsent, true)
-                    .Submit(client);
-
-                ExecutorStub.Executed<AddConsent>(0).ShouldBeEquivalentTo(new AddConsent
-                {
-                    FormId = "form123",
-                    Consent = new Consent { AgreedToConsent = true },
-                });
-
-                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
-            });
-        }
-
-        [Test]
-        public void Consent_POST_ErrorsAreDisplayed()
-        {
-            WebAppTest(client =>
-            {
-                ExecutorStub.SetupCommand<AddConsent, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
-
-                var response = client.Get(BsgActions.Consent("form123")).Form<Consent>(1)
-                    .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
-
-                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
             });
         }
 
@@ -939,30 +890,6 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 response.Text.ToLower().Should().Contain("received");
             });
-        }
-
-        private static BsgDetail NewBsgDetail(string formId)
-        {
-            var detail = new BsgDetail
-            {
-                Id = formId,
-
-                Consent                 = ConsentBuilder.NewValid(),
-                ApplicantDetails        = ApplicantDetailsBuilder.NewValid(),
-                ExpectedChildren        = ExpectedChildrenBuilder.NewValid(),
-                ExistingChildren        = ExistingChildrenBuilder.NewValid(),
-                ApplicantBenefits       = BenefitsBuilder.NewValid(),
-                PartnerBenefits         = BenefitsBuilder.NewValid(),
-                GuardianBenefits        = BenefitsBuilder.NewValid(),
-                GuardianPartnerBenefits = BenefitsBuilder.NewValid(),
-                GuardianDetails         = RelationDetailsBuilder.NewValid(Part.Part2),
-                GuardianPartnerDetails  = RelationDetailsBuilder.NewValid(Part.Part2),
-                HealthProfessional      = HealthProfessionalBuilder.NewValid(),
-                PaymentDetails          = PaymentDetailsBuilder.NewValid(),
-                Declaration             = DeclarationBuilder.NewValid(),
-            };
-
-            return detail;
         }
     }
 }
