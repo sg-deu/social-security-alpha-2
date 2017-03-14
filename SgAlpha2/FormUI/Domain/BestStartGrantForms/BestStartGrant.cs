@@ -42,6 +42,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 PartnerBenefits         = PartnerBenefits,
                 GuardianBenefits        = GuardianBenefits,
                 GuardianPartnerBenefits = GuardianPartnerBenefits,
+                PartnerDetails          = PartnerDetails,
                 GuardianDetails         = GuardianDetails,
                 GuardianPartnerDetails  = GuardianPartnerDetails,
                 HealthProfessional      = HealthProfessional,
