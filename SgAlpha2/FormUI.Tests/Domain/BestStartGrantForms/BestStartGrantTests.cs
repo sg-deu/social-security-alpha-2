@@ -285,6 +285,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddPartnerDetails_SetsRelationshipAutomatically()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            form.AddPartnerDetails(Part.Part1, RelationDetailsBuilder.NewValid(Part.Part1, rd => rd.RelationshipToApplicant = null));
+
+            form.PartnerDetails.RelationshipToApplicant.Should().Be("Partner");
+        }
+
+        [Test]
         public void AddGuardianDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();

@@ -152,6 +152,8 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public NextSection AddPartnerDetails(Part part, RelationDetails partnerDetails)
         {
+            partnerDetails.RelationshipToApplicant = "Partner";
+
             Validate(part, partnerDetails);
 
             PartnerDetails = PartnerDetails ?? new RelationDetails();
