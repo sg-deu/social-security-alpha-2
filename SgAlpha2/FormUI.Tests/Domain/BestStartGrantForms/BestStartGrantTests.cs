@@ -273,6 +273,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void AddPartnerDetails_Validation()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+
+            PartnerDetailsShouldBeValid(form, Part.Part1, m => { });
+            PartnerDetailsShouldBeValid(form, Part.Part2, m => { });
+
+            PartnerDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
+            PartnerDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
+        }
+
+        [Test]
         public void AddGuardianDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
@@ -474,6 +486,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         protected void GuardianPartnerBenefitsShouldBeInvalid(BestStartGrant form, Action<Benefits> mutator)
         {
             ShouldBeInvalid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
+        }
+
+        protected void PartnerDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        {
+            ShouldBeValid(() => form.AddPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+        }
+
+        protected void PartnerDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        {
+            ShouldBeInvalid(() => form.AddPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
         }
 
         protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
