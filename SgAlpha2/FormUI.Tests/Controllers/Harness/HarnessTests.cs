@@ -49,6 +49,12 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
+        public void ShowHideParts_GET()
+        {
+            VerifyView(HarnessActions.ShowHideParts());
+        }
+
+        [Test]
         public void Form()
         {
             WebAppTest(client =>

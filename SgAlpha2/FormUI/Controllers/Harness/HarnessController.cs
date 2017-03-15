@@ -10,15 +10,16 @@ namespace FormUI.Controllers.Harness
 {
     public static class HarnessActions
     {
-        public static string Index()        { return "~/harness/"; }
-        public static string Layout()       { return "~/harness/layout"; }
-        public static string InputText()    { return "~/harness/inputText/"; }
-        public static string InputDate()    { return "~/harness/inputDate/"; }
-        public static string Radio()        { return "~/harness/radio/"; }
-        public static string CheckBoxes()   { return "~/harness/checkBoxes/"; }
-        public static string Form()         { return "~/harness/form/"; }
-        public static string AjaxForm()     { return "~/harness/ajaxForm"; }
-        public static string AjaxPostback() { return "~/harness/ajaxPostback"; }
+        public static string Index()            { return "~/harness/"; }
+        public static string Layout()           { return "~/harness/layout"; }
+        public static string InputText()        { return "~/harness/inputText/"; }
+        public static string InputDate()        { return "~/harness/inputDate/"; }
+        public static string Radio()            { return "~/harness/radio/"; }
+        public static string CheckBoxes()       { return "~/harness/checkBoxes/"; }
+        public static string Form()             { return "~/harness/form/"; }
+        public static string AjaxForm()         { return "~/harness/ajaxForm"; }
+        public static string AjaxPostback()     { return "~/harness/ajaxPostback"; }
+        public static string ShowHideParts() { return "~/harness/showHideParts/"; }
     }
 
     public class HarnessController : FormController
@@ -93,6 +94,11 @@ namespace FormUI.Controllers.Harness
                 AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String1, showString1),
                 AjaxAction.ShowHideFormGroup<AjaxFormModel>(m => m.String2, showString2),
             });
+        }
+
+        public ActionResult ShowHideParts(HarnessModel model)
+        {
+            return View();
         }
     }
 }

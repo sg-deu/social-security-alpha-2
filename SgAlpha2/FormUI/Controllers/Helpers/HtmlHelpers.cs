@@ -50,5 +50,30 @@ namespace FormUI.Controllers.Helpers
             var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
             return helper.Partial(view, metaData.Model, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
         }
+
+        public static ScopedHtmlHelper<T> VisibleWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, bool visible)
+        {
+            var container = new DivTag().NoClosingTag();
+
+            if (!visible)
+                container.AddClasses("show-hide-hidden");
+
+            helper.ViewContext.Writer.Write(container.ToHtmlString());
+
+            return new ScopedHtmlHelper<T>(helper, () =>
+            {
+                helper.ViewContext.Writer.Write($"</{container.TagName()}>");
+            });
+        }
+
+        public static ScopedHtmlHelper<T> HideWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        {
+            return helper.VisibleWhenChecked(property, false);
+        }
+
+        public static ScopedHtmlHelper<T> ShowWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        {
+            return helper.VisibleWhenChecked(property, true);
+        }
     }
 }

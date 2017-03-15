@@ -312,6 +312,7 @@
     <Content Include="Controllers\Bsg\RelationDetails1.cshtml" />
     <Content Include="Controllers\Bsg\RelationDetails2.cshtml" />
     <Content Include="Controllers\Bsg\Address.cshtml" />
+    <Content Include="Controllers\Harness\ShowHideParts.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

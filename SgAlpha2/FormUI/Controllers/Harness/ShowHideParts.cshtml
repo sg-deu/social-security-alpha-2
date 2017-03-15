@@ -1,0 +1,29 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>Show/Hide parts example</h2>
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+            @Html.LabelledConfirmCheckBox("show/hide parts of the page", m => m.CheckBox1)
+
+            @using (Html.HideWhenChecked(m => m.CheckBox1))
+            {
+                <p>This part is initially hidden</p>
+            }
+
+            @using (Html.ShowWhenChecked(m => m.CheckBox1))
+            {
+                <p>This part is initially visible</p>
+            }
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>
