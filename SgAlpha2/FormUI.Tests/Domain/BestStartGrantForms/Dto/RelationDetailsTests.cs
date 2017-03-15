@@ -22,5 +22,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
             dest.ShouldBeEquivalentTo(src);
         }
+
+        [Test]
+        public void CopyTo_OnlyCopiesUninheritedAddress()
+        {
+            var src = RelationDetailsBuilder.NewValid(Part.Part2, rd =>
+            {
+                rd.InheritAddress = true;
+                rd.Address = AddressBuilder.NewValid();
+            });
+
+            var dest = new RelationDetails();
+
+            src.CopyTo(dest, Part.Part2);
+
+            dest.InheritAddress.Should().BeTrue();
+            dest.Address.Should().BeNull();
+        }
     }
 }

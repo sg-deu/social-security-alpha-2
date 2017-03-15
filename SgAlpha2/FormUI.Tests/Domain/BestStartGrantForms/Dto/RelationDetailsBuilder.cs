@@ -20,6 +20,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
             if (part == Part.Part2)
             {
+                value.InheritAddress = false;
                 value.Address = AddressBuilder.NewValid();
             }
 

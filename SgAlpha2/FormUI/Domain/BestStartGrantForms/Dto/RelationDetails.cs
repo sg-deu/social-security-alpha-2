@@ -48,10 +48,8 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
                     break;
 
                 case Part.Part2:
-                    dest.Address.Line1 = Address.Line1;
-                    dest.Address.Line2 = Address.Line2;
-                    dest.Address.Line3 = Address.Line3;
-                    dest.Address.Postcode = Address.Postcode;
+                    dest.InheritAddress = InheritAddress;
+                    dest.Address = !InheritAddress ? Address.Copy(Address) : null;
                     break;
 
                 default:
