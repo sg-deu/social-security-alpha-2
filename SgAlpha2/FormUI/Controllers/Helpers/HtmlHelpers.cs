@@ -43,12 +43,14 @@ namespace FormUI.Controllers.Helpers
             return new LinkTag("Back", urlHelper.Content(actionUrl));
         }
 
-        public static IHtmlString PartialFor<T>(this HtmlHelper<T> helper, Expression<Func<T, object>> property, string view)
+        public static IHtmlString PartialFor<T, TViewModel>(this HtmlHelper<T> helper, Expression<Func<T, TViewModel>> property, string view, Func<TViewModel, object> modelFactory = null)
+            where TViewModel : class
         {
             var prefix = property.GetExpressionText();
             var templateInfo = new TemplateInfo { HtmlFieldPrefix = prefix };
-            var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
-            return helper.Partial(view, metaData.Model, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
+            var model = (TViewModel)ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model;
+            var viewModel = modelFactory != null ? modelFactory(model) : model;
+            return helper.Partial(view, viewModel, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
         }
 
         public static ScopedHtmlHelper<T> VisibleWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, bool visible, Action<HtmlTag> mutator = null)

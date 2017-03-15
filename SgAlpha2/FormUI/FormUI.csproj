@@ -135,6 +135,7 @@
     <Compile Include="App_Start\MetadataProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\AddressModel.cs" />
     <Compile Include="Controllers\Bsg\BenefitsModel.cs" />
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\BsgController.cs" />

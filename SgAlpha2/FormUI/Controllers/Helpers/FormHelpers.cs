@@ -17,20 +17,19 @@ namespace FormUI.Controllers.Helpers
             var form = new FormTag().AddClasses("sg-form").NoClosingTag();
             helper.ViewContext.Writer.Write(form.ToHtmlString());
 
-            var newHelper = helper.ForModel(postModel);
-            return new ScopedHtmlHelper<TPostModel>(newHelper, () =>
+            return helper.ForModel(postModel, () =>
             {
                 helper.ViewContext.Writer.Write($"</{form.TagName()}>");
             });
         }
 
-        public static HtmlHelper<TPostModel> ForModel<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel)
+        public static ScopedHtmlHelper<TPostModel> ForModel<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel, Action onDispose = null)
         {
             var viewData = new ViewDataDictionary(helper.ViewData);
             viewData.Model = postModel;
             var data = new ViewDataContainer { ViewData = viewData };
             var newHelper = new HtmlHelper<TPostModel>(helper.ViewContext, data);
-            return newHelper;
+            return new ScopedHtmlHelper<TPostModel>(newHelper, onDispose);
         }
 
         public static IHtmlString ButtonSubmit<T>(this HtmlHelper<T> helper)

@@ -1,9 +1,12 @@
-﻿@inherits WebViewPage<Address>
+﻿@inherits WebViewPage<AddressModel>
 
-@Html.LabelledInputText(m => m.Line1)
+@using (var form = Html.ForModel(Model.Address))
+{
+    @form.Html.LabelledInputText(m => m.Line1)
 
-@Html.LabelledInputText(m => m.Line2)
+    @form.Html.LabelledInputText(m => m.Line2)
 
-@Html.LabelledInputText(m => m.Line3)
+    @form.Html.LabelledInputText(m => m.Line3)
 
-@Html.LabelledInputText(m => m.Postcode)
+    @form.Html.LabelledInputText(m => m.Postcode)
+}

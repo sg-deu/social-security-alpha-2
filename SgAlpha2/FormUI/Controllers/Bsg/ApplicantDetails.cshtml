@@ -41,7 +41,7 @@
 
             <p>Please tell us your current address</p>
 
-            @form.Html.PartialFor(m => m.CurrentAddress, BsgViews.Address)
+            @form.Html.PartialFor(m => m.CurrentAddress, BsgViews.Address, a => new AddressModel { Address = a })
 
             @form.Html.LabelledInputDate(m => m.DateMovedIn)
 

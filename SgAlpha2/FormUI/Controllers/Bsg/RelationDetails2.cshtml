@@ -17,7 +17,7 @@
 
             <h2>@Model.Heading</h2>
 
-            @form.Html.PartialFor(m => m.Address, BsgViews.Address)
+            @form.Html.PartialFor(m => m.Address, BsgViews.Address, a => new AddressModel { Address = a })
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
