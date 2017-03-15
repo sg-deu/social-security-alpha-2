@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Sockets;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
+using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
 {
     public class LocalRepository : Repository
     {
+        private const string DefaultDbUri = "https://localhost:8081";
+        private const string DefaultDbKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+
         private static bool _isSetup = false;
 
         private static void SetUp()
@@ -15,11 +20,29 @@ namespace FormUI.Tests.Domain.Util
             if (_isSetup)
                 return;
 
-            var dbUri = new Uri(VstsSettings.GetSetting("dbUri", "https://localhost:8081"));
-            var dbKey = VstsSettings.GetSetting("dbKey", "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
+            var dbUri = new Uri(VstsSettings.GetSetting("dbUri", DefaultDbUri));
+            var dbKey = VstsSettings.GetSetting("dbKey", DefaultDbKey);
 
             Repository.Init(dbUri, dbKey);
             _isSetup = true;
+        }
+
+        public static void VerifyRunning()
+        {
+            var dbUri = VstsSettings.GetSetting("dbUri", DefaultDbUri);
+
+            if (dbUri != DefaultDbUri)
+                return; // this is just a check to help local devs
+
+            try
+            {
+                using (var tcpClient = new TcpClient())
+                    tcpClient.Connect("localhost", 8081);
+            }
+            catch
+            {
+                Assert.Fail("Could not verify DocumentDB connection - please verify DocumentDB is running");
+            }
         }
 
         public static LocalRepository New(bool deleteAllDocuments = true)

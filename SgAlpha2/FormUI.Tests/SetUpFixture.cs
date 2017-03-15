@@ -35,6 +35,8 @@ namespace FormUI.Tests
                 }
 
                 Console.WriteLine("Aquired");
+
+                LocalRepository.VerifyRunning();
             }
             catch
             {
