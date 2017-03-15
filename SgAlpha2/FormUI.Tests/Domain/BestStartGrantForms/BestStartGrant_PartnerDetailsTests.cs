@@ -34,6 +34,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             form.PartnerDetails.RelationshipToApplicant.Should().Be("Partner");
         }
 
+        [Test]
+        public void AddPartnerDetails_AllowsAddressToBeInherited()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .With(f => f.PartnerDetails, RelationDetailsBuilder.NewValid(Part.Part1))
+                .Insert();
+
+            var inheritedDetails = RelationDetailsBuilder.NewValid(Part.Part2, rd =>
+            {
+                rd.InheritAddress = true;
+                rd.Address = null;
+            });
+
+            form.AddPartnerDetails(Part.Part2, inheritedDetails);
+
+            form.PartnerDetails.InheritAddress.Should().BeTrue();
+            form.PartnerDetails.Address.Should().BeNull();
+        }
+
         protected void PartnerDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
         {
             ShouldBeValid(() => form.AddPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));

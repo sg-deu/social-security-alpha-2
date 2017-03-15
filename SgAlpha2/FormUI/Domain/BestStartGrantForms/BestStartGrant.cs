@@ -392,9 +392,12 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (part == Part.Part2)
             {
-                ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
-                ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
-                ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
+                if (!relationDetails.InheritAddress)
+                {
+                    ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
+                    ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
+                    ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
+                }
             }
 
             ctx.ThrowIfError();
