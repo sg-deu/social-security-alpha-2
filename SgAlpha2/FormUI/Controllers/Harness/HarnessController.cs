@@ -25,7 +25,7 @@ namespace FormUI.Controllers.Harness
     {
         public ActionResult Index()         { return View(); }
         public ActionResult Layout()        { return View(); }
-        public ActionResult InputText()     { return View(); }
+        public ActionResult InputText()     { return View(new HarnessModel { Text4 = "disabled value" }); }
         public ActionResult InputDate()     { return View(); }
         public ActionResult Radio()         { return View(); }
         public ActionResult CheckBoxes()    { return View(); }

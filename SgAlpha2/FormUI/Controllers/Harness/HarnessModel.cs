@@ -13,6 +13,7 @@ namespace FormUI.Controllers.Harness
 
         public string       Text2       { get; set; }
         public string       Text3       { get; set; }
+        public string       Text4       { get; set; }
         public string       Password    { get; set; }
         public DateTime?    DateTime1   { get; set; }
         public DateTime?    DateTime2   { get; set; }

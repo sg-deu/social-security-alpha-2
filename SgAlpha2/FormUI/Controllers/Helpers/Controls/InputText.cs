@@ -6,7 +6,8 @@ namespace FormUI.Controllers.Helpers.Controls
 {
     public class InputText : InputControl
     {
-        public int? _maxLength;
+        private int? _maxLength;
+        private bool _disabled;
 
         public InputText(HtmlHelper helper, ControlContext controlContext) : base(helper, controlContext)
         {
@@ -15,6 +16,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public InputText MaxLength(int? maxLength)
         {
             _maxLength = maxLength;
+            return this;
+        }
+
+        public InputText Disabled(bool disabled = true)
+        {
+            _disabled = disabled;
             return this;
         }
 
@@ -35,6 +42,9 @@ namespace FormUI.Controllers.Helpers.Controls
 
             if (maxLength.HasValue)
                 input.Attr("maxlength", maxLength);
+
+            if (_disabled)
+                input.Attr("disabled", "disabled");
 
             if (additionalValues.ContainsKey(Metadata.InputMask))
                 input.Attr("data-input-mask", additionalValues[Metadata.InputMask]);

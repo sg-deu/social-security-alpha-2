@@ -30,6 +30,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Relationship to applicant")]
         public string       RelationshipToApplicant { get; set; }
 
+        [DisplayName("Lives at the same address")]
+        public bool         InheritAddress          { get; set; }
+
         public Address      Address                 { get; set; }
 
         public void CopyTo(RelationDetails dest, Part part)

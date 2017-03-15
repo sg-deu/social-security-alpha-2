@@ -19,6 +19,8 @@
                 .Control(c => c.Tag(t => t.Style("background", "orange")))
                 .Width(ControlWidth.Small))
 
+            @Html.LabelledInputText(m => m.Text4).Hint("disabled").Control(c => c.Disabled())
+
             @Html.LabelledInputPassword("Password input", m => m.Password)
 
         </form>
