@@ -71,6 +71,18 @@
             });
         }
 
+        rootElement.on('change', '[type=checkbox]', function (e) {
+            var cb = $(this);
+
+            if (cb.is(':checked')) {
+                rootElement.find('[data-checkbox-checked-show]').show();
+                rootElement.find('[data-checkbox-checked-hide]').hide();
+            } else {
+                rootElement.find('[data-checkbox-checked-show]').hide();
+                rootElement.find('[data-checkbox-checked-hide]').show();
+            }
+        });
+
         rootElement.find('[data-ajax-change]').each(function (index, e) {
 
             var element = $(e);

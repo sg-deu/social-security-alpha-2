@@ -43,5 +43,4 @@ namespace FormUI.Tests.SystemTests.Harness
             form.GetText("verify String1 is 'string 1 test'", f => f.String1, v => v.Should().Be("string 1 test"));
         }
     }
-
 }

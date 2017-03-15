@@ -11,14 +11,14 @@
 
             @Html.LabelledConfirmCheckBox("show/hide parts of the page", m => m.CheckBox1)
 
-            @using (Html.HideWhenChecked(m => m.CheckBox1))
+            @using (Html.ShowWhenChecked(m => m.CheckBox1, t => t.Id("hidden-part")))
             {
-                <p>This part is initially hidden</p>
+                <p>This part is hidden unless the check-box is checked</p>
             }
 
-            @using (Html.ShowWhenChecked(m => m.CheckBox1))
+            @using (Html.HideWhenChecked(m => m.CheckBox1, t => t.Id("shown-part")))
             {
-                <p>This part is initially visible</p>
+                <p>This part is visible when the check-box is unchecked</p>
             }
 
             @Html.ButtonSubmit()

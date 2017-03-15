@@ -51,12 +51,31 @@ namespace FormUI.Controllers.Helpers
             return helper.Partial(view, metaData.Model, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
         }
 
-        public static ScopedHtmlHelper<T> VisibleWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, bool visible)
+        public static ScopedHtmlHelper<T> VisibleWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, bool visible, Action<HtmlTag> mutator = null)
         {
+            var propertyName = property.GetExpressionText();
+            var name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName);
+
+            var modelChecked = helper.ViewData.ModelState.ContainsKey(name);
+            
+            if (!modelChecked)
+            {
+                var modelValue = ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model;
+                modelChecked = modelValue != null && (bool)modelValue;
+            }
+
             var container = new DivTag().NoClosingTag();
 
-            if (!visible)
+            if (visible && !modelChecked || !visible && modelChecked)
                 container.AddClasses("show-hide-hidden");
+
+            if (visible)
+                container.Attr("data-checkbox-checked-show", name);
+            else
+                container.Attr("data-checkbox-checked-hide", name);
+
+            if (mutator != null)
+                mutator(container);
 
             helper.ViewContext.Writer.Write(container.ToHtmlString());
 
@@ -66,14 +85,14 @@ namespace FormUI.Controllers.Helpers
             });
         }
 
-        public static ScopedHtmlHelper<T> HideWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        public static ScopedHtmlHelper<T> HideWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, Action<HtmlTag> mutator = null)
         {
-            return helper.VisibleWhenChecked(property, false);
+            return helper.VisibleWhenChecked(property, false, mutator);
         }
 
-        public static ScopedHtmlHelper<T> ShowWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        public static ScopedHtmlHelper<T> ShowWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, Action<HtmlTag> mutator = null)
         {
-            return helper.VisibleWhenChecked(property, true);
+            return helper.VisibleWhenChecked(property, true, mutator);
         }
     }
 }
