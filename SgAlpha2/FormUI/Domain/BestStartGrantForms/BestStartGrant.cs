@@ -362,6 +362,11 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth");
                 ctx.InPast(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth in the past");
                 ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
+                ctx.Required(c => c.Children[i].ChildBenefit, "Please indicate if you receive child benefit");
+
+                if (existingChildren.Children[i].ChildBenefit == false)
+                    ctx.Required(c => c.Children[i].NoChildBenefitReason, "Please supply a reason why child benefit is not received");
+
                 ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
             }
 

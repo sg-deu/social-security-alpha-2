@@ -18,12 +18,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             ExistingChildrenShouldBeValid(form, m => { });
             ExistingChildrenShouldBeValid(form, m => m.Children = new List<ExistingChild>());
+            ExistingChildrenShouldBeValid(form, m => { m.Children[0].ChildBenefit = true; m.Children[0].NoChildBenefitReason = null; });
 
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FirstName = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].Surname = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = TestNowUtc);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].RelationshipToChild = null);
+            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].ChildBenefit = null);
+            ExistingChildrenShouldBeInvalid(form, m => { m.Children[0].ChildBenefit = false; m.Children[0].NoChildBenefitReason = null; });
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
         }
 
