@@ -28,7 +28,12 @@
                 @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
                 @form.Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
                 @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
-                @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason)
+
+                using (form.Html.ShowWhenNo(m => m.Children[i].ChildBenefit, t => t.Id($"child{i}-reason")))
+                {
+                    @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason)
+                }
+
                 @form.Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
 
                 @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")

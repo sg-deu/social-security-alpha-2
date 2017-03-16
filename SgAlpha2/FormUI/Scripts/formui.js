@@ -76,20 +76,20 @@
             var name = cb.attr('name');
 
             if (cb.is(':checked')) {
-                rootElement.find('[data-checkbox-checked-show=' + name + ']').show();
-                rootElement.find('[data-checkbox-checked-hide=' + name + ']').hide();
+                rootElement.find('[data-checkbox-checked-show="' + name + '"]').show();
+                rootElement.find('[data-checkbox-checked-hide="' + name + '"]').hide();
             } else {
-                rootElement.find('[data-checkbox-checked-show=' + name + ']').hide();
-                rootElement.find('[data-checkbox-checked-hide=' + name + ']').show();
+                rootElement.find('[data-checkbox-checked-show="' + name + '"]').hide();
+                rootElement.find('[data-checkbox-checked-hide="' + name + '"]').show();
             }
         });
 
         rootElement.on('change', '[type=radio]', function (e) {
             var radio = $(this);
             var name = radio.attr('name');
-            var value = rootElement.find('input[name=' + name + ']:checked').val();
-            rootElement.find('[data-radio-show-name=' + name + ']').hide();
-            rootElement.find('[data-radio-show-name=' + name + '][data-radio-show-value=' + value + ']').show();
+            var value = rootElement.find('input[name="' + name + '"]:checked').val();
+            rootElement.find('[data-radio-show-name="' + name + '"]').hide();
+            rootElement.find('[data-radio-show-name="' + name + '"][data-radio-show-value=' + value + ']').show();
         });
 
         rootElement.find('[data-ajax-change]').each(function (index, e) {

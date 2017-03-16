@@ -35,6 +35,22 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExistingChildren_AsksForReason_OnlyWhenNoChildBenefit()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExistingChildren(detail.Id));
+                var form = response.Form<ExistingChildren>(1);
+
+                form.RadioShows(m => m.Children[0].ChildBenefit, false, "child0-reason");
+                form.RadioShows(m => m.Children[1].ChildBenefit, false, "child1-reason");
+            });
+        }
+
+        [Test]
         public void ExistingChildren_POST_StoresData()
         {
             WebAppTest(client =>
