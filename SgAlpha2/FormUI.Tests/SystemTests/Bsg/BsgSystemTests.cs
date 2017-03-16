@@ -14,6 +14,7 @@ namespace FormUI.Tests.SystemTests.Bsg
     [TestFixture]
     public class BsgSystemTests : SystemTest
     {
+        private bool            _runningAlltests;
         private IList<Sections> _verifiedSections = new List<Sections>();
 
         [TestFixtureTearDown]
@@ -24,10 +25,20 @@ namespace FormUI.Tests.SystemTests.Bsg
             if (TestRegistry.TestHasFailed)
                 return;
 
+            if (!_runningAlltests)
+                return;
+
             // verify each section has been tested
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
                 if (!FeatureToggles.SkipWorkInProgressSection(section))
                     _verifiedSections.Should().Contain(section, "section {0} should be filled in and verified", section);
+        }
+
+        [Test]
+        public void RunningAllTests()
+        {
+            // this is to verify in the TestFixtureTearDown that we've verified all sections of the form
+            _runningAlltests = true;
         }
 
         [Test]
