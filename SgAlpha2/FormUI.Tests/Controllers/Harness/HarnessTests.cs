@@ -98,5 +98,18 @@ namespace FormUI.Tests.Controllers.Harness
                 ajaxActions.ForFormGroup<AjaxFormModel>(f => f.String2).ShouldShowHide(response.Doc, false);
             });
         }
+
+        [Test]
+        public void ShowHide()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(HarnessActions.ShowHideParts());
+                var form = response.Form<HarnessModel>(1);
+
+                form.WhenCheckedShows(m => m.CheckBox1, "hidden-part");
+                form.WhenUncheckedShows(m => m.CheckBox1, "shown-part");
+            });
+        }
     }
 }

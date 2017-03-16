@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Net;
+using FluentAssertions;
 using FormUI.Controllers.Helpers;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util.Http;
@@ -77,6 +78,24 @@ namespace FormUI.Tests.Controllers.Util.Html
         public static string FormName(LambdaExpression property)
         {
             return property.GetExpressionText();
+        }
+
+        public static void WhenCheckedShows<T>(this TypedForm<T> form, Expression<Func<T, bool>> property, string elementId)
+        {
+            var idSelector = "#" + elementId;
+            var element = form.Element.Find(idSelector);
+            var name = FormName(property);
+            element.HasAttribute("data-checkbox-checked-show").Should().BeTrue("element id {0} should be configured to show/hide", elementId);
+            element.Attribute("data-checkbox-checked-show").Should().Be(name, "element id {0} should be configured to show when {1} is checked", elementId, name);
+        }
+
+        public static void WhenUncheckedShows<T>(this TypedForm<T> form, Expression<Func<T, bool>> property, string elementId)
+        {
+            var idSelector = "#" + elementId;
+            var element = form.Element.Find(idSelector);
+            var name = FormName(property);
+            element.HasAttribute("data-checkbox-checked-hide").Should().BeTrue("element id {0} should be configured to show/hide", elementId);
+            element.Attribute("data-checkbox-checked-hide").Should().Be(name, "element id {0} should be configured to hide when {1} is checked", elementId, name);
         }
     }
 }
