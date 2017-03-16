@@ -161,6 +161,7 @@
     <Compile Include="Controllers\Helpers\Controls\InputPassword.cs" />
     <Compile Include="Controllers\Helpers\Controls\InputText.cs" />
     <Compile Include="Controllers\Helpers\Controls\Radios.cs" />
+    <Compile Include="Controllers\Helpers\Controls\TextArea.cs" />
     <Compile Include="Controllers\Helpers\FormHelpers.cs" />
     <Compile Include="Controllers\Helpers\HtmlHelpers.cs" />
     <Compile Include="Controllers\Helpers\ReflectHelper.cs" />
@@ -314,6 +315,7 @@
     <Content Include="Controllers\Bsg\RelationDetails2.cshtml" />
     <Content Include="Controllers\Bsg\Address.cshtml" />
     <Content Include="Controllers\Harness\ShowHideParts.cshtml" />
+    <Content Include="Controllers\Harness\TextArea.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

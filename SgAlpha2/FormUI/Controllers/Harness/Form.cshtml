@@ -12,6 +12,8 @@
             @(Html.LabelledInputText("Text1", m => m.Text1)
                 .Hint("optional - no validation"))
 
+            @Html.LabelledTextArea(m => m.Text2)
+
             @Html.LabelledInputDate("DateTime1", m => m.DateTime1)
 
             @Html.LabelledInputInt("Int1", m => m.Int1)

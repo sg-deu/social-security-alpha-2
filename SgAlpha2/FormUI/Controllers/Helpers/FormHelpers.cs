@@ -65,6 +65,17 @@ namespace FormUI.Controllers.Helpers
                 new InputText(helper, controlContext));
         }
 
+        public static FormRow<TextArea> LabelledTextArea<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property, string hintText = null)
+        {
+            return helper.LabelledTextArea(null, property, hintText);
+        }
+
+        public static FormRow<TextArea> LabelledTextArea<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property, string hintText = null)
+        {
+            return helper.LabelledControl(labelText, property, controlContext =>
+                new TextArea(helper, controlContext));
+        }
+
         public static FormRow<InputPassword> LabelledInputPassword<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
         {
             return helper.LabelledControl(labelText, property, controlContext =>

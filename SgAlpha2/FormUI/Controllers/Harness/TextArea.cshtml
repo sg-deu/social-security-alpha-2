@@ -1,0 +1,18 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>TextArea examples</h2>
+
+        <form>
+
+            @Html.LabelledTextArea(m => m.Text1)
+
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>

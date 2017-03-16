@@ -8,6 +8,9 @@
   outline: 3px solid #ffbf47;
   outline-offset: 0; }
 
+.sg textarea {
+  height: 154px; }
+
 .sg .validation-summary-errors {
   color: red; }
 

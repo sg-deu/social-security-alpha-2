@@ -13,6 +13,7 @@ namespace FormUI.Controllers.Harness
         public static string Index()            { return "~/harness/"; }
         public static string Layout()           { return "~/harness/layout"; }
         public static string InputText()        { return "~/harness/inputText/"; }
+        public static string TextArea()         { return "~/harness/textArea/"; }
         public static string InputDate()        { return "~/harness/inputDate/"; }
         public static string Radio()            { return "~/harness/radio/"; }
         public static string CheckBoxes()       { return "~/harness/checkBoxes/"; }
@@ -24,12 +25,13 @@ namespace FormUI.Controllers.Harness
 
     public class HarnessController : FormController
     {
-        public ActionResult Index()         { return View(); }
-        public ActionResult Layout()        { return View(); }
-        public ActionResult InputText()     { return View(new HarnessModel { Text4 = "disabled value" }); }
-        public ActionResult InputDate()     { return View(); }
-        public ActionResult Radio()         { return View(); }
-        public ActionResult CheckBoxes()    { return View(); }
+        public ActionResult Index()                         { return View(); }
+        public ActionResult Layout()                        { return View(); }
+        public ActionResult InputText()                     { return View(new HarnessModel { Text4 = "disabled value" }); }
+        public ActionResult TextArea(HarnessModel model)    { return View(); }
+        public ActionResult InputDate()                     { return View(); }
+        public ActionResult Radio()                         { return View(); }
+        public ActionResult CheckBoxes()                    { return View(); }
 
         public static string UnitTestActionFor(Sections section)
         {

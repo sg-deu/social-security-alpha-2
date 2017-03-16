@@ -31,6 +31,12 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
+        public void TextArea_GET()
+        {
+            VerifyView(HarnessActions.TextArea());
+        }
+
+        [Test]
         public void InputDate_GET()
         {
             VerifyView(HarnessActions.InputDate());
