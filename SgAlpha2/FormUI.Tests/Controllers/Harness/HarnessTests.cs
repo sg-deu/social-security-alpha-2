@@ -114,5 +114,24 @@ namespace FormUI.Tests.Controllers.Harness
                 form.WhenUncheckedShows(m => m.CheckBox2, "shown-part2");
             });
         }
+
+        [Test]
+        public void ShowHideRadio()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(HarnessActions.ShowHideRadio());
+                var form = response.Form<HarnessModel>(1);
+
+                form.RadioShows(m => m.Radio4, true, "part1-yes");
+                form.RadioShows(m => m.Radio4, false, "part1-no");
+
+                form.RadioShows(m => m.Radio5, true, "part2-yes");
+                form.RadioShows(m => m.Radio5, false, "part2-no");
+
+                form.RadioShows(m => m.Radio6, true, "part3-yes");
+                form.RadioShows(m => m.Radio6, false, "part3-no");
+            });
+        }
     }
 }

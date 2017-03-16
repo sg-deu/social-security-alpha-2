@@ -95,5 +95,15 @@ namespace FormUI.Tests.Controllers.Util.Html
             var name = FormName(property);
             element.Attribute("data-checkbox-checked-hide").Should().Be(name, "element id {0} should be configured to hide when {1} is checked", elementId, name);
         }
+
+        public static void RadioShows<T>(this TypedForm<T> form, Expression<Func<T, bool?>> property, bool? value, string elementId)
+        {
+            var idSelector = "#" + elementId;
+            var element = form.Element.Find(idSelector);
+            var name = FormName(property);
+            var stringValue = value.HasValue ? value.Value.ToString() : "";
+            element.Attribute("data-radio-show-name").Should().Be(name, "element id {0} should be configured to show/hide for {1}", elementId, name);
+            element.Attribute("data-radio-show-value").Should().Be(stringValue, "element id {0} should be configured to show when {1} value is {2}", elementId, name, stringValue);
+        }
     }
 }
