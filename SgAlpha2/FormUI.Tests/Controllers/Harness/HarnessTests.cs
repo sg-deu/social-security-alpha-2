@@ -109,6 +109,9 @@ namespace FormUI.Tests.Controllers.Harness
 
                 form.WhenCheckedShows(m => m.CheckBox1, "hidden-part");
                 form.WhenUncheckedShows(m => m.CheckBox1, "shown-part");
+
+                form.WhenCheckedShows(m => m.CheckBox2, "hidden-part2");
+                form.WhenUncheckedShows(m => m.CheckBox2, "shown-part2");
             });
         }
     }

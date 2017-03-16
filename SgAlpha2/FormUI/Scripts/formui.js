@@ -73,13 +73,14 @@
 
         rootElement.on('change', '[type=checkbox]', function (e) {
             var cb = $(this);
+            var name = cb.attr('name');
 
             if (cb.is(':checked')) {
-                rootElement.find('[data-checkbox-checked-show]').show();
-                rootElement.find('[data-checkbox-checked-hide]').hide();
+                rootElement.find('[data-checkbox-checked-show=' + name + ']').show();
+                rootElement.find('[data-checkbox-checked-hide=' + name + ']').hide();
             } else {
-                rootElement.find('[data-checkbox-checked-show]').hide();
-                rootElement.find('[data-checkbox-checked-hide]').show();
+                rootElement.find('[data-checkbox-checked-show=' + name + ']').hide();
+                rootElement.find('[data-checkbox-checked-hide=' + name + ']').show();
             }
         });
 
