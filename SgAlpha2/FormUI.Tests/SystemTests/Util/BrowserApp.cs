@@ -128,10 +128,20 @@ namespace FormUI.Tests.SystemTests.Util
 
         public void TypeText(string name, string text, bool clearFirst = true)
         {
+            TypeText(name, $"input[name='{name}']", text, clearFirst);
+        }
+
+        public void TypeTextArea(string name, string text, bool clearFirst = true)
+        {
+            TypeText(name, $"textarea[name='{name}']", text, clearFirst);
+        }
+
+        private void TypeText(string name, string selector, string text, bool clearFirst = true)
+        {
             Console.WriteLine("Type text '{0}' into '{1}'", text, name);
             Wait.For(_browser, () =>
             {
-                var inputs = _browser.FindElements(By.CssSelector($"input[name='{name}']"))
+                var inputs = _browser.FindElements(By.CssSelector(selector))
                     .Where(i => i.Displayed && i.Enabled)
                     .ToList();
 

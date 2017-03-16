@@ -19,6 +19,12 @@ namespace FormUI.Tests.SystemTests.Util
             _app.TypeText(name, text);
         }
 
+        public void TypeTextArea(Expression<Func<T, object>> property, string text)
+        {
+            var name = property.GetExpressionText();
+            _app.TypeTextArea(name, text);
+        }
+
         public void GetText(string testText, Expression<Func<T, object>> property, Action<string> verify)
         {
             var name = property.GetExpressionText();

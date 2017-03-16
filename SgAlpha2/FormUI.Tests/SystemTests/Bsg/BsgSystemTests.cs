@@ -252,6 +252,8 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.Children[1].Surname, "c2 last name");
             form.TypeDate(m => m.Children[1].DateOfBirth, "02", "03", "2004");
             form.TypeText(m => m.Children[1].RelationshipToChild, "c2 relationship");
+            form.SelectRadio(m => m.Children[1].ChildBenefit, false);
+            form.TypeTextArea(m => m.Children[1].NoChildBenefitReason, "reason text");
             form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
         }
 
@@ -270,7 +272,8 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ExistingChildren.Children[1].Surname.Should().Be("c2 last name");
             doc.ExistingChildren.Children[1].DateOfBirth.Should().Be(new DateTime(2004, 03, 02));
             doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
-            doc.ExistingChildren.Children[1].ChildBenefit.Should().BeNull();
+            doc.ExistingChildren.Children[1].ChildBenefit.Should().BeFalse();
+            doc.ExistingChildren.Children[1].NoChildBenefitReason.Should().Be("reason text");
             doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
             _verifiedSections.Add(Sections.ExistingChildren);
         }

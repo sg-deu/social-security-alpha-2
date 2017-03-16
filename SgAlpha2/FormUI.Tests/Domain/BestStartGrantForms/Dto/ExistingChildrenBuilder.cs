@@ -20,6 +20,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                     DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-(10 + i * 2)),
                     RelationshipToChild = "guardian",
                     ChildBenefit = false,
+                    NoChildBenefitReason = $"unit test reason {i + 1}",
                     FormalKinshipCare = false,
                 });
             }
