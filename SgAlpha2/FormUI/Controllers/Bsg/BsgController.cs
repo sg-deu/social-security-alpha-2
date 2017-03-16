@@ -385,6 +385,7 @@ namespace FormUI.Controllers.Bsg
                 m.Title = "Your Partner part 2";
                 m.Heading = "Your Partner's address";
                 m.RelationDetails = details ?? f.PartnerDetails;
+                m.InheritedAddress = f.ApplicantDetails?.CurrentAddress;
             });
         }
 

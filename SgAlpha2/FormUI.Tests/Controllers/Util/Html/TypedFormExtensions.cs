@@ -85,7 +85,6 @@ namespace FormUI.Tests.Controllers.Util.Html
             var idSelector = "#" + elementId;
             var element = form.Element.Find(idSelector);
             var name = FormName(property);
-            element.HasAttribute("data-checkbox-checked-show").Should().BeTrue("element id {0} should be configured to show/hide", elementId);
             element.Attribute("data-checkbox-checked-show").Should().Be(name, "element id {0} should be configured to show when {1} is checked", elementId, name);
         }
 
@@ -94,7 +93,6 @@ namespace FormUI.Tests.Controllers.Util.Html
             var idSelector = "#" + elementId;
             var element = form.Element.Find(idSelector);
             var name = FormName(property);
-            element.HasAttribute("data-checkbox-checked-hide").Should().BeTrue("element id {0} should be configured to show/hide", elementId);
             element.Attribute("data-checkbox-checked-hide").Should().Be(name, "element id {0} should be configured to hide when {1} is checked", elementId, name);
         }
     }

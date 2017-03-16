@@ -82,7 +82,13 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.PartnerDetails2(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.PartnerDetails2 });
-                response.Doc.Form<RelationDetails>(1).GetText(m => m.Address.Line1).Should().Be(detail.PartnerDetails.Address.Line1);
+                var form = response.Doc.Form<RelationDetails>(1);
+
+                form.GetText(m => m.Address.Line1).Should().Be(detail.PartnerDetails.Address.Line1);
+                form.Get(m => m.InheritAddress).Length.Should().Be(1, "option to inherit address should be visible");
+
+                form.WhenCheckedShows(m => m.InheritAddress, "inherited-address");
+                form.WhenUncheckedShows(m => m.InheritAddress, "new-address");
             });
         }
 

@@ -131,7 +131,12 @@ namespace FormUI.Tests.SystemTests.Util
             Console.WriteLine("Type text '{0}' into '{1}'", text, name);
             Wait.For(_browser, () =>
             {
-                var input = _browser.FindElement(By.CssSelector($"input[name='{name}']"));
+                var inputs = _browser.FindElements(By.CssSelector($"input[name='{name}']"))
+                    .Where(i => i.Displayed && i.Enabled)
+                    .ToList();
+
+                inputs.Count.Should().Be(1, "should be 1 visible {0}, but found {1}", name, inputs.Count);
+                var input = inputs.Single();
 
                 var actions = new Actions(_browser);
                 actions.Click(input);

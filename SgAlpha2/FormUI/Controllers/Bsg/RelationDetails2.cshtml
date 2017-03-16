@@ -17,8 +17,20 @@
 
             <h2>@Model.Heading</h2>
 
-            @form.Html.PartialFor(m => m.Address, BsgViews.Address, a => new AddressModel { Address = a })
+            if (Model.InheritedAddress != null)
+            {
+                @form.Html.LabelledConfirmCheckBox(m => m.InheritAddress)
 
+                using (form.Html.ShowWhenChecked(m => m.InheritAddress, div => div.Id("inherited-address")))
+                {
+                    @form.Html.PartialFor(m => m.Address, BsgViews.Address, a => new AddressModel { Address = Model.InheritedAddress, Disabled = true })
+                }
+            }
+
+            using (form.Html.HideWhenChecked(m => m.InheritAddress, div => div.Id("new-address")))
+            {
+                @form.Html.PartialFor(m => m.Address, BsgViews.Address, a => new AddressModel { Address = a })
+            }
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

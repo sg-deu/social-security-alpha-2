@@ -8,6 +8,7 @@ namespace FormUI.Controllers.Bsg
         public string   Title;
         public string   Heading;
         public bool     HideRelationship;
+        public Address  InheritedAddress;
 
         // POST
         public RelationDetails RelationDetails;

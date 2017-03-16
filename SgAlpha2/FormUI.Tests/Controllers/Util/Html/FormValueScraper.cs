@@ -68,6 +68,9 @@ namespace FormUI.Tests.Controllers.Util.Html
             if (enabledElements.Count == 0)
                 return null;
 
+            if (enabledElements.Count == 1)
+                return FromElement(enabledElements.Single());
+
             var checkedValues = enabledElements.Where(e => e.HasAttribute("checked")).ToList();
 
             var formValue = new FormValue(name)
