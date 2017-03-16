@@ -7,7 +7,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     public class RelationDetailsBuilder
     {
+        public static RelationDetails NewValid(Part part)
+        {
+            return NewValid(part, "relation");
+        }
+
         public static RelationDetails NewValid(Part part, Action<RelationDetails> mutator = null)
+        {
+            return NewValid(part, "relation", mutator);
+        }
+
+        public static RelationDetails NewValid(Part part, string relation = "relation ", Action<RelationDetails> mutator = null)
         {
             var value = new RelationDetails
             {
@@ -21,7 +31,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             if (part == Part.Part2)
             {
                 value.InheritAddress = false;
-                value.Address = AddressBuilder.NewValid();
+                value.Address = AddressBuilder.NewValid(relation);
             }
 
             if (mutator != null)

@@ -18,7 +18,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 PreviouslyLookedAfter = false,
                 FullTimeEducation = false,
                 NationalInsuranceNumber = "AB123456C",
-                CurrentAddress = AddressBuilder.NewValid(),
+                CurrentAddress = AddressBuilder.NewValid("applicant"),
                 DateMovedIn = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(365),
                 CurrentAddressStatus = AddressStatus.Permanent,
                 ContactPreference = ContactPreference.Email,
