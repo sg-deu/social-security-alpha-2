@@ -84,6 +84,14 @@
             }
         });
 
+        rootElement.on('change', '[type=radio]', function (e) {
+            var radio = $(this);
+            var name = radio.attr('name');
+            var value = rootElement.find('input[name=' + name + ']:checked').val();
+            rootElement.find('[data-radio-show-name=' + name + ']').hide();
+            rootElement.find('[data-radio-show-name=' + name + '][data-radio-show-value=' + value + ']').show();
+        });
+
         rootElement.find('[data-ajax-change]').each(function (index, e) {
 
             var element = $(e);

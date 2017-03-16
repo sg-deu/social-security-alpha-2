@@ -22,6 +22,8 @@ namespace FormUI.Controllers.Harness
         public RValues1?    Radio2      { get; set; }
         public RValues2?    Radio3      { get; set; }
         public bool?        Radio4      { get; set; }
+        public bool?        Radio5      { get; set; }
+        public bool?        Radio6      { get; set; }
         public bool         CheckBox1   { get; set; }
 
         [DisplayName("I agree")]

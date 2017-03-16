@@ -231,7 +231,8 @@
     <Compile Include="SetUpFixture.cs" />
     <Compile Include="SystemTests\Bsg\BsgSystemTests.cs" />
     <Compile Include="SystemTests\Harness\AjaxSystemTests.cs" />
-    <Compile Include="SystemTests\Harness\ShowHidePartsTests.cs" />
+    <Compile Include="SystemTests\Harness\ShowHideCheckboxTests.cs" />
+    <Compile Include="SystemTests\Harness\ShowHideRadioTests.cs" />
     <Compile Include="SystemTests\SetUpFixture.cs" />
     <Compile Include="SystemTests\Util\BrowserApp.cs" />
     <Compile Include="SystemTests\Util\DevWebServer.cs" />

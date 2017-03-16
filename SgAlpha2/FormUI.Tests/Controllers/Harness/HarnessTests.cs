@@ -55,12 +55,6 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
-        public void ShowHideParts_GET()
-        {
-            VerifyView(HarnessActions.ShowHideParts());
-        }
-
-        [Test]
         public void Form()
         {
             WebAppTest(client =>
@@ -106,11 +100,11 @@ namespace FormUI.Tests.Controllers.Harness
         }
 
         [Test]
-        public void ShowHide()
+        public void ShowHideCheckbox()
         {
             WebAppTest(client =>
             {
-                var response = client.Get(HarnessActions.ShowHideParts());
+                var response = client.Get(HarnessActions.ShowHideCheckbox());
                 var form = response.Form<HarnessModel>(1);
 
                 form.WhenCheckedShows(m => m.CheckBox1, "hidden-part");

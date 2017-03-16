@@ -87,6 +87,38 @@ namespace FormUI.Controllers.Helpers
             });
         }
 
+        public static ScopedHtmlHelper<T> VisibleWhenValue<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property, string value, Action<HtmlTag> mutator = null)
+        {
+            var propertyName = property.GetExpressionText();
+            var name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName);
+
+            string modelValue = null;
+            var modelState = helper.ViewData.ModelState;
+
+            if (modelState.ContainsKey(name))
+                modelValue = (modelState[name].Value.AttemptedValue ?? "").ToString();
+            else
+                modelValue = (ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model ?? "").ToString();
+
+            var container = new DivTag().NoClosingTag();
+
+            if (modelValue != value)
+                container.AddClasses("show-hide-hidden");
+
+            container.Attr("data-radio-show-name", name);
+            container.Attr("data-radio-show-value", value);
+
+            if (mutator != null)
+                mutator(container);
+
+            helper.ViewContext.Writer.Write(container.ToHtmlString());
+
+            return new ScopedHtmlHelper<T>(helper, () =>
+            {
+                helper.ViewContext.Writer.Write($"</{container.TagName()}>");
+            });
+        }
+
         public static ScopedHtmlHelper<T> HideWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, Action<HtmlTag> mutator = null)
         {
             return helper.VisibleWhenChecked(property, false, mutator);
@@ -95,6 +127,16 @@ namespace FormUI.Controllers.Helpers
         public static ScopedHtmlHelper<T> ShowWhenChecked<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property, Action<HtmlTag> mutator = null)
         {
             return helper.VisibleWhenChecked(property, true, mutator);
+        }
+
+        public static ScopedHtmlHelper<T> ShowWhenYes<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property, Action<HtmlTag> mutator = null)
+        {
+            return helper.VisibleWhenValue(property, true.ToString(), mutator);
+        }
+
+        public static ScopedHtmlHelper<T> ShowWhenNo<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property, Action<HtmlTag> mutator = null)
+        {
+            return helper.VisibleWhenValue(property, false.ToString(), mutator);
         }
     }
 }

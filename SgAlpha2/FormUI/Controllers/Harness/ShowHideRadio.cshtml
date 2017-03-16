@@ -1,0 +1,57 @@
+﻿@inherits WebViewPage<HarnessModel>
+@using FormUI.Controllers.Harness
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        <h2>Show/Hide for radio example</h2>
+
+        <form method="post">
+
+            @Html.ValidationSummary()
+
+
+            @Html.LabelledRadioYesNo("Show part 1?", m => m.Radio4)
+
+            @using (Html.ShowWhenYes(m => m.Radio4, t => t.Id("part1-yes")))
+            {
+                <p>This part is hidden unless 'Yes' is selected</p>
+            }
+
+            @using (Html.ShowWhenNo(m => m.Radio4, t => t.Id("part1-no")))
+            {
+                <p>This part is hidden unless 'No' is selected</p>
+            }
+
+
+            @Html.LabelledRadioYesNo("Show part 2?", m => m.Radio5)
+
+            @using (Html.ShowWhenYes(m => m.Radio5, t => t.Id("part2-yes")))
+            {
+                <p>This part is hidden unless 'Yes' is selected</p>
+            }
+
+            @using (Html.ShowWhenNo(m => m.Radio5, t => t.Id("part2-no")))
+            {
+                <p>This part is hidden unless 'No' is selected</p>
+            }
+
+
+            @Html.LabelledRadioYesNo("Show part 3?", m => m.Radio6)
+
+            @using (Html.ShowWhenYes(m => m.Radio6, t => t.Id("part3-yes")))
+            {
+                <p>This part is hidden unless 'Yes' is selected</p>
+            }
+
+            @using (Html.ShowWhenNo(m => m.Radio6, t => t.Id("part3-no")))
+            {
+                <p>This part is hidden unless 'No' is selected</p>
+            }
+
+
+            @Html.ButtonSubmit()
+
+        </form>
+
+    </div><!--
+--></div>

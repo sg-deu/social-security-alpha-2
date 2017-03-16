@@ -20,7 +20,8 @@ namespace FormUI.Controllers.Harness
         public static string Form()             { return "~/harness/form/"; }
         public static string AjaxForm()         { return "~/harness/ajaxForm"; }
         public static string AjaxPostback()     { return "~/harness/ajaxPostback"; }
-        public static string ShowHideParts() { return "~/harness/showHideParts/"; }
+        public static string ShowHideCheckbox() { return "~/harness/showHideCheckbox/"; }
+        public static string ShowHideRadio()    { return "~/harness/showHideRadio/"; }
     }
 
     public class HarnessController : FormController
@@ -98,9 +99,14 @@ namespace FormUI.Controllers.Harness
             });
         }
 
-        public ActionResult ShowHideParts(HarnessModel model)
+        public ActionResult ShowHideCheckbox(HarnessModel model)
         {
-            return View();
+            return View(Request.HttpMethod == "GET" ? new HarnessModel { CheckBox2 = true } : model);
+        }
+
+        public ActionResult ShowHideRadio(HarnessModel model)
+        {
+            return View(Request.HttpMethod == "GET" ? new HarnessModel { Radio5 = true, Radio6 = false } : model);
         }
     }
 }
