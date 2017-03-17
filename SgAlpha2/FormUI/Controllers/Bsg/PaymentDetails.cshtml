@@ -17,7 +17,7 @@
 
             <h2>How we pay you</h2>
 
-            @form.Html.LabelledRadioYesNo(m => m.LackingBankAccount)
+            @form.Html.LabelledRadioYesNo(m => m.LackingBankAccount).Mandatory()
 
             @form.Html.LabelledInputText(m => m.NameOfAccountHolder)
 

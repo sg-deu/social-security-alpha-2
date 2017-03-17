@@ -23,18 +23,18 @@
             {
                 <h3 class="existing-child">Child @(i + 1)</h3>
 
-                @form.Html.LabelledInputText(m => m.Children[i].FirstName)
-                @form.Html.LabelledInputText(m => m.Children[i].Surname)
-                @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth)
-                @form.Html.LabelledInputText(m => m.Children[i].RelationshipToChild)
-                @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit)
+                @form.Html.LabelledInputText(m => m.Children[i].FirstName).Mandatory()
+                @form.Html.LabelledInputText(m => m.Children[i].Surname).Mandatory()
+                @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth).Mandatory()
+                @form.Html.LabelledInputText(m => m.Children[i].RelationshipToChild).Mandatory()
+                @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit).Mandatory()
 
                 using (form.Html.ShowWhenNo(m => m.Children[i].ChildBenefit, t => t.Id($"child{i}-reason")))
                 {
-                    @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason)
+                    @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason).Mandatory()
                 }
 
-                @form.Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare)
+                @form.Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare).Mandatory()
 
                 @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
             }

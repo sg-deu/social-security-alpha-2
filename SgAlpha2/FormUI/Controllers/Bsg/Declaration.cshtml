@@ -28,7 +28,7 @@
                 You could be prosecuted or have to pay a financial penalty if you deliberately give wrong or incomplete information or don't report changes.
             </p>
 
-            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true))
+            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

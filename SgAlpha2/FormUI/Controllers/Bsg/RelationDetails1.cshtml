@@ -19,14 +19,14 @@
 
             @form.Html.LabelledInputText(m => m.Title)
 
-            @form.Html.LabelledInputText(m => m.FullName)
+            @form.Html.LabelledInputText(m => m.FullName).Mandatory()
 
-            @form.Html.LabelledInputDate(m => m.DateOfBirth)
+            @form.Html.LabelledInputDate(m => m.DateOfBirth).Mandatory()
 
-            @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
+            @form.Html.LabelledInputText(m => m.NationalInsuranceNumber).Mandatory()
 
             if (!Model.HideRelationship) {
-                @form.Html.LabelledInputText(m => m.RelationshipToApplicant)
+                @form.Html.LabelledInputText(m => m.RelationshipToApplicant).Mandatory()
             }
 
 

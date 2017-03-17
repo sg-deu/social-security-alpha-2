@@ -18,6 +18,7 @@
             <h2>@Model.Title</h2>
 
             @(form.Html.LabelledRadio(m => m.HasExistingBenefit)
+                    .Mandatory()
                     .Label(Model.Question)
                     .Control(c => c.AddVisualPause(YesNoDk.DontKnow))
                     .BeforeControl(@"

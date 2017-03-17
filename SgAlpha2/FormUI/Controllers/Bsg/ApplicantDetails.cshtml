@@ -12,8 +12,6 @@
 
         <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
 
-        <p>You must complete all fields, unless they're marked as (optional)...</p>
-
         @using (var form = Html.FormFor(Model.ApplicantDetails))
         {
 
@@ -23,19 +21,19 @@
 
             @form.Html.LabelledInputText(m => m.Title)
 
-            @form.Html.LabelledInputText(m => m.FirstName)
+            @form.Html.LabelledInputText(m => m.FirstName).Mandatory()
 
             @form.Html.LabelledInputText(m => m.OtherNames)
 
-            @form.Html.LabelledInputText(m => m.SurnameOrFamilyName)
+            @form.Html.LabelledInputText(m => m.SurnameOrFamilyName).Mandatory()
 
-            @form.Html.LabelledInputDate(m => m.DateOfBirth).AjaxOnChange(BsgActions.Ajax_DobChanged())
+            @form.Html.LabelledInputDate(m => m.DateOfBirth).AjaxOnChange(BsgActions.Ajax_DobChanged()).Mandatory()
 
-            @form.Html.LabelledRadioYesNo(m => m.PreviouslyLookedAfter).InitiallyHidden()
+            @form.Html.LabelledRadioYesNo(m => m.PreviouslyLookedAfter).InitiallyHidden().Mandatory()
 
-            @form.Html.LabelledRadioYesNo(m => m.FullTimeEducation).InitiallyHidden()
+            @form.Html.LabelledRadioYesNo(m => m.FullTimeEducation).InitiallyHidden().Mandatory()
 
-            @form.Html.LabelledInputText(m => m.NationalInsuranceNumber)
+            @form.Html.LabelledInputText(m => m.NationalInsuranceNumber).Mandatory()
 
             <h2>Your Address</h2>
 
@@ -43,11 +41,11 @@
 
             @form.Html.PartialFor(m => m.CurrentAddress, BsgViews.Address, a => new AddressModel { Address = a })
 
-            @form.Html.LabelledInputDate(m => m.DateMovedIn)
+            @form.Html.LabelledInputDate(m => m.DateMovedIn).Mandatory()
 
-            @form.Html.LabelledRadio(m => m.CurrentAddressStatus)
+            @form.Html.LabelledRadio(m => m.CurrentAddressStatus).Mandatory()
 
-            @form.Html.LabelledRadio(m => m.ContactPreference)
+            @form.Html.LabelledRadio(m => m.ContactPreference).Mandatory()
 
             @form.Html.LabelledInputText(m => m.EmailAddress)
 

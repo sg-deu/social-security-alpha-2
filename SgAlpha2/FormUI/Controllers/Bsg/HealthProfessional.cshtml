@@ -17,7 +17,7 @@
 
             <h2>Health Professional details</h2>
 
-            @form.Html.LabelledInputText(m => m.Pin)
+            @form.Html.LabelledInputText(m => m.Pin).Mandatory()
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

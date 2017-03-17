@@ -29,7 +29,7 @@
                 in your BSG application for the purposes described above, please tick the box below.
             </p>
 
-            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true))
+            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true)).Mandatory()
 
             <p>
                 If you need any further information, please contact us at:
