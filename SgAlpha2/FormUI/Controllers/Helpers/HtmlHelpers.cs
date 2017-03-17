@@ -96,7 +96,7 @@ namespace FormUI.Controllers.Helpers
             var modelState = helper.ViewData.ModelState;
 
             if (modelState.ContainsKey(name))
-                modelValue = (modelState[name].Value.AttemptedValue ?? "").ToString();
+                modelValue = (modelState[name].Value?.AttemptedValue ?? "").ToString();
             else
                 modelValue = (ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model ?? "").ToString();
 
