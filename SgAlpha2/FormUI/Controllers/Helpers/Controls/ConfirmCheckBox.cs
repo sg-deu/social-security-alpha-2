@@ -13,12 +13,15 @@ namespace FormUI.Controllers.Helpers.Controls
             _labelText = labelText;
         }
 
+        public override bool HandlesMandatoryInline() { return true; }
+
         public ConfirmCheckBox Emphasise(bool emphasise)
         {
             _emphasise = emphasise;
             return this;
         }
-        protected override HtmlTag CreateTag()
+
+        protected override HtmlTag CreateTag(bool inlineMandatory = false)
         {
             var container = new DivTag().AddClasses("confirm-check-box");
 
@@ -33,9 +36,15 @@ namespace FormUI.Controllers.Helpers.Controls
                 input.Attr("checked", "checked");
 
             var labelText = _labelText ?? ControlContext.Metadata.DisplayName ?? ControlContext.Metadata.PropertyName;
-            var text = new HtmlTag("span").Text(labelText);
+            var text = new HtmlTag("span");
+
+            if (inlineMandatory)
+                text.Append(NewMandatory());
+
+            text.Append(new HtmlTag("span").Text(labelText));
 
             var label = new HtmlTag("label").Append(input).Append(text);
+
             return container.Append(label);
         }
     }

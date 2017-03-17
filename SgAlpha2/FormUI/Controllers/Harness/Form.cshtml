@@ -5,24 +5,30 @@
 
         <h2>Form example</h2>
 
+        <p>
+            Note, the fields are marked as mandatory for visual testing, but
+            are not mandatory for this test form.
+        </p>
+
         <form method="post">
 
             @Html.ValidationSummary()
 
             @(Html.LabelledInputText("Text1", m => m.Text1)
+                .Mandatory()
                 .Hint("optional - no validation"))
 
-            @Html.LabelledTextArea(m => m.Text2)
+            @Html.LabelledTextArea(m => m.Text2).Mandatory()
 
-            @Html.LabelledInputDate("DateTime1", m => m.DateTime1)
+            @Html.LabelledInputDate("DateTime1", m => m.DateTime1).Mandatory()
 
-            @Html.LabelledInputInt("Int1", m => m.Int1)
+            @Html.LabelledInputInt("Int1", m => m.Int1).Mandatory()
 
-            @Html.LabelledRadio("Radio1", m => m.Radio1)
+            @Html.LabelledRadio("Radio1", m => m.Radio1).Mandatory()
 
-            @Html.LabelledRadioYesNo("Radio4", m => m.Radio4)
+            @Html.LabelledRadioYesNo("Radio4", m => m.Radio4).Mandatory()
 
-            @Html.LabelledConfirmCheckBox(m => m.CheckBox2)
+            @Html.LabelledConfirmCheckBox(m => m.CheckBox2).Mandatory()
 
             @Html.ButtonSubmit()
 

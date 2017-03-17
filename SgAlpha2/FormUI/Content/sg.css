@@ -20,6 +20,9 @@
 .js .sg .form-group.initially-hidden {
   display: none; }
 
+.sg .form-group .required-icon {
+  padding-right: 4px; }
+
 .sg .form-group label {
   font-weight: normal; }
 
@@ -108,4 +111,7 @@
   .sg .confirm-check-box label span {
     padding-left: 50px;
     display: block; }
+    .sg .confirm-check-box label span span {
+      display: inline !important;
+      padding-left: 2px; }
 

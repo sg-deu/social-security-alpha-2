@@ -31,13 +31,28 @@ namespace FormUI.Controllers.Helpers.Controls
             return this;
         }
 
-        public HtmlTag GenerateTag()
+        public HtmlTag GenerateTag(bool inlineMandatory = false)
         {
-            var tag = CreateTag();
+            var tag = CreateTag(inlineMandatory);
             _tagMutator?.Invoke(tag);
             return tag;
         }
 
-        protected abstract HtmlTag CreateTag();
+        public virtual bool HandlesMandatoryInline() { return false; }
+
+        protected static HtmlTag NewMandatory()
+        {
+            return new HtmlTag("span").AddClasses("required-icon").Text("*");
+        }
+
+        protected virtual HtmlTag CreateTag(bool inlineMandatory = false)
+        {
+            if (HandlesMandatoryInline() && inlineMandatory)
+                throw new Exception("override CreateTag(bool) to handle inline-mandatory for " + GetType());
+
+            return CreateTag();
+        }
+
+        protected virtual HtmlTag CreateTag() { return new HtmlTag("span"); }
     }
 }

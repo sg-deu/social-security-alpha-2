@@ -18,6 +18,7 @@ namespace FormUI.Controllers.Helpers.Controls
         private string          _labelText;
         private TControl        _control;
         private string          _hintHtml;
+        private bool            _mandatory;
         private string          _beforeControlHtml;
         private ControlWidth?   _controlWidth;
         private bool            _initiallyHidden;
@@ -39,6 +40,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public FormRow<TControl> Hint(string hintHtml)
         {
             _hintHtml = hintHtml;
+            return this;
+        }
+
+        public FormRow<TControl> Mandatory(bool mandatory = true)
+        {
+            _mandatory = mandatory;
             return this;
         }
 
@@ -74,9 +81,14 @@ namespace FormUI.Controllers.Helpers.Controls
 
         protected override HtmlTag CreateTag()
         {
-            var label = new HtmlTag("label").Text(_labelText).Attr("for", _id);
+            var label = new HtmlTag("label").Attr("for", _id);
 
-            var controlTag = _control.GenerateTag();
+            if (_mandatory && !_control.HandlesMandatoryInline())
+                label.Append(NewMandatory());
+
+            label.Append(new HtmlTag("span").Text(_labelText));
+
+            var controlTag = _control.GenerateTag(_mandatory);
             var inputWrapper = new DivTag().AddClasses("input-wrapper").Append(controlTag);
 
             var formGroup = new DivTag()

@@ -31,6 +31,10 @@
             }
         }
 
+        .required-icon {
+            padding-right: 4px;
+        }
+
         label {
             font-weight: normal;
         }
@@ -165,6 +169,11 @@
             span {
                 padding-left: 50px;
                 display: block;
+
+                span {
+                    display: inline !important;
+                    padding-left: 2px;
+                }
             }
 
         }
