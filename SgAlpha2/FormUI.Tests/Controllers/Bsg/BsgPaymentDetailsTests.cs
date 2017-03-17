@@ -33,6 +33,18 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void PaymentDetails_AsksForDetails_OnlyWhenHasBankAccount()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.PaymentDetails("form"));
+                var form = response.Form<PaymentDetails>(1);
+
+                form.RadioShows(m => m.LackingBankAccount, false, "ba-details");
+            });
+        }
+
+        [Test]
         public void PaymentDetails_POST_StoresData()
         {
             WebAppTest(client =>
