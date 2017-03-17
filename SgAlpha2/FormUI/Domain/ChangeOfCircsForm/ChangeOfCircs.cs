@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FormUI.Domain.ChangeOfCircsForm.Responses;
 using FormUI.Domain.Forms;
 
@@ -18,6 +19,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return new NextSection
             {
                 Id = form.Id,
+                Section = Navigation.Order.First(),
             };
         }
     }

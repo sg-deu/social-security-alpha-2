@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Commands;
 using FormUI.Tests.Domain.Util;
@@ -18,6 +19,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Commands
 
             var createdForm = Repository.Load<ChangeOfCircs>(nextSection.Id);
             createdForm.Should().NotBeNull("form should be in database");
+
+            nextSection.Section.Should().Be(Navigation.Order.First());
         }
     }
 }
