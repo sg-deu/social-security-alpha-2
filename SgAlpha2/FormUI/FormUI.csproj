@@ -211,6 +211,9 @@
     <Compile Include="Domain\BestStartGrantForms\Responses\NextSection.cs" />
     <Compile Include="Domain\BestStartGrantForms\Sections.cs" />
     <Compile Include="Domain\BestStartGrantForms\SectionStrategy.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircs.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Responses\NextSection.cs" />
     <Compile Include="Domain\FeatureToggles.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.ChangeOfCircsForm;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json;
@@ -38,6 +39,7 @@ namespace FormUI.Domain.Util
 
                 Links = new Dictionary<Type, Uri>();
                 CreateCollection<BestStartGrant>(client);
+                CreateCollection<ChangeOfCircs>(client);
             }
         }
 
