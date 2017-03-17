@@ -1,0 +1,30 @@
+﻿@using FormUI.Controllers.Bsg
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+           <h1>What do you want to do?</h1>
+
+           <h2>Choose one of the following options</h2>
+
+           <div class="form-group">
+               <label>
+                   <span>Start a new application</span>
+                   <p class="help-block">Choose this option to start a new form - select the Start button to get going</p>
+               </label>
+               @Html.ButtonLink(BsgActions.Overview(), "Start")
+           </div>
+
+           <div class="form-group">
+               <label>
+                   <span>Change or update your details</span>
+                   <p class="help-block">Choose this option to update your details - select Continue to carry on</p>
+               </label>
+               @Html.ButtonLink("#", "Continue")
+           </div>
+
+    </div><!--
+--></div>

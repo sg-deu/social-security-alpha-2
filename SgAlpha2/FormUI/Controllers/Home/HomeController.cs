@@ -18,7 +18,7 @@ namespace FormUI.Controllers.Home
         [HttpGet]
         public ActionResult Index()
         {
-            return Redirect(BsgActions.Overview());
+            return View();
         }
 
         [HttpGet]
