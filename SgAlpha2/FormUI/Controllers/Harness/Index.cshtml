@@ -1,5 +1,4 @@
 ﻿@using FormUI.Controllers.Harness
-@using FormUI.Domain.BestStartGrantForms
 <div>
 
     <ul>
@@ -30,12 +29,31 @@
 
     </ul>
 
-    <ul style="margin-top: 40px;">
-        @if (Request.Url.Host == "localhost") {
-            foreach (Sections section in Enum.GetValues(typeof(Sections))) {
-                <li><a href="@Url.Content(HarnessController.UnitTestActionFor(section))">unit test form - @(section)</a></li>
+    @if (Request.Url.Host == "localhost")
+    {
+
+        <h2>Best Start Grant links ...</h2>
+        <ul style="margin-top: 40px;">
+            @if (Request.Url.Host == "localhost")
+            {
+                foreach (FormUI.Domain.BestStartGrantForms.Sections section in Enum.GetValues(typeof(FormUI.Domain.BestStartGrantForms.Sections)))
+                {
+                    <li><a href="@Url.Content(HarnessController.UnitTestActionFor(section))">unit test form - @(section)</a></li>
+                }
             }
-        }
-    </ul>
+        </ul>
+
+        <h2>Change of Circumstances links ...</h2>
+        <ul style="margin-top: 40px;">
+            @if (Request.Url.Host == "localhost")
+            {
+                foreach (FormUI.Domain.ChangeOfCircsForm.Sections section in Enum.GetValues(typeof(FormUI.Domain.ChangeOfCircsForm.Sections)))
+                {
+                    <li><a href="@Url.Content(HarnessController.UnitTestActionFor(section))">unit test form - @(section)</a></li>
+                }
+            }
+        </ul>
+
+    }
 
 </div>

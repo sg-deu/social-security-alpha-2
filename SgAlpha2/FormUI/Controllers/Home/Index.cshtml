@@ -1,4 +1,5 @@
 ﻿@using FormUI.Controllers.Bsg
+@using FormUI.Controllers.Coc
 @{
     ViewBag.Title = "Welcome";
 }
@@ -18,13 +19,15 @@
                @Html.ButtonLink(BsgActions.Overview(), "Start")
            </div>
 
-           <div class="form-group">
-               <label>
-                   <span>Change or update your details</span>
-                   <p class="help-block">Choose this option to update your details - select Continue to carry on</p>
-               </label>
-               @Html.ButtonLink("#", "Continue")
-           </div>
+           <form method="post" action="@Url.Content(CocActions.Overview())">
+               <div class="form-group">
+                   <label>
+                       <span>Change or update your details</span>
+                       <p class="help-block">Choose this option to update your details - select Continue to carry on</p>
+                   </label>
+                   @Html.ButtonSubmit("Continue")
+               </div>
+           </form>
 
     </div><!--
 --></div>

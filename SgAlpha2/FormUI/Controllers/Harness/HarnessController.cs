@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
-using FormUI.Controllers.Bsg;
 using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
-using FormUI.Domain.BestStartGrantForms;
 using Newtonsoft.Json;
 
 namespace FormUI.Controllers.Harness
@@ -34,16 +32,16 @@ namespace FormUI.Controllers.Harness
         public ActionResult Radio()                         { return View(); }
         public ActionResult CheckBoxes()                    { return View(); }
 
-        public static string UnitTestActionFor(Sections section)
+        public static string UnitTestActionFor(Domain.BestStartGrantForms.Sections section)
         {
-            try
-            {
-                return SectionActionStrategy.For(section).Action("unitTest");
-            }
-            catch
-            {
-                return "javascript:alert('SectionActionStrategy not implemented')";
-            }
+            try { return Bsg.SectionActionStrategy.For(section).Action("unitTest"); }
+            catch { return "javascript:alert('SectionActionStrategy not implemented')"; }
+        }
+
+        public static string UnitTestActionFor(Domain.ChangeOfCircsForm.Sections section)
+        {
+            try { return Coc.SectionActionStrategy.For(section).Action("unitTest"); }
+            catch { return "javascript:alert('SectionActionStrategy not implemented')"; }
         }
 
         [HttpGet]

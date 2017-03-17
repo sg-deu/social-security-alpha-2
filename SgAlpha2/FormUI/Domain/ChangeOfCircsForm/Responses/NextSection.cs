@@ -2,7 +2,7 @@
 {
     public class NextSection
     {
-        public string   Id;
-        public Sections Section;
+        public string       Id;
+        public Sections?    Section;
     }
 }
