@@ -1,10 +1,13 @@
-﻿using FormUI.Domain.BestStartGrantForms;
-
-namespace FormUI.Domain
+﻿namespace FormUI.Domain
 {
     public static class FeatureToggles
     {
-        public static bool SkipWorkInProgressSection(Sections section)
+        public static bool SkipWorkInProgressSection(BestStartGrantForms.Sections section)
+        {
+            return false;
+        }
+
+        public static bool SkipWorkInProgressSection(ChangeOfCircsForm.Sections section)
         {
             return false;
         }

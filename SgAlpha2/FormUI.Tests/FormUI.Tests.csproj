@@ -232,6 +232,7 @@
     <Compile Include="Domain\Util\TaskUtilTests.cs" />
     <Compile Include="SetUpFixture.cs" />
     <Compile Include="SystemTests\Bsg\BsgSystemTests.cs" />
+    <Compile Include="SystemTests\Coc\CocSystemTests.cs" />
     <Compile Include="SystemTests\Harness\AjaxSystemTests.cs" />
     <Compile Include="SystemTests\Harness\ShowHideCheckboxTests.cs" />
     <Compile Include="SystemTests\Harness\ShowHideRadioTests.cs" />
