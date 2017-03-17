@@ -17,9 +17,9 @@
 
             <h2>How we pay you</h2>
 
-            @form.Html.LabelledRadioYesNo(m => m.LackingBankAccount).Mandatory()
+            @form.Html.LabelledRadioYesNo(m => m.HasBankAccount).Mandatory()
 
-            using (form.Html.ShowWhenNo(m => m.LackingBankAccount, t => t.Id("ba-details")))
+            using (form.Html.ShowWhenYes(m => m.HasBankAccount, t => t.Id("ba-details")))
             {
                 @form.Html.LabelledInputText(m => m.NameOfAccountHolder).Mandatory()
 

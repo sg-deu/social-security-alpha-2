@@ -421,9 +421,9 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<PaymentDetails>(paymentDetails);
 
-            ctx.Required(m => m.LackingBankAccount, "Please indicate if you are lacking a bank account");
+            ctx.Required(m => m.HasBankAccount, "Please indicate if you have a bank account");
 
-            if (paymentDetails.LackingBankAccount == false)
+            if (paymentDetails.HasBankAccount == true)
             {
                 ctx.Required(m => m.NameOfAccountHolder, "Please supply the name of the account holder");
                 ctx.Required(m => m.NameOfBank, "Please supply the name of the bank");

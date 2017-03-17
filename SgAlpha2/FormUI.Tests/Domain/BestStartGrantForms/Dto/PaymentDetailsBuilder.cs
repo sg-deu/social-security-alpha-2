@@ -9,7 +9,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
         {
             var value = new PaymentDetails
             {
-                LackingBankAccount = false,
+                HasBankAccount = true,
                 NameOfAccountHolder = "unit testster",
                 NameOfBank = "unit test bank",
                 SortCode = "01-02-03",

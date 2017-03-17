@@ -456,7 +456,7 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<PaymentDetails>();
 
-            form.SelectRadio(m => m.LackingBankAccount, false);
+            form.SelectRadio(m => m.HasBankAccount, true);
             form.TypeText(m => m.NameOfAccountHolder, "system test account holder");
             form.TypeText(m => m.NameOfBank, "system test bank name");
             form.TypeText(m => m.SortCode, "01-02-03");
@@ -466,7 +466,7 @@ namespace FormUI.Tests.SystemTests.Bsg
 
         private void VerifyPaymentDetails(BestStartGrant doc)
         {
-            doc.PaymentDetails.LackingBankAccount.Should().BeFalse();
+            doc.PaymentDetails.HasBankAccount.Should().BeTrue();
             doc.PaymentDetails.NameOfAccountHolder.Should().Be("system test account holder");
             doc.PaymentDetails.NameOfBank.Should().Be("system test bank name");
             doc.PaymentDetails.SortCode.Should().Be("01-02-03");

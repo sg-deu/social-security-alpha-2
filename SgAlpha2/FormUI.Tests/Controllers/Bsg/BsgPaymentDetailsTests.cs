@@ -40,7 +40,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.PaymentDetails("form"));
                 var form = response.Form<PaymentDetails>(1);
 
-                form.RadioShows(m => m.LackingBankAccount, false, "ba-details");
+                form.RadioShows(m => m.HasBankAccount, true, "ba-details");
             });
         }
 
@@ -50,7 +50,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.PaymentDetails("form123")).Form<PaymentDetails>(1)
-                    .SelectNo(m => m.LackingBankAccount)
+                    .SelectYes(m => m.HasBankAccount)
                     .SetText(m => m.NameOfAccountHolder, "test name")
                     .SetText(m => m.NameOfBank, "test bank")
                     .SetText(m => m.SortCode, "01-02-03")
@@ -63,7 +63,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     FormId = "form123",
                     PaymentDetails = new PaymentDetails
                     {
-                        LackingBankAccount = false,
+                        HasBankAccount = true,
                         NameOfAccountHolder = "test name",
                         NameOfBank = "test bank",
                         SortCode = "01-02-03",

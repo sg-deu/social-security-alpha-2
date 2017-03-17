@@ -16,17 +16,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var form = new BestStartGrantBuilder("form").Insert();
 
             PaymentDetailsShouldBeValid(form, m => { });
-            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = false; m.RollNumber = null; });
-            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.NameOfAccountHolder = null; });
-            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.NameOfBank = null; });
-            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.SortCode = null; });
-            PaymentDetailsShouldBeValid(form, m => { m.LackingBankAccount = true; m.AccountNumber = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = true; m.RollNumber = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.NameOfAccountHolder = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.NameOfBank = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.SortCode = null; });
+            PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.AccountNumber = null; });
 
-            PaymentDetailsShouldBeInvalid(form, m => m.LackingBankAccount = null);
-            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.NameOfAccountHolder = null; });
-            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.NameOfBank = null; });
-            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.SortCode = null; });
-            PaymentDetailsShouldBeInvalid(form, m => { m.LackingBankAccount = false; m.AccountNumber = null; });
+            PaymentDetailsShouldBeInvalid(form, m => m.HasBankAccount = null);
+            PaymentDetailsShouldBeInvalid(form, m => { m.HasBankAccount = true; m.NameOfAccountHolder = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.HasBankAccount = true; m.NameOfBank = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.HasBankAccount = true; m.SortCode = null; });
+            PaymentDetailsShouldBeInvalid(form, m => { m.HasBankAccount = true; m.AccountNumber = null; });
         }
 
         [Test]

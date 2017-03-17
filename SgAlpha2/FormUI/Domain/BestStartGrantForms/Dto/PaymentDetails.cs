@@ -7,8 +7,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
     // possibly/probably be removed at a later stage
     public class PaymentDetails
     {
-        [DisplayName("Do you lack a bank account and require us to contact you to arrange payment?")]
-        public bool?    LackingBankAccount  { get; set; }
+        [DisplayName("Do you have a bank account?")]
+        [HintText("If you do not have a bank account we will contact you to arrange payment")]
+        public bool?    HasBankAccount      { get; set; }
 
         [DisplayName("Name of the Account Holder")]
         [HintText("Please type the name of the account holder exactly as it is shown on the chequebook or statement")]
