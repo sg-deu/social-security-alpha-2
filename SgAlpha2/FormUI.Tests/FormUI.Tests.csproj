@@ -233,6 +233,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSectionTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />
+    <Compile Include="Domain\Util\DataUpdates.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />

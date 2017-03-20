@@ -1,6 +1,9 @@
-﻿using FormUI.Domain.BestStartGrantForms;
+﻿using System;
+using FluentAssertions;
+using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Responses;
+using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
 
@@ -29,6 +32,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.HealthProfessional,         HealthProfessionalBuilder.NewValid());
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
+
+            With(f => f.Started, DomainRegistry.NowUtc());
+            With(f => f.UserId, _instance.ApplicantDetails?.EmailAddress);
+            VerifyConsistent(_instance);
             return this;
         }
 
@@ -48,6 +55,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             detail.HealthProfessional = form.HealthProfessional;
             detail.PaymentDetails = form.PaymentDetails;
             detail.Declaration = form.Declaration;
+        }
+
+        public static void VerifyConsistent(BestStartGrant doc)
+        {
+            if (!string.IsNullOrWhiteSpace(doc.ApplicantDetails?.EmailAddress))
+                doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress);
+
+            doc.Started.Should().NotBe(DateTime.MinValue);
         }
     }
 }

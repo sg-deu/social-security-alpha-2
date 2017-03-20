@@ -7,7 +7,9 @@ namespace FormUI.Domain.Forms
 {
     public abstract class Form : IDocument
     {
-        public Form(string id)
+        protected Form() { }
+
+        protected Form(string id)
         {
             Id = id;
             Started = DomainRegistry.NowUtc();
