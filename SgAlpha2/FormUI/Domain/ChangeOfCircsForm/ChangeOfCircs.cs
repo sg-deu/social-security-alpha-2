@@ -3,6 +3,7 @@ using System.Linq;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Domain.ChangeOfCircsForm.Responses;
 using FormUI.Domain.Forms;
+using FormUI.Domain.Util;
 
 namespace FormUI.Domain.ChangeOfCircsForm
 {
@@ -28,6 +29,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddConsent(Consent consent)
         {
+            Validate(consent);
+
             Consent = consent;
             return OnSectionCompleted(Sections.Consent);
         }
@@ -37,6 +40,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
             var next = Navigation.Next(this, section);
             Repository.Update(this);
             return next;
+        }
+
+        private static void Validate(Consent consent)
+        {
+            var ctx = new ValidationContext<Consent>(consent);
+
+            ctx.Required(m => m.AgreedToConsent, "Please indicate that you agree");
+
+            ctx.ThrowIfError();
         }
     }
 }

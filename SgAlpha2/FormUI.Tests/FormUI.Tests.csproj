@@ -222,6 +222,7 @@
     <Compile Include="Domain\BestStartGrantForms\Queries\FindApplicantDetailsConfigTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSectionTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\ScenarioTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircsTests.cs" />
