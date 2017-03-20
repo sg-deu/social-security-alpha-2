@@ -30,10 +30,12 @@ namespace FormUI.Domain.BestStartGrantForms
         public PaymentDetails       PaymentDetails          { get; protected set; }
         public Declaration          Declaration             { get; protected set; }
 
-        public BsgDetail FindSection(Sections section)
+        private BsgDetail NewBsgDetail()
         {
-            var detail = new BsgDetail
+            return new BsgDetail
             {
+                Id                      = Id,
+
                 Consent                 = Consent,
                 ApplicantDetails        = ApplicantDetails,
                 ExpectedChildren        = ExpectedChildren,
@@ -49,6 +51,11 @@ namespace FormUI.Domain.BestStartGrantForms
                 PaymentDetails          = PaymentDetails,
                 Declaration             = Declaration,
             };
+        }
+
+        public BsgDetail FindSection(Sections section)
+        {
+            var detail = NewBsgDetail();
 
             Navigation.Populate(detail, section, this);
 
@@ -85,6 +92,26 @@ namespace FormUI.Domain.BestStartGrantForms
                 return false;
 
             return age == 18 || age == 19;
+        }
+
+        public static BsgDetail FindLatest(string userId)
+        {
+            var userForms = Repository.Query<BestStartGrant>()
+                .Where(f => f.UserId == userId)
+                .Where(f => f.Completed != null)
+                .ToList();
+
+            // when trying to the .OrderBy in the query,
+            // it returns an empty list
+            // https://github.com/Azure/azure-documentdb-dotnet/issues/65
+
+            var latest = userForms
+                .OrderByDescending(f => f.Completed.Value)
+                .FirstOrDefault();
+
+            return latest != null
+                ? latest.NewBsgDetail()
+                : null;
         }
 
         public NextSection AddConsent(Consent consent)

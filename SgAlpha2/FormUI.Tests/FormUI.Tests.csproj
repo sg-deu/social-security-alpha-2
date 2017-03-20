@@ -224,6 +224,7 @@
     <Compile Include="Domain\BestStartGrantForms\Dto\PaymentDetailsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindApplicantDetailsConfigTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Queries\FindBsgSectionTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Queries\FindLatestApplicationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\ScenarioTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddConsentTests.cs" />

@@ -42,6 +42,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
         public static void CopySectionsFrom(BestStartGrant form, BsgDetail detail)
         {
+            detail.Id = form.Id;
+
             detail.Consent = form.Consent;
             detail.ApplicantDetails = form.ApplicantDetails;
             detail.ExpectedChildren = form.ExpectedChildren;
