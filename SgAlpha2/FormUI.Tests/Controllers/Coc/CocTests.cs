@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using FluentAssertions;
+using FormUI.Controllers.Coc;
 using FormUI.Controllers.Home;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Commands;
@@ -29,6 +30,17 @@ namespace FormUI.Tests.Controllers.Coc
                 ExecutorStub.Executed<StartChangeOfCircs>().Length.Should().Be(1);
 
                 response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
+        public void Complete_GET()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(CocActions.Complete());
+
+                response.Text.ToLower().Should().Contain("received");
             });
         }
     }

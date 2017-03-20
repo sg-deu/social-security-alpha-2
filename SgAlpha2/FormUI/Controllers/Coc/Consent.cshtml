@@ -1,11 +1,48 @@
-﻿@{
+﻿@inherits WebViewPage<ConsentModel>
+@{
     ViewBag.Title = "Change of Circumstances - Consent";
 }
 
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
-        <h3>Started Change of Circumstances ...</h3>
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Consent</h1>
+
+        @using (var form = Html.FormFor(Model.Consent))
+        {
+
+            @form.Html.ValidationSummary()
+
+            <p>
+                The Social Security Agency is an agency of the Scottish Government responsible for
+                processing and administering social security benefits and grants. In some instances
+                the data that you provide may be shared with the Department of Work and Pensions (DWP)
+                and other Government bodies to verify your identity and eligibility for
+                Best Start Grant (BSG). Data which does not identify the applicant (i.e. name) may
+                also be used for statistical purposes.
+            </p>
+
+            <p>
+                If you agree that the Social Security Agency can use the data you have provided
+                in your BSG application for the purposes described above, please tick the box below.
+            </p>
+
+            @form.Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true)).Mandatory()
+
+            <p>
+                If you need any further information, please contact us at:
+            </p>
+
+            @form.Html.Partial(SharedViews.SsaContactDetails)
+
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
 
     </div><!--
 --></div>

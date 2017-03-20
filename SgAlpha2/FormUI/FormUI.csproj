@@ -149,6 +149,8 @@
     <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Coc\CocController.cs" />
+    <Compile Include="Controllers\Coc\ConsentModel.cs" />
+    <Compile Include="Controllers\Coc\NavigableModel.cs" />
     <Compile Include="Controllers\Coc\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Harness\AjaxFormModel.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
@@ -331,6 +333,8 @@
     <Content Include="Controllers\Harness\ShowHideRadio.cshtml" />
     <Content Include="Controllers\Home\Index.cshtml" />
     <Content Include="Controllers\Coc\Consent.cshtml" />
+    <Content Include="Controllers\Coc\Web.config" />
+    <Content Include="Controllers\Coc\Complete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
