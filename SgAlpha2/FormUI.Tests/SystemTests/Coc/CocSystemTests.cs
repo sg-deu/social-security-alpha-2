@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using FormUI.Domain;
 using FormUI.Domain.ChangeOfCircsForm;
+using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
 
@@ -47,7 +48,10 @@ namespace FormUI.Tests.SystemTests.Coc
 
             App.Submit();
 
-            //App.VerifyCanSeeText("Started");
+            FillInConsent();
+            App.Submit();
+
+            App.VerifyCanSeeText("Thank you");
 
             Db(r =>
             {
@@ -55,6 +59,12 @@ namespace FormUI.Tests.SystemTests.Coc
 
                 VerifyConsent(doc);
             });
+        }
+
+        private void FillInConsent()
+        {
+            var form = App.FormForModel<Consent>();
+            form.Check(m => m.AgreedToConsent, true);
         }
 
         private void VerifyConsent(ChangeOfCircs doc)
