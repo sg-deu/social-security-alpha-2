@@ -233,7 +233,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var next = Navigation.Next(this, section);
 
             if (Completed.HasValue)
-                throw new DomainException("This application has already been submitted");
+                throw new DomainException("This application has already been submitted; please start another application or complete a Change of Circumstances");
 
             if (!next.Section.HasValue)
                 Completed = DomainRegistry.NowUtc();

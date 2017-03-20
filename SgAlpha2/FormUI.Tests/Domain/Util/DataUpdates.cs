@@ -12,7 +12,7 @@ namespace FormUI.Tests.Domain.Util
     public class DataUpdates
     {
         [Test]
-        public void AssignUserIdToBsgs()
+        public void UpdateDataToMakeConsistent()
         {
             DomainRegistry.ValidationContext = new ValidationContext(true);
 
@@ -30,6 +30,12 @@ namespace FormUI.Tests.Domain.Util
                     if (doc.Started == DateTime.MinValue)
                     {
                         Builder.Modify(doc).With(f => f.Started, DateTime.UtcNow);
+                        changed = true;
+                    }
+
+                    if (doc.Declaration?.AgreedToLegalStatement == true && !doc.Completed.HasValue)
+                    {
+                        Builder.Modify(doc).With(f => f.Completed, DateTime.UtcNow);
                         changed = true;
                     }
 

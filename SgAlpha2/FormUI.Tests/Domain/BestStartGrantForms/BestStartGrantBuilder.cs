@@ -61,10 +61,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public static void VerifyConsistent(BestStartGrant doc)
         {
             if (!string.IsNullOrWhiteSpace(doc.ApplicantDetails?.EmailAddress))
-                doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress);
+                doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress, "Where an e-mail address has been supplied, the UserId should reflect this {0}", doc.Id);
 
             if (doc.Declaration?.AgreedToLegalStatement == true)
-                doc.Completed.Should().NotBeNull();
+                doc.Completed.Should().NotBeNull("When consent has been filled in, expect a Completed date {0}", doc.Id);
 
             doc.Started.Should().NotBe(DateTime.MinValue);
         }

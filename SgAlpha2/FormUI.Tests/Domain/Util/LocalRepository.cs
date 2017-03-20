@@ -73,6 +73,8 @@ namespace FormUI.Tests.Domain.Util
 
                 new BestStartGrantBuilder(formId)
                     .WithCompletedSections()
+                    .With(f => f.Declaration, null)
+                    .With(f => f.Completed, null)
                     .Insert();
             }
         }
