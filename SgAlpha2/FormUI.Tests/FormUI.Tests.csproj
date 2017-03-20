@@ -147,6 +147,7 @@
     <Compile Include="Controllers\Coc\CocConsentTests.cs" />
     <Compile Include="Controllers\Coc\CocSectionTest.cs" />
     <Compile Include="Controllers\Coc\CocTests.cs" />
+    <Compile Include="Controllers\Coc\SectionActionStrategyTests.cs" />
     <Compile Include="Controllers\Harness\HarnessTests.cs" />
     <Compile Include="Controllers\Home\HomeTests.cs" />
     <Compile Include="Controllers\SetUpFixture.cs" />

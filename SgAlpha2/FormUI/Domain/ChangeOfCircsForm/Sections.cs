@@ -3,5 +3,6 @@
     public enum Sections
     {
         Consent = 1,
+        Identify,
     }
 }
