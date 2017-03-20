@@ -16,6 +16,28 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public static IEnumerable<Sections> Order { get { return _order; } }
 
+        public static void Populate(CocDetail detail, Sections section, ChangeOfCircs form)
+        {
+            var index = _order.IndexOf(section) - 1;
+
+            while (index >= 0 && !detail.PreviousSection.HasValue)
+            {
+                var previousSection = _order[index];
+
+                if (!FeatureToggles.SkipWorkInProgressSection(previousSection))
+                {
+                    var strategy = SectionStrategy.For(previousSection);
+
+                    if (strategy.Required(form))
+                        detail.PreviousSection = previousSection;
+                }
+
+                index--;
+            }
+
+            detail.IsFinalSection = index == _order.Count - 1;
+        }
+
         public static NextSection Next(ChangeOfCircs form, Sections completedSection)
         {
             var index = _order.IndexOf(completedSection) + 1;

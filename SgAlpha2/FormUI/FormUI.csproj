@@ -218,6 +218,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircs.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Consent.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Navigation.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSection.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Responses\CocDetail.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Responses\NextSection.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Sections.cs" />

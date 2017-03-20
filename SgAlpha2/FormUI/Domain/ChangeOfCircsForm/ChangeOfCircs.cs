@@ -15,6 +15,18 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public Consent Consent { get; protected set; }
 
+        public CocDetail FindSection(Sections section)
+        {
+            var detail = new CocDetail
+            {
+                Consent = Consent,
+            };
+
+            Navigation.Populate(detail, section, this);
+
+            return detail;
+        }
+
         public static NextSection Start()
         {
             var form = new ChangeOfCircs();
