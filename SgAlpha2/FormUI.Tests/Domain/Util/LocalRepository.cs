@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Net.Sockets;
 using FormUI.Domain.BestStartGrantForms;
+using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.ChangeOfCircsForm;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
@@ -51,7 +53,7 @@ namespace FormUI.Tests.Domain.Util
             return new LocalRepository(deleteAllDocuments);
         }
 
-        public static void AddTestDocument()
+        public static void AddTestDocuments()
         {
             if (!_isSetup)
                 return; // DB wasn't touched, so nothing to do here
@@ -62,21 +64,42 @@ namespace FormUI.Tests.Domain.Util
                 DomainRegistry.NowUtc = () => DateTime.UtcNow;
 
                 var formId = "unitTest";
-
-                var existingForm = repository.Query<BestStartGrant>()
-                    .Where(f => f.Id == formId)
-                    .ToList()
-                    .FirstOrDefault();
-
-                if (existingForm != null)
-                    return;
-
-                new BestStartGrantBuilder(formId)
-                    .WithCompletedSections()
-                    .With(f => f.Declaration, null)
-                    .With(f => f.Completed, null)
-                    .Insert();
+                AddTestBsg(repository, formId);
+                AddTestCoc(repository, formId);
             }
+        }
+
+        private static void AddTestBsg(LocalRepository repository, string formId)
+        {
+            var existingForm = repository.Query<BestStartGrant>()
+                .Where(f => f.Id == formId)
+                .ToList()
+                .FirstOrDefault();
+
+            if (existingForm != null)
+                return;
+
+            new BestStartGrantBuilder(formId)
+                .WithCompletedSections()
+                .With(f => f.Declaration, null)
+                .With(f => f.Completed, null)
+                .Insert();
+        }
+
+        private static void AddTestCoc(LocalRepository repository, string formId)
+        {
+            var existingForm = repository.Query<ChangeOfCircs>()
+                .Where(f => f.Id == formId)
+                .ToList()
+                .FirstOrDefault();
+
+            if (existingForm != null)
+                return;
+
+            new ChangeOfCircsBuilder(formId)
+                .WithCompletedSections()
+                .With(f => f.Completed, null)
+                .Insert();
         }
 
         private LocalRepository(bool deleteAllDocuments) : base(NewClient())

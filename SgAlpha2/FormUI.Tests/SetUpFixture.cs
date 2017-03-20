@@ -50,7 +50,7 @@ namespace FormUI.Tests
         [TearDown]
         public void TearDown()
         {
-            LocalRepository.AddTestDocument();
+            LocalRepository.AddTestDocuments();
             DisposeSemaphore();
         }
 

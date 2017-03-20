@@ -217,6 +217,7 @@
     <Compile Include="Domain\BestStartGrantForms\SectionStrategy.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddConsent.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddIdentity.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircs.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Consent.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Navigation.cs" />

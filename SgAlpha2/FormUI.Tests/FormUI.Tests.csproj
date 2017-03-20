@@ -228,6 +228,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircsBuilder.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddIdentityTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ConsentBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSectionTests.cs" />

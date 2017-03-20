@@ -47,6 +47,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.Consent);
         }
 
+        public NextSection AddIdentity(string userId)
+        {
+            UserId = userId;
+            return OnSectionCompleted(Sections.Identity);
+        }
+
         private NextSection OnSectionCompleted(Sections section)
         {
             var next = Navigation.Next(this, section);

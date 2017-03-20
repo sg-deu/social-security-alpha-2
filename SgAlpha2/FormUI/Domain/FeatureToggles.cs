@@ -14,7 +14,7 @@
 
         public static bool WorkingOnIdentify(ChangeOfCircsForm.Sections section)
         {
-            return section == ChangeOfCircsForm.Sections.Identify;
+            return section == ChangeOfCircsForm.Sections.Identity;
         }
     }
 }
