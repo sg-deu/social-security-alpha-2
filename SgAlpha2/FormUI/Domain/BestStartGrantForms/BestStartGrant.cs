@@ -100,6 +100,7 @@ namespace FormUI.Domain.BestStartGrantForms
             Validate(applicantDetails);
 
             ApplicantDetails = applicantDetails;
+            OnUserIdentified(applicantDetails.EmailAddress);
             return OnSectionCompleted(Sections.ApplicantDetails);
         }
 

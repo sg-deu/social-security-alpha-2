@@ -10,6 +10,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class BestStartGrantTests : DomainTest
     {
         [Test]
+        public void StartingForm_SetsStartDate()
+        {
+            var next = BestStartGrant.Start();
+
+            var form = Repository.Load<BestStartGrant>(next.Id);
+            form.Started.Should().Be(TestNowUtc.Value);
+        }
+
+        [Test]
         public void NextSectionClearsSkippedSections()
         {
             var form = new BestStartGrantBuilder("form")

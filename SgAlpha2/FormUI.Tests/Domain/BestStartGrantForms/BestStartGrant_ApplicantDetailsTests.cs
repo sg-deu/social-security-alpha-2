@@ -12,6 +12,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     public class BestStartGrant_ApplicantDetailsTests : DomainTest
     {
         [Test]
+        public void ApplicantDetails_UsesEmailToIdentifyUser()
+        {
+            var form = new BestStartGrantBuilder("form").Insert();
+            var details = ApplicantDetailsBuilder.NewValid(d => d.EmailAddress = "test.email");
+
+            form.AddApplicantDetails(details);
+
+            form.UserId.Should().Be("test.email");
+        }
+
+        [Test]
         public void ApplicantDetails_RequiresCareQuestion()
         {
             TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
