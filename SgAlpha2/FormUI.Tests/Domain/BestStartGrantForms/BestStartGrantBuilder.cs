@@ -33,7 +33,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
 
-            With(f => f.Started, DomainRegistry.NowUtc());
+            With(f => f.Started, DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
+            With(f => f.Completed, DomainRegistry.NowUtc());
             With(f => f.UserId, _instance.ApplicantDetails?.EmailAddress);
             VerifyConsistent(_instance);
             return this;
@@ -61,6 +62,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             if (!string.IsNullOrWhiteSpace(doc.ApplicantDetails?.EmailAddress))
                 doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress);
+
+            if (doc.Declaration?.AgreedToLegalStatement == true)
+                doc.Completed.Should().NotBeNull();
 
             doc.Started.Should().NotBe(DateTime.MinValue);
         }

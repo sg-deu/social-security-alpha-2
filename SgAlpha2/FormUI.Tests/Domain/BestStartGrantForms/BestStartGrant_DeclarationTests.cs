@@ -1,6 +1,8 @@
 ﻿using System;
+using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
@@ -10,6 +12,34 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     [TestFixture]
     public class BestStartGrant_DeclarationTests : DomainTest
     {
+        [Test]
+        public void Complete_SetsCompletionDate()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .WithCompletedSections()
+                .With(f => f.Declaration, null)
+                .With(f => f.Completed, null)
+                .Insert();
+
+            var next = form.AddDeclaration(DeclarationBuilder.NewValid());
+
+            next.Section.Should().BeNull("this should be the last section that is filled out");
+            form.Completed.Should().Be(TestNowUtc.Value);
+        }
+
+        [Test]
+        public void Complete_ThrowsIfAlreadyCompleted()
+        {
+            var form = new BestStartGrantBuilder("form")
+                .WithCompletedSections()
+                .Value();
+
+            form.Completed.Should().HaveValue();
+
+            Assert.Throws<DomainException>(() =>
+                form.AddConsent(ConsentBuilder.NewValid()));
+        }
+
         [Test]
         public void Complete_DeclarationValidated()
         {

@@ -231,6 +231,13 @@ namespace FormUI.Domain.BestStartGrantForms
         private NextSection OnSectionCompleted(Sections section)
         {
             var next = Navigation.Next(this, section);
+
+            if (Completed.HasValue)
+                throw new DomainException("This application has already been submitted");
+
+            if (!next.Section.HasValue)
+                Completed = DomainRegistry.NowUtc();
+
             Repository.Update(this);
             return next;
         }
