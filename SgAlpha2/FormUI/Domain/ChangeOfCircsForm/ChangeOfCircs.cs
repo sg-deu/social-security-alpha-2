@@ -87,6 +87,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.Identity);
         }
 
+        public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
+        {
+            ApplicantDetails = applicantDetails;
+            return OnSectionCompleted(Sections.Consent);
+        }
+
         private NextSection OnSectionCompleted(Sections section)
         {
             var next = Navigation.Next(this, section);
