@@ -24,18 +24,22 @@ namespace FormUI.Tests.Domain.Util
                     if (doc.UserId != doc.ApplicantDetails?.EmailAddress)
                     {
                         Builder.Modify(doc).With(d => d.UserId, doc.ApplicantDetails?.EmailAddress);
+                        Console.WriteLine("Changing {0} UserId={1}", doc.Id, doc.ApplicantDetails?.EmailAddress);
                         changed = true;
                     }
 
                     if (doc.Started == DateTime.MinValue)
                     {
+                        // this is not currently reached, as the default constructor will set Started
                         Builder.Modify(doc).With(f => f.Started, DateTime.UtcNow);
+                        Console.WriteLine("Changing {0} Started={1}", doc.Id, DateTime.UtcNow);
                         changed = true;
                     }
 
                     if (doc.Declaration?.AgreedToLegalStatement == true && !doc.Completed.HasValue)
                     {
                         Builder.Modify(doc).With(f => f.Completed, DateTime.UtcNow);
+                        Console.WriteLine("Changing {0} Completed={1}", doc.Id, DateTime.UtcNow);
                         changed = true;
                     }
 
