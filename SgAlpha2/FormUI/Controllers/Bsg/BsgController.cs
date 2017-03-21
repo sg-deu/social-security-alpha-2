@@ -43,7 +43,6 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgViews
     {
-        public const string Address             = "Address";
         public const string Benefits            = "Benefits";
         public const string RelationDetails1    = "RelationDetails1";
         public const string RelationDetails2    = "RelationDetails2";

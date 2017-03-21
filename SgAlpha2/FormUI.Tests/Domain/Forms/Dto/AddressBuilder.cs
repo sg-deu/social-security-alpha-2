@@ -1,7 +1,7 @@
 ﻿using System;
-using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Forms.Dto;
 
-namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
+namespace FormUI.Tests.Domain.Forms.Dto
 {
     public class AddressBuilder
     {
