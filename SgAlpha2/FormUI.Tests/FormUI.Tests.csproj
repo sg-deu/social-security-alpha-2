@@ -227,6 +227,7 @@
     <Compile Include="Domain\BestStartGrantForms\Queries\FindLatestApplicationTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\ScenarioTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ConsentTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_IdentityTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddConsentTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddIdentityTests.cs" />

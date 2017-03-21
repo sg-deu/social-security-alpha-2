@@ -49,6 +49,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddIdentity(string userId)
         {
+            ValidateIdentity(userId);
+
             UserId = userId;
             return OnSectionCompleted(Sections.Identity);
         }
@@ -65,6 +67,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
             var ctx = new ValidationContext<Consent>(consent);
 
             ctx.Required(m => m.AgreedToConsent, "Please indicate that you agree");
+
+            ctx.ThrowIfError();
+        }
+
+        private static void ValidateIdentity(string userId)
+        {
+            var ctx = new ValidationContext<string>(userId);
+
+            ctx.Required(m => m, "Please supply your e-mail address");
 
             ctx.ThrowIfError();
         }
