@@ -9,7 +9,12 @@
 
         public static bool SkipWorkInProgressSection(ChangeOfCircsForm.Sections section)
         {
-            return false;
+            return WorkingOnApplicantDetails(section);
+        }
+
+        public static bool WorkingOnApplicantDetails(ChangeOfCircsForm.Sections section)
+        {
+            return section == ChangeOfCircsForm.Sections.ApplicantDetails;
         }
     }
 }
