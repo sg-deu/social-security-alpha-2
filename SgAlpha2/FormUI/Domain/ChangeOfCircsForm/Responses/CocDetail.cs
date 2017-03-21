@@ -7,6 +7,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Responses
         public string Id;
 
         public Consent      Consent;
+        public string       Identity;
 
         public Sections?    PreviousSection;
         public bool         IsFinalSection;

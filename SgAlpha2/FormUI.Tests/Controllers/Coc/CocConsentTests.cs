@@ -65,5 +65,4 @@ namespace FormUI.Tests.Controllers.Coc
             });
         }
     }
-
 }

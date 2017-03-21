@@ -29,6 +29,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         public static void CopySectionsFrom(ChangeOfCircs form, CocDetail detail)
         {
             detail.Consent = form.Consent;
+            detail.Identity = form.UserId;
         }
 
         public static void VerifyConsistent(ChangeOfCircs doc)
