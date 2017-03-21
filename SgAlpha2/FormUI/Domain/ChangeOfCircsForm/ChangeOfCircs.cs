@@ -23,8 +23,9 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             var detail = new CocDetail
             {
-                Consent     = Consent,
-                Identity    = UserId,
+                Consent             = Consent,
+                Identity            = UserId,
+                ApplicantDetails    = ApplicantDetails,
             };
 
             Navigation.Populate(detail, section, this);
