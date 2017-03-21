@@ -8,7 +8,8 @@ namespace FormUI.Controllers.Coc
     {
         private static IDictionary<Sections, Func<SectionActionStrategy>> _strategies = new Dictionary<Sections, Func<SectionActionStrategy>>
         {
-            { Sections.Consent,                 () => new ConsentActions() },
+            { Sections.Consent,                 () => new ConsentActions()  },
+            { Sections.Identity,                () => new IdentityActions() },
         };
 
         public static SectionActionStrategy For(Sections section)
@@ -24,6 +25,11 @@ namespace FormUI.Controllers.Coc
         private class ConsentActions : SectionActionStrategy
         {
             public override string Action(string formId) { return CocActions.Consent(formId); }
+        }
+
+        private class IdentityActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return CocActions.Identity(formId); }
         }
     }
 }

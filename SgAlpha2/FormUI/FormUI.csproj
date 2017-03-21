@@ -150,6 +150,7 @@
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Coc\CocController.cs" />
     <Compile Include="Controllers\Coc\ConsentModel.cs" />
+    <Compile Include="Controllers\Coc\IdentityModel.cs" />
     <Compile Include="Controllers\Coc\NavigableModel.cs" />
     <Compile Include="Controllers\Coc\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Harness\AjaxFormModel.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Controllers\Coc\Consent.cshtml" />
     <Content Include="Controllers\Coc\Web.config" />
     <Content Include="Controllers\Coc\Complete.cshtml" />
+    <Content Include="Controllers\Coc\Identity.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

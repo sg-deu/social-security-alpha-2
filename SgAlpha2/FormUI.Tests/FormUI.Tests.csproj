@@ -145,6 +145,7 @@
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategyTests.cs" />
     <Compile Include="Controllers\Coc\CocConsentTests.cs" />
+    <Compile Include="Controllers\Coc\CocIdentityTests.cs" />
     <Compile Include="Controllers\Coc\CocSectionTest.cs" />
     <Compile Include="Controllers\Coc\CocTests.cs" />
     <Compile Include="Controllers\Coc\SectionActionStrategyTests.cs" />

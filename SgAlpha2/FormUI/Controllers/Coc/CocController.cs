@@ -11,9 +11,10 @@ namespace FormUI.Controllers.Coc
 {
     public static class CocActions
     {
-        public static string Overview()         { return $"~/coc/overview"; }
-        public static string Consent(string id) { return $"~/coc/consent/{id}"; }
-        public static string Complete()         { return $"~/coc/complete"; }
+        public static string Overview()             { return $"~/coc/overview"; }
+        public static string Consent(string id)     { return $"~/coc/consent/{id}"; }
+        public static string Identity(string id)    { return $"~/coc/identity/{id}"; }
+        public static string Complete()             { return $"~/coc/complete"; }
     }
 
     public class CocController : FormController
@@ -48,18 +49,46 @@ namespace FormUI.Controllers.Coc
                 failure: () => Consent_Render(id, consent));
         }
 
-        [HttpGet]
-        public ActionResult Complete()
-        {
-            return View();
-        }
-
         private ActionResult Consent_Render(string formId, Consent details)
         {
             return NavigableView<ConsentModel>(formId, Sections.Consent, (m, f) =>
             {
                 m.Consent = details ?? f.Consent;
             });
+        }
+
+        [HttpGet]
+        public ActionResult Identity(string id)
+        {
+            return Identity_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult Identity(string id, IdentityModel model)
+        {
+            var cmd = new AddIdentity
+            {
+                FormId = id,
+                Identity = model.Email,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => Identity_Render(id, model.Email));
+        }
+
+        private ActionResult Identity_Render(string formId, string email)
+        {
+            return NavigableView<IdentityModel>(formId, Sections.Identity, (m, f) =>
+            {
+                m.Email = email ?? f.Identity;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult Complete()
+        {
+            return View();
         }
 
         private RedirectResult RedirectNext(NextSection next)

@@ -1,0 +1,38 @@
+﻿@inherits WebViewPage<IdentityModel>
+@{
+    ViewBag.Title = "Change of Circumstances - Authentication";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Authentication</h1>
+
+        <form method="post" class="sg-form">
+
+            @Html.ValidationSummary()
+
+            <h3>Tell us who you are</h3>
+            <p>
+                Enter your email address to receive a unique link
+            </p>
+
+            @Html.LabelledInputText(m => m.Email).Mandatory()
+
+            <p>
+                If you do not have an email address please contact us on XXX XXX XXXX
+                or arrange for us to <a href="#">call you back</a>
+            </p>
+
+
+            @Html.ButtonSubmitNext(Model.IsFinalPage)
+
+
+        </form>
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>
