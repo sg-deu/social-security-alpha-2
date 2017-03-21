@@ -19,6 +19,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             GuardianDetailsShouldBeValid(form, Part.Part1, m => { });
             GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Title = null);
+            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line2 = null);
             GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line3 = null);
             GuardianDetailsShouldBeValid(form, Part.Part2, m => { });
 
@@ -28,7 +29,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line2 = null);
             GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Postcode = null);
         }
 

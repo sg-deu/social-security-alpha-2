@@ -86,6 +86,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeValid(form, m => { });
             ApplicantDetailsShouldBeValid(form, m => m.Title = null);
             ApplicantDetailsShouldBeValid(form, m => m.OtherNames = null);
+            ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line2 = null);
             ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line3 = null);
             ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
             ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.PreviouslyLookedAfter = null; });
@@ -99,7 +100,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeInvalid(form, m => m.FullTimeEducation = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line1 = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line2 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);

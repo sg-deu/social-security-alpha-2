@@ -295,7 +295,6 @@ namespace FormUI.Domain.BestStartGrantForms
 
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
             ctx.Required(m => m.CurrentAddress.Line1, "Please supply an Address line 1");
-            ctx.Required(m => m.CurrentAddress.Line2, "Please supply an Address line 2");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
             ctx.Required(m => m.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
             ctx.Required(m => m.CurrentAddressStatus, "Please indicate if this address is Permanent or Temporary");
@@ -435,7 +434,6 @@ namespace FormUI.Domain.BestStartGrantForms
                 if (!relationDetails.InheritAddress)
                 {
                     ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
-                    ctx.Required(m => m.Address.Line2, "Please supply an Address line 2");
                     ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
                 }
             }

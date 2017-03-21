@@ -89,6 +89,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
         {
+            Validate(applicantDetails);
+
             ApplicantDetails = applicantDetails;
             return OnSectionCompleted(Sections.Consent);
         }
@@ -114,6 +116,17 @@ namespace FormUI.Domain.ChangeOfCircsForm
             var ctx = new ValidationContext<string>(userId);
 
             ctx.Required(m => m, "Please supply your e-mail address");
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(ApplicantDetails applicantDetails)
+        {
+            var ctx = new ValidationContext<ApplicantDetails>(applicantDetails);
+
+            ctx.Required(m => m.FullName, "Please supply a Full name");
+            ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
+            ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
 
             ctx.ThrowIfError();
         }
