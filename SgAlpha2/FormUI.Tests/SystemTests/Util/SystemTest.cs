@@ -1,4 +1,5 @@
 ﻿using System;
+using FormUI.Domain.Util;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -35,6 +36,8 @@ namespace FormUI.Tests.SystemTests.Util
             {
                 using (var repository = LocalRepository.New(deleteAllDocuments: false))
                 {
+                    repository.Register();
+                    DomainRegistry.ValidationContext = new ValidationContext(true);
                     action(repository);
                 }
             });

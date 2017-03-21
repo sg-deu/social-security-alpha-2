@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using FormUI.Controllers.Coc;
 using FormUI.Domain;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
+using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.Util;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
 
@@ -43,12 +46,24 @@ namespace FormUI.Tests.SystemTests.Coc
         [Test]
         public void CompleteApplication()
         {
+            var userId = "existing.user@site.com";
+
+            Db(r =>
+            {
+                new BestStartGrantBuilder("existingForm")
+                    .PreviousApplicationFor(userId)
+                    .Insert(f => f.ApplicantDetails.FirstName = "system test first name");
+            });
+
             App.GoTo(FormUI.Controllers.Home.HomeActions.Index());
             App.VerifyCanSeeText("Choose");
 
             App.Submit();
 
             FillInConsent();
+            App.Submit();
+
+            FillInIdentity(userId);
             App.Submit();
 
             App.VerifyCanSeeText("Thank you");
@@ -58,6 +73,7 @@ namespace FormUI.Tests.SystemTests.Coc
                 var doc = r.Query<ChangeOfCircs>().ToList().Single();
 
                 VerifyConsent(doc);
+                VerifyIdentity(doc, userId);
             });
         }
 
@@ -71,6 +87,18 @@ namespace FormUI.Tests.SystemTests.Coc
         {
             doc.Should().NotBeNull();
             _verifiedSections.Add(Sections.Consent);
+        }
+
+        private void FillInIdentity(string userId)
+        {
+            var form = App.FormForModel<IdentityModel>();
+            form.TypeText(m => m.Email, userId);
+        }
+
+        private void VerifyIdentity(ChangeOfCircs doc, string userId)
+        {
+            doc.UserId.Should().Be(userId);
+            _verifiedSections.Add(Sections.Identity);
         }
     }
 }
