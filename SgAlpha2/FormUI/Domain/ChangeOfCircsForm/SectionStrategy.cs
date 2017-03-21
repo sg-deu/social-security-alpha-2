@@ -7,8 +7,9 @@ namespace FormUI.Domain.ChangeOfCircsForm
     {
         private static IDictionary<Sections, Func<SectionStrategy>> _strategies = new Dictionary<Sections, Func<SectionStrategy>>
         {
-            { Sections.Consent,                 () => new SectionStrategy.Consent()     },
-            { Sections.Identity,                () => new SectionStrategy.Identity()    },
+            { Sections.Consent,                 () => new SectionStrategy.Consent()             },
+            { Sections.Identity,                () => new SectionStrategy.Identity()            },
+            { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails()    },
         };
 
         public static SectionStrategy For(Sections section)
@@ -34,6 +35,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
         }
 
         private class Identity : SectionStrategy
+        {
+        }
+
+        private class ApplicantDetails : SectionStrategy
         {
         }
     }

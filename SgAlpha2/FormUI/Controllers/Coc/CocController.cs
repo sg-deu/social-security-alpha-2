@@ -11,10 +11,11 @@ namespace FormUI.Controllers.Coc
 {
     public static class CocActions
     {
-        public static string Overview()             { return $"~/coc/overview"; }
-        public static string Consent(string id)     { return $"~/coc/consent/{id}"; }
-        public static string Identity(string id)    { return $"~/coc/identity/{id}"; }
-        public static string Complete()             { return $"~/coc/complete"; }
+        public static string Overview()                     { return $"~/coc/overview"; }
+        public static string Consent(string id)             { return $"~/coc/consent/{id}"; }
+        public static string Identity(string id)            { return $"~/coc/identity/{id}"; }
+        public static string ApplicantDetails(string id)    { return $"~/coc/applicantDetails/{id}"; }
+        public static string Complete()                     { return $"~/coc/complete"; }
     }
 
     public class CocController : FormController
