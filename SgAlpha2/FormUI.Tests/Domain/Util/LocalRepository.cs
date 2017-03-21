@@ -5,6 +5,7 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.ChangeOfCircsForm;
 using NUnit.Framework;
 
@@ -63,13 +64,23 @@ namespace FormUI.Tests.Domain.Util
                 DomainRegistry.ValidationContext = new ValidationContext(true);
                 DomainRegistry.NowUtc = () => DateTime.UtcNow;
 
-                var formId = "unitTest";
-                AddTestBsg(repository, formId);
-                AddTestCoc(repository, formId);
+                AddTestBsg(repository, "unitTest");
+
+                var coc = AddTestCoc(repository, "unitTest");
+
+                AddTestBsg(repository, "unitTestExisting", bsg =>
+                {
+                    bsg.ApplicantDetails.EmailAddress = coc.UserId;
+
+                    Builder.Modify(bsg)
+                        .With(f => f.UserId, coc.UserId)
+                        .With(f => f.Declaration, DeclarationBuilder.NewValid())
+                        .With(f => f.Completed, DateTime.UtcNow);
+                });
             }
         }
 
-        private static void AddTestBsg(LocalRepository repository, string formId)
+        private static void AddTestBsg(LocalRepository repository, string formId, Action<BestStartGrant> mutator = null)
         {
             var existingForm = repository.Query<BestStartGrant>()
                 .Where(f => f.Id == formId)
@@ -83,10 +94,10 @@ namespace FormUI.Tests.Domain.Util
                 .WithCompletedSections()
                 .With(f => f.Declaration, null)
                 .With(f => f.Completed, null)
-                .Insert();
+                .Insert(mutator);
         }
 
-        private static void AddTestCoc(LocalRepository repository, string formId)
+        private static ChangeOfCircs AddTestCoc(LocalRepository repository, string formId)
         {
             var existingForm = repository.Query<ChangeOfCircs>()
                 .Where(f => f.Id == formId)
@@ -94,9 +105,9 @@ namespace FormUI.Tests.Domain.Util
                 .FirstOrDefault();
 
             if (existingForm != null)
-                return;
+                return existingForm;
 
-            new ChangeOfCircsBuilder(formId)
+            return new ChangeOfCircsBuilder(formId)
                 .WithCompletedSections()
                 .With(f => f.Completed, null)
                 .Insert();

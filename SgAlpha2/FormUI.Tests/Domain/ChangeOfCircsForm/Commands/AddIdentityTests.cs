@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Commands;
+using FormUI.Tests.Domain.BestStartGrantForms;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -12,6 +13,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Commands
         [Test]
         public void Execute_StoresConsent()
         {
+            new BestStartGrantBuilder("form").PreviousApplicationFor("existing.identity@existing.com").Insert();
+
             var existingForm = new ChangeOfCircsBuilder("form123")
                 .Insert();
 

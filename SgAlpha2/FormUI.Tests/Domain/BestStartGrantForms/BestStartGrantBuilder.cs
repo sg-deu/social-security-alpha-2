@@ -70,5 +70,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             doc.Started.Should().NotBe(DateTime.MinValue);
         }
+
+        public BestStartGrantBuilder PreviousApplicationFor(string userId)
+        {
+            WithCompletedSections();
+            _instance.ApplicantDetails.EmailAddress = userId;
+            With(f => f.UserId, userId);
+            return this;
+        }
     }
 }

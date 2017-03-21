@@ -87,8 +87,11 @@ namespace FormUI.Tests.Domain.Util
             return this;
         }
 
-        public T Value()
+        public T Value(Action<T> mutator = null)
         {
+            if (mutator != null)
+                mutator(_instance);
+
             return _instance;
         }
     }

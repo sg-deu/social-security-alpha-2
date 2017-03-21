@@ -19,7 +19,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             var query = new FindLatestApplication
             {
-                FormId = "form123",
                 UserId = userId,
             };
 
@@ -43,7 +42,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             var query = new FindLatestApplication
             {
-                FormId = "form123",
                 UserId = userId,
             };
 
@@ -65,7 +63,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             var query = new FindLatestApplication
             {
-                FormId = "form123",
                 UserId = userId,
             };
 

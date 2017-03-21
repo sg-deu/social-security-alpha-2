@@ -18,5 +18,14 @@ namespace FormUI.Tests.Domain.Util
                     TaskUtil.Await(() => client.DeleteDatabaseAsync(database.SelfLink));
             }
         }
+
+        [Test]
+        public void ResetTestData()
+        {
+            using (var client = LocalRepository.New())
+            {
+                // this will be setup as part of the global SetUpFixture
+            }
+        }
     }
 }

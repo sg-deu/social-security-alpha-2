@@ -5,7 +5,6 @@ namespace FormUI.Domain.BestStartGrantForms.Queries
 {
     public class FindLatestApplication : Query<BsgDetail>
     {
-        public string FormId;
         public string UserId;
 
         public override BsgDetail Find()
