@@ -16,13 +16,30 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             var existingForm = new BestStartGrantBuilder("existing_form")
                 .WithCompletedSections()
                 .With(f => f.UserId, "e.mail@test.com")
-                .Insert(f => f.ApplicantDetails.FirstName = "test name");
+                .Insert(f =>
+                {
+                    f.ApplicantDetails.Title = "tst_title";
+                    f.ApplicantDetails.FirstName = "tst_fn";
+                    f.ApplicantDetails.OtherNames = "tst_on";
+                    f.ApplicantDetails.SurnameOrFamilyName = "tst_sn";
+                    f.ApplicantDetails.CurrentAddress.Line1 = "al1";
+                    f.ApplicantDetails.MobilePhoneNumber = "123";
+                    f.ApplicantDetails.PhoneNumer = "234";
+                    f.ApplicantDetails.EmailAddress = "t.t@t.t";
+                });
 
             var coc = new ChangeOfCircsBuilder("form").Insert();
 
             coc.AddIdentity("e.mail@test.com");
 
-            coc.ExistingApplicantDetails.FirstName.Should().Be("test name");
+            coc.ExistingApplicantDetails.Title.Should().Be("tst_title");
+            coc.ExistingApplicantDetails.FullName.Should().Be("tst_fn tst_on tst_sn");
+            coc.ExistingApplicantDetails.Address.Line1.Should().Be("al1");
+            coc.ExistingApplicantDetails.MobilePhoneNumber.Should().Be("123");
+            coc.ExistingApplicantDetails.HomePhoneNumer.Should().Be("234");
+            coc.ExistingApplicantDetails.EmailAddress.Should().Be("t.t@t.t");
+
+            coc.ExistingApplicantDetails.ShouldBeEquivalentTo(coc.ApplicantDetails);
         }
 
         [Test]

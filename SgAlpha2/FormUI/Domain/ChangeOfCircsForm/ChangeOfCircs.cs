@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Domain.ChangeOfCircsForm.Responses;
 using FormUI.Domain.Forms;
 using FormUI.Domain.Util;
-using BsgApplicantDetails = FormUI.Domain.BestStartGrantForms.Dto.ApplicantDetails;
 
 namespace FormUI.Domain.ChangeOfCircsForm
 {
@@ -16,7 +16,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
         }
 
         public Consent              Consent                     { get; protected set; }
-        public BsgApplicantDetails  ExistingApplicantDetails    { get; protected set; }
+        public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
+        public ApplicantDetails     ApplicantDetails            { get; protected set; }
 
         public CocDetail FindSection(Sections section)
         {
@@ -61,7 +62,27 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 throw new DomainException("Could not find any existing application for the supplied email");
 
             UserId = userId;
-            ExistingApplicantDetails = existingForm.ApplicantDetails;
+
+            var fullName = new StringBuilder();
+            fullName.Append(existingForm.ApplicantDetails.FirstName);
+
+            if (!string.IsNullOrEmpty(existingForm.ApplicantDetails.OtherNames))
+                fullName.AppendFormat(" {0}", existingForm.ApplicantDetails.OtherNames);
+
+            fullName.AppendFormat(" {0}", existingForm.ApplicantDetails.SurnameOrFamilyName);
+
+            ExistingApplicantDetails = new ApplicantDetails
+            {
+                Title = existingForm.ApplicantDetails.Title,
+                FullName = fullName.ToString(),
+                Address = existingForm.ApplicantDetails.CurrentAddress,
+                MobilePhoneNumber = existingForm.ApplicantDetails.MobilePhoneNumber,
+                HomePhoneNumer = existingForm.ApplicantDetails.PhoneNumer,
+                EmailAddress = existingForm.ApplicantDetails.EmailAddress,
+            };
+
+            ApplicantDetails = ExistingApplicantDetails;
+
             return OnSectionCompleted(Sections.Identity);
         }
 
