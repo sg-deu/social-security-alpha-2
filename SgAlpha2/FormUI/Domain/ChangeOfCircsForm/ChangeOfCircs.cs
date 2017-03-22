@@ -90,6 +90,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddOptions(Options options)
         {
+            Validate(options);
+
             Options = options;
             return OnSectionCompleted(Sections.Options);
         }
@@ -123,6 +125,23 @@ namespace FormUI.Domain.ChangeOfCircsForm
             var ctx = new ValidationContext<string>(userId);
 
             ctx.Required(m => m, "Please supply your e-mail address");
+
+            ctx.ThrowIfError();
+        }
+
+        private static void Validate(Options options)
+        {
+            var ctx = new ValidationContext<Options>(options);
+
+            {
+                // until these are implemented, they cannot be supplied as a change
+                ctx.Custom(m => m.ChangePartnerDetails, c => c ? "Cannot currently change partner's details" : null);
+                ctx.Custom(m => m.ChangeChildrenDetails, c => c ? "Cannot currently change children's details" : null);
+                ctx.Custom(m => m.ChangePaymentDetails, c => c ? "Cannot currently change payment details" : null);
+            }
+
+            if (options.Other)
+                ctx.Required(m => m.OtherDetails, "Please supply the details of the change");
 
             ctx.ThrowIfError();
         }
