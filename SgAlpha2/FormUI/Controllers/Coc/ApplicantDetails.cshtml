@@ -1,0 +1,44 @@
+﻿@inherits WebViewPage<ApplicantDetailsModel>
+@{
+    ViewBag.Title = "Change of Circumstances - About You";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+           <h1>About You</h1>
+
+           <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
+
+           @using (var form = Html.FormFor(Model.ApplicantDetails))
+           {
+
+               @form.Html.ValidationSummary()
+
+               <h2>Details about you that we currently hold</h2>
+               <p>Please edit the details below if you would like to update your information</p>
+
+               @form.Html.LabelledInputText(m => m.Title)
+
+               @form.Html.LabelledInputText(m => m.FullName).Mandatory()
+
+               @form.Html.PartialFor(m => m.Address, SharedViews.Address, a => new AddressModel { Address = a })
+
+               @form.Html.LabelledInputText(m => m.MobilePhoneNumber)
+
+               @form.Html.LabelledInputText(m => m.HomePhoneNumer)
+
+               @form.Html.LabelledInputText(m => m.EmailAddress)
+
+
+               @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+           }
+
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>

@@ -87,6 +87,34 @@ namespace FormUI.Controllers.Coc
         }
 
         [HttpGet]
+        public ActionResult ApplicantDetails(string id)
+        {
+            return ApplicantDetails_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
+        {
+            var cmd = new AddApplicantDetails
+            {
+                FormId = id,
+                ApplicantDetails = applicantDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => ApplicantDetails_Render(id, applicantDetails));
+        }
+
+        private ActionResult ApplicantDetails_Render(string formId, ApplicantDetails details)
+        {
+            return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
+            {
+                m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
+        }
+
+        [HttpGet]
         public ActionResult Complete()
         {
             return View();
