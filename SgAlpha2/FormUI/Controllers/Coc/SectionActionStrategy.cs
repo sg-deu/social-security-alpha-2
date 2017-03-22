@@ -10,6 +10,7 @@ namespace FormUI.Controllers.Coc
         {
             { Sections.Consent,                 () => new ConsentActions()          },
             { Sections.Identity,                () => new IdentityActions()         },
+            { Sections.Options,                 () => new OptionsActions()          },
             { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
         };
 
@@ -31,6 +32,11 @@ namespace FormUI.Controllers.Coc
         private class IdentityActions : SectionActionStrategy
         {
             public override string Action(string formId) { return CocActions.Identity(formId); }
+        }
+
+        private class OptionsActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return CocActions.Options(formId); }
         }
 
         private class ApplicantDetailsActions : SectionActionStrategy

@@ -8,6 +8,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Responses
 
         public Consent          Consent;
         public string           Identity;
+        public Options          Options;
         public ApplicantDetails ApplicantDetails;
 
         public Sections?    PreviousSection;

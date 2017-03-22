@@ -14,6 +14,7 @@ namespace FormUI.Controllers.Coc
         public static string Overview()                     { return $"~/coc/overview"; }
         public static string Consent(string id)             { return $"~/coc/consent/{id}"; }
         public static string Identity(string id)            { return $"~/coc/identity/{id}"; }
+        public static string Options(string id)             { return $"~/coc/options/{id}"; }
         public static string ApplicantDetails(string id)    { return $"~/coc/applicantDetails/{id}"; }
         public static string Complete()                     { return $"~/coc/complete"; }
     }
@@ -83,6 +84,34 @@ namespace FormUI.Controllers.Coc
             return NavigableView<IdentityModel>(formId, Sections.Identity, (m, f) =>
             {
                 m.Email = email ?? f.Identity;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult Options(string id)
+        {
+            return Options_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult Options(string id, Options options)
+        {
+            var cmd = new AddOptions
+            {
+                FormId = id,
+                Options = options,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => Options_Render(id, options));
+        }
+
+        private ActionResult Options_Render(string formId, Options details)
+        {
+            return NavigableView<OptionsModel>(formId, Sections.Options, (m, f) =>
+            {
+                m.Options = details ?? f.Options;
             });
         }
 

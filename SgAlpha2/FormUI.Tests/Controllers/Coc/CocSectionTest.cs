@@ -14,6 +14,7 @@ namespace FormUI.Tests.Controllers.Coc
 
                 Consent             = ConsentBuilder.NewValid(),
                 Identity            = "test.email@example.com",
+                Options             = OptionsBuilder.NewValid(),
                 ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
             };
 

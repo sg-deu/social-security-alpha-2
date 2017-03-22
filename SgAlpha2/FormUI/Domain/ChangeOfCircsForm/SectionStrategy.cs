@@ -9,6 +9,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             { Sections.Consent,                 () => new SectionStrategy.Consent()             },
             { Sections.Identity,                () => new SectionStrategy.Identity()            },
+            { Sections.Options,                 () => new SectionStrategy.Options()             },
             { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails()    },
         };
 
@@ -35,6 +36,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
         }
 
         private class Identity : SectionStrategy
+        {
+        }
+
+        private class Options : SectionStrategy
         {
         }
 

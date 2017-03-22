@@ -1,0 +1,40 @@
+﻿@inherits WebViewPage<OptionsModel>
+@{
+    ViewBag.Title = "Change of Circumstances - Options";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>What do you want to change</h1>
+
+        @using (var form = Html.FormFor(Model.Options))
+        {
+
+            @form.Html.ValidationSummary()
+
+            <h2>Choose from  your details below what you want to change</h2>
+
+            <h3>Please select the changes you would like to make</h3>
+            <br/>
+
+            @form.Html.LabelledConfirmCheckBox(m => m.ChangePersonalDetails)
+            @form.Html.LabelledConfirmCheckBox(m => m.ChangePartnerDetails).Control(c => c.Disabled())
+            @form.Html.LabelledConfirmCheckBox(m => m.ChangeChildrenDetails).Control(c => c.Disabled())
+            @form.Html.LabelledConfirmCheckBox(m => m.ChangePaymentDetails).Control(c => c.Disabled())
+            @form.Html.LabelledConfirmCheckBox(m => m.Other)
+
+            @form.Html.LabelledTextArea(m => m.OtherDetails)
+
+            <br />
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>
