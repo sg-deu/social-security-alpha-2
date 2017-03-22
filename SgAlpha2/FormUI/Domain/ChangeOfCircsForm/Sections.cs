@@ -4,6 +4,7 @@
     {
         Consent = 1,
         Identity,
+        Options,
         ApplicantDetails,
     }
 }
