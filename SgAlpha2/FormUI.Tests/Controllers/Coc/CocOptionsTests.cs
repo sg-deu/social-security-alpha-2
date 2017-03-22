@@ -33,6 +33,18 @@ namespace FormUI.Tests.Controllers.Coc
         }
 
         [Test]
+        public void Options_AsksForOtherDetail_OnlyWhenOtherSelected()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(CocActions.Options("form"));
+                var form = response.Form<Options>(1);
+
+                form.WhenCheckedShows(m => m.Other, "other-detail");
+            });
+        }
+
+        [Test]
         public void Options_POST_PopulatesOptions()
         {
             WebAppTest(client =>
