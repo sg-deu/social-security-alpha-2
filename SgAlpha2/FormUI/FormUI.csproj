@@ -195,7 +195,9 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetails.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddOptions.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ApplicantDetails.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\Options.cs" />
     <Compile Include="Domain\Forms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />

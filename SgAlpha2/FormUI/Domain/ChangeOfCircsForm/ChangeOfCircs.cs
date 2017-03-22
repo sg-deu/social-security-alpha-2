@@ -17,6 +17,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public Consent              Consent                     { get; protected set; }
         public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
+        public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
 
         public CocDetail FindSection(Sections section)
@@ -85,6 +86,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
             ApplicantDetails = ExistingApplicantDetails;
 
             return OnSectionCompleted(Sections.Identity);
+        }
+
+        public NextSection AddOptions(Options options)
+        {
+            Options = options;
+            return OnSectionCompleted(Sections.Options);
         }
 
         public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
