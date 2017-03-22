@@ -10,6 +10,7 @@ using FormUI.Tests.Domain.BestStartGrantForms;
 using FormUI.Tests.Domain.Util;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
+using BsgForm = FormUI.Domain.BestStartGrantForms.BestStartGrant;
 
 namespace FormUI.Tests.SystemTests.Coc
 {
@@ -47,12 +48,17 @@ namespace FormUI.Tests.SystemTests.Coc
         public void CompleteApplication()
         {
             var userId = "existing.user@site.com";
+            BsgForm bsg = null;
 
             Db(r =>
             {
-                new BestStartGrantBuilder("existingForm")
-                    .PreviousApplicationFor(userId)
-                    .Insert(f => f.ApplicantDetails.FirstName = "system test first name");
+                bsg =
+                    new BestStartGrantBuilder("existingForm")
+                        .PreviousApplicationFor(userId)
+                        .Insert(f =>
+                        {
+                            f.ApplicantDetails.FirstName = "st_fn";
+                        });
             });
 
             App.GoTo(FormUI.Controllers.Home.HomeActions.Index());
@@ -66,6 +72,9 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInIdentity(userId);
             App.Submit();
 
+            FillInApplicantDetails(bsg);
+            App.Submit();
+
             App.VerifyCanSeeText("Thank you");
 
             Db(r =>
@@ -74,6 +83,7 @@ namespace FormUI.Tests.SystemTests.Coc
 
                 VerifyConsent(doc);
                 VerifyIdentity(doc, userId);
+                VerifyApplicantDetails(doc);
             });
         }
 
@@ -99,6 +109,42 @@ namespace FormUI.Tests.SystemTests.Coc
         {
             doc.UserId.Should().Be(userId);
             _verifiedSections.Add(Sections.Identity);
+        }
+
+        private void FillInApplicantDetails(BsgForm bsg)
+        {
+            var form = App.FormForModel<ApplicantDetails>();
+
+            form.GetText("Verify existing Title populated", m => m.Title, t => t.Should().NotBeNullOrWhiteSpace());
+            form.GetText("Verify existing FullName", m => m.FullName, t => t.Should().NotBeNullOrWhiteSpace());
+            form.GetText("Verify existing Address.Line1", m => m.Address.Line1, t => t.Should().NotBeNullOrWhiteSpace());
+            form.GetText("Verify existing MobilePhoneNumber", m => m.MobilePhoneNumber, t => t.Should().NotBeNullOrWhiteSpace());
+            form.GetText("Verify existing HomePhoneNumer", m => m.HomePhoneNumer, t => t.Should().NotBeNullOrWhiteSpace());
+            form.GetText("Verify existing EmailAddress", m => m.EmailAddress, t => t.Should().NotBeNullOrWhiteSpace());
+
+            form.TypeText(m => m.Title, "coc title");
+            form.TypeText(m => m.FullName, "coc full name");
+            form.TypeText(m => m.Address.Line1, "coc a.line1");
+            form.TypeText(m => m.Address.Line2, "coc a.line2");
+            form.TypeText(m => m.Address.Line3, "coc a.line3");
+            form.TypeText(m => m.Address.Postcode, "CO1 1CP");
+            form.TypeText(m => m.MobilePhoneNumber, "1234567");
+            form.TypeText(m => m.HomePhoneNumer, "2345678");
+            form.TypeText(m => m.EmailAddress, "coc.test@coc.com");
+        }
+
+        private void VerifyApplicantDetails(ChangeOfCircs doc)
+        {
+            doc.ApplicantDetails.Title.Should().Be("coc title");
+            doc.ApplicantDetails.FullName.Should().Be("coc full name");
+            doc.ApplicantDetails.Address.Line1.Should().Be("coc a.line1");
+            doc.ApplicantDetails.Address.Line2.Should().Be("coc a.line2");
+            doc.ApplicantDetails.Address.Line3.Should().Be("coc a.line3");
+            doc.ApplicantDetails.Address.Postcode.Should().Be("CO1 1CP");
+            doc.ApplicantDetails.MobilePhoneNumber.Should().Be("1234567");
+            doc.ApplicantDetails.HomePhoneNumer.Should().Be("2345678");
+            doc.ApplicantDetails.EmailAddress.Should().Be("coc.test@coc.com");
+            _verifiedSections.Add(Sections.ApplicantDetails);
         }
     }
 }

@@ -92,7 +92,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             Validate(applicantDetails);
 
             ApplicantDetails = applicantDetails;
-            return OnSectionCompleted(Sections.Consent);
+            return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
         private NextSection OnSectionCompleted(Sections section)
