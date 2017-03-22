@@ -45,6 +45,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         private class ApplicantDetails : SectionStrategy
         {
+            public override bool Required(ChangeOfCircs form) { return Navigation.RequiresApplicantDetails(form); }
+            public override void SkipSection(ChangeOfCircs form) { form.OnSkipApplicantDetails(); }
         }
     }
 }

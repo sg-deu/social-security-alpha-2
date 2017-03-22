@@ -105,6 +105,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
+        internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
+
         private NextSection OnSectionCompleted(Sections section)
         {
             var next = Navigation.Next(this, section);

@@ -26,7 +26,10 @@
             @form.Html.LabelledConfirmCheckBox(m => m.ChangePaymentDetails).Control(c => c.Disabled())
             @form.Html.LabelledConfirmCheckBox(m => m.Other)
 
-            @form.Html.LabelledTextArea(m => m.OtherDetails)
+            using (form.Html.ShowWhenChecked(m => m.Other, t => t.Id("other-detail")))
+            {
+                @form.Html.LabelledTextArea(m => m.OtherDetails).Mandatory()
+            }
 
             <br />
 

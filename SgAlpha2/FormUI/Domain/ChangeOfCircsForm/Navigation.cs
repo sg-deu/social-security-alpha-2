@@ -67,5 +67,13 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Section = nextSection,
             };
         }
+
+        public static bool RequiresApplicantDetails(ChangeOfCircs form)
+        {
+            if (FeatureToggles.WorkingOnOptions(Sections.Options))
+                return true;
+
+            return form.Options?.ChangePersonalDetails == true;
+        }
     }
 }
