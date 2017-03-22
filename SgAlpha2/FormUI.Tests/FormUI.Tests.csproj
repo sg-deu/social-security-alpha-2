@@ -245,6 +245,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ConsentBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSectionTests.cs" />
+    <Compile Include="Domain\Util\BlobStoreTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />
     <Compile Include="Domain\Util\DataUpdates.cs" />
