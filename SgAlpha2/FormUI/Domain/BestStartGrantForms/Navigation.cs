@@ -139,7 +139,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
             return false;
         }
-        //CJM test GIT commit permissions
+
         public static bool RequiresGuardianDetails(BestStartGrant form)
         {
             var guardianBenefits = form.GuardianBenefits;
