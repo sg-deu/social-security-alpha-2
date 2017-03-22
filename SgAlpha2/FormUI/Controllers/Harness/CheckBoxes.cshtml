@@ -9,7 +9,9 @@
 
             @Html.LabelledConfirmCheckBox("A really long label that will wrap onto a second line to see how the vertical centering works with css and screen sizes", m => m.CheckBox1)
 
-            @Html.LabelledConfirmCheckBox(m => m.CheckBox2)
+            @Html.LabelledConfirmCheckBox(m => m.CheckBox2).Control(c => c.Emphasise())
+
+            @Html.LabelledConfirmCheckBox(m => m.CheckBox3).Control(c => c.Disabled())
 
         </form>
 

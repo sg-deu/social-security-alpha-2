@@ -7,6 +7,7 @@ namespace FormUI.Controllers.Helpers.Controls
     {
         private string  _labelText;
         private bool    _emphasise;
+        private bool    _disabled;
 
         public ConfirmCheckBox(HtmlHelper helper, ControlContext controlContext, string labelText) : base(helper, controlContext)
         {
@@ -15,9 +16,15 @@ namespace FormUI.Controllers.Helpers.Controls
 
         public override bool HandlesMandatoryInline() { return true; }
 
-        public ConfirmCheckBox Emphasise(bool emphasise)
+        public ConfirmCheckBox Emphasise(bool emphasise = true)
         {
             _emphasise = emphasise;
+            return this;
+        }
+
+        public ConfirmCheckBox Disabled(bool disabled = true)
+        {
+            _disabled = disabled;
             return this;
         }
 
@@ -31,6 +38,9 @@ namespace FormUI.Controllers.Helpers.Controls
             var modelValue = RenderValue();
 
             var input = new HtmlTag("input").Attr("type", "checkbox").Name(ControlContext.Name).Value("True");
+
+            if (_disabled)
+                input.Attr("disabled", "disabled");
 
             if (modelValue != null && modelValue.ToLower() == "true")
                 input.Attr("checked", "checked");

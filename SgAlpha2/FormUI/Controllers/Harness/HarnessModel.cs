@@ -28,6 +28,8 @@ namespace FormUI.Controllers.Harness
 
         [DisplayName("I agree")]
         public bool         CheckBox2   { get; set; }
+
+        public bool         CheckBox3   { get; set; }
     }
 
     public enum RValues1
