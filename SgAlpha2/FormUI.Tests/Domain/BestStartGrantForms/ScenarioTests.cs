@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
@@ -383,6 +384,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             {
                 var detail = new FindBsgSection { FormId = next.Id, Section = next.Section.Value }.Find();
                 detail.PreviousSection.Should().Be(currentSection);
+                detail.IsFinalSection.Should().Be(Navigation.Order.Last() == next.Section.Value, "Expected {0} to be the final section", next.Section.Value);
             }
 
             return next;

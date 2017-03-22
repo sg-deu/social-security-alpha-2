@@ -35,7 +35,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 index--;
             }
 
-            detail.IsFinalSection = index == _order.Count - 1;
+            detail.IsFinalSection = (section == _order.Last());
         }
 
         public static NextSection Next(ChangeOfCircs form, Sections completedSection)

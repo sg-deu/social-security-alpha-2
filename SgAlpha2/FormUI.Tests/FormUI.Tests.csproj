@@ -205,6 +205,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ApplicantDetailsBuilder.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ScenarioTests.cs" />
     <Compile Include="Domain\Forms\Dto\AddressBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetailsBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsBuilder.cs" />
