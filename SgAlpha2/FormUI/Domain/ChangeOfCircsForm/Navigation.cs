@@ -70,9 +70,6 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public static bool RequiresApplicantDetails(ChangeOfCircs form)
         {
-            if (FeatureToggles.WorkingOnOptions(Sections.Options))
-                return true;
-
             return form.Options?.ChangePersonalDetails == true;
         }
     }

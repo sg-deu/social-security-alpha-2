@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FormUI.Domain;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Tests.Domain.Util;
@@ -13,9 +12,6 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         [Test]
         public void RequiresApplicantDetails()
         {
-            if (FeatureToggles.WorkingOnOptions(Sections.Options))
-                Assert.Pass("awaiting removal of feature toggle");
-
             var form = new ChangeOfCircsBuilder("form")
                 .With(f => f.Options, OptionsBuilder.NewValid())
                 .Value();

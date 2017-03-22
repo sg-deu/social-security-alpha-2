@@ -17,7 +17,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
     public class ScenarioTests : DomainTest
     {
         [Test]
-        public void ChangeDetails()
+        public void ChangeAll()
         {
             var userId = "test.identity@test.site";
             new BestStartGrantBuilder("existingForm").PreviousApplicationFor(userId).Insert();
@@ -27,7 +27,29 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
 
             next = AddConsent(next);
             next = AddIdentity(next, userId);
+            next = AddOptions(next);
             next = AddApplicantDetails(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void ChangeOnlyOther()
+        {
+            var userId = "test.identity@test.site";
+            new BestStartGrantBuilder("existingForm").PreviousApplicationFor(userId).Insert();
+
+            var next = new StartChangeOfCircs().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddIdentity(next, userId);
+            next = AddOptions(next, o =>
+            {
+                o.AllUnselected();
+                o.Other = true;
+                o.OtherDetails = "some details";
+            });
 
             next.Section.Should().BeNull();
         }
@@ -44,6 +66,12 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         {
             current.Section.Should().Be(Sections.Identity);
             return NextSection(current.Section, () => new AddIdentity { FormId = current.Id, Identity = userId }.Execute());
+        }
+
+        private NextSection AddOptions(NextSection current, Action<Options> mutator = null)
+        {
+            current.Section.Should().Be(Sections.Options);
+            return NextSection(current.Section, () => new AddOptions { FormId = current.Id, Options = OptionsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddApplicantDetails(NextSection current, Action<ApplicantDetails> mutator = null)

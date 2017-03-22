@@ -72,6 +72,9 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInIdentity(userId);
             App.Submit();
 
+            FillInOptions();
+            App.Submit();
+
             FillInApplicantDetails(bsg);
             App.Submit();
 
@@ -83,6 +86,7 @@ namespace FormUI.Tests.SystemTests.Coc
 
                 VerifyConsent(doc);
                 VerifyIdentity(doc, userId);
+                VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
             });
         }
@@ -109,6 +113,22 @@ namespace FormUI.Tests.SystemTests.Coc
         {
             doc.UserId.Should().Be(userId);
             _verifiedSections.Add(Sections.Identity);
+        }
+
+        private void FillInOptions()
+        {
+            var form = App.FormForModel<Options>();
+            form.Check(m => m.ChangePersonalDetails, true);
+            form.Check(m => m.Other, true);
+            form.TypeTextArea(m => m.OtherDetails, "system test details");
+        }
+
+        private void VerifyOptions(ChangeOfCircs doc)
+        {
+            doc.Options.ChangePersonalDetails.Should().BeTrue();
+            doc.Options.Other.Should().BeTrue();
+            doc.Options.OtherDetails.Should().Be("system test details");
+            _verifiedSections.Add(Sections.Options);
         }
 
         private void FillInApplicantDetails(BsgForm bsg)
