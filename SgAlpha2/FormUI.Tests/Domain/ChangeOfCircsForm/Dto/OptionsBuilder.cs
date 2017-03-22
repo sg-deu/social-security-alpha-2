@@ -3,7 +3,7 @@ using FormUI.Domain.ChangeOfCircsForm.Dto;
 
 namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
 {
-    public class OptionsBuilder
+    public static class OptionsBuilder
     {
         public static Options NewValid(Action<Options> mutator = null)
         {
@@ -18,6 +18,16 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
                 mutator(value);
 
             return value;
+        }
+
+        public static Options AllUnselected(this Options options)
+        {
+            options.ChangePersonalDetails = false;
+            options.ChangePartnerDetails = false;
+            options.ChangeChildrenDetails = false;
+            options.ChangePaymentDetails = false;
+            options.Other = false;
+            return options;
         }
     }
 }

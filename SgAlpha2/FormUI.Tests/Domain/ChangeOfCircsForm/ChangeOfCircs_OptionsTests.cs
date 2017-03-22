@@ -18,6 +18,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             OptionsShouldBeValid(form, m => { });
             OptionsShouldBeValid(form, m => { m.Other = false; m.OtherDetails = null; });
 
+            OptionsShouldBeInvalid(form, m => m.AllUnselected());
             OptionsShouldBeInvalid(form, m => { m.Other = true; m.OtherDetails = null; });
 
             // until the following sections are implemented, they are invalid selections

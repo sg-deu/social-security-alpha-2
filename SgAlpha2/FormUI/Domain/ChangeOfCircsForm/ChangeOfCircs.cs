@@ -131,6 +131,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         private static void Validate(Options options)
         {
+            var anyChanged = options.ChangePersonalDetails
+                || options.ChangePartnerDetails
+                || options.ChangeChildrenDetails
+                || options.ChangePaymentDetails
+                || options.Other;
+
+            if (!anyChanged)
+                throw new DomainException("Please select at least one change");
+
             var ctx = new ValidationContext<Options>(options);
 
             {
