@@ -26,6 +26,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             {
                 Consent             = Consent,
                 Identity            = UserId,
+                Options             = Options,
                 ApplicantDetails    = ApplicantDetails,
             };
 

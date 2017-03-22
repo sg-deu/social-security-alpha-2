@@ -21,6 +21,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.Consent, ConsentBuilder.NewValid());
             With(f => f.UserId, "existing.user@known.com");
             With(f => f.ExistingApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Address = AddressBuilder.NewValid("existing")));
+            With(f => f.Options, OptionsBuilder.NewValid());
             With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
 
             With(f => f.Started, DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
@@ -33,6 +34,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         {
             detail.Consent = form.Consent;
             detail.Identity = form.UserId;
+            detail.Options = form.Options;
             detail.ApplicantDetails = form.ApplicantDetails;
         }
 
