@@ -220,6 +220,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetails.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidence.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddOptions.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Evidence.cs" />

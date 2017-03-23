@@ -9,5 +9,10 @@ namespace FormUI.Domain.ChangeOfCircsForm.Dto
         public bool                 SendingByPost   { get; set; }
 
         public IList<EvidenceFile> Files = new List<EvidenceFile>();
+
+        public void CopyTo(Evidence dest)
+        {
+            dest.SendingByPost = SendingByPost;
+        }
     }
 }

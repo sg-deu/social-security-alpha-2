@@ -124,6 +124,14 @@ namespace FormUI.Domain.ChangeOfCircsForm
             Repository.Update(this);
         }
 
+        public NextSection AddEvidence(Evidence evidence)
+        {
+            Evidence = Evidence ?? new Evidence();
+
+            evidence.CopyTo(Evidence);
+            return OnSectionCompleted(Sections.ApplicantDetails);
+        }
+
         internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
 
         private NextSection OnSectionCompleted(Sections section)
