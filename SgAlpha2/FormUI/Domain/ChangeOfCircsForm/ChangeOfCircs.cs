@@ -126,9 +126,11 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddEvidence(Evidence evidence)
         {
-            Evidence = Evidence ?? new Evidence();
-
+            Evidence = Evidence ?? evidence;
             evidence.CopyTo(Evidence);
+
+            Validate(Evidence);
+
             return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
@@ -194,6 +196,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
             ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
 
             ctx.ThrowIfError();
+        }
+
+        private static void Validate(Evidence evidence)
+        {
+            if (evidence.Files.Count == 0 && !evidence.SendingByPost)
+                throw new DomainException("Please either upload evidence, or confirm that you are sending evidence by post");
         }
     }
 }

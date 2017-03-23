@@ -1,6 +1,10 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using FluentAssertions;
 using FormUI.Domain.ChangeOfCircsForm;
+using FormUI.Domain.ChangeOfCircsForm.Dto;
+using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
@@ -47,6 +51,30 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
 
             CloudStore.List("form").Should().Contain(storedForm.Evidence.Files[0].CloudName);
             CloudStore.List("form").Should().Contain(storedForm.Evidence.Files[1].CloudName);
+        }
+
+        [Test]
+        public void Evidence_Validation()
+        {
+            var form = new ChangeOfCircsBuilder("form").Insert();
+
+            EvidenceShouldBeValid(form, m => { });
+            EvidenceShouldBeValid(form, m => { m.SendingByPost = true; m.Files = new List<EvidenceFile>(); });
+            EvidenceShouldBeValid(form, m => { m.SendingByPost = false; m.Files = new List<EvidenceFile> { new EvidenceFile() }; });
+
+            EvidenceShouldBeInvalid(form, m => { m.SendingByPost = false; m.Files = new List<EvidenceFile>(); });
+        }
+
+        protected void EvidenceShouldBeValid(ChangeOfCircs form, Action<Evidence> mutator)
+        {
+            Builder.Modify(form).With(f => f.Evidence, null);
+            ShouldBeValid(() => form.AddEvidence(EvidenceBuilder.NewValid(mutator)));
+        }
+
+        protected void EvidenceShouldBeInvalid(ChangeOfCircs form, Action<Evidence> mutator)
+        {
+            Builder.Modify(form).With(f => f.Evidence, null);
+            ShouldBeInvalid(() => form.AddEvidence(EvidenceBuilder.NewValid(mutator)));
         }
     }
 }
