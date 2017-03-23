@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FormUI.Domain.Util
@@ -17,10 +19,28 @@ namespace FormUI.Domain.Util
             _container.CreateIfNotExists();
         }
 
-        public static void Store(string filename, byte[] content)
+        public static void Store(string folder, string filename, byte[] content)
         {
-            var block = _container.GetBlockBlobReference(filename);
+            var fullName = $"{folder}/{filename}";
+            var block = _container.GetBlockBlobReference(fullName);
+
+            if (block.Exists())
+                throw new System.Exception($"{fullName} already exists");
+
             block.UploadFromByteArray(content, 0, content.Length);
+        }
+
+        public static IList<string> List(string folder)
+        {
+            var block = _container.GetDirectoryReference(folder);
+            var blobs = block.ListBlobs(useFlatBlobListing: true);
+            var names = blobs.Select(b => b.Uri.Segments.Last());
+            return names.ToList();
+        }
+
+        public static void DeleteUnitTestContainer()
+        {
+            _container.DeleteIfExists();
         }
     }
 }
