@@ -246,12 +246,13 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ConsentBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSectionTests.cs" />
-    <Compile Include="Domain\Util\BlobStoreTests.cs" />
+    <Compile Include="Domain\Util\CloudStoreTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />
     <Compile Include="Domain\Util\DataUpdates.cs" />
     <Compile Include="Domain\Util\DomainTest.cs" />
     <Compile Include="Domain\Util\LocalRepositoryUtil.cs" />
+    <Compile Include="Domain\Util\LocalCloudStore.cs" />
     <Compile Include="Domain\Util\RepositoryTests.cs" />
     <Compile Include="Domain\Util\LocalRepository.cs" />
     <Compile Include="Domain\Util\TaskUtilTests.cs" />

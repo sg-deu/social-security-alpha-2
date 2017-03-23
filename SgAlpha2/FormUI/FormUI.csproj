@@ -265,7 +265,7 @@
     <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />
     <Compile Include="Domain\Util\Attributes\InputMasks.cs" />
     <Compile Include="Domain\Util\Attributes\UiLengthAttribute.cs" />
-    <Compile Include="Domain\Util\BlobStore.cs" />
+    <Compile Include="Domain\Util\CloudStore.cs" />
     <Compile Include="Domain\Util\Command.cs" />
     <Compile Include="Domain\Util\DomainException.cs" />
     <Compile Include="Domain\Util\DomainRegistry.cs" />

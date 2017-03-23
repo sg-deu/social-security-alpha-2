@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FormUI.Domain.Util
 {
-    public class BlobStore
+    public class CloudStore
     {
         private static CloudBlobClient      _blobClient;
         private static CloudBlobContainer   _container;

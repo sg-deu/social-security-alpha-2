@@ -37,6 +37,7 @@ namespace FormUI.Tests
                 Console.WriteLine("Aquired");
 
                 LocalRepository.VerifyRunning();
+                LocalCloudStore.VerifyRunning();
             }
             catch
             {
