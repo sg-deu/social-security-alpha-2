@@ -47,10 +47,8 @@ namespace FormUI.Tests.Domain.Util
             return new LocalCloudStore(clearContainer);
         }
 
-        private LocalCloudStore(bool clearContainer)
+        private LocalCloudStore(bool clearContainer) : base(clearContainer)
         {
-            if (clearContainer)
-                ClearContainer();
         }
 
         public LocalCloudStore Register()

@@ -18,14 +18,33 @@ namespace FormUI.Domain.Util
             InitContainer();
         }
 
-        private static CloudBlobContainer InitContainer()
+        private static CloudBlobContainer InitContainer(bool clearContainer = false)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
             var blobClient = storageAccount.CreateCloudBlobClient();
 
             var container = blobClient.GetContainerReference(_containerName);
             container.CreateIfNotExists();
+
+            if (clearContainer)
+                ClearContainer(container);
+
             return container;
+        }
+
+        private static void ClearContainer(CloudBlobContainer container)
+        {
+            if (container.Name != "unittest" && container.Name != "build")
+                throw new Exception("Do not try to clear non-test container");
+
+            var blobs = container.ListBlobs(useFlatBlobListing: true);
+            var stripLength = container.Uri.ToString().Length + 1; // stip container name + trailing '/'
+
+            foreach (var blob in blobs)
+            {
+                var blobName = blob.Uri.ToString().Substring(stripLength);
+                container.GetBlobReference(blobName).Delete();
+            }
         }
 
         public static CloudStore New()
@@ -35,9 +54,9 @@ namespace FormUI.Domain.Util
 
         protected Lazy<CloudBlobContainer> _container;
 
-        protected CloudStore()
+        protected CloudStore(bool clearContainer = false)
         {
-            _container = new Lazy<CloudBlobContainer>(InitContainer);
+            _container = new Lazy<CloudBlobContainer>(() => InitContainer(clearContainer));
         }
 
         public void Store(string folder, string filename, byte[] content)
@@ -57,19 +76,6 @@ namespace FormUI.Domain.Util
             var blobs = block.ListBlobs(useFlatBlobListing: true);
             var names = blobs.Select(b => b.Uri.Segments.Last());
             return names.ToList();
-        }
-
-        protected void ClearContainer()
-        {
-            var container = _container.Value;
-            var blobs = container.ListBlobs(useFlatBlobListing: true);
-            var stripLength = container.Uri.ToString().Length + 1; // stip container name + trailing '/'
-
-            foreach (var blob in blobs)
-            {
-                var blobName = blob.Uri.ToString().Substring(stripLength);
-                container.GetBlobReference(blobName).Delete();
-            }
         }
     }
 }
