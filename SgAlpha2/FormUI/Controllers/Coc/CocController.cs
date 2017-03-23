@@ -16,6 +16,7 @@ namespace FormUI.Controllers.Coc
         public static string Identity(string id)            { return $"~/coc/identity/{id}"; }
         public static string Options(string id)             { return $"~/coc/options/{id}"; }
         public static string ApplicantDetails(string id)    { return $"~/coc/applicantDetails/{id}"; }
+        public static string Evidence(string id)            { return $"~/coc/evidence/{id}"; }
         public static string Complete()                     { return $"~/coc/complete"; }
     }
 

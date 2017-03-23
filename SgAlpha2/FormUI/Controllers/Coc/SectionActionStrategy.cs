@@ -12,6 +12,7 @@ namespace FormUI.Controllers.Coc
             { Sections.Identity,                () => new IdentityActions()         },
             { Sections.Options,                 () => new OptionsActions()          },
             { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
+            { Sections.Evidence,                () => new EvidenceActions()         },
         };
 
         public static SectionActionStrategy For(Sections section)
@@ -42,6 +43,11 @@ namespace FormUI.Controllers.Coc
         private class ApplicantDetailsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return CocActions.ApplicantDetails(formId); }
+        }
+
+        private class EvidenceActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return CocActions.Evidence(formId); }
         }
     }
 }

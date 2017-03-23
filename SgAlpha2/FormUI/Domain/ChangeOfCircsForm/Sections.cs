@@ -6,5 +6,6 @@
         Identity,
         Options,
         ApplicantDetails,
+        Evidence,
     }
 }
