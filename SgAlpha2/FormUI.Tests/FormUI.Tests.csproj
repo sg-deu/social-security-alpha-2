@@ -204,6 +204,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_EvidenceTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_OptionsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddOptionsTests.cs" />

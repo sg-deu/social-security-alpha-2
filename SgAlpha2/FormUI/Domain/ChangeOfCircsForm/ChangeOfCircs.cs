@@ -19,6 +19,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
+        public Evidence             Evidence                    { get; protected set; }
 
         public CocDetail FindSection(Sections section)
         {
@@ -103,6 +104,19 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
             ApplicantDetails = applicantDetails;
             return OnSectionCompleted(Sections.ApplicantDetails);
+        }
+
+        public void AddEvidenceFile(string filename, byte[] content)
+        {
+            Evidence = Evidence ?? new Evidence();
+
+            var file = new EvidenceFile
+            {
+                Name = filename,
+            };
+
+            Evidence.Files.Add(file);
+            Repository.Update(this);
         }
 
         internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
