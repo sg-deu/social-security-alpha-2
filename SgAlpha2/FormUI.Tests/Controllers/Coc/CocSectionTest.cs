@@ -16,6 +16,7 @@ namespace FormUI.Tests.Controllers.Coc
                 Identity            = "test.email@example.com",
                 Options             = OptionsBuilder.NewValid(),
                 ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
+                Evidence            = EvidenceBuilder.NewValid(),
             };
 
             return detail;

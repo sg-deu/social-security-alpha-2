@@ -30,6 +30,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Identity            = UserId,
                 Options             = Options,
                 ApplicantDetails    = ApplicantDetails,
+                Evidence            = Evidence,
             };
 
             Navigation.Populate(detail, section, this);
