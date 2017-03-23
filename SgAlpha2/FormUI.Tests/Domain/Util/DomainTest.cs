@@ -8,6 +8,7 @@ namespace FormUI.Tests.Domain.Util
     public abstract class DomainTest : AbstractTest
     {
         protected LocalRepository   Repository;
+        protected LocalCloudStore   CloudStore;
         protected DateTime?         TestNowUtc;
 
         [SetUp]
@@ -15,6 +16,7 @@ namespace FormUI.Tests.Domain.Util
         {
             Repository = LocalRepository.New().Register();
             DomainRegistry.ValidationContext = new ValidationContext(true);
+            CloudStore = LocalCloudStore.New().Register();
             DomainRegistry.NowUtc = () => TestNowUtc ?? DateTime.UtcNow;
             TestNowUtc = new DateTime(2015, 07, 16, 12, 00, 00);
         }

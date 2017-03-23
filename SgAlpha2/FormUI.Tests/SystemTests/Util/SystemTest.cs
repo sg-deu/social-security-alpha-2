@@ -18,7 +18,10 @@ namespace FormUI.Tests.SystemTests.Util
 
             Console.WriteLine("Started {0}", TestContext.CurrentContext.Test.FullName);
             App = BrowserApp.Instance();
-            Db(r => r.DeleteAllDocuments());
+            Db(r =>
+            {
+                r.DeleteAllDocuments();
+            });
         }
 
         public override void TearDown()
@@ -38,6 +41,7 @@ namespace FormUI.Tests.SystemTests.Util
                 {
                     repository.Register();
                     DomainRegistry.ValidationContext = new ValidationContext(true);
+                    DomainRegistry.CloudStore = LocalCloudStore.New(clearContainer: false);
                     action(repository);
                 }
             });

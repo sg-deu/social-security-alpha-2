@@ -21,6 +21,12 @@ namespace FormUI.Domain.Forms
             get { return DomainRegistry.Repository; }
         }
 
+        protected static ICloudStore CloudStore
+        {
+            [DebuggerStepThrough]
+            get { return DomainRegistry.CloudStore; }
+        }
+
         [JsonProperty(PropertyName = "id")]
         public string       Id          { get; protected set; }
 

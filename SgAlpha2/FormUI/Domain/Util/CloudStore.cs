@@ -1,46 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FormUI.Domain.Util
 {
-    public class CloudStore
+    public class CloudStore : ICloudStore
     {
-        private static CloudBlobClient      _blobClient;
-        private static CloudBlobContainer   _container;
+        private static string _connectionString;
+        private static string _containerName;
 
         public static void Init(string connectionString, string containerName)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            _blobClient = storageAccount.CreateCloudBlobClient();
-
-            _container = _blobClient.GetContainerReference(containerName);
-            _container.CreateIfNotExists();
+            _connectionString = connectionString;
+            _containerName = containerName;
+            InitContainer();
         }
 
-        public static void Store(string folder, string filename, byte[] content)
+        private static CloudBlobContainer InitContainer()
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+
+            var container = blobClient.GetContainerReference(_containerName);
+            container.CreateIfNotExists();
+            return container;
+        }
+
+        public static CloudStore New()
+        {
+            return new CloudStore();
+        }
+
+        protected Lazy<CloudBlobContainer> _container;
+
+        protected CloudStore()
+        {
+            _container = new Lazy<CloudBlobContainer>(InitContainer);
+        }
+
+        public void Store(string folder, string filename, byte[] content)
         {
             var fullName = $"{folder}/{filename}";
-            var block = _container.GetBlockBlobReference(fullName);
+            var block = _container.Value.GetBlockBlobReference(fullName);
 
             if (block.Exists())
-                throw new System.Exception($"{fullName} already exists");
+                throw new Exception($"{fullName} already exists");
 
             block.UploadFromByteArray(content, 0, content.Length);
         }
 
-        public static IList<string> List(string folder)
+        public IList<string> List(string folder)
         {
-            var block = _container.GetDirectoryReference(folder);
+            var block = _container.Value.GetDirectoryReference(folder);
             var blobs = block.ListBlobs(useFlatBlobListing: true);
             var names = blobs.Select(b => b.Uri.Segments.Last());
             return names.ToList();
         }
 
-        public static void DeleteUnitTestContainer()
+        protected void ClearContainer()
         {
-            _container.DeleteIfExists();
+            _container.Value.DeleteIfExists();
+            _container.Value.CreateIfNotExists();
         }
     }
 }

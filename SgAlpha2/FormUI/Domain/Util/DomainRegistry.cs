@@ -10,6 +10,9 @@ namespace FormUI.Domain.Util
         [ThreadStatic]
         public static ValidationContext ValidationContext;
 
+        [ThreadStatic]
+        public static ICloudStore CloudStore;
+
         public static Func<DateTime> NowUtc = () => DateTime.UtcNow;
     }
 }

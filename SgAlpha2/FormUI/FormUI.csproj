@@ -274,6 +274,7 @@
     <Compile Include="Domain\Util\Facade\IExecutable.cs" />
     <Compile Include="Domain\Util\Facade\IExecutor.cs" />
     <Compile Include="Domain\Util\Attributes\HintTextAttribute.cs" />
+    <Compile Include="Domain\Util\ICloudStore.cs" />
     <Compile Include="Domain\Util\Query.cs" />
     <Compile Include="Domain\Util\IDocument.cs" />
     <Compile Include="Domain\Util\IRepository.cs" />

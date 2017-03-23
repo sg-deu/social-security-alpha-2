@@ -28,6 +28,7 @@ namespace FormUI.App_Start
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             InitRepository();
+            InitCloudStore();
             InitExecutor();
         }
 
@@ -37,6 +38,14 @@ namespace FormUI.App_Start
             var dbKey = ConfigurationManager.AppSettings["dbKey"];
 
             Repository.Init(dbUri, dbKey);
+        }
+
+        protected virtual void InitCloudStore()
+        {
+            var storageConnectionString = ConfigurationManager.AppSettings["storageConnectionString"];
+            var storageName = ConfigurationManager.AppSettings["storageName"];
+
+            CloudStore.Init(storageConnectionString, storageName);
         }
 
         protected virtual void InitExecutor()

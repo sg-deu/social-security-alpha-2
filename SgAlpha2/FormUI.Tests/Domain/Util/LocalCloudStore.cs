@@ -40,5 +40,23 @@ namespace FormUI.Tests.Domain.Util
                 Assert.Fail("Could not verify Azure Blob Storage emulator connection - please verify Storage Emulator is running");
             }
         }
+
+        public static LocalCloudStore New(bool clearContainer = true)
+        {
+            SetUp();
+            return new LocalCloudStore(clearContainer);
+        }
+
+        private LocalCloudStore(bool clearContainer)
+        {
+            if (clearContainer)
+                ClearContainer();
+        }
+
+        public LocalCloudStore Register()
+        {
+            DomainRegistry.CloudStore = this;
+            return this;
+        }
     }
 }
