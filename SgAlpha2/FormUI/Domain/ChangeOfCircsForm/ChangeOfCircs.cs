@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using FormUI.Domain.BestStartGrantForms.Queries;
@@ -108,11 +109,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public void AddEvidenceFile(string filename, byte[] content)
         {
+            var cloudName = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(filename).ToLower();
+            CloudStore.Store(Id, cloudName, filename, content);
+
             Evidence = Evidence ?? new Evidence();
 
             var file = new EvidenceFile
             {
                 Name = filename,
+                CloudName = cloudName,
             };
 
             Evidence.Files.Add(file);

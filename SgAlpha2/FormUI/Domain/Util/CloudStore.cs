@@ -59,14 +59,16 @@ namespace FormUI.Domain.Util
             _container = new Lazy<CloudBlobContainer>(() => InitContainer(clearContainer));
         }
 
-        public void Store(string folder, string filename, byte[] content)
+        public void Store(string folder, string cloudFilename, string metadataFilename, byte[] content, string contentType = "application/octet-stream")
         {
-            var fullName = $"{folder}/{filename}";
+            var fullName = $"{folder}/{cloudFilename}";
             var block = _container.Value.GetBlockBlobReference(fullName);
 
             if (block.Exists())
                 throw new Exception($"{fullName} already exists");
 
+            block.Properties.ContentType = contentType;
+            block.Metadata.Add("filename", metadataFilename);
             block.UploadFromByteArray(content, 0, content.Length);
         }
 
