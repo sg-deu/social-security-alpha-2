@@ -61,8 +61,15 @@ namespace FormUI.Domain.Util
 
         protected void ClearContainer()
         {
-            _container.Value.DeleteIfExists();
-            _container.Value.CreateIfNotExists();
+            var container = _container.Value;
+            var blobs = container.ListBlobs(useFlatBlobListing: true);
+            var stripLength = container.Uri.ToString().Length + 1; // stip container name + trailing '/'
+
+            foreach (var blob in blobs)
+            {
+                var blobName = blob.Uri.ToString().Substring(stripLength);
+                container.GetBlobReference(blobName).Delete();
+            }
         }
     }
 }
