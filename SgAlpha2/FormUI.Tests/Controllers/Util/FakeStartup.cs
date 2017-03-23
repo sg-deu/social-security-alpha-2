@@ -18,6 +18,12 @@ namespace FormUI.Tests.Controllers.Util
             // and domain tests initialise a local repository
         }
 
+        protected override void InitCloudStore()
+        {
+            // cloud store should not be used in web-tests,
+            // and domain tests initialise a local cloud store
+        }
+
         protected override void InitExecutor()
         {
             // executor is based on WebTest executor that has been setup
