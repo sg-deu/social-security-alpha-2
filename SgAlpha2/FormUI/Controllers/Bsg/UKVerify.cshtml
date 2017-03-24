@@ -1,0 +1,43 @@
+﻿@inherits WebViewPage<UKVerifyModel>
+@{
+    ViewBag.Title = "Best Start Grant - GOV.UK Verify Consent";
+}
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>We need to identify you</h1>
+
+        @using (var form = Html.FormFor(Model.UKVerify))
+        {
+            @form.Html.ValidationSummary()
+
+            <p>
+                In order to continue your application to BSG and HS we need to confirm your identity.
+                Click the link below to take you to GOV.UK VERIFY
+            </p>
+
+            <p>
+                <!---->
+                <img alt="GOV.UK Verify" class="mygovscot-logo" src="/content/images/gov_uk_verify_certified_company.png" />
+
+                <!--CI-->
+                <!--<a href="http://govuk-verify.herokuapp.com/intro?requestId=social-sec-3">Start Now</a>-->
+                @form.Html.ButtonLinkExternal("https://govuk-verify.herokuapp.com/intro?requestId=social-sec-1", "Start Now >")
+            </p>
+           
+                <!--To faciltate selenium tests and manual test data population-->
+                <p>
+                 If you wish to continue without verifying your ID
+                @form.Html.LinkSubmit("By Pass GOV.UK Verify")
+                </p>
+                <p>
+                    Please note this may result in a delay to your application.
+                </p>
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>
