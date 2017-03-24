@@ -26,6 +26,8 @@ namespace FormUI.Tests.Domain.Util
             CloudStore.Store(_guidFolder, "file3.txt", "metadata_filename", content);
 
             CloudStore.List("folder1").Count.Should().Be(3);
+            var storedContent = CloudStore.Retrieve("folder1", "file1.txt");
+            Encoding.ASCII.GetString(storedContent).Should().Be("my file contents");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -78,6 +79,17 @@ namespace FormUI.Domain.Util
             var blobs = block.ListBlobs(useFlatBlobListing: true);
             var names = blobs.Select(b => b.Uri.Segments.Last());
             return names.ToList();
+        }
+
+        public byte[] Retrieve(string folder, string cloudFilename)
+        {
+            var fullName = $"{folder}/{cloudFilename}";
+            var block = _container.Value.GetBlockBlobReference(fullName);
+            using (var ms = new MemoryStream())
+            {
+                block.DownloadToStream(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

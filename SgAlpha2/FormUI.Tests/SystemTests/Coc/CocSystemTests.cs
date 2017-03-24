@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using FluentAssertions;
 using FormUI.Controllers.Coc;
 using FormUI.Domain;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
+using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
 using FormUI.Tests.Domain.Util;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using BsgForm = FormUI.Domain.BestStartGrantForms.BestStartGrant;
 
 namespace FormUI.Tests.SystemTests.Coc
@@ -78,7 +82,7 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInApplicantDetails(bsg);
             App.Submit();
 
-            FillInEvidence();
+            var filename = FillInEvidence();
             App.ClickButton("");
 
             App.VerifyCanSeeText("Thank you");
@@ -91,7 +95,7 @@ namespace FormUI.Tests.SystemTests.Coc
                 VerifyIdentity(doc, userId);
                 VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
-                VerifyEvidence(doc);
+                VerifyEvidence(doc, filename);
             });
         }
 
@@ -171,14 +175,29 @@ namespace FormUI.Tests.SystemTests.Coc
             _verifiedSections.Add(Sections.ApplicantDetails);
         }
 
-        private void FillInEvidence()
+        private string FillInEvidence()
         {
+            var tempFile = Path.GetTempFileName();
+            File.WriteAllText(tempFile, "some test content");
+            App.FindElement($"select file {tempFile}", By.Name("file"), e => e.SendKeys(tempFile));
+            App.ClickButton(CocButtons.UploadFile);
+
             var form = App.FormForModel<Evidence>();
             form.Check(m => m.SendingByPost, true);
+
+            File.Delete(tempFile);
+            return Path.GetFileName(tempFile);
         }
 
-        private void VerifyEvidence(ChangeOfCircs doc)
+        private void VerifyEvidence(ChangeOfCircs doc, string filename)
         {
+            doc.Evidence.Files.Count.Should().Be(1);
+            doc.Evidence.Files[0].Name.Should().Be(filename);
+
+            var cloudStore = DomainRegistry.CloudStore as LocalCloudStore;
+            var storedContent = cloudStore.Retrieve("coc-" + doc.Id, doc.Evidence.Files[0].CloudName);
+            Encoding.ASCII.GetString(storedContent).Should().Be("some test content");
+
             doc.Evidence.SendingByPost.Should().BeTrue();
             _verifiedSections.Add(Sections.Evidence);
         }
