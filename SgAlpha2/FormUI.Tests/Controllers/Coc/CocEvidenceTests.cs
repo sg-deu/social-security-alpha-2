@@ -29,6 +29,25 @@ namespace FormUI.Tests.Controllers.Coc
 
                 ExecutorStub.Executed<FindCocSection>(0).ShouldBeEquivalentTo(new FindCocSection { FormId = detail.Id, Section = Sections.Evidence });
                 response.Doc.Form<Evidence>(1).GetConfirm(m => m.SendingByPost).Should().Be(detail.Evidence.SendingByPost);
+                response.Doc.Document.Body.TextContent.Should().Contain("No files uploaded");
+            });
+        }
+        [Test]
+        public void Evidence_GET_ListsExistingFiles()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewCocDetail("form123");
+                detail.Evidence.Files.Add(new EvidenceFile { Name = "file 1" });
+                detail.Evidence.Files.Add(new EvidenceFile { Name = "file 2" });
+                ExecutorStub.SetupQuery(It.IsAny<FindCocSection>(), detail);
+
+                var response = client.Get(CocActions.Evidence(detail.Id));
+
+                ExecutorStub.Executed<FindCocSection>(0).ShouldBeEquivalentTo(new FindCocSection { FormId = detail.Id, Section = Sections.Evidence });
+                response.Doc.Form<Evidence>(1).GetConfirm(m => m.SendingByPost).Should().Be(detail.Evidence.SendingByPost);
+                response.Doc.Document.Body.TextContent.Should().NotContain("No files uploaded");
+                response.Doc.FindAll("#uploadedFiles li").Count.Should().Be(2);
             });
         }
 

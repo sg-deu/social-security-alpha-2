@@ -7,6 +7,7 @@ using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.ChangeOfCircsForm;
+using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
@@ -63,6 +64,7 @@ namespace FormUI.Tests.Domain.Util
             {
                 DomainRegistry.ValidationContext = new ValidationContext(true);
                 DomainRegistry.NowUtc = () => DateTime.UtcNow;
+                DomainRegistry.CloudStore = LocalCloudStore.New(clearContainer: false);
 
                 AddTestBsg(repository, "unitTest");
 
@@ -110,7 +112,7 @@ namespace FormUI.Tests.Domain.Util
             return new ChangeOfCircsBuilder(formId)
                 .WithCompletedSections()
                 .With(f => f.Completed, null)
-                .Insert();
+                .Insert(f => f.Evidence.AddFiles(f, 2));
         }
 
         private LocalRepository(bool deleteAllDocuments) : base(NewClient())

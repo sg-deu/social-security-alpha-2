@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.ChangeOfCircsForm;
@@ -179,6 +181,10 @@ namespace FormUI.Controllers.Coc
             return NavigableView<EvidenceModel>(formId, Sections.Evidence, (m, f) =>
             {
                 m.Evidence = details ?? f.Evidence;
+
+                m.UploadedFiles = f.Evidence != null
+                    ? f.Evidence.Files.Select(ef => ef.Name).ToList()
+                    : new List<string>();
             });
         }
 

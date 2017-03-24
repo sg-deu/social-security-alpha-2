@@ -24,7 +24,24 @@
             </ul>
 
             <br/>
-            <h3>Upload a file</h3>
+
+            if (Model.UploadedFiles.Count == 0)
+            {
+                <h3>No files uploaded</h3>
+            }
+            else
+            {
+                <p>Currently uploaded files:</p>
+                <ul id="uploadedFiles">
+                    @foreach (var file in Model.UploadedFiles)
+                    {
+                        <li>@file</li>
+                    }
+                </ul>
+            }
+
+            <br/>
+            <p>Upload a file</p>
 
             <input type="file" />
 
