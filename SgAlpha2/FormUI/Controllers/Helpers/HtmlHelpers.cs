@@ -19,6 +19,20 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonLink(actionUrl, "Next");
         }
 
+        public static IHtmlString ButtonLinkExternal<T>(this HtmlHelper<T> helper, string actionUrl, string text)
+        {
+            var urlHelper = helper.UrlHelper();
+
+            var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
+
+            var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
+                .AddClasses("button", "button--primary")
+                .Title(text)
+                .Append(linkText);
+
+            return anchor;
+        }
+
         public static IHtmlString ButtonLink<T>(this HtmlHelper<T> helper, string actionUrl, string text)
         {
             var urlHelper = helper.UrlHelper();
@@ -42,6 +56,13 @@ namespace FormUI.Controllers.Helpers
 
             return new LinkTag("Back", urlHelper.Content(actionUrl));
         }
+
+        //public static IHtmlString NextLink<T>(this HtmlHelper<T> helper, string text)
+        //{
+        //    var urlHelper = helper.UrlHelper();
+
+        //    return new LinkTag(text, actionUrl);
+        //}
 
         public static IHtmlString PartialFor<T, TViewModel>(this HtmlHelper<T> helper, Expression<Func<T, TViewModel>> property, string view, Func<TViewModel, object> modelFactory = null)
             where TViewModel : class

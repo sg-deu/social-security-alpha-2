@@ -8,6 +8,7 @@ namespace FormUI.Domain.BestStartGrantForms
         private static IDictionary<Sections, Func<SectionStrategy>> _strategies = new Dictionary<Sections, Func<SectionStrategy>>
         {
             { Sections.Consent,                 () => new SectionStrategy.Consent() },
+            { Sections.UKVerify,                () => new SectionStrategy.UKVerify() },
             { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails() },
             { Sections.ExpectedChildren,        () => new SectionStrategy.ExpectedChildren() },
             { Sections.ExistingChildren,        () => new SectionStrategy.ExistingChildren() },
@@ -46,6 +47,11 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private class Consent : SectionStrategy
         {
+        }
+
+        private class UKVerify : SectionStrategy
+        {
+            public override void SkipSection(BestStartGrant form) { form.OnSkipUKVerify(); }
         }
 
         private class ApplicantDetails : SectionStrategy

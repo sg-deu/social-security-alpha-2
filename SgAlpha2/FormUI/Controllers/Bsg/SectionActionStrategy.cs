@@ -9,6 +9,7 @@ namespace FormUI.Controllers.Bsg
         private static IDictionary<Sections, Func<SectionActionStrategy>> _strategies = new Dictionary<Sections, Func<SectionActionStrategy>>
         {
             { Sections.Consent,                 () => new ConsentActions() },
+            { Sections.UKVerify ,               () => new UKVerifyActions() },
             { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
             { Sections.ExpectedChildren,        () => new ExpectedChildrenActions() },
             { Sections.ExistingChildren,        () => new ExistingChildrenActions() },
@@ -40,6 +41,11 @@ namespace FormUI.Controllers.Bsg
         private class ConsentActions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.Consent(formId); }
+        }
+
+        private class UKVerifyActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.UKVerify(formId); }
         }
 
         private class ApplicantDetailsActions : SectionActionStrategy

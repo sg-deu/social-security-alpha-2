@@ -16,6 +16,7 @@ namespace FormUI.Domain.BestStartGrantForms
         }
 
         public Consent              Consent                 { get; protected set; }
+        public UKVerify             UKVerify                { get; protected set; }
         public ApplicantDetails     ApplicantDetails        { get; protected set; }
         public ExpectedChildren     ExpectedChildren        { get; protected set; }
         public ExistingChildren     ExistingChildren        { get; protected set; }
@@ -37,6 +38,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 Id                      = Id,
 
                 Consent                 = Consent,
+                UKVerify                = UKVerify,
                 ApplicantDetails        = ApplicantDetails,
                 ExpectedChildren        = ExpectedChildren,
                 ExistingChildren        = ExistingChildren,
@@ -120,6 +122,14 @@ namespace FormUI.Domain.BestStartGrantForms
 
             Consent = consent;
             return OnSectionCompleted(Sections.Consent);
+        }
+
+        public NextSection AddUKVerify(UKVerify ukverify)
+        {
+           // Validate(ukverify);
+
+            UKVerify = ukverify;
+            return OnSectionCompleted(Sections.UKVerify);
         }
 
         public NextSection AddApplicantDetails(ApplicantDetails applicantDetails)
@@ -246,6 +256,8 @@ namespace FormUI.Domain.BestStartGrantForms
             Declaration = declaration;
             return OnSectionCompleted(Sections.Declaration);
         }
+
+        internal void OnSkipUKVerify() { UKVerify = null; }
 
         internal void OnSkipApplicantBenefits()         { ApplicantBenefits = null;         }
         internal void OnSkipPartnerBenefits()           { PartnerBenefits = null;           }

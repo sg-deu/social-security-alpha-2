@@ -19,6 +19,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public BestStartGrantBuilder WithCompletedSections()
         {
             With(f => f.Consent,                    ConsentBuilder.NewValid());
+            With(f => f.UKVerify,                   UKVerifyBuilder.NewValid());
             With(f => f.ApplicantDetails,           ApplicantDetailsBuilder.NewValid());
             With(f => f.ExpectedChildren,           ExpectedChildrenBuilder.NewValid());
             With(f => f.ExistingChildren,           ExistingChildrenBuilder.NewValid());
@@ -45,6 +46,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             detail.Id = form.Id;
 
             detail.Consent = form.Consent;
+            detail.UKVerify = form.UKVerify;
             detail.ApplicantDetails = form.ApplicantDetails;
             detail.ExpectedChildren = form.ExpectedChildren;
             detail.ExistingChildren = form.ExistingChildren;
@@ -69,6 +71,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
                 doc.Completed.Should().NotBeNull("When consent has been filled in, expect a Completed date {0}", doc.Id);
 
             doc.Started.Should().NotBe(DateTime.MinValue);
+        }
+
+
+        public static void VerifyUKVerify(BestStartGrant doc)
+        {
+            //if (!string.IsNullOrWhiteSpace(doc.ApplicantDetails?.EmailAddress))
+            //    doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress, "Where an e-mail address has been supplied, the UserId should reflect this {0}", doc.Id);
+
+            //if (doc.Declaration?.AgreedToLegalStatement == true)
+            //    doc.Completed.Should().NotBeNull("When UKVerify has been filled in, expect a Completed date {0}", doc.Id);
+
+            //doc.Started.Should().NotBe(DateTime.MinValue);
         }
 
         public BestStartGrantBuilder PreviousApplicationFor(string userId)

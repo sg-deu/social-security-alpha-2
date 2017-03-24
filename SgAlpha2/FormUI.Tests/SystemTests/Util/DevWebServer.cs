@@ -15,7 +15,7 @@ namespace FormUI.Tests.SystemTests.Util
             security.AddAccessRule(new SemaphoreAccessRule("Everyone", SemaphoreRights.FullControl, AccessControlType.Allow));
 
             _server = new CassiniDevServer();
-            _server.StartServer(@"..\..\..\FormUI", 54078, "/", "localhost");
+            _server.StartServer(@"..\..\..\FormUI", 54076, "/", "localhost");
 
             RootUrl = _server.RootUrl;
         }

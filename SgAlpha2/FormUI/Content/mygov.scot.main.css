@@ -2916,6 +2916,11 @@ small,
 .button--clear:hover {
     color: #00437e
 }
+.mygovscot-logo
+{
+ width: 150px;
+ margin-left: 105px;
+}
 .button--success,
 .button--positive {
     background-color: #4e9d52

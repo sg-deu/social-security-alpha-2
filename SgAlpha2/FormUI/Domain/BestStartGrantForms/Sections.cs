@@ -3,6 +3,7 @@
     public enum Sections
     {
         Consent = 1,
+        UKVerify,
         ApplicantDetails,
         ExpectedChildren,
         ExistingChildren,

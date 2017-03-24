@@ -22,6 +22,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -40,6 +41,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -61,6 +63,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 0);
@@ -79,6 +82,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.LastNotKinshipCare());
@@ -97,6 +101,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
@@ -117,6 +122,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.ExpectedBabyCount(1));
             next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
@@ -138,6 +144,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Under25CareLeaver(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -159,6 +166,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Under16(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -185,6 +193,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Aged16(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -206,6 +215,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -232,6 +242,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
@@ -259,6 +270,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var formId = next.Id;
 
             next = AddConsent(next);
+            next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.PartOfGuardianBenefits(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.AllKinshipCare());
@@ -278,6 +290,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.Consent);
             return NextSection(current.Section, () => new AddConsent { FormId = current.Id, Consent = ConsentBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddUKVerify(NextSection current, Action<UKVerify> mutator = null)
+        {
+            current.Section.Should().Be(Sections.UKVerify);
+            return NextSection(current.Section, () => new AddUKVerify { FormId = current.Id, UKVerify = UKVerifyBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddApplicantDetails(NextSection current, Action<ApplicantDetails> mutator = null)

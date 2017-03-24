@@ -26,9 +26,17 @@
                 or arrange for us to <a href="#">call you back</a>
             </p>
 
-
             @Html.ButtonSubmitNext(Model.IsFinalPage)
 
+
+            <p>
+                <!---->
+                <img alt="GOV.UK Verify" class="mygovscot-logo" src="/content/images/gov_uk_verify_certified_company.png" />
+
+                <!--CI-->
+                <!--<a href="http://govuk-verify.herokuapp.com/intro?requestId=social-sec-4">Start Now</a>-->
+                @Html.ButtonLinkExternal("https://govuk-verify.herokuapp.com/intro?requestId=social-sec-2", "GOV.UK Login")
+            </p>
 
         </form>
 

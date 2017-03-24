@@ -51,6 +51,9 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
+            FillInUKVerify();
+            App.Submit();
+
             var dob = DateTime.Now.Date.AddYears(-19);
             FillInApplicantDetails(dob, previouslyLookedAfter: false, fullTimeEducation: false);
             App.Submit();
@@ -92,6 +95,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyConsent(doc);
+                VerifyUKVerify(doc);
                 VerifyApplicantDetails(doc, dob, false, false);
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
@@ -112,6 +116,9 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             FillInConsent();
+            App.Submit();
+
+            FillInUKVerify();
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-18);
@@ -168,6 +175,18 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.Consent.AgreedToConsent.Should().BeTrue();
             _verifiedSections.Add(Sections.Consent);
+        }
+
+        private void FillInUKVerify()
+        {
+            //var form = App.FormForModel<UKVerify>();
+            //form.Check(m => m.AgreedToConsent, true);
+        }
+
+        private void VerifyUKVerify(BestStartGrant doc)
+        {
+            //doc.UKVerify.AgreedToConsent.Should().BeTrue();
+            _verifiedSections.Add(Sections.UKVerify);
         }
 
         private void FillInApplicantDetails(DateTime dob, bool? previouslyLookedAfter, bool? fullTimeEducation)

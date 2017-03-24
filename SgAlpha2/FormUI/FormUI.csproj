@@ -159,6 +159,7 @@
     <Compile Include="App_Start\MetadataProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\UKVerifyModel.cs" />
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Coc\EvidenceModel.cs" />
     <Compile Include="Controllers\Coc\OptionsModel.cs" />
@@ -216,10 +217,12 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddUKVerify.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\Part.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddConsent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\UKVerify.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetails.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidence.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidenceFile.cs" />
@@ -290,6 +293,7 @@
     <Compile Include="..\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\gov_uk_verify_certified_company.png" />
     <Content Include="Content\images\icons\close-grey.png" />
     <Content Include="Content\images\icons\notification_close_white.png" />
     <Content Include="Content\images\icons\notification_close_white_2x.png" />
@@ -379,6 +383,7 @@
     <Content Include="Controllers\Coc\ApplicantDetails.cshtml" />
     <Content Include="Controllers\Coc\Options.cshtml" />
     <Content Include="Controllers\Coc\Evidence.cshtml" />
+    <Content Include="Controllers\Bsg\UKVerify.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
