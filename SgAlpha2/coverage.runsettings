@@ -34,6 +34,8 @@ Included items must then not match any entries in the exclude list to remain inc
               </Include>  
               <Exclude>  
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>  
+                <ModulePath>.*apphelp.*</ModulePath>  
+                <ModulePath>.*mono\..*</ModulePath>  
 
                 <ModulePath>.*AngleSharp.*</ModulePath>  
                 <ModulePath>.*antlr3.*</ModulePath>  
@@ -41,13 +43,13 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*chromedriver.*</ModulePath>  
                 <ModulePath>.*Common\.Logging.*</ModulePath>  
                 <ModulePath>.*DocumentDB.*</ModulePath>  
-                <ModulePath>.*FluentAssertions.*</ModulePath>  
+                <ModulePath>.*[Ff]luent[Aa]ssertions.*</ModulePath>  
                 <ModulePath>.*HtmlTags.*</ModulePath>  
-                <ModulePath>.*Microsoft.*</ModulePath>  
+                <ModulePath>.*[Mm]icrosoft.*</ModulePath>  
                 <ModulePath>.*Newtonsoft.*</ModulePath>  
                 <ModulePath>.*nunit.*</ModulePath>  
                 <ModulePath>.*phantomjs.*</ModulePath>  
-                <ModulePath>.*System\..*</ModulePath>  
+                <ModulePath>.*[Ss]ystem\..*</ModulePath>  
                 <ModulePath>.*WebDriver.*</ModulePath>  
                 <ModulePath>.*WindowsAzure.*</ModulePath>  
               </Exclude>  
