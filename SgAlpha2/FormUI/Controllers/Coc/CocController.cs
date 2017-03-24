@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.ChangeOfCircsForm;
@@ -160,23 +159,29 @@ namespace FormUI.Controllers.Coc
         }
 
         [HttpPost]
-        public ActionResult Evidence(string id, Evidence evidence, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Evidence(string id, Evidence evidence)
         {
             if (WasClicked(CocButtons.UploadFile))
             {
-                var postedFiles = files.ToList();
-
-                if (postedFiles.Count == 0)
+                if (Request.Files.Count == 0)
                 {
-                    ModelState.AddModelError("", "Please select the file to upload");
+                    ModelState.AddModelError("", "Could not upload file");
                     return Evidence_Render(id, evidence);
                 }
 
-                var file = postedFiles[0];
+                var file = Request.Files[0];
 
-                if (file.ContentLength == 0)
+                if (string.IsNullOrWhiteSpace(file.FileName))
                 {
-                    ModelState.AddModelError("", "The supplied file did not have any content");
+                    ModelState.AddModelError("", "Please select a file to upload");
+                    return Evidence_Render(id, evidence);
+                }
+
+                const int maxSize = 1024 * 1024 * 2;
+
+                if (file.ContentLength > maxSize)
+                {
+                    ModelState.AddModelError("", "Please select a file that is smaller than 2MB");
                     return Evidence_Render(id, evidence);
                 }
 
