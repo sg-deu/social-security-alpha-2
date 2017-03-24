@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.Controllers.Coc;
@@ -48,6 +49,29 @@ namespace FormUI.Tests.Controllers.Coc
                 response.Doc.Form<Evidence>(1).GetConfirm(m => m.SendingByPost).Should().Be(detail.Evidence.SendingByPost);
                 response.Doc.Document.Body.TextContent.Should().NotContain("No files uploaded");
                 response.Doc.FindAll("#uploadedFiles li").Count.Should().Be(2);
+            });
+        }
+
+        [Test]
+        [Explicit("Could not get this to work using our testing framework - will try again later")]
+        public void Evidence_POST_UploadFile()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(CocActions.Evidence("form123"));
+
+                response = response.Form<Evidence>(1)
+                    // need to figure out how to add a file here
+                    .SubmitName(CocButtons.UploadFile, client);
+
+                ExecutorStub.Executed<AddEvidence>(0).ShouldBeEquivalentTo(new AddEvidenceFile
+                {
+                    FormId = "form123",
+                    Filename = "UploadedFile.pdf",
+                    Content = Encoding.ASCII.GetBytes("uploaded content"),
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(CocActions.Evidence("form123"));
             });
         }
 

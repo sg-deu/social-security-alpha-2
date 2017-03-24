@@ -12,9 +12,14 @@ namespace FormUI.Controllers.Helpers
 {
     public static class FormHelpers
     {
-        public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel)
+        public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel, Action<FormTag> mutator = null)
         {
-            var form = new FormTag().AddClasses("sg-form").NoClosingTag();
+            var form = new FormTag();
+            form.AddClasses("sg-form").NoClosingTag();
+
+            if (mutator != null)
+                mutator(form);
+
             helper.ViewContext.Writer.Write(form.ToHtmlString());
 
             return helper.ForModel(postModel, () =>

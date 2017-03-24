@@ -10,7 +10,7 @@
 
         <h1>Documents to validate change of circumstances</h1>
 
-        @using (var form = Html.FormFor(Model.Evidence))
+        @using (var form = Html.FormFor(Model.Evidence, f => f.Attr("enctype", "multipart/form-data")))
         {
 
             @form.Html.ValidationSummary()
@@ -43,7 +43,7 @@
             <br/>
             <p>Upload a file</p>
 
-            <input type="file" />
+            <input type="file" name="file" />
 
             <br/><br/>
 

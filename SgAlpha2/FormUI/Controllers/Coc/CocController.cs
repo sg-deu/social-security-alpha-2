@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.ChangeOfCircsForm;
@@ -158,11 +160,39 @@ namespace FormUI.Controllers.Coc
         }
 
         [HttpPost]
-        public ActionResult Evidence(string id, Evidence evidence)
+        public ActionResult Evidence(string id, Evidence evidence, IEnumerable<HttpPostedFileBase> files)
         {
             if (WasClicked(CocButtons.UploadFile))
             {
-                return Evidence_Render(id, evidence);
+                var postedFiles = files.ToList();
+
+                if (postedFiles.Count == 0)
+                {
+                    ModelState.AddModelError("", "Please select the file to upload");
+                    return Evidence_Render(id, evidence);
+                }
+
+                var file = postedFiles[0];
+
+                if (file.ContentLength == 0)
+                {
+                    ModelState.AddModelError("", "The supplied file did not have any content");
+                    return Evidence_Render(id, evidence);
+                }
+
+                using (var br = new BinaryReader(file.InputStream))
+                {
+                    var addFile = new AddEvidenceFile
+                    {
+                        FormId = id,
+                        Filename = file.FileName,
+                        Content = br.ReadBytes((int)file.InputStream.Length),
+                    };
+
+                    return Exec(addFile,
+                        success: () => Redirect(CocActions.Evidence(id)),
+                        failure: () => Evidence_Render(id, evidence));
+                }
             }
 
             var cmd = new AddEvidence
