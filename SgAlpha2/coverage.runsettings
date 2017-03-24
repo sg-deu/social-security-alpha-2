@@ -42,6 +42,16 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\Microsoft.*.dll</ModulePath>  
                 <ModulePath>.*\System.*.dll</ModulePath>  
                 <ModulePath>.*\WindowsAzure.*.dll</ModulePath>  
+                <ModulePath>.*\AngleSharp.dll</ModulePath>  
+                <ModulePath>.*\CassiniDev4-lib.dll</ModulePath>  
+                <ModulePath>.*\chromedriver.exe</ModulePath>  
+                <ModulePath>.*\Common.Logging*.dll</ModulePath>  
+                <ModulePath>.*\DocumentDB*.dll</ModulePath>  
+                <ModulePath>.*\HtmlTags.dll</ModulePath>  
+                <ModulePath>.*\Newtonsoft.Json.dll</ModulePath>  
+                <ModulePath>.*\nunit.framework.dll</ModulePath>  
+                <ModulePath>.*\phantomjs.exe</ModulePath>  
+                <ModulePath>.*\WebDriver.dll</ModulePath>  
               </Exclude>  
             </ModulePaths>  
 
