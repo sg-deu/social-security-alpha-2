@@ -29,7 +29,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
             {
                 var fileName = $"evidence{i + 1}.txt";
                 var cloudName = $"cloud{i}.txt";
-                cloudStore.Store(form.Id, cloudName, fileName, Encoding.ASCII.GetBytes($"file content {i}"));
+                cloudStore.Store("coc-" + form.Id, cloudName, fileName, Encoding.ASCII.GetBytes($"file content {i}"));
                 evidence.Files.Add(new EvidenceFile { Name = fileName, CloudName = cloudName });
             }
 

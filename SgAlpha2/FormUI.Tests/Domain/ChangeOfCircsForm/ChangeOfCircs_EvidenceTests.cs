@@ -28,7 +28,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             var file = storedForm.Evidence.Files[0];
             file.Name.Should().Be("FileName1.txt");
 
-            CloudStore.List(form.Id).Should().Contain(file.CloudName);
+            CloudStore.List("coc-" + form.Id).Should().Contain(file.CloudName);
         }
 
         [Test]
@@ -49,8 +49,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
 
             storedForm.Evidence.Files[0].CloudName.Should().NotBe(storedForm.Evidence.Files[1].CloudName, "cloud names should be unique");
 
-            CloudStore.List("form").Should().Contain(storedForm.Evidence.Files[0].CloudName);
-            CloudStore.List("form").Should().Contain(storedForm.Evidence.Files[1].CloudName);
+            CloudStore.List("coc-form").Should().Contain(storedForm.Evidence.Files[0].CloudName);
+            CloudStore.List("coc-form").Should().Contain(storedForm.Evidence.Files[1].CloudName);
         }
 
         [Test]

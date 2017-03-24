@@ -111,7 +111,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public void AddEvidenceFile(string filename, byte[] content)
         {
             var cloudName = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(filename).ToLower();
-            CloudStore.Store(Id, cloudName, filename, content);
+            CloudStore.Store("coc-" + Id, cloudName, filename, content);
 
             Evidence = Evidence ?? new Evidence();
 
