@@ -17,7 +17,7 @@ namespace FormUI.Tests.SystemTests.Coc
     [TestFixture]
     public class CocSystemTests : SystemTest
     {
-        private bool _runningAlltests;
+        private bool            _runningAlltests;
         private IList<Sections> _verifiedSections = new List<Sections>();
 
         [TestFixtureTearDown]
@@ -78,6 +78,9 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInApplicantDetails(bsg);
             App.Submit();
 
+            FillInEvidence();
+            App.ClickButton("");
+
             App.VerifyCanSeeText("Thank you");
 
             Db(r =>
@@ -88,6 +91,7 @@ namespace FormUI.Tests.SystemTests.Coc
                 VerifyIdentity(doc, userId);
                 VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
+                VerifyEvidence(doc);
             });
         }
 
@@ -165,6 +169,18 @@ namespace FormUI.Tests.SystemTests.Coc
             doc.ApplicantDetails.HomePhoneNumer.Should().Be("2345678");
             doc.ApplicantDetails.EmailAddress.Should().Be("coc.test@coc.com");
             _verifiedSections.Add(Sections.ApplicantDetails);
+        }
+
+        private void FillInEvidence()
+        {
+            var form = App.FormForModel<Evidence>();
+            form.Check(m => m.SendingByPost, true);
+        }
+
+        private void VerifyEvidence(ChangeOfCircs doc)
+        {
+            doc.Evidence.SendingByPost.Should().BeTrue();
+            _verifiedSections.Add(Sections.Evidence);
         }
     }
 }

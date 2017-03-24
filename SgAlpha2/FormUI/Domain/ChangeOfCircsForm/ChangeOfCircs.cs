@@ -132,7 +132,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
             Validate(Evidence);
 
-            return OnSectionCompleted(Sections.ApplicantDetails);
+            return OnSectionCompleted(Sections.Evidence);
         }
 
         internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
