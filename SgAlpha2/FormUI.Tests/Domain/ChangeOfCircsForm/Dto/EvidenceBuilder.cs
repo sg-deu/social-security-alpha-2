@@ -3,6 +3,7 @@ using System.Text;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Domain.Util;
+using FormUI.Tests.Domain.Util;
 
 namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
 {
@@ -23,13 +24,17 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
 
         public static Evidence AddFiles(this Evidence evidence, ChangeOfCircs form, int count)
         {
-            var cloudStore = DomainRegistry.CloudStore;
+            var cloudStore = DomainRegistry.CloudStore as LocalCloudStore;
+            var existingFiles = cloudStore.List("coc-" + form.Id);
 
             for (int i = 0; i < count; i++)
             {
                 var fileName = $"evidence{i + 1}.txt";
                 var cloudName = $"cloud{i}.txt";
-                cloudStore.Store("coc-" + form.Id, cloudName, fileName, Encoding.ASCII.GetBytes($"file content {i}"));
+
+                if (!existingFiles.Contains(cloudName))
+                    cloudStore.Store("coc-" + form.Id, cloudName, fileName, Encoding.ASCII.GetBytes($"file content {i}"));
+
                 evidence.Files.Add(new EvidenceFile { Name = fileName, CloudName = cloudName });
             }
 
