@@ -9,6 +9,11 @@ using FormUI.Domain.ChangeOfCircsForm.Responses;
 
 namespace FormUI.Controllers.Coc
 {
+    public static class CocButtons
+    {
+        public const string UploadFile = "UploadFile";
+    }
+
     public static class CocActions
     {
         public static string Overview()                     { return $"~/coc/overview"; }
@@ -141,6 +146,39 @@ namespace FormUI.Controllers.Coc
             return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
             {
                 m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult Evidence(string id)
+        {
+            return Evidence_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult Evidence(string id, Evidence evidence)
+        {
+            if (WasClicked(CocButtons.UploadFile))
+            {
+                return Evidence_Render(id, evidence);
+            }
+
+            var cmd = new AddEvidence
+            {
+                FormId = id,
+                Evidence = evidence,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => Evidence_Render(id, evidence));
+        }
+
+        private ActionResult Evidence_Render(string formId, Evidence details)
+        {
+            return NavigableView<EvidenceModel>(formId, Sections.Evidence, (m, f) =>
+            {
+                m.Evidence = details ?? f.Evidence;
             });
         }
 

@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
+    <Compile Include="Controllers\Coc\EvidenceModel.cs" />
     <Compile Include="Controllers\Coc\OptionsModel.cs" />
     <Compile Include="Controllers\Shared\AddressModel.cs" />
     <Compile Include="Controllers\Bsg\BenefitsModel.cs" />
@@ -376,6 +377,7 @@
     <Content Include="Controllers\Coc\Identity.cshtml" />
     <Content Include="Controllers\Coc\ApplicantDetails.cshtml" />
     <Content Include="Controllers\Coc\Options.cshtml" />
+    <Content Include="Controllers\Coc\Evidence.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
