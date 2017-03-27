@@ -17,6 +17,7 @@ namespace FormUI.Tests.Controllers.Coc
                 Options             = OptionsBuilder.NewValid(),
                 ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
                 Evidence            = EvidenceBuilder.NewValid(),
+                Declaration         = DeclarationBuilder.NewValid(),
             };
 
             return detail;

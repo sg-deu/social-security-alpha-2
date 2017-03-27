@@ -225,6 +225,34 @@ namespace FormUI.Controllers.Coc
         }
 
         [HttpGet]
+        public ActionResult Declaration(string id)
+        {
+            return Declaration_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult Declaration(string id, Declaration declaration)
+        {
+            var cmd = new AddDeclaration
+            {
+                FormId = id,
+                Declaration = declaration,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => Declaration_Render(id, declaration));
+        }
+
+        private ActionResult Declaration_Render(string formId, Declaration details)
+        {
+            return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
+            {
+                m.Declaration = details ?? f.Declaration;
+            });
+        }
+
+        [HttpGet]
         public ActionResult Complete()
         {
             return View();
