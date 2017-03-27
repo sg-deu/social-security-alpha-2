@@ -41,6 +41,14 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static NextSection Next(BestStartGrant form, Sections completedSection)
         {
+            if (IsIneligible(form))
+                return new NextSection
+                {
+                    Id = form.Id,
+                    Type = NextType.Ineligible,
+                    Section = null,
+                };
+
             var index = _order.IndexOf(completedSection) + 1;
 
             Sections? nextSection = null;
@@ -65,8 +73,40 @@ namespace FormUI.Domain.BestStartGrantForms
             return new NextSection
             {
                 Id = form.Id,
+                Type = nextSection.HasValue ? NextType.Section : NextType.Complete,
                 Section = nextSection,
             };
+        }
+
+        public static bool IsIneligible(BestStartGrant form)
+        {
+            if (form.ExpectedChildren != null && form.ExistingChildren != null)
+                if (HasNoChildren(form))
+                    return true;
+
+            if (form.PartnerBenefits != null)
+                if (HasNoQualifyingBenefits(form.PartnerBenefits))
+                    return true;
+
+            return false;
+        }
+
+        private static bool HasNoChildren(BestStartGrant form)
+        {
+            var expectedChildren = form.ExpectedChildren;
+            var existingChildren = form.ExistingChildren;
+
+            var hasExpectedChildren = expectedChildren.ExpectancyDate.HasValue
+                || (expectedChildren.ExpectedBabyCount.HasValue && expectedChildren.ExpectedBabyCount > 0);
+
+            var hasExistingChildren = existingChildren.Children.Count > 0;
+
+            return !hasExpectedChildren && !hasExistingChildren;
+        }
+
+        private static bool HasNoQualifyingBenefits(Benefits benefits)
+        {
+            return benefits.HasExistingBenefit == YesNoDk.No;
         }
 
         public static bool RequiresApplicantBenefits(BestStartGrant form)

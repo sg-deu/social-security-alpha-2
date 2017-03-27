@@ -15,6 +15,52 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
     [TestFixture]
     public class ScenarioTests : DomainTest
     {
+        private bool _gotToEnd;
+
+        protected override void SetUp()
+        {
+            _gotToEnd = false;
+            base.SetUp();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+            _gotToEnd.Should().BeTrue("should VerifyIneligible() or VerifyComplete()");
+        }
+
+        [Test]
+        public void NoChildren_Ineligible()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddUKVerify(next);
+            next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
+            next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
+            next = AddExistingChildren(next, 0);
+
+            VerifyIneligible(next);
+        }
+
+        [Test]
+        public void NoBenefits_Ineligible()
+        {
+            var next = new StartBestStartGrant().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddUKVerify(next);
+            next = AddApplicantDetails(next);
+            next = AddExpectedChildren(next);
+            next = AddExistingChildren(next);
+            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+            next = AddPartnerBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+
+            VerifyIneligible(next);
+        }
+
         [Test]
         public void AgedOver25OnBenefits()
         {
@@ -31,7 +77,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -53,11 +99,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
-        public void NoExistingChildren()
+        public void OneExistingChild()
         {
             var next = new StartBestStartGrant().Execute();
             var formId = next.Id;
@@ -66,13 +112,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddUKVerify(next);
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
-            next = AddExistingChildren(next, 0);
+            next = AddExistingChildren(next, 1);
             next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -91,7 +137,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -112,7 +158,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -134,7 +180,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -155,7 +201,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -182,7 +228,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -204,7 +250,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -231,7 +277,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -259,7 +305,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         [Test]
@@ -281,7 +327,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
 
-            next.Section.Should().BeNull();
+            VerifyComplete(next);
         }
 
         #region command execution helpers
@@ -400,12 +446,27 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             if (next.Section.HasValue)
             {
+                next.Type.Should().Be(NextType.Section);
                 var detail = new FindBsgSection { FormId = next.Id, Section = next.Section.Value }.Find();
                 detail.PreviousSection.Should().Be(currentSection);
                 detail.IsFinalSection.Should().Be(Navigation.Order.Last() == next.Section.Value, "Expected {0} to be the final section", next.Section.Value);
             }
 
             return next;
+        }
+
+        private void VerifyComplete(NextSection next)
+        {
+            next.Type.Should().Be(NextType.Complete);
+            next.Section.Should().BeNull();
+            _gotToEnd = true;
+        }
+
+        private void VerifyIneligible(NextSection next)
+        {
+            next.Type.Should().Be(NextType.Ineligible);
+            next.Section.Should().BeNull();
+            _gotToEnd = true;
         }
 
         #endregion
