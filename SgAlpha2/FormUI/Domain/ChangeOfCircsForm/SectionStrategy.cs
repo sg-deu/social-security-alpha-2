@@ -12,6 +12,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             { Sections.Options,                 () => new SectionStrategy.Options()             },
             { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails()    },
             { Sections.Evidence,                () => new SectionStrategy.Evidence()            },
+            { Sections.Declaration,             () => new SectionStrategy.Declaration()         },
         };
 
         public static SectionStrategy For(Sections section)
@@ -51,6 +52,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
         }
 
         private class Evidence : SectionStrategy
+        {
+        }
+
+        private class Declaration : SectionStrategy
         {
         }
     }

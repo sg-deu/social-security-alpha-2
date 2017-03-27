@@ -7,5 +7,6 @@
         Options,
         ApplicantDetails,
         Evidence,
+        Declaration,
     }
 }
