@@ -10,6 +10,18 @@ namespace FormUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "UKVerifyLoginReturn",
+                url: "{controller}/login-return/{id}",
+                defaults: new { controller = "Coc", action = "ApplicantDetails", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "UKVerifyApplyReturn",
+                url: "{controller}/apply-return/{id}",
+                defaults: new { controller = "Bsg", action = "ApplicantDetails", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

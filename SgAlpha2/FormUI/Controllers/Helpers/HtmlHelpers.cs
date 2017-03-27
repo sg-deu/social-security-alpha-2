@@ -19,18 +19,28 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonLink(actionUrl, "Next");
         }
 
-        public static IHtmlString ButtonLinkExternal<T>(this HtmlHelper<T> helper, string actionUrl, string text)
+        public static IHtmlString ButtonLinkExternal<T>(this HtmlHelper<T> helper, string ukVerifyScope, string text)
         {
             var urlHelper = helper.UrlHelper();
 
             var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
 
-            var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
-                .AddClasses("button", "button--primary")
-                .Title(text)
-                .Append(linkText);
+            //not too pretty but will do for now...
+            if (System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope] != null)
+            {
+                var actionUrl = System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope];
 
-            return anchor;
+                var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
+                    .AddClasses("button", "button--primary")
+                    .Title(text)
+                    .Append(linkText);
+
+                return anchor;
+            }
+            else
+            {
+                return new LinkTag(null, string.Empty);
+            }
         }
 
         public static IHtmlString ButtonLink<T>(this HtmlHelper<T> helper, string actionUrl, string text)
@@ -56,13 +66,6 @@ namespace FormUI.Controllers.Helpers
 
             return new LinkTag("Back", urlHelper.Content(actionUrl));
         }
-
-        //public static IHtmlString NextLink<T>(this HtmlHelper<T> helper, string text)
-        //{
-        //    var urlHelper = helper.UrlHelper();
-
-        //    return new LinkTag(text, actionUrl);
-        //}
 
         public static IHtmlString PartialFor<T, TViewModel>(this HtmlHelper<T> helper, Expression<Func<T, TViewModel>> property, string view, Func<TViewModel, object> modelFactory = null)
             where TViewModel : class

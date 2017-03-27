@@ -26,16 +26,17 @@
                 or arrange for us to <a href="#">call you back</a>
             </p>
 
-            @Html.ButtonSubmitNext(Model.IsFinalPage)
-
-
             <p>
                 <!---->
                 <img alt="GOV.UK Verify" class="mygovscot-logo" src="/content/images/gov_uk_verify_certified_company.png" />
+                @Html.ButtonLinkExternal("gov.ukverifylogin", "Login >")
+            </p>
 
-                <!--CI-->
-                <!--<a href="http://govuk-verify.herokuapp.com/intro?requestId=social-sec-4">Start Now</a>-->
-                @Html.ButtonLinkExternal("https://govuk-verify.herokuapp.com/intro?requestId=social-sec-2", "GOV.UK Login")
+            <!--To faciltate selenium tests and manual test data population-->
+            <p>
+                If you wish to continue without verifying your ID
+                @Html.LinkSubmit("By Pass GOV.UK Verify")
+                Please note this may result in a delay to your application.
             </p>
 
         </form>

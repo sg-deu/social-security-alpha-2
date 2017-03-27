@@ -21,18 +21,13 @@
             <p>
                 <!---->
                 <img alt="GOV.UK Verify" class="mygovscot-logo" src="/content/images/gov_uk_verify_certified_company.png" />
-
-                <!--CI-->
-                <!--<a href="http://govuk-verify.herokuapp.com/intro?requestId=social-sec-3">Start Now</a>-->
-                @form.Html.ButtonLinkExternal("https://govuk-verify.herokuapp.com/intro?requestId=social-sec-1", "Start Now >")
+                @form.Html.ButtonLinkExternal("gov.ukverifyapply", "Start Now >")
             </p>
            
                 <!--To faciltate selenium tests and manual test data population-->
                 <p>
-                 If you wish to continue without verifying your ID
-                @form.Html.LinkSubmit("By Pass GOV.UK Verify")
-                </p>
-                <p>
+                    If you wish to continue without verifying your ID
+                    @form.Html.LinkSubmit("By Pass GOV.UK Verify")
                     Please note this may result in a delay to your application.
                 </p>
         }

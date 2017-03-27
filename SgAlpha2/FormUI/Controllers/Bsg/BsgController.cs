@@ -24,7 +24,7 @@ namespace FormUI.Controllers.Bsg
         public static string    UKVerify(string formId)                 { return $"~/bsg/ukverify/{formId}"; }
         public static string    ApplicantDetails(string formId)         { return $"~/bsg/applicantDetails/{formId}"; }
         //TODO: find out how to return into form from external site, read response header (eventually SAML), and re-populate ApplicantDetails
-        //public static string    ApplicantDetailsPopulatedFromUkVerify() { return $"~/bsg/apply-return"; }
+        //public static string    ApplicantDetailsFromUkVerify()          { return $"~/bsg/apply-return"; }
         public static string    Ajax_DobChanged()                       { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)         { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)         { return $"~/bsg/existingChildren/{formId}"; }
@@ -119,6 +119,11 @@ namespace FormUI.Controllers.Bsg
 
         private ActionResult UKVerify_Render(string formId, UKVerify details)
         {
+            System.Web.HttpCookie aCookie = new System.Web.HttpCookie("formId");
+            aCookie.Value = formId;
+            aCookie.Expires = DateTime.Now.AddHours(1);
+            Response.Cookies.Add(aCookie);
+
             return NavigableView<UKVerifyModel>(formId, Sections.UKVerify, (m, f) =>
             {
                 m.UKVerify = details ?? f.UKVerify;
@@ -128,12 +133,24 @@ namespace FormUI.Controllers.Bsg
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
         {
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             return ApplicantDetails_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
         {
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             var cmd = new AddApplicantDetails
             {
                 FormId = id,

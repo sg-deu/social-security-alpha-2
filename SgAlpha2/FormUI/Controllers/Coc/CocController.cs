@@ -91,6 +91,11 @@ namespace FormUI.Controllers.Coc
 
         private ActionResult Identity_Render(string formId, string email)
         {
+            System.Web.HttpCookie aCookie = new System.Web.HttpCookie("formId");
+            aCookie.Value = formId;
+            aCookie.Expires = DateTime.Now.AddHours(1);
+            Response.Cookies.Add(aCookie);
+
             return NavigableView<IdentityModel>(formId, Sections.Identity, (m, f) =>
             {
                 m.Email = email ?? f.Identity;
@@ -128,12 +133,24 @@ namespace FormUI.Controllers.Coc
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
         {
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             return ApplicantDetails_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
         {
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             var cmd = new AddApplicantDetails
             {
                 FormId = id,
