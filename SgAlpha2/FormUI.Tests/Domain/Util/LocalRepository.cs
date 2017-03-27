@@ -76,7 +76,7 @@ namespace FormUI.Tests.Domain.Util
 
                     Builder.Modify(bsg)
                         .With(f => f.UserId, coc.UserId)
-                        .With(f => f.Declaration, DeclarationBuilder.NewValid())
+                        .With(f => f.Declaration, BestStartGrantForms.Dto.DeclarationBuilder.NewValid())
                         .With(f => f.Completed, DateTime.UtcNow);
                 });
             }

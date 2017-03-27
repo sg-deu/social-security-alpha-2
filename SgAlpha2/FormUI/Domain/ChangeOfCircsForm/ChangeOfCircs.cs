@@ -21,6 +21,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
         public Evidence             Evidence                    { get; protected set; }
+        public Declaration          Declaration                 { get; protected set; }
 
         public CocDetail FindSection(Sections section)
         {
@@ -31,6 +32,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Options             = Options,
                 ApplicantDetails    = ApplicantDetails,
                 Evidence            = Evidence,
+                Declaration         = Declaration,
             };
 
             Navigation.Populate(detail, section, this);
@@ -135,6 +137,14 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.Evidence);
         }
 
+        public NextSection AddDeclaration(Declaration declaration)
+        {
+            Validate(declaration);
+
+            Declaration = declaration;
+            return OnSectionCompleted(Sections.Declaration);
+        }
+
         internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
 
         private NextSection OnSectionCompleted(Sections section)
@@ -203,6 +213,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             if (evidence.Files.Count == 0 && !evidence.SendingByPost)
                 throw new DomainException("Please either upload evidence, or confirm that you are sending evidence by post");
+        }
+
+        private static void Validate(Declaration declaration)
+        {
+            var ctx = new ValidationContext<Declaration>(declaration);
+
+            ctx.Required(m => m.AgreedToLegalStatement, "Please indicate that you agree");
+
+            ctx.ThrowIfError();
         }
     }
 }

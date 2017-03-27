@@ -24,6 +24,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.Options, OptionsBuilder.NewValid());
             With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
             With(f => f.Evidence, EvidenceBuilder.NewValid());
+            With(f => f.Declaration, DeclarationBuilder.NewValid());
 
             With(f => f.Started, DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
             With(f => f.Completed, DomainRegistry.NowUtc());
@@ -38,6 +39,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             detail.Options = form.Options;
             detail.ApplicantDetails = form.ApplicantDetails;
             detail.Evidence = form.Evidence;
+            detail.Declaration = form.Declaration;
         }
 
         public static void VerifyConsistent(ChangeOfCircs doc)

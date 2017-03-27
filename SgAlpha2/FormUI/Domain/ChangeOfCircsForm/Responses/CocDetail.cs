@@ -11,6 +11,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Responses
         public Options          Options;
         public ApplicantDetails ApplicantDetails;
         public Evidence         Evidence;
+        public Declaration      Declaration;
 
         public Sections?    PreviousSection;
         public bool         IsFinalSection;
