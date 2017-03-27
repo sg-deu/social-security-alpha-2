@@ -12,6 +12,7 @@ namespace FormUI.Tests.Controllers.Util.Html
         protected   string              _action;
         protected   IList<FormValue>    _formValues     = new List<FormValue>();
         protected   IList<SubmitValue>  _submitValues   = new List<SubmitValue>();
+        protected   IList<RequestFile>  _formFiles      = new List<RequestFile>();
 
         public TypedForm(ElementWrapper element = null, string method = "", string action = "")
         {
@@ -50,6 +51,17 @@ namespace FormUI.Tests.Controllers.Util.Html
             return this;
         }
 
+        public TypedForm<T> AddFile(string fileName, byte[] content)
+        {
+            return AddFormFile(new RequestFile(fileName, content));
+        }
+
+        public TypedForm<T> AddFormFile(RequestFile formFile)
+        {
+            _formFiles.Add(formFile);
+            return this;
+        }
+
         public FormValue[] Get(string name)
         {
             return _formValues.Where(fv => fv.Name == name).ToArray();
@@ -74,6 +86,9 @@ namespace FormUI.Tests.Controllers.Util.Html
 
             foreach (var formValue in _formValues)
                 formValue.AddFormValue(request);
+
+            foreach (var formFile in _formFiles)
+                request.AddFile(formFile);
 
             return this;
         }

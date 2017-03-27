@@ -53,7 +53,6 @@ namespace FormUI.Tests.Controllers.Coc
         }
 
         [Test]
-        [Explicit("Could not get this to work using our testing framework - will try again later")]
         public void Evidence_POST_UploadFile()
         {
             WebAppTest(client =>
@@ -61,10 +60,10 @@ namespace FormUI.Tests.Controllers.Coc
                 var response = client.Get(CocActions.Evidence("form123"));
 
                 response = response.Form<Evidence>(1)
-                    // need to figure out how to add a file here
+                    .AddFile("UploadedFile.pdf", Encoding.ASCII.GetBytes("uploaded content"))
                     .SubmitName(CocButtons.UploadFile, client);
 
-                ExecutorStub.Executed<AddEvidence>(0).ShouldBeEquivalentTo(new AddEvidenceFile
+                ExecutorStub.Executed<AddEvidenceFile>(0).ShouldBeEquivalentTo(new AddEvidenceFile
                 {
                     FormId = "form123",
                     Filename = "UploadedFile.pdf",

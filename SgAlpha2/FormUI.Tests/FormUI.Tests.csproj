@@ -177,6 +177,7 @@
     <Compile Include="Controllers\Util\Html\TypedFormExtensions.cs" />
     <Compile Include="Controllers\Util\Http\NameValue.cs" />
     <Compile Include="Controllers\Util\Http\Request.cs" />
+    <Compile Include="Controllers\Util\Http\RequestFile.cs" />
     <Compile Include="Controllers\Util\Http\Response.cs" />
     <Compile Include="Controllers\Util\Http\SimulatedHttpClient.cs" />
     <Compile Include="Controllers\Util\Http\SimulatedWorkerRequest.cs" />

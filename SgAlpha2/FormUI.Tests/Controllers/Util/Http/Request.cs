@@ -7,6 +7,8 @@ namespace FormUI.Tests.Controllers.Util.Http
 {
     public class Request
     {
+        public const string Boundary = "----unit-test----";
+
         public static readonly IDictionary<string, HttpStatusCode> DefaultStatusCodes = new Dictionary<string, HttpStatusCode>
         {
             { "GET",    HttpStatusCode.OK },
@@ -20,6 +22,7 @@ namespace FormUI.Tests.Controllers.Util.Http
         private HttpStatusCode?     _expectedResponse;
         private NameValueCollection _headers            = new NameValueCollection();
         private IList<NameValue>    _formValues;
+        private IList<RequestFile>  _requestFiles;
 
         public Request(string url, string verb = "GET")
         {
@@ -53,6 +56,7 @@ namespace FormUI.Tests.Controllers.Util.Http
         public HttpStatusCode?          ExptectedResponse   { get { return _expectedResponse; } }
         public NameValueCollection      Headers             { get { return _headers; } }
         public IEnumerable<NameValue>   FormValues          { get { return _formValues; } }
+        public IEnumerable<RequestFile> FormFiles           { get { return _requestFiles; } }
 
         public string Query()
         {
@@ -81,6 +85,12 @@ namespace FormUI.Tests.Controllers.Util.Http
             return this;
         }
 
+        public Request SetFormMultipart()
+        {
+            SetHeader("Content-Type", $"multipart/form-data; boundary={Boundary}");
+            return this;
+        }
+
         public Request AddFormValue(string name, string value)
         {
             return AddFormValue(new NameValue(name, value));
@@ -90,6 +100,19 @@ namespace FormUI.Tests.Controllers.Util.Http
         {
             _formValues = _formValues ?? new List<NameValue>();
             _formValues.Add(nameValue);
+            return this;
+        }
+
+        public Request AddFile(string fileName, byte[] content)
+        {
+            return AddFile(new RequestFile(fileName, content));
+        }
+
+        public Request AddFile(RequestFile requestFile)
+        {
+            SetFormMultipart();
+            _requestFiles = _requestFiles ?? new List<RequestFile>();
+            _requestFiles.Add(requestFile);
             return this;
         }
 
