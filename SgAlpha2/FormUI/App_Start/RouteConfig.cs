@@ -11,17 +11,16 @@ namespace FormUI
 
             // GOV.UK Verify routes
             // rather than get UKV to change their URLs, for time being, hardcode the controller in our route
+            routes.MapRoute(
+                name: "UKVerifyLoginReturn",
+                url: "{controller}/login-return/{id}",
+                defaults: new { controller = "Coc", action = "Identity", id = UrlParameter.Optional }
+            );
             //routes.MapRoute(
             //    name: "UKVerifyLoginReturn",
-            //    url: "{controller}/login-return/{id}",
-            //    defaults: new { controller = "Coc", action = "ApplicantDetails", id = UrlParameter.Optional }
-
-
-             routes.MapRoute(
-                name: "UKVerifyLoginReturn",
-                url: "bsg/login-return/{id}",
-                defaults: new { controller = "Coc", action = "ApplicantDetails", id = UrlParameter.Optional }
-            );
+            //    url: "bsg/login-return/{id}",
+            //    defaults: new { controller = "Coc", action = "Identity", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "UKVerifyApplyReturn",
