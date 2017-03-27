@@ -59,16 +59,16 @@ namespace FormUI.Controllers.Helpers
             return formGroup;
         }
 
-        public static IHtmlString LinkSubmit<T>(this HtmlHelper<T> helper, string text)
-        {
-            var button = new HtmlTag("button")
-                .AddClasses("button button--clear")
-                .Text(text);
+        //public static IHtmlString LinkSubmit<T>(this HtmlHelper<T> helper, string text)
+        //{
+        //    var button = new HtmlTag("button")
+        //        .AddClasses("button button--clear")
+        //        .Text(text);
 
-            var formGroup = new DivTag().AddClasses("form-group").Append(button);
+        //    var formGroup = new DivTag().AddClasses("form-group").Append(button);
 
-            return formGroup;
-        }
+        //    return formGroup;
+        //}
         public static FormRow<InputText> LabelledInputText<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property, string hintText = null)
         {
             return helper.LabelledInputText(null, property, hintText);

@@ -91,6 +91,7 @@ namespace FormUI.Controllers.Coc
 
         private ActionResult Identity_Render(string formId, string email)
         {
+            //Save the formid (session identifier) prior to leaving BSG and entering GOV.UKVerify site
             System.Web.HttpCookie aCookie = new System.Web.HttpCookie("formId");
             aCookie.Value = formId;
             aCookie.Expires = DateTime.Now.AddHours(1);
@@ -105,12 +106,26 @@ namespace FormUI.Controllers.Coc
         [HttpGet]
         public ActionResult Options(string id)
         {
+            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             return Options_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult Options(string id, Options options)
         {
+            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             var cmd = new AddOptions
             {
                 FormId = id,
@@ -132,25 +147,13 @@ namespace FormUI.Controllers.Coc
 
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
-        {
-            if (Request.Cookies["formId"] != null && id == null)
-            {
-                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
-                id = aCookie.Value;
-            }
-
+        { 
             return ApplicantDetails_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
         {
-            if (Request.Cookies["formId"] != null && id == null)
-            {
-                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
-                id = aCookie.Value;
-            }
-
             var cmd = new AddApplicantDetails
             {
                 FormId = id,

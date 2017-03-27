@@ -9,6 +9,7 @@ namespace FormUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // GOV.UK Verify routes
             routes.MapRoute(
                 name: "UKVerifyLoginReturn",
                 url: "{controller}/login-return/{id}",
