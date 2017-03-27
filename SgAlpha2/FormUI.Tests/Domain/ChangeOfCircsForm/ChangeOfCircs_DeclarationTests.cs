@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
@@ -10,6 +11,21 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
     [TestFixture]
     public class ChangeOfCircs_DeclarationTests : DomainTest
     {
+        [Test]
+        public void Complete_SetsCompletionDate()
+        {
+            var form = new ChangeOfCircsBuilder("form")
+                .WithCompletedSections()
+                .With(f => f.Declaration, null)
+                .With(f => f.Completed, null)
+                .Insert();
+
+            var next = form.AddDeclaration(DeclarationBuilder.NewValid());
+
+            next.Section.Should().BeNull("this should be the last section that is filled out");
+            form.Completed.Should().Be(TestNowUtc.Value);
+        }
+
         [Test]
         public void Declaration_Validation()
         {

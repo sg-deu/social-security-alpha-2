@@ -30,6 +30,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             next = AddOptions(next);
             next = AddApplicantDetails(next);
             next = AddEvidence(next);
+            next = AddDeclaration(next);
 
             next.Section.Should().BeNull();
         }
@@ -52,6 +53,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
                 o.OtherDetails = "some details";
             });
             next = AddEvidence(next);
+            next = AddDeclaration(next);
 
             next.Section.Should().BeNull();
         }
@@ -86,6 +88,12 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         {
             current.Section.Should().Be(Sections.Evidence);
             return NextSection(current.Section, () => new AddEvidence { FormId = current.Id, Evidence = EvidenceBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddDeclaration(NextSection current, Action<Declaration> mutator = null)
+        {
+            current.Section.Should().Be(Sections.Declaration);
+            return NextSection(current.Section, () => new AddDeclaration { FormId = current.Id, Declaration = DeclarationBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection NextSection(Sections? currentSection, Func<NextSection> nextSection)

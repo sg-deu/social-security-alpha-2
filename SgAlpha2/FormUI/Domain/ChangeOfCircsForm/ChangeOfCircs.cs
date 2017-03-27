@@ -150,6 +150,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
         private NextSection OnSectionCompleted(Sections section)
         {
             var next = Navigation.Next(this, section);
+
+            var isFinalUpdate = !next.Section.HasValue;
+            OnBeforeUpdate(isFinalUpdate);
+
             Repository.Update(this);
             return next;
         }

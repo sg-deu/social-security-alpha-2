@@ -38,5 +38,15 @@ namespace FormUI.Domain.Forms
         {
             UserId = userId;
         }
+
+        protected void OnBeforeUpdate(bool isFinalUpdate)
+        {
+            if (Completed.HasValue)
+                throw new DomainException("This application has already been submitted and cannot be modified");
+
+            if (isFinalUpdate)
+                Completed = DomainRegistry.NowUtc();
+        }
+
     }
 }

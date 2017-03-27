@@ -85,6 +85,9 @@ namespace FormUI.Tests.SystemTests.Coc
             var filename = FillInEvidence();
             App.ClickButton("");
 
+            FillInDeclaration();
+            App.Submit();
+
             App.VerifyCanSeeText("Thank you");
 
             Db(r =>
@@ -96,6 +99,7 @@ namespace FormUI.Tests.SystemTests.Coc
                 VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
                 VerifyEvidence(doc, filename);
+                VerifyDeclaration(doc);
             });
         }
 
@@ -107,7 +111,7 @@ namespace FormUI.Tests.SystemTests.Coc
 
         private void VerifyConsent(ChangeOfCircs doc)
         {
-            doc.Should().NotBeNull();
+            doc.Consent.AgreedToConsent.Should().BeTrue();
             _verifiedSections.Add(Sections.Consent);
         }
 
@@ -200,6 +204,18 @@ namespace FormUI.Tests.SystemTests.Coc
 
             doc.Evidence.SendingByPost.Should().BeTrue();
             _verifiedSections.Add(Sections.Evidence);
+        }
+
+        private void FillInDeclaration()
+        {
+            var form = App.FormForModel<Declaration>();
+            form.Check(m => m.AgreedToLegalStatement, true);
+        }
+
+        private void VerifyDeclaration(ChangeOfCircs doc)
+        {
+            doc.Declaration.AgreedToLegalStatement.Should().BeTrue();
+            _verifiedSections.Add(Sections.Declaration);
         }
     }
 }
