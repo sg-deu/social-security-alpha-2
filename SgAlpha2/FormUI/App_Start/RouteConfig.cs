@@ -10,9 +10,16 @@ namespace FormUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             // GOV.UK Verify routes
-            routes.MapRoute(
+            // rather than get UKV to change their URLs, for time being, hardcode the controller in our route
+            //routes.MapRoute(
+            //    name: "UKVerifyLoginReturn",
+            //    url: "{controller}/login-return/{id}",
+            //    defaults: new { controller = "Coc", action = "ApplicantDetails", id = UrlParameter.Optional }
+
+
+             routes.MapRoute(
                 name: "UKVerifyLoginReturn",
-                url: "{controller}/login-return/{id}",
+                url: "bsg/login-return/{id}",
                 defaults: new { controller = "Coc", action = "ApplicantDetails", id = UrlParameter.Optional }
             );
 
