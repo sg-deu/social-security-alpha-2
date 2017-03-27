@@ -26,17 +26,32 @@
                 or arrange for us to <a href="#">call you back</a>
             </p>
 
+            <h2>Before you start:</h2>
+            <p>To continue your application we need to confirm who you are. This will be done with GOV.UK Verify.</p>
+
+            <h2>If you've not used Verify before</h2>
             <p>
-                <!---->
-                <img alt="GOV.UK Verify" class="mygovscot-logo" src="/content/images/gov_uk_verify_certified_company.png" />
-                @Html.ButtonLinkExternal("gov.ukverifylogin", "Login >")
+                To confirm who you are you'll need:
+                <ul>
+                    <li>your passport number</li>
+                    <li>drivers licence</li>
+                    <li>mobile phone</li>
+                    <li>bank details</li>
+                </ul>
             </p>
 
-            <!--To faciltate selenium tests and manual test data population-->
+            <h2>Already registered with Verify</h2>
             <p>
-                If you wish to continue without verifying your ID
-                @Html.ButtonSubmit("By Pass GOV.UK Verify")
-                Please note this may result in a delay to your application.
+                If you've used Verify before, you'll need to know:
+                <ul>
+                    <li>what company you used to confirm who you are, for example Post Office, Experis</li>
+                    <li>your login details</li>
+                </ul>
+                Check the email you were sent when you registered. If you can't find the information, contact XXXXX.
+            </p>
+
+            <p>
+                @Html.ButtonLinkExternal("gov.ukverifyapply", "Verify Now >")
             </p>
 
         </form>
