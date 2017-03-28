@@ -341,12 +341,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.Check(m => m.None, true);
+            form.Check(m => m.Unknown, true);
         }
 
         private void VerifyGuardianBenefits(BestStartGrant doc)
         {
-            doc.GuardianBenefits.None.Should().BeTrue();
+            doc.GuardianBenefits.Unknown.Should().BeTrue();
             _verifiedSections.Add(Sections.GuardianBenefits);
         }
 
