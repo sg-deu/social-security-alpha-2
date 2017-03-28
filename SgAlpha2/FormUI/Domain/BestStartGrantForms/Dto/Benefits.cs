@@ -37,9 +37,6 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public YesNoDk? HasExistingBenefit()
         {
-            if (None) return YesNoDk.No;
-            if (Unknown) return YesNoDk.DontKnow;
-
             var hasBenefit = HasIncomeSupport
                 || HasIncomeBasedJobseekersAllowance
                 || HasIncomeRelatedEmplymentAndSupportAllowance
@@ -51,6 +48,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
             if (hasBenefit)
                 return YesNoDk.Yes;
+
+            if (None) return YesNoDk.No;
+            if (Unknown) return YesNoDk.DontKnow;
 
             return null;
         }

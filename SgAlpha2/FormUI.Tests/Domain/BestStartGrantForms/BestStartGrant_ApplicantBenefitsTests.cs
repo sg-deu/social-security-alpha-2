@@ -18,6 +18,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantBenefitsShouldBeValid(form, m => { });
 
             ApplicantBenefitsShouldBeInvalid(form, m => m.SetEmpty());
+            ApplicantBenefitsShouldBeInvalid(form, m => m.SetEmpty(b => { b.Unknown = true; b.HasIncomeSupport = true; }));
+            ApplicantBenefitsShouldBeInvalid(form, m => m.SetEmpty(b => { b.HasIncomeSupport = true; b.None = true; }));
+            ApplicantBenefitsShouldBeInvalid(form, m => m.SetEmpty(b => { b.None = true; b.Unknown = true; }));
         }
 
         protected void ApplicantBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)

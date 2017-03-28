@@ -424,6 +424,15 @@ namespace FormUI.Domain.BestStartGrantForms
             if (benefits.HasExistingBenefit() == null)
                 throw new DomainException("Please indicate if one of the stated benefits applies");
 
+            if (benefits.HasExistingBenefit() == YesNoDk.Yes && benefits.None)
+                throw new DomainException("Cannot select both \"None of the above\" and a benefit");
+
+            if (benefits.HasExistingBenefit() == YesNoDk.Yes && benefits.Unknown)
+                throw new DomainException("Cannot select both \"Don't know\" and a benefit");
+
+            if (benefits.Unknown && benefits.None)
+                throw new DomainException("Cannot select both \"Don't know\" and \"None of the above\"");
+
             ctx.ThrowIfError();
         }
 
