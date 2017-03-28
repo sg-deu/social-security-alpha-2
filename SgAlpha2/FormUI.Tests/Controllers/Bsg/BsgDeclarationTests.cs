@@ -37,7 +37,7 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                ExecutorStub.SetupCommand(It.IsAny<AddDeclaration>(), new NextSection { Section = null });
+                ExecutorStub.SetupCommand(It.IsAny<AddDeclaration>(), new NextSection { Type = NextType.Complete });
 
                 var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
                     .SelectConfirm(m => m.AgreedToLegalStatement, true)

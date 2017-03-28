@@ -2,8 +2,8 @@
 {
     public enum NextType
     {
-        Section = 1,
+        Ineligible = 0, // making this the default forces the dev to choose one of the others
+        Section,
         Complete,
-        Ineligible,
     }
 }

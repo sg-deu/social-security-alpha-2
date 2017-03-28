@@ -159,6 +159,7 @@
     <Compile Include="App_Start\MetadataProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\IneligibleModel.cs" />
     <Compile Include="Controllers\Bsg\UKVerifyModel.cs" />
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Coc\DeclarationModel.cs" />
@@ -389,6 +390,7 @@
     <Content Include="Controllers\Bsg\UKVerify.cshtml" />
     <Content Include="Controllers\Coc\Declaration.cshtml" />
     <Content Include="Controllers\Shared\LegalStatement.cshtml" />
+    <Content Include="Controllers\Bsg\Ineligible.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

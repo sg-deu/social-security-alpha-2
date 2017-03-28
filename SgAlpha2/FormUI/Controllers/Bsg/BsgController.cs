@@ -23,8 +23,6 @@ namespace FormUI.Controllers.Bsg
         public static string    Consent(string formId)                  { return $"~/bsg/consent/{formId}"; }
         public static string    UKVerify(string formId)                 { return $"~/bsg/ukverify/{formId}"; }
         public static string    ApplicantDetails(string formId)         { return $"~/bsg/applicantDetails/{formId}"; }
-        //TODO: find out how to return into form from external site, read response header (eventually SAML), and re-populate ApplicantDetails
-        //public static string    ApplicantDetailsFromUkVerify()          { return $"~/bsg/apply-return"; }
         public static string    Ajax_DobChanged()                       { return $"~/bsg/ajax_dobChanged"; }
         public static string    ExpectedChildren(string formId)         { return $"~/bsg/expectedChildren/{formId}"; }
         public static string    ExistingChildren(string formId)         { return $"~/bsg/existingChildren/{formId}"; }
@@ -41,6 +39,7 @@ namespace FormUI.Controllers.Bsg
         public static string    HealthProfessional(string formId)       { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    PaymentDetails(string formId)           { return $"~/bsg/paymentDetails/{formId}"; }
         public static string    Declaration(string formId)              { return $"~/bsg/declaration/{formId}"; }
+        public static string    Ineligible(string formId)               { return $"~/bsg/ineligible/{formId}"; }
         public static string    Complete()                              { return $"~/bsg/complete"; }
     }
 
@@ -648,6 +647,13 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
+        public ActionResult Ineligible(string id)
+        {
+            var model = new IneligibleModel { Id = id };
+            return View(model);
+        }
+
+        [HttpGet]
         public ActionResult Complete()
         {
             return View();
@@ -655,8 +661,11 @@ namespace FormUI.Controllers.Bsg
 
         private RedirectResult RedirectNext(NextSection next)
         {
-            if (!next.Section.HasValue)
+            if (next.Type == NextType.Complete)
                 return Redirect(BsgActions.Complete());
+
+            if (next.Type == NextType.Ineligible)
+                return Redirect(BsgActions.Ineligible(next.Id));
 
             var action = SectionActionStrategy.For(next.Section.Value).Action(next.Id);
             return Redirect(action);

@@ -4,6 +4,7 @@ using FluentAssertions;
 using FormUI.Controllers.Bsg;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
+using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
@@ -57,6 +58,56 @@ namespace FormUI.Tests.Controllers.Bsg
                 var firstAction = SectionActionStrategy.For(firstSection).Action(null);
 
                 client.Get(firstAction);
+            });
+        }
+
+        [Test]
+        public void NextSection_RedirectToComplete()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<AddApplicantDetails>(), new NextSection { Type = NextType.Complete });
+
+                var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1).Submit(client);
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Complete());
+            });
+        }
+
+        [Test]
+        public void NextSection_RedirectToIneligible()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<AddApplicantDetails>(), new NextSection { Type = NextType.Ineligible, Id = "form123" });
+
+                var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1).Submit(client);
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Ineligible("form123"));
+            });
+        }
+
+        [Test]
+        public void NextSection_RedirectToNextSection()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand(It.IsAny<AddApplicantDetails>(), new NextSection { Type = NextType.Section, Id = "form123", Section = Sections.ExistingChildren });
+
+                var response = client.Get(BsgActions.ApplicantDetails("form123")).Form<ApplicantDetails>(1).Submit(client);
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.ExistingChildren("form123"));
+            });
+        }
+
+        [Test]
+        public void Ineligible_GET()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.Ineligible("form"));
+
+                response.Text.ToLower().Should().Contain("ineligible");
             });
         }
 

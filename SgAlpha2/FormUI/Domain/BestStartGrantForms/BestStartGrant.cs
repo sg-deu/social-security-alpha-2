@@ -72,6 +72,7 @@ namespace FormUI.Domain.BestStartGrantForms
             return new NextSection
             {
                 Id = form.Id,
+                Type = NextType.Section,
                 Section = Navigation.Order.First(),
             };
         }
