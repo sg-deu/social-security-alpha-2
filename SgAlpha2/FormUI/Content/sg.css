@@ -1,6 +1,9 @@
 ﻿.sg input {
   padding: 6px 12px; }
 
+.ie .sg button.button--primary {
+  padding-top: 25px; }
+
 .sg input:focus,
 .sg textarea:focus,
 .sg select:focus,

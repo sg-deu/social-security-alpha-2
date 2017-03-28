@@ -4,6 +4,10 @@
         padding: 6px 12px;
     }
 
+    .ie & button.button--primary {
+        padding-top: 25px;
+    }
+
     input:focus,
     textarea:focus,
     select:focus,
