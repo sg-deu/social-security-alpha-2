@@ -466,6 +466,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             next.Type.Should().Be(NextType.Ineligible);
             next.Section.Should().BeNull();
+            var form = Repository.Load<BestStartGrant>(next.Id);
+            form.Completed.Should().BeNull("ineligible should not 'complete' the form");
             _gotToEnd = true;
         }
 

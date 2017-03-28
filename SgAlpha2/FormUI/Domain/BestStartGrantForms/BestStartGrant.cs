@@ -272,7 +272,7 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var next = Navigation.Next(this, section);
 
-            var isFinalUpdate = !next.Section.HasValue;
+            var isFinalUpdate = next.Type == NextType.Complete;
             OnBeforeUpdate(isFinalUpdate);
 
             Repository.Update(this);
