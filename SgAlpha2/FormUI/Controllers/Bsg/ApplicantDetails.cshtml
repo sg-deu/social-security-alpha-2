@@ -10,14 +10,14 @@
 
         <h1>About You</h1>
 
-        <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
+        <p>You must fill in all fields marked with an (*)</p>
 
         @using (var form = Html.FormFor(Model.ApplicantDetails))
         {
 
             @form.Html.ValidationSummary()
 
-            <h2>Your Personal Details</h2>
+            <h2>Your Details</h2>
 
             @form.Html.LabelledInputText(m => m.Title)
 
@@ -37,8 +37,6 @@
 
             <h2>Your Address</h2>
 
-            <p>Please tell us your current address</p>
-
             @form.Html.PartialFor(m => m.CurrentAddress, SharedViews.Address, a => new AddressModel { Address = a })
 
             @form.Html.LabelledInputDate(m => m.DateMovedIn).Mandatory()
@@ -47,12 +45,13 @@
 
             @form.Html.LabelledRadio(m => m.ContactPreference).Mandatory()
 
-            @form.Html.LabelledInputText(m => m.EmailAddress)
+            <div class="info-note note">Enter your phone number and/or your email so we can let you know about the progress of your application</div>
 
             @form.Html.LabelledInputText(m => m.PhoneNumer)
 
             @form.Html.LabelledInputText(m => m.MobilePhoneNumber)
 
+            @form.Html.LabelledInputText(m => m.EmailAddress)
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

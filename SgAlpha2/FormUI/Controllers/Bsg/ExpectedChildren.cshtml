@@ -10,12 +10,14 @@
 
         <h1>If a baby is expected</h1>
 
+        <p>You must fill in all fields marked with an (*)</p>
+
         @using (var form = Html.FormFor(Model.ExpectedChildren))
         {
 
             @form.Html.ValidationSummary()
 
-            <h2>Your Pregnacy details</h2>
+            <h2>Pregnacy details</h2>
 
             @form.Html.LabelledInputDate(m => m.ExpectancyDate)
 

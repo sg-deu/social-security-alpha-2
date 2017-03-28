@@ -129,7 +129,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInExpectedChildren(expectancyDate);
             App.Submit();
 
-            App.VerifyCanSeeText("already been born");
+            App.VerifyCanSeeText("in the household");
             App.ClickButton("");
 
             App.VerifyCanSeeText("Guardian's benefits");

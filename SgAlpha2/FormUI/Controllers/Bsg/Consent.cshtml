@@ -8,12 +8,14 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Consent</h1>
+        <h1>Your Consent</h1>
 
         @using (var form = Html.FormFor(Model.Consent))
         {
 
             @form.Html.ValidationSummary()
+
+            <h2>You agree that:</h2>
 
             <p>
                 The Social Security Agency is an agency of the Scottish Government responsible for

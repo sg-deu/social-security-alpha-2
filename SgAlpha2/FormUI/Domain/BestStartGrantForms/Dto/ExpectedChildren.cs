@@ -6,11 +6,11 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class ExpectedChildren
     {
-        [DisplayName("If you are pregnant, please state the expectancy date")]
-        [HintText("For example, 18 03 1980")]
+        [DisplayName("What date is the baby due?")]
+        [HintText("For example 01 03 2017")]
         public DateTime? ExpectancyDate { get; set; }
 
-        [DisplayName("If more than one baby is expected, please state how many are expected")]
+        [DisplayName("Is more than 1 baby expected?")]
         [HintText("Please make sure that the document you are sending with this claim form tells us the number of babies that are expected")]
         [UiLength(2)]
         public int? ExpectedBabyCount { get; set; }

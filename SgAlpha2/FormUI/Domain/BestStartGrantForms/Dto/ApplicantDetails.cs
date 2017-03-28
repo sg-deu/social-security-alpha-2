@@ -26,17 +26,17 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string               SurnameOrFamilyName     { get; set; }
 
         [DisplayName("Date of Birth")]
-        [HintText("For example, 18 03 1980")]
+        [HintText("For example 01 03 1980")]
         public DateTime?            DateOfBirth             { get; set; }
 
-        [DisplayName("Have you previously been looked after?")]
+        [DisplayName("Have you previously been in looked after care?")]
         public bool?                PreviouslyLookedAfter   { get; set; }
 
-        [DisplayName("Are you 18/19 in full time education and part of your parents' or guardians' benefit claim?")]
+        [DisplayName("Are you in full time education, 18/19 and part of your parent's or guardian's benefit claim?")]
         public bool?                FullTimeEducation       { get; set; }
 
         [DisplayName("National Insurance number")]
-        [HintText("It's on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")]
+        [HintText("You can find this on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")]
         [UiInputMask(InputMasks.NationalInsuranceNumber)]
         public string               NationalInsuranceNumber { get; set; }
 
@@ -55,7 +55,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Email address")]
         public string               EmailAddress            { get; set; }
 
-        [DisplayName("Phone number")]
+        [DisplayName("Home Phone number")]
         public string               PhoneNumer              { get; set; }
 
         [DisplayName("Mobile phone number")]

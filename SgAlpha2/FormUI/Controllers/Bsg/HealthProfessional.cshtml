@@ -10,15 +10,16 @@
 
         <h1>Health Professional</h1>
 
+        <p>You must fill in all fields marked with an (*)</p>
+
         @using (var form = Html.FormFor(Model.HealthProfessional))
         {
 
-            @form.Html.ValidationSummary()
+            @form.Html.ValidationSummary()           
 
-            <h2>Health Professional details</h2>
+            <h2>Your midwife, nurse or doctor's details</h2>
 
             @form.Html.LabelledInputText(m => m.Pin).Mandatory()
-
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

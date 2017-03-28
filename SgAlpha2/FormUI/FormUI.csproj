@@ -298,7 +298,9 @@
     <Compile Include="..\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\icons\caution.png" />
     <Content Include="Content\images\icons\close-grey.png" />
+    <Content Include="Content\images\icons\note.png" />
     <Content Include="Content\images\icons\notification_close_white.png" />
     <Content Include="Content\images\icons\notification_close_white_2x.png" />
     <Content Include="Content\images\search-white_2x.png" />

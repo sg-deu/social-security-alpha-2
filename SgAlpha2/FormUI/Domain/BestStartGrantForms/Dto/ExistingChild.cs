@@ -12,11 +12,11 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Surname or family name")]
         public string       Surname                 { get; set; }
 
-        [DisplayName("Date of Birth")]
-        [HintText("For example, 18 03 1980")]
+        [DisplayName("Child's date of birth")]
+        [HintText("For example 01 03 2010")]
         public DateTime?    DateOfBirth             { get; set; }
 
-        [DisplayName("Their relationship to  the child")]
+        [DisplayName("Your relationship to  the child")]
         public string       RelationshipToChild     { get; set; }
 
         [DisplayName("Do you receive Child Benefit for this child?")]
