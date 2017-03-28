@@ -208,6 +208,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\UKVerifyBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_DeclarationTests.cs" />

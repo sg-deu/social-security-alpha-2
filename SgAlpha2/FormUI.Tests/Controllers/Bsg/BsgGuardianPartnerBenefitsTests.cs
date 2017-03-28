@@ -28,7 +28,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.GuardianPartnerBenefits(detail.Id));
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.GuardianPartnerBenefits });
-                response.Doc.Form<Benefits>(1).GetText(m => m.HasExistingBenefit).Should().Be(detail.GuardianPartnerBenefits.HasExistingBenefit.ToString());
+                response.Doc.Form<Benefits>(1).GetConfirm(m => m.HasIncomeSupport).Should().Be(detail.GuardianPartnerBenefits.HasIncomeSupport);
             });
         }
 
@@ -38,7 +38,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.GuardianPartnerBenefits("form123")).Form<Benefits>(1)
-                    .SetText(m => m.HasExistingBenefit, YesNoDk.No.ToString())
+                    .SelectConfirm(m => m.HasIncomeSupport, true)
                     .Submit(client);
 
                 ExecutorStub.Executed<AddGuardianPartnerBenefits>(0).ShouldBeEquivalentTo(new AddGuardianPartnerBenefits
@@ -46,7 +46,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     FormId = "form123",
                     GuardianPartnerBenefits = new Benefits
                     {
-                        HasExistingBenefit = YesNoDk.No,
+                        HasIncomeSupport = true,
                     },
                 });
 

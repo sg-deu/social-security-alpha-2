@@ -17,17 +17,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             GuardianPartnerBenefitsShouldBeValid(form, m => { });
 
-            GuardianPartnerBenefitsShouldBeInvalid(form, m => m.HasExistingBenefit = null);
+            GuardianPartnerBenefitsShouldBeInvalid(form, m => m.SetEmpty());
         }
 
         protected void GuardianPartnerBenefitsShouldBeValid(BestStartGrant form, Action<Benefits> mutator)
         {
-            ShouldBeValid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
+            ShouldBeValid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewWithBenefit(mutator)));
         }
 
         protected void GuardianPartnerBenefitsShouldBeInvalid(BestStartGrant form, Action<Benefits> mutator)
         {
-            ShouldBeInvalid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewValid(mutator)));
+            ShouldBeInvalid(() => form.AddGuardianPartnerBenefits(BenefitsBuilder.NewWithBenefit(mutator)));
         }
     }
 }

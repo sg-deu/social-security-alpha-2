@@ -116,7 +116,7 @@ namespace FormUI.Domain.BestStartGrantForms
             if (mainBenefits == null || partnerBenefits == null)
                 return false; // can't know
 
-            return mainBenefits.HasExistingBenefit == YesNoDk.No && partnerBenefits.HasExistingBenefit == YesNoDk.No;
+            return mainBenefits.HasExistingBenefit() == YesNoDk.No && partnerBenefits.HasExistingBenefit() == YesNoDk.No;
         }
 
         public static bool RequiresApplicantBenefits(BestStartGrant form)
@@ -144,7 +144,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var applicantBenefits = form.ApplicantBenefits;
 
             if (applicantBenefits != null)
-                if (applicantBenefits.HasExistingBenefit != YesNoDk.Yes)
+                if (applicantBenefits.HasExistingBenefit() != YesNoDk.Yes)
                     return true;
 
             return false;
@@ -173,7 +173,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var guardianBenefits = form.GuardianBenefits;
 
             if (guardianBenefits != null)
-                if (guardianBenefits.HasExistingBenefit != YesNoDk.Yes)
+                if (guardianBenefits.HasExistingBenefit() != YesNoDk.Yes)
                     return true;
 
             return false;
@@ -184,7 +184,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var partnerBenefits = form.PartnerBenefits;
 
             if (RequiresPartnerBenefits(form) && partnerBenefits != null)
-                if (partnerBenefits.HasExistingBenefit != YesNoDk.No)
+                if (partnerBenefits.HasExistingBenefit() != YesNoDk.No)
                     return true;
 
             return false;
@@ -195,7 +195,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var guardianBenefits = form.GuardianBenefits;
 
             if (RequiresGuardianBenefits(form) && guardianBenefits != null)
-                if (guardianBenefits.HasExistingBenefit != YesNoDk.No)
+                if (guardianBenefits.HasExistingBenefit() != YesNoDk.No)
                     return true;
 
             var applicantDetails = form.ApplicantDetails;
@@ -212,7 +212,7 @@ namespace FormUI.Domain.BestStartGrantForms
             var guardianPartnerBenefits = form.GuardianPartnerBenefits;
 
             if (RequiresGuardianPartnerBenefits(form) && guardianPartnerBenefits != null)
-                if (guardianPartnerBenefits.HasExistingBenefit != YesNoDk.No)
+                if (guardianPartnerBenefits.HasExistingBenefit() != YesNoDk.No)
                     return true;
 
             return false;

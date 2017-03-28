@@ -23,10 +23,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.ApplicantDetails,           ApplicantDetailsBuilder.NewValid());
             With(f => f.ExpectedChildren,           ExpectedChildrenBuilder.NewValid());
             With(f => f.ExistingChildren,           ExistingChildrenBuilder.NewValid());
-            With(f => f.ApplicantBenefits,          BenefitsBuilder.NewValid());
-            With(f => f.PartnerBenefits,            BenefitsBuilder.NewValid());
-            With(f => f.GuardianBenefits,           BenefitsBuilder.NewValid());
-            With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewValid());
+            With(f => f.ApplicantBenefits,          BenefitsBuilder.NewWithBenefit());
+            With(f => f.PartnerBenefits,            BenefitsBuilder.NewWithBenefit());
+            With(f => f.GuardianBenefits,           BenefitsBuilder.NewWithBenefit());
+            With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewWithBenefit());
             With(f => f.PartnerDetails,             RelationDetailsBuilder.NewValid(Part.Part2, "partner"));
             With(f => f.GuardianDetails,            RelationDetailsBuilder.NewValid(Part.Part2, "guardian"));
             With(f => f.GuardianPartnerDetails,     RelationDetailsBuilder.NewValid(Part.Part2, "guardian partner"));

@@ -23,7 +23,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Under16(TestNowUtc.Value)))
-                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid())
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewWithBenefit())
                 .With(f => f.Declaration, DeclarationBuilder.NewValid())
                 .Insert();
 

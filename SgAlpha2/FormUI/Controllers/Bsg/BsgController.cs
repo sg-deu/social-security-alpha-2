@@ -279,7 +279,7 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.ApplicantBenefits, (m, f) =>
             {
                 m.Title     = "Your benefits";
-                m.Question  = "Do you get any of these benefits?";
+                m.Question  = "Tick all benefits you are claiming";
                 m.Benefits  = details ?? f.ApplicantBenefits;
             });
         }
@@ -309,7 +309,7 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.PartnerBenefits, (m, f) =>
             {
                 m.Title     = "Your Partner's benefits";
-                m.Question  = "Does your Partner get any of these benefits?";
+                m.Question  = "Tick all the benefits your partner is claiming";
                 m.Benefits  = details ?? f.PartnerBenefits;
             });
         }
@@ -339,7 +339,7 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianBenefits, (m, f) =>
             {
                 m.Title     = "Your Parent/Legal Guardian's benefits";
-                m.Question  = "Is your Parent/Legal Guardian currently receiving any of these benefits?";
+                m.Question  = "Tick all benefits your parent/legal guardian is claiming";
                 m.Benefits  = details ?? f.GuardianBenefits;
             });
         }
@@ -369,7 +369,7 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianPartnerBenefits, (m, f) =>
             {
                 m.Title     = "Your Parent/Legal Guardian's Partner's benefits";
-                m.Question  = "Is your Parent/Legal Guardian's Partner currently receiving any of these benefits?";
+                m.Question  = "Tick all benefits your Parent/Legal Guardian's Partner is claiming";
                 m.Benefits  = details ?? f.GuardianPartnerBenefits;
             });
         }

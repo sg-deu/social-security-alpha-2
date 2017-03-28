@@ -421,7 +421,8 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<Benefits>(benefits);
 
-            ctx.Required(b => b.HasExistingBenefit, "Please indicate if one of the stated benefits applies");
+            if (benefits.HasExistingBenefit() == null)
+                throw new DomainException("Please indicate if one of the stated benefits applies");
 
             ctx.ThrowIfError();
         }

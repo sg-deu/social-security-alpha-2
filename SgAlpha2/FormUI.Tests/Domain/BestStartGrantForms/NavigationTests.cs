@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
-using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.Util;
@@ -171,15 +170,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresPartnerBenefits(form).Should().BeFalse("partner benefits not required if applicant benefits not asked");
 
-            Builder.Modify(form).With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.Yes));
+            Builder.Modify(form).With(f => f.ApplicantBenefits, BenefitsBuilder.NewWithBenefit());
 
             Navigation.RequiresPartnerBenefits(form).Should().BeFalse("partner benefits not required if applicant benefits positive");
 
-            form.ApplicantBenefits.HasExistingBenefit = YesNoDk.No;
+            form.ApplicantBenefits.None();
 
             Navigation.RequiresPartnerBenefits(form).Should().BeTrue("partner benefits required if applicant benefits asked but answered 'no'");
 
-            form.ApplicantBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+            form.ApplicantBenefits.Unknown();
 
             Navigation.RequiresPartnerBenefits(form).Should().BeTrue("partner benefits required if applicant benefits asked but answered 'don't know'");
         }
@@ -189,7 +188,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Under25CareLeaver(TestNowUtc.Value))
-                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewEmpty(b => b.None = true))
                 .Value();
 
             Navigation.RequiresPartnerBenefits(form).Should().BeFalse("should not prompt for benefits when already entitled");
@@ -234,15 +233,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("guardian partner benefits not required if guardian benefits not asked");
 
-            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.Yes));
+            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewWithBenefit());
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("guardian partner benefits not required if guardian benefits positive");
 
-            form.GuardianBenefits.HasExistingBenefit = YesNoDk.No;
+            form.GuardianBenefits.None();
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'no'");
 
-            form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+            form.GuardianBenefits.Unknown();
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeTrue("guardian partner benefits required if guardian benefits asked but answered 'don't know'");
         }
@@ -252,7 +251,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Under25CareLeaver(TestNowUtc.Value))
-                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewNone())
                 .Value();
 
             Navigation.RequiresGuardianPartnerBenefits(form).Should().BeFalse("should not prompt for benefits when already entitled");
@@ -263,7 +262,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form")
                 .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid().Over25(TestNowUtc.Value))
-                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewNone())
                 .With(f => f.PartnerBenefits, null)
                 .Value();
 
@@ -271,15 +270,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresPartnerDetails(form).Should().BeFalse("until partner benefits are collected, we don't need their details");
 
-            Builder.Modify(form).With(f => f.PartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+            Builder.Modify(form).With(f => f.PartnerBenefits, BenefitsBuilder.NewNone());
 
             Navigation.RequiresPartnerDetails(form).Should().BeFalse("partner details not required if we know they don't have a qualifying benefit");
 
-            form.PartnerBenefits.HasExistingBenefit = YesNoDk.Yes;
+            form.PartnerBenefits.WithBenefit();
 
             Navigation.RequiresPartnerDetails(form).Should().BeTrue("partner details required if relying in their qualifying benefits");
 
-            form.PartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+            form.PartnerBenefits.Unknown();
 
             Navigation.RequiresPartnerDetails(form).Should().BeTrue("partner details required if not sure if relying on their benefits");
         }
@@ -294,15 +293,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.RequiresGuardianDetails(form).Should().BeFalse("until guardian benefits are collected, we don't need their details");
 
-            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+            Builder.Modify(form).With(f => f.GuardianBenefits, BenefitsBuilder.NewNone());
 
             Navigation.RequiresGuardianDetails(form).Should().BeFalse("guardian details not required if we know they don't have a qualifying benefit");
 
-            form.GuardianBenefits.HasExistingBenefit = YesNoDk.Yes;
+            form.GuardianBenefits.WithBenefit();
 
             Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if relying on their qualifying benefits");
 
-            form.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+            form.GuardianBenefits.Unknown();
 
             Navigation.RequiresGuardianDetails(form).Should().BeTrue("guardian details required if not sure if relying on their benefits");
         }
@@ -341,18 +340,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             Navigation.RequiresGuardianPartnerDetails(form).Should().BeFalse("until guardian partner benefits are collected, we don't need their details");
 
             Builder.Modify(form)
-                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
-                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No));
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewNone())
+                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewNone());
 
             Navigation.RequiresGuardianBenefits(form).Should().BeTrue("test logic requires that the guardian benefits are requested");
 
             Navigation.RequiresGuardianPartnerDetails(form).Should().BeFalse("guardian partner details not required if we know they don't have a qualifying benefit");
 
-            form.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.Yes;
+            form.GuardianPartnerBenefits.WithBenefit();
 
             Navigation.RequiresGuardianPartnerDetails(form).Should().BeTrue("guardian partner details required if relying on their benefits");
 
-            form.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow;
+            form.GuardianPartnerBenefits.Unknown();
 
             Navigation.RequiresGuardianPartnerDetails(form).Should().BeTrue("guardian partner details required if not sure if relying on their benefits");
         }
@@ -390,8 +389,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             Func<Action<BestStartGrant>, BestStartGrant> form = mutator => new BestStartGrantBuilder("form")
                 .WithCompletedSections()
-                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
-                .With(f => f.PartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewNone())
+                .With(f => f.PartnerBenefits, BenefitsBuilder.NewNone())
                 .Value(mutator);
 
             var lastBenefitsSection = Sections.PartnerBenefits;
@@ -399,9 +398,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection).Should().BeTrue("not eligible when applicant or partner has no benefits");
 
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility is not determined until both applicant and partner benefits are complete");
-            Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if partner is on a benefit");
-            Navigation.IsIneligible(form(f => f.ApplicantBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume inelgible if applicant benefit not known");
-            Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if partner benefit not known");
+            Navigation.IsIneligible(form(f => f.PartnerBenefits.WithBenefit()), lastBenefitsSection).Should().BeFalse("not ineligible if partner is on a benefit");
+            Navigation.IsIneligible(form(f => f.ApplicantBenefits.Unknown()), lastBenefitsSection).Should().BeFalse("cannot assume inelgible if applicant benefit not known");
+            Navigation.IsIneligible(form(f => f.PartnerBenefits.Unknown()), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if partner benefit not known");
         }
 
         [Test]
@@ -409,8 +408,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             Func<Action<BestStartGrant>, BestStartGrant> form = mutator => new BestStartGrantBuilder("form")
                 .WithCompletedSections()
-                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
-                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewNone())
+                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewNone())
                 .Value(mutator);
 
             var lastBenefitsSection = Sections.GuardianPartnerBenefits;
@@ -418,9 +417,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection).Should().BeTrue("not eligible when guardian's partner has no benefits");
 
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility not determined until both guardian and guardian partner benefits are complete");
-            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if guardian's partner on a benefit");
-            Navigation.IsIneligible(form(f => f.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian benefit not known");
-            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian partner benefit not known");
+            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.WithBenefit()), lastBenefitsSection).Should().BeFalse("not ineligible if guardian's partner on a benefit");
+            Navigation.IsIneligible(form(f => f.GuardianBenefits.Unknown()), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian benefit not known");
+            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.Unknown()), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian partner benefit not known");
         }
     }
 }

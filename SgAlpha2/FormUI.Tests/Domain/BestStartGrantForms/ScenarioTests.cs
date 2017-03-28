@@ -55,8 +55,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next);
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
-            next = AddPartnerBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+            next = AddApplicantBenefits(next, b => b.None());
+            next = AddPartnerBenefits(next, b => b.None());
 
             VerifyIneligible(next);
         }
@@ -72,7 +72,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -91,8 +91,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
-            next = AddPartnerBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddApplicantBenefits(next, b => b.None());
+            next = AddPartnerBenefits(next, b => b.WithBenefit());
             next = AddPartnerDetails1(next);
             next = AddPartnerDetails2(next);
             next = AddHealthProfessional(next);
@@ -113,7 +113,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 1);
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -132,7 +132,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantDetails(next, ad => ad.Over25(TestNowUtc.Value));
             next = AddExpectedChildren(next, ec => ec.NoBabyExpected());
             next = AddExistingChildren(next, 3, ec => ec.LastNotKinshipCare());
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -175,7 +175,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next.Section.Should().Be(Sections.ApplicantBenefits, "when there is an expected child, the expected child is not expected to be kinship care");
 
-            next = AddApplicantBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -267,7 +267,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddExistingChildren(next);
 
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
-            next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.Yes);
+            next = AddGuardianBenefits(next, b => b.WithBenefit());
 
             next.Section.Should().Be(Sections.GuardianDetails1, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
 
@@ -294,7 +294,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddExistingChildren(next);
 
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
-            next = AddGuardianBenefits(next, b => b.HasExistingBenefit = YesNoDk.No);
+            next = AddGuardianBenefits(next, b => b.None());
 
             next.Section.Should().Be(Sections.GuardianPartnerBenefits, "when guardian does not have a qualifying benefit, should be prompted for the guardian's partner's benefits");
             next = AddGuardianPartnerBenefits(next);
@@ -365,25 +365,25 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         private NextSection AddApplicantBenefits(NextSection current, Action<Benefits> mutator = null)
         {
             current.Section.Should().Be(Sections.ApplicantBenefits);
-            return NextSection(current.Section, () => new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddApplicantBenefits { FormId = current.Id, ApplicantBenefits = BenefitsBuilder.NewWithBenefit(mutator) }.Execute());
         }
 
         private NextSection AddPartnerBenefits(NextSection current, Action<Benefits> mutator = null)
         {
             current.Section.Should().Be(Sections.PartnerBenefits);
-            return NextSection(current.Section, () => new AddPartnerBenefits { FormId = current.Id, PartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddPartnerBenefits { FormId = current.Id, PartnerBenefits = BenefitsBuilder.NewWithBenefit(mutator) }.Execute());
         }
 
         private NextSection AddGuardianBenefits(NextSection current, Action<Benefits> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianBenefits);
-            return NextSection(current.Section, () => new AddGuardianBenefits { FormId = current.Id, GuardianBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddGuardianBenefits { FormId = current.Id, GuardianBenefits = BenefitsBuilder.NewWithBenefit(mutator) }.Execute());
         }
 
         private NextSection AddGuardianPartnerBenefits(NextSection current, Action<Benefits> mutator = null)
         {
             current.Section.Should().Be(Sections.GuardianPartnerBenefits);
-            return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewWithBenefit(mutator) }.Execute());
         }
 
         private NextSection AddPartnerDetails1(NextSection current, Action<RelationDetails> mutator = null)

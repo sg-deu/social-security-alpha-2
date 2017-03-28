@@ -301,12 +301,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.DontKnow);
+            form.Check(m => m.Unknown, true);
         }
 
         private void VerifyApplicantBenefits(BestStartGrant doc)
         {
-            doc.ApplicantBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
+            doc.ApplicantBenefits.Unknown.Should().BeTrue();
             _verifiedSections.Add(Sections.ApplicantBenefits);
         }
 
@@ -314,12 +314,26 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.Yes);
+            form.Check(m => m.HasIncomeSupport, true);
+            form.Check(m => m.HasIncomeBasedJobseekersAllowance, true);
+            form.Check(m => m.HasIncomeRelatedEmplymentAndSupportAllowance, true);
+            form.Check(m => m.HasUniversalCredit, true);
+            form.Check(m => m.HasChildTaxCredit, true);
+            form.Check(m => m.HasWorkingTextCredit, true);
+            form.Check(m => m.HasHousingBenefit, true);
+            form.Check(m => m.HasPensionCredit, true);
         }
 
         private void VerifyPartnerBenefits(BestStartGrant doc)
         {
-            doc.PartnerBenefits.HasExistingBenefit.Should().Be(YesNoDk.Yes);
+            doc.PartnerBenefits.HasIncomeSupport.Should().BeTrue();
+            doc.PartnerBenefits.HasIncomeBasedJobseekersAllowance.Should().BeTrue();
+            doc.PartnerBenefits.HasIncomeRelatedEmplymentAndSupportAllowance.Should().BeTrue();
+            doc.PartnerBenefits.HasUniversalCredit.Should().BeTrue();
+            doc.PartnerBenefits.HasChildTaxCredit.Should().BeTrue();
+            doc.PartnerBenefits.HasWorkingTextCredit.Should().BeTrue();
+            doc.PartnerBenefits.HasHousingBenefit.Should().BeTrue();
+            doc.PartnerBenefits.HasPensionCredit.Should().BeTrue();
             _verifiedSections.Add(Sections.PartnerBenefits);
         }
 
@@ -327,12 +341,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.DontKnow);
+            form.Check(m => m.None, true);
         }
 
         private void VerifyGuardianBenefits(BestStartGrant doc)
         {
-            doc.GuardianBenefits.HasExistingBenefit.Should().Be(YesNoDk.DontKnow);
+            doc.GuardianBenefits.None.Should().BeTrue();
             _verifiedSections.Add(Sections.GuardianBenefits);
         }
 
@@ -340,12 +354,12 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             var form = App.FormForModel<Benefits>();
 
-            form.SelectRadio(m => m.HasExistingBenefit, YesNoDk.Yes);
+            form.Check(m => m.HasIncomeSupport, true);
         }
 
         private void VerifyGuardianPartnerBenefits(BestStartGrant doc)
         {
-            doc.GuardianPartnerBenefits.HasExistingBenefit.Should().Be(YesNoDk.Yes);
+            doc.GuardianPartnerBenefits.HasIncomeSupport.Should().BeTrue();
             _verifiedSections.Add(Sections.GuardianPartnerBenefits);
         }
 

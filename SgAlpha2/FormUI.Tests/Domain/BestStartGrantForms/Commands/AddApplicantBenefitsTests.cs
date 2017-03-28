@@ -21,14 +21,14 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
             var cmd = new AddApplicantBenefits
             {
                 FormId = "form123",
-                ApplicantBenefits = BenefitsBuilder.NewValid(),
+                ApplicantBenefits = BenefitsBuilder.NewWithBenefit(),
             };
 
             cmd.Execute();
 
             var updatedForm = Repository.Load<BestStartGrant>("form123");
             updatedForm.ApplicantBenefits.Should().NotBeNull();
-            updatedForm.ApplicantBenefits.HasExistingBenefit.Should().Be(cmd.ApplicantBenefits.HasExistingBenefit);
+            updatedForm.ApplicantBenefits.HasIncomeSupport.Should().Be(cmd.ApplicantBenefits.HasIncomeSupport);
         }
     }
 }
