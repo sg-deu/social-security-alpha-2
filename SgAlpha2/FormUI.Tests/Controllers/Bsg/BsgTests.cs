@@ -107,7 +107,7 @@ namespace FormUI.Tests.Controllers.Bsg
             {
                 var response = client.Get(BsgActions.Ineligible("form"));
 
-                response.Text.ToLower().Should().Contain("ineligible");
+                response.Text.ToLower().Should().Contain("based on your answers");
             });
         }
 
