@@ -41,7 +41,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public static NextSection Next(BestStartGrant form, Sections completedSection)
         {
-            if (IsIneligible(form))
+            if (IsIneligible(form, completedSection))
                 return new NextSection
                 {
                     Id = form.Id,
@@ -78,14 +78,18 @@ namespace FormUI.Domain.BestStartGrantForms
             };
         }
 
-        public static bool IsIneligible(BestStartGrant form)
+        public static bool IsIneligible(BestStartGrant form, Sections section)
         {
-            if (form.ExpectedChildren != null && form.ExistingChildren != null)
-                if (HasNoChildren(form))
+            if (section >= Sections.ExpectedChildren && section >= Sections.ExistingChildren)
+                if (form.ExpectedChildren != null && form.ExistingChildren != null && HasNoChildren(form))
                     return true;
 
-            if (form.PartnerBenefits != null)
-                if (HasNoQualifyingBenefits(form.PartnerBenefits))
+            if (section >= Sections.ApplicantBenefits && section >= Sections.PartnerBenefits)
+                if (form.PartnerBenefits != null && HasNoQualifyingBenefits(form.PartnerBenefits))
+                    return true;
+
+            if (section >= Sections.GuardianBenefits && section >= Sections.GuardianPartnerBenefits)
+                if (form.GuardianPartnerBenefits != null && HasNoQualifyingBenefits(form.GuardianPartnerBenefits))
                     return true;
 
             return false;

@@ -12,18 +12,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             var children = new List<ExistingChild>();
 
             for (var i = 0; i < childCount; i++)
-            {
-                children.Add(new ExistingChild
-                {
-                    FirstName = $"child {i + 1} first name",
-                    Surname = $"child {i + 1} surname",
-                    DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-(10 + i * 2)),
-                    RelationshipToChild = "guardian",
-                    ChildBenefit = false,
-                    NoChildBenefitReason = $"unit test reason {i + 1}",
-                    FormalKinshipCare = false,
-                });
-            }
+                children.Add(NewChild(i));
 
             var value = new ExistingChildren
             {
@@ -34,6 +23,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 mutator(value);
 
             return value;
+        }
+
+        private static ExistingChild NewChild(int index)
+        {
+            return new ExistingChild
+            {
+                FirstName = $"child {index + 1} first name",
+                Surname = $"child {index + 1} surname",
+                DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-(10 + index * 2)),
+                RelationshipToChild = "guardian",
+                ChildBenefit = false,
+                NoChildBenefitReason = $"unit test reason {index + 1}",
+                FormalKinshipCare = false,
+            };
         }
 
         public static ExistingChildren LastNotKinshipCare(this ExistingChildren existingChildren)
@@ -49,6 +52,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             for (var i = 0; i < existingChildren.Children.Count; i++)
                 existingChildren.Children[i].FormalKinshipCare = true;
 
+            return existingChildren;
+        }
+
+        public static ExistingChildren AddChild(this ExistingChildren existingChildren)
+        {
+            existingChildren.Children.Add(NewChild(existingChildren.Children.Count));
             return existingChildren;
         }
     }

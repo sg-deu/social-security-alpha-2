@@ -45,7 +45,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public void Next_ReturnsNextSection()
         {
             var lastSection = Navigation.Order.Last();
-            var form = new BestStartGrantBuilder("form123").Value();
+            var form = new BestStartGrantBuilder("form123").WithCompletedSections().Value();
             bool lastSectionReached = false;
 
             foreach (Sections section in Enum.GetValues(typeof(Sections)))
@@ -355,6 +355,70 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             form.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow;
 
             Navigation.RequiresGuardianPartnerDetails(form).Should().BeTrue("guardian partner details required if not sure if relying on their benefits");
+        }
+
+        [Test]
+        public void Ineligible_NotIneligible()
+        {
+            var form = new BestStartGrantBuilder("form").WithCompletedSections().Value();
+
+            Navigation.IsIneligible(form, Navigation.Order.Last()).Should().BeFalse();
+        }
+
+        [Test]
+        public void Ineligible_NoChildren()
+        {
+            Func<Action<BestStartGrant>, BestStartGrant> form = mutator => new BestStartGrantBuilder("form")
+                .WithCompletedSections()
+                .With(f => f.ExistingChildren, ExistingChildrenBuilder.NewValid(childCount: 0))
+                .With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid(ec => ec.NoBabyExpected()))
+                .Value(mutator);
+
+            var lastChildSection = (Sections)Math.Max((int)Sections.ExistingChildren, (int)Sections.ExpectedChildren);
+
+            Navigation.IsIneligible(form(f => { }), lastChildSection).Should().BeTrue("not eligible when there are no existing or expected children");
+
+            Navigation.IsIneligible(form(f => { }), lastChildSection - 1).Should().BeFalse("ineligibility is not determined until both children sections are complete");
+            Navigation.IsIneligible(form(f => { }), lastChildSection - 1).Should().BeFalse("ineligibility is not determined until both children sections are complete");
+            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectancyDate = TestNowUtc.Value), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
+            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectedBabyCount = 2), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
+            Navigation.IsIneligible(form(f => f.ExistingChildren.AddChild()), lastChildSection).Should().BeFalse("potentially not ineligible if you have an existing child");
+        }
+
+        [Test]
+        public void Ineligible_NoPartnerBenefits()
+        {
+            Func<Action<BestStartGrant>, BestStartGrant> form = mutator => new BestStartGrantBuilder("form")
+                .WithCompletedSections()
+                .With(f => f.ApplicantBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.PartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .Value(mutator);
+
+            var lastBenefitsSection = Sections.PartnerBenefits;
+
+            Navigation.IsIneligible(form(f => { }), lastBenefitsSection).Should().BeTrue("not eligible when applicant or partner has no benefits");
+
+            Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility is not determined until both applicant and partner benefits are complete");
+            Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if partner is on a benefit");
+            Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if partner benefit not known");
+        }
+
+        [Test]
+        public void Ineligible_NoGuardianPartnerBenefits()
+        {
+            Func<Action<BestStartGrant>, BestStartGrant> form = mutator => new BestStartGrantBuilder("form")
+                .WithCompletedSections()
+                .With(f => f.GuardianBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .With(f => f.GuardianPartnerBenefits, BenefitsBuilder.NewValid(b => b.HasExistingBenefit = YesNoDk.No))
+                .Value(mutator);
+
+            var lastBenefitsSection = Sections.GuardianPartnerBenefits;
+
+            Navigation.IsIneligible(form(f => { }), lastBenefitsSection).Should().BeTrue("not eligible when guardian's partner has no benefits");
+
+            Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility not determined until both guardian and guardian partner benefits are complete");
+            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if guardian's partner on a benefit");
+            Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian partner benefit not known");
         }
     }
 }
