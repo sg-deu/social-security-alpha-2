@@ -400,6 +400,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility is not determined until both applicant and partner benefits are complete");
             Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if partner is on a benefit");
+            Navigation.IsIneligible(form(f => f.ApplicantBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume inelgible if applicant benefit not known");
             Navigation.IsIneligible(form(f => f.PartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if partner benefit not known");
         }
 
@@ -418,6 +419,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.IsIneligible(form(f => { }), lastBenefitsSection - 1).Should().BeFalse("ineligibility not determined until both guardian and guardian partner benefits are complete");
             Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.Yes), lastBenefitsSection).Should().BeFalse("not ineligible if guardian's partner on a benefit");
+            Navigation.IsIneligible(form(f => f.GuardianBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian benefit not known");
             Navigation.IsIneligible(form(f => f.GuardianPartnerBenefits.HasExistingBenefit = YesNoDk.DontKnow), lastBenefitsSection).Should().BeFalse("cannot assume ineligible if guardian partner benefit not known");
         }
     }

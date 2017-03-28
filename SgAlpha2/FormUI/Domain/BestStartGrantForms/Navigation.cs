@@ -81,15 +81,15 @@ namespace FormUI.Domain.BestStartGrantForms
         public static bool IsIneligible(BestStartGrant form, Sections section)
         {
             if (section >= Sections.ExpectedChildren && section >= Sections.ExistingChildren)
-                if (form.ExpectedChildren != null && form.ExistingChildren != null && HasNoChildren(form))
+                if (HasNoChildren(form))
                     return true;
 
             if (section >= Sections.ApplicantBenefits && section >= Sections.PartnerBenefits)
-                if (form.PartnerBenefits != null && HasNoQualifyingBenefits(form.PartnerBenefits))
+                if (HasNoQualifyingBenefits(form.ApplicantBenefits, form.PartnerBenefits))
                     return true;
 
             if (section >= Sections.GuardianBenefits && section >= Sections.GuardianPartnerBenefits)
-                if (form.GuardianPartnerBenefits != null && HasNoQualifyingBenefits(form.GuardianPartnerBenefits))
+                if (HasNoQualifyingBenefits(form.GuardianBenefits, form.GuardianPartnerBenefits))
                     return true;
 
             return false;
@@ -100,6 +100,9 @@ namespace FormUI.Domain.BestStartGrantForms
             var expectedChildren = form.ExpectedChildren;
             var existingChildren = form.ExistingChildren;
 
+            if (expectedChildren == null || existingChildren == null)
+                return false; // can't know
+
             var hasExpectedChildren = expectedChildren.ExpectancyDate.HasValue
                 || (expectedChildren.ExpectedBabyCount.HasValue && expectedChildren.ExpectedBabyCount > 0);
 
@@ -108,9 +111,12 @@ namespace FormUI.Domain.BestStartGrantForms
             return !hasExpectedChildren && !hasExistingChildren;
         }
 
-        private static bool HasNoQualifyingBenefits(Benefits benefits)
+        private static bool HasNoQualifyingBenefits(Benefits mainBenefits, Benefits partnerBenefits)
         {
-            return benefits.HasExistingBenefit == YesNoDk.No;
+            if (mainBenefits == null || partnerBenefits == null)
+                return false; // can't know
+
+            return mainBenefits.HasExistingBenefit == YesNoDk.No && partnerBenefits.HasExistingBenefit == YesNoDk.No;
         }
 
         public static bool RequiresApplicantBenefits(BestStartGrant form)
