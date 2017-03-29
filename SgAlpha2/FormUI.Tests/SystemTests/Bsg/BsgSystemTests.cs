@@ -211,7 +211,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.CurrentAddress.Line2, "system test ca.line2");
             form.TypeText(m => m.CurrentAddress.Line3, "system test ca.line3");
             form.TypeText(m => m.CurrentAddress.Postcode, "system test ca.Postcode");
-            form.TypeDate(m => m.DateMovedIn, "02", "03", "2004");
             form.TypeText(m => m.EmailAddress, "test.system@system.test");
         }
 
@@ -229,7 +228,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ApplicantDetails.CurrentAddress.Line2.Should().Be("system test ca.line2");
             doc.ApplicantDetails.CurrentAddress.Line3.Should().Be("system test ca.line3");
             doc.ApplicantDetails.CurrentAddress.Postcode.Should().Be("system test ca.Postcode");
-            doc.ApplicantDetails.DateMovedIn.Should().Be(new DateTime(2004, 03, 02));
             doc.ApplicantDetails.EmailAddress.Should().Be("test.system@system.test");
             _verifiedSections.Add(Sections.ApplicantDetails);
         }

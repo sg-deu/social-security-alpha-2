@@ -101,7 +101,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line1 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
         }
 
         [Test]

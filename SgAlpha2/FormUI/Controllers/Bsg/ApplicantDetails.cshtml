@@ -39,8 +39,6 @@
 
             @form.Html.PartialFor(m => m.CurrentAddress, SharedViews.Address, a => new AddressModel { Address = a })
 
-            @form.Html.LabelledInputDate(m => m.DateMovedIn).Mandatory()
-
             <div class="info-note note">Enter your phone number and/or your email so we can let you know about the progress of your application</div>
 
             @form.Html.LabelledInputText(m => m.PhoneNumer)

@@ -20,7 +20,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 FullTimeEducation = false,
                 NationalInsuranceNumber = "AB123456C",
                 CurrentAddress = AddressBuilder.NewValid("applicant"),
-                DateMovedIn = DomainRegistry.NowUtc().Date - TimeSpan.FromDays(365),
                 EmailAddress = "test.unit@unit.test",
                 PhoneNumer = "01234 567 890",
                 MobilePhoneNumber = "12345 678 901",

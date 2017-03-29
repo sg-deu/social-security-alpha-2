@@ -306,7 +306,6 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
             ctx.Required(m => m.CurrentAddress.Line1, "Please supply an Address line 1");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
-            ctx.Required(m => m.DateMovedIn, "Please supply the Date You or your Partner moved into this address");
 
             ctx.ThrowIfError();
         }
