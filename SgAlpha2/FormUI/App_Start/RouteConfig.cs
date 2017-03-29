@@ -16,11 +16,6 @@ namespace FormUI
                 url: "{controller}/login-return/{id}",
                 defaults: new { controller = "Coc", action = "Identity", id = UrlParameter.Optional }
             );
-            //routes.MapRoute(
-            //    name: "UKVerifyLoginReturn",
-            //    url: "bsg/login-return/{id}",
-            //    defaults: new { controller = "Coc", action = "Identity", id = UrlParameter.Optional }
-            //);
 
             routes.MapRoute(
                 name: "UKVerifyApplyReturn",

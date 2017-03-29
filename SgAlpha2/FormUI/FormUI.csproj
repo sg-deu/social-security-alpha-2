@@ -250,7 +250,6 @@
     <Compile Include="Domain\BestStartGrantForms\Responses\ApplicantDetailsConfig.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\BsgDetail.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Consent.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\ContactPreference.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Declaration.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChild.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ExistingChildren.cs" />

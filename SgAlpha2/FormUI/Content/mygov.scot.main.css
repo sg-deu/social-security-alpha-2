@@ -9892,6 +9892,9 @@ only screen and (min-resolution: 1.3dppx) {
     margin: 0 auto;
     background-image: url(./images/icons/arrows/int_arrow_up_blue_over_35px.png)
 }
+.overview-list{
+    list-style-type : none;
+}
 @media only screen and (min--moz-device-pixel-ratio: 1.3),
 only screen and (-o-min-device-pixel-ratio: 2.6 / 2),
 only screen and (-webkit-min-device-pixel-ratio: 1.3),

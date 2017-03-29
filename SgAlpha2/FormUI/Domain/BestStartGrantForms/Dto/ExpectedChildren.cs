@@ -10,7 +10,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [HintText("For example 01 03 2017")]
         public DateTime? ExpectancyDate { get; set; }
 
-        [DisplayName("Is more than 1 baby expected?")]
+        [DisplayName("Is more than one baby expected?")]
         [HintText("Please make sure that the document you are sending with this claim form tells us the number of babies that are expected")]
         [UiLength(2)]
         public int? ExpectedBabyCount { get; set; }

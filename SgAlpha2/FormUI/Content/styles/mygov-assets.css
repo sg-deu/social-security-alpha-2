@@ -5192,7 +5192,9 @@ a.file-icon:active {
 .related-items__link:hover, .related-items__link:active {
   text-decoration: underline;
 }
-
+.overview-list{
+    list-style-type : none;
+}
 @media (min-width: 768px) {
   .related-items__title {
     margin: 31px 0 0px 0;

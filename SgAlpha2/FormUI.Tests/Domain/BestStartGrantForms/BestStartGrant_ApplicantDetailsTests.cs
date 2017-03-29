@@ -102,62 +102,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Line1 = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddress.Postcode = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.DateMovedIn = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.CurrentAddressStatus = null);
-            ApplicantDetailsShouldBeInvalid(form, m => m.ContactPreference = null);
-        }
-
-        [Test]
-        public void AddApplicantDetails_ContactPreferenceEmail_RequiresEmail()
-        {
-            var form = new BestStartGrantBuilder("form").Insert();
-
-            ApplicantDetailsShouldBeValid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Email;
-                m.PhoneNumer = null;
-                m.MobilePhoneNumber = null;
-            });
-            ApplicantDetailsShouldBeInvalid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Email;
-                m.EmailAddress = null;
-            });
-        }
-
-        [Test]
-        public void AddApplicantDetails_ContactPreferencePhone_RequiresPhoneNumber()
-        {
-            var form = new BestStartGrantBuilder("form").Insert();
-
-            ApplicantDetailsShouldBeValid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Phone;
-                m.EmailAddress = null;
-                m.MobilePhoneNumber = null;
-            });
-            ApplicantDetailsShouldBeInvalid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Phone;
-                m.PhoneNumer = null;
-            });
-        }
-
-        [Test]
-        public void AddApplicantDetails_ContactPreferenceText_RequiresText()
-        {
-            var form = new BestStartGrantBuilder("form").Insert();
-
-            ApplicantDetailsShouldBeValid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Text;
-                m.EmailAddress = null;
-                m.PhoneNumer = null;
-            });
-            ApplicantDetailsShouldBeInvalid(form, m =>
-            {
-                m.ContactPreference = ContactPreference.Text;
-                m.MobilePhoneNumber = null;
-            });
         }
 
         [Test]

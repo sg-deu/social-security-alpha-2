@@ -22,7 +22,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("All other names")]
         public string               OtherNames              { get; set; }
 
-        [DisplayName("Surname or family name")]
+        [DisplayName("Last name")]
         public string               SurnameOrFamilyName     { get; set; }
 
         [DisplayName("Date of Birth")]
@@ -45,12 +45,6 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Date You or your Partner moved into this address")]
         [HintText("For example, 01 01 2012")]
         public DateTime?            DateMovedIn { get; set; }
-
-        [DisplayName("Is this address Permanent or Temporary?")]
-        public AddressStatus?       CurrentAddressStatus    { get; set; }
-
-        [DisplayName("How do you want to be contacted?")]
-        public ContactPreference?   ContactPreference       { get; set; }
 
         [DisplayName("Email address")]
         public string               EmailAddress            { get; set; }

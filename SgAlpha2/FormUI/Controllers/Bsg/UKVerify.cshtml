@@ -7,25 +7,39 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>We need to identify you</h1>
+        <h1>We need to confirm who you are</h1>
 
         @using (var form = Html.FormFor(Model.UKVerify))
         {
             @form.Html.ValidationSummary()
 
+            <h3>You have 2 options to confirm who you are:</h3>
+
+            <h2>1. Confirm who you are with the Social Security Agency:</h2>
+
             <p>
-                You can continue your application without confirming who you are.
-                <div class="info-note caution">
-                    This may delay your application. We will contact you in XX number of days.
-                </div>
-                @form.Html.ButtonSubmit("Continue >")
+                You can continue your application without confirming who you are. The Social Security Agency will confirm this for you. This may delay your application as we may have to contact you.
             </p>
 
-            <h2>Before you start:</h2>
-            <p>To continue your application we need to confirm who you are. This will be done with GOV.UK Verify.</p>
+            <p>
+                @form.Html.ButtonSubmit("Start Option 1 >")
+            </p>
 
-            <h2>If you've not used Verify before</h2>
-            <p>To confirm who you are you'll need:
+            <h2>2. Confirm who you are with Verify:</h2>
+
+           <p>
+               To continue your application we need to confirm who you are now with Verify.
+           </p>
+
+           <p>
+               @form.Html.ButtonLinkExternal("gov.ukverifyapply", "Start Option 2 >")
+           </p>
+
+            <h3>Before you start:</h3>
+
+            <h3>If you've not used Verify before</h3>
+            <p>
+                To confirm who you are you'll need:
                 <ul>
                     <li>your passport number</li>
                     <li>drivers licence</li>
@@ -34,17 +48,14 @@
                 </ul>
             </p>
 
-            <h2>Already registered with Verify</h2>
-            <p>If you've used Verify before, you'll need to know:
+            <h3>Already registered with Verify</h3>
+            <p>
+                If you've used Verify before, you'll need to know:
                 <ul>
                     <li>what company you used to confirm who you are, for example Post Office, Experis</li>
                     <li>your login details</li>
                 </ul>
                 Check the email you were sent when you registered. If you can't find the information, contact XXXXX.
-            </p>
-
-            <p>
-                @form.Html.ButtonLinkExternal("gov.ukverifyapply", "Verify Now >")
             </p>
 
         }
