@@ -7,7 +7,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Income Support")]
         public bool HasIncomeSupport                                { get; set; }
 
-        [DisplayName("Income - based Jobseekers Allowance(JSA)")]
+        [DisplayName("Income-based Jobseekers Allowance(JSA)")]
         public bool HasIncomeBasedJobseekersAllowance               { get; set; }
 
         [DisplayName("Income-related Employment and Support Allowance (ESA)")]
