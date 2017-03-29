@@ -7,7 +7,7 @@ namespace FormUI.Tests.Controllers.Bsg
 {
     public abstract class BsgSectionTest : WebTest
     {
-        protected static BsgDetail NewBsgDetail(string formId)
+        protected static BsgDetail NewBsgDetail(string formId, int childCount = 2)
         {
             var detail = new BsgDetail
             {
@@ -17,7 +17,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 UKVerify                = UKVerifyBuilder.NewValid(),
                 ApplicantDetails        = ApplicantDetailsBuilder.NewValid(),
                 ExpectedChildren        = ExpectedChildrenBuilder.NewValid(),
-                ExistingChildren        = ExistingChildrenBuilder.NewValid(),
+                ExistingChildren        = ExistingChildrenBuilder.NewValid(childCount),
                 ApplicantBenefits       = BenefitsBuilder.NewWithBenefit(),
                 PartnerBenefits         = BenefitsBuilder.NewWithBenefit(),
                 GuardianBenefits        = BenefitsBuilder.NewWithBenefit(),

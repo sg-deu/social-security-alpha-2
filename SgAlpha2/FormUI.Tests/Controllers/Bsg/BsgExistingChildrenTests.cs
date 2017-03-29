@@ -24,13 +24,30 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
-                var detail = NewBsgDetail("form123");
+                var detail = NewBsgDetail("form123", 2);
                 ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
 
                 var response = client.Get(BsgActions.ExistingChildren(detail.Id));
                 var form = response.Form<ExistingChildren>(1);
 
                 form.RadioShows(m => m.AnyExistingChildren, true, "children-details");
+                response.Doc.FindAll("button[name=RemoveChild]").Count.Should().Be(2, "should have 2 remove buttons");
+            });
+        }
+
+        [Test]
+        public void ExistingChildren_GET_WhenExactlyOneChild_NoRemoveButtonIsShown()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123", 1);
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExistingChildren(detail.Id));
+                var form = response.Form<ExistingChildren>(1);
+
+                form.RadioShows(m => m.AnyExistingChildren, true, "children-details");
+                response.Doc.FindAll("button[name=RemoveChild]").Count.Should().Be(0, "no remove child button when there's only 1 child (select 'no' instead)");
             });
         }
 
@@ -46,6 +63,21 @@ namespace FormUI.Tests.Controllers.Bsg
 
                 ExecutorStub.Executed<FindBsgSection>(0).ShouldBeEquivalentTo(new FindBsgSection { FormId = detail.Id, Section = Sections.ExistingChildren });
                 response.Doc.Form<ExistingChildren>(1).GetText(m => m.Children[1].Surname).Should().Be(detail.ExistingChildren.Children[1].Surname);
+            });
+        }
+
+        [Test]
+        public void ExistingChildren_GET_WhenNoExistingChildren_PrePopulatesOneChild()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                detail.ExistingChildren.Children = new List<ExistingChild>();
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExistingChildren(detail.Id));
+
+                response.Doc.FindAll(".existing-child").Count.Should().Be(1, "should have at least one child pre-populated (albeit hidden)");
             });
         }
 
@@ -71,7 +103,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
-                    .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
+                    .SelectYes(m => m.AnyExistingChildren)
                     .SetText(m => m.Children[0].FirstName, "child 0 first name")
                     .SetText(m => m.Children[0].Surname, "child 0 surname")
                     .SetDate(m => m.Children[0].DateOfBirth, "03", "04", "2005")
@@ -90,6 +122,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     FormId = "form123",
                     ExistingChildren = new ExistingChildren
                     {
+                        AnyExistingChildren = true,
                         Children = new List<ExistingChild>()
                         {
                             new ExistingChild
@@ -117,16 +150,40 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExistingChildren_POST_AutomaticallyRemovesChildren_WhenIndicatingNoChildrenInHousehold()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExistingChildren("form123")).Form<ExistingChildren>(1)
+                    .SelectYes(m => m.AnyExistingChildren)
+                    .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a child
+                    .SelectNo(m => m.AnyExistingChildren)
+                    .SubmitName("", client);
+
+                ExecutorStub.Executed<AddExistingChildren>(0).ShouldBeEquivalentTo(new AddExistingChildren
+                {
+                    FormId = "form123",
+                    ExistingChildren = new ExistingChildren
+                    {
+                        AnyExistingChildren = false,
+                        Children = new List<ExistingChild>(),
+                    },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
         public void ExistingChildren_POST_CanAddRemoveChildren()
         {
             WebAppTest(client =>
             {
                 var response = client.Get(BsgActions.ExistingChildren("form123"));
 
-                response.Doc.FindAll(".existing-child").Count.Should().Be(0);
+                response.Doc.FindAll(".existing-child").Count.Should().Be(1);
 
                 response = response
-                    .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK))
                     .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK))
                     .Form<ExistingChildren>(1).SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 

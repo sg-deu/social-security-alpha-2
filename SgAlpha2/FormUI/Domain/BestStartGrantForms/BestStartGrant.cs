@@ -399,6 +399,14 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<ExistingChildren>(existingChildren);
 
+            ctx.Required(c => c.AnyExistingChildren, "Please indicate if you have children you're responsible for in your household");
+
+            if (existingChildren.AnyExistingChildren == true && existingChildren.Children?.Count < 1)
+                throw new DomainException("If you have children, please supply the details of at least one child");
+
+            if (existingChildren.AnyExistingChildren == false && existingChildren.Children?.Count > 0)
+                throw new DomainException("If you do not have children, please remove the supplied children");
+
             for (var i = 0; i < existingChildren.Children.Count; i ++)
             {
                 ctx.Required(c => c.Children[i].FirstName, "Please supply a First name");

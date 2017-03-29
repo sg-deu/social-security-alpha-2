@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
@@ -235,6 +236,9 @@ namespace FormUI.Controllers.Bsg
                 return ExistingChildren_Render(id, existingChildren);
             }
 
+            if (existingChildren.AnyExistingChildren == false)
+                existingChildren.Children?.Clear();
+
             var cmd = new AddExistingChildren
             {
                 FormId = id,
@@ -251,6 +255,9 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<ExistingChildrenModel>(formId, Sections.ExistingChildren, (m, f) =>
             {
                 m.ExistingChildren = details ?? f.ExistingChildren ?? new ExistingChildren();
+
+                if (m.ExistingChildren.Children?.Count < 1)
+                    m.ExistingChildren.Children = new List<ExistingChild> { new ExistingChild() };
             });
         }
 

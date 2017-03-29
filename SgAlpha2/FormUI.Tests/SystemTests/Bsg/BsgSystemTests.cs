@@ -130,6 +130,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             App.VerifyCanSeeText("in the household");
+            FillInNoExistingChildren();
             App.ClickButton("");
 
             App.VerifyCanSeeText("Guardian's benefits");
@@ -251,13 +252,18 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.ExpectedChildren);
         }
 
+        private void FillInNoExistingChildren()
+        {
+            var form = App.FormForModel<ExistingChildren>();
+            form.SelectRadio(m => m.AnyExistingChildren, false);
+        }
+
         private void FillInExistingChildren()
         {
             var form = App.FormForModel<ExistingChildren>();
 
             form.SelectRadio(m => m.AnyExistingChildren, true);
 
-            App.ClickButton(BsgButtons.AddChild);
             App.VerifyCanSeeText("Child 1");
             App.ClickButton(BsgButtons.AddChild);
             App.VerifyCanSeeText("Child 2");

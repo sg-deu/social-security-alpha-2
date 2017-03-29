@@ -13,7 +13,7 @@
         <p>You must fill in all fields marked with an (*)</p>
 
         <p>
-            Please list all children in the household.
+            List all children in the household.
             You could get a payment for all children under aged 5 and a half.
         </p>
 
@@ -43,7 +43,10 @@
                         @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason).Mandatory()
                     }
 
-                    @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
+                    if (Model.ExistingChildren.Children.Count > 1)
+                    {
+                        @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
+                    }
                 }
 
                 @form.Html.FormButton(BsgButtons.AddChild, "Add Child")

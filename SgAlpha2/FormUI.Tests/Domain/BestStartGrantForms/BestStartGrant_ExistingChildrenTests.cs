@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -17,9 +18,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             var form = new BestStartGrantBuilder("form").Insert();
 
             ExistingChildrenShouldBeValid(form, m => { });
-            ExistingChildrenShouldBeValid(form, m => m.Children = new List<ExistingChild>());
+            ExistingChildrenShouldBeValid(form, m => { m.AnyExistingChildren = false; m.Children = new List<ExistingChild>(); });
             ExistingChildrenShouldBeValid(form, m => { m.Children[0].ChildBenefit = true; m.Children[0].NoChildBenefitReason = null; });
 
+            ExistingChildrenShouldBeInvalid(form, m => m.AnyExistingChildren = null);
+            ExistingChildrenShouldBeInvalid(form, m => { m.AnyExistingChildren = true; m.Children = new List<ExistingChild>(); });
+            ExistingChildrenShouldBeInvalid(form, m => { m.AnyExistingChildren = false; m.Children.Count.Should().BeGreaterThan(0, "ensure we have children for this test"); });
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FirstName = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].Surname = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].DateOfBirth = null);

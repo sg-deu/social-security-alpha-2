@@ -16,6 +16,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
             var value = new ExistingChildren
             {
+                AnyExistingChildren = (children.Count > 0),
                 Children = children,
             };
 
