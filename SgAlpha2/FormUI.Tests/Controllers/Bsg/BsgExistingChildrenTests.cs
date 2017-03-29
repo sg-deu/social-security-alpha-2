@@ -20,6 +20,21 @@ namespace FormUI.Tests.Controllers.Bsg
     public class BsgExistingChildrenTests : BsgSectionTest
     {
         [Test]
+        public void ExistingChildren_AsksChildDetails_OnlyWhenSelectedYesToChildren()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.ExistingChildren(detail.Id));
+                var form = response.Form<ExistingChildren>(1);
+
+                form.RadioShows(m => m.AnyExistingChildren, true, "children-details");
+            });
+        }
+
+        [Test]
         public void ExistingChildren_GET_PopulatesExistingDetails()
         {
             WebAppTest(client =>

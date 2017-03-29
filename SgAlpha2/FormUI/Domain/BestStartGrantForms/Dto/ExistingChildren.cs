@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FormUI.Domain.BestStartGrantForms.Dto
 {
@@ -9,6 +10,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
             Children = new List<ExistingChild>();
         }
 
-        public IList<ExistingChild> Children { get; set; }
+        [DisplayName("Do you have any children you're responsible for in your household?")]
+        public bool?                AnyExistingChildren { get; set; }
+
+        public IList<ExistingChild> Children            { get; set; }
     }
 }

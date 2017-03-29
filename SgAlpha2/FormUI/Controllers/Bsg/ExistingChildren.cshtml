@@ -12,7 +12,10 @@
 
         <p>You must fill in all fields marked with an (*)</p>
 
-        <p class="asterisk-note">Please list all children in the household</p>
+        <p>
+            Please list all children in the household.
+            You could get a payment for all children under aged 5 and a half.
+        </p>
 
         @using (var form = Html.FormFor(Model.ExistingChildren))
         {
@@ -21,25 +24,30 @@
 
             <h2>Your children</h2>
 
-            for(var i = 0; i < Model.ExistingChildren.Children.Count; i++)
+            @form.Html.LabelledRadioYesNo(m => m.AnyExistingChildren).Mandatory()
+
+            using (form.Html.ShowWhenYes(m => m.AnyExistingChildren, t => t.Id("children-details")))
             {
-                <h3 class="existing-child">Child @(i + 1)</h3>
-
-                @form.Html.LabelledInputText(m => m.Children[i].FirstName).Mandatory()
-                @form.Html.LabelledInputText(m => m.Children[i].Surname).Mandatory()
-                @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth).Mandatory()
-                @form.Html.LabelledRadio(m => m.Children[i].Relationship).Mandatory()
-                @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit).Mandatory()
-
-                using (form.Html.ShowWhenNo(m => m.Children[i].ChildBenefit, t => t.Id($"child{i}-reason")))
+                for (var i = 0; i < Model.ExistingChildren.Children.Count; i++)
                 {
-                    @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason).Mandatory()
+                    <h3 class="existing-child">Child @(i + 1)</h3>
+
+                    @form.Html.LabelledInputText(m => m.Children[i].FirstName).Mandatory()
+                    @form.Html.LabelledInputText(m => m.Children[i].Surname).Mandatory()
+                    @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth).Mandatory()
+                    @form.Html.LabelledRadio(m => m.Children[i].Relationship).Mandatory()
+                    @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit).Mandatory()
+
+                    using (form.Html.ShowWhenNo(m => m.Children[i].ChildBenefit, t => t.Id($"child{i}-reason")))
+                    {
+                        @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason).Mandatory()
+                    }
+
+                    @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
                 }
 
-                @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
+                @form.Html.FormButton(BsgButtons.AddChild, "Add Child")
             }
-
-            @form.Html.FormButton(BsgButtons.AddChild, "Add Child")
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

@@ -253,12 +253,14 @@ namespace FormUI.Tests.SystemTests.Bsg
 
         private void FillInExistingChildren()
         {
+            var form = App.FormForModel<ExistingChildren>();
+
+            form.SelectRadio(m => m.AnyExistingChildren, true);
+
             App.ClickButton(BsgButtons.AddChild);
             App.VerifyCanSeeText("Child 1");
             App.ClickButton(BsgButtons.AddChild);
             App.VerifyCanSeeText("Child 2");
-
-            var form = App.FormForModel<ExistingChildren>();
 
             form.TypeText(m => m.Children[0].FirstName, "c1 first name");
             form.TypeText(m => m.Children[0].Surname, "c1 last name");
@@ -276,6 +278,7 @@ namespace FormUI.Tests.SystemTests.Bsg
 
         private void VerifyExistingChildren(BestStartGrant doc)
         {
+            doc.ExistingChildren.AnyExistingChildren.Should().BeTrue();
             doc.ExistingChildren.Children.Count.Should().Be(2);
 
             doc.ExistingChildren.Children[0].FirstName.Should().Be("c1 first name");
