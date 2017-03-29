@@ -405,7 +405,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 ctx.Required(c => c.Children[i].Surname, "Please supply a Surname or family name");
                 ctx.Required(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth");
                 ctx.InPast(c => c.Children[i].DateOfBirth, "Please supply a Date of Birth in the past");
-                ctx.Required(c => c.Children[i].RelationshipToChild, "Please supply the relationship to the child");
+                ctx.Required(c => c.Children[i].Relationship, "Please supply the relationship to the child");
                 ctx.Required(c => c.Children[i].ChildBenefit, "Please indicate if you receive child benefit");
 
                 if (existingChildren.Children[i].ChildBenefit == false)

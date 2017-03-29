@@ -263,14 +263,14 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.Children[0].FirstName, "c1 first name");
             form.TypeText(m => m.Children[0].Surname, "c1 last name");
             form.TypeDate(m => m.Children[0].DateOfBirth, "01", "02", "2003");
-            form.TypeText(m => m.Children[0].RelationshipToChild, "c1 relationship");
+            form.SelectRadio(m => m.Children[0].Relationship, Relationship.Parent);
             form.SelectRadio(m => m.Children[0].ChildBenefit, true);
             form.SelectRadio(m => m.Children[0].FormalKinshipCare, false);
 
             form.TypeText(m => m.Children[1].FirstName, "c2 first name");
             form.TypeText(m => m.Children[1].Surname, "c2 last name");
             form.TypeDate(m => m.Children[1].DateOfBirth, "02", "03", "2004");
-            form.TypeText(m => m.Children[1].RelationshipToChild, "c2 relationship");
+            form.SelectRadio(m => m.Children[1].Relationship, Relationship.KinshipCarer);
             form.SelectRadio(m => m.Children[1].ChildBenefit, false);
             form.TypeTextArea(m => m.Children[1].NoChildBenefitReason, "reason text");
             form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
@@ -283,14 +283,14 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ExistingChildren.Children[0].FirstName.Should().Be("c1 first name");
             doc.ExistingChildren.Children[0].Surname.Should().Be("c1 last name");
             doc.ExistingChildren.Children[0].DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
-            doc.ExistingChildren.Children[0].RelationshipToChild.Should().Be("c1 relationship");
+            doc.ExistingChildren.Children[0].Relationship.Should().Be(Relationship.Parent);
             doc.ExistingChildren.Children[0].ChildBenefit.Should().BeTrue();
             doc.ExistingChildren.Children[0].FormalKinshipCare.Should().BeFalse();
 
             doc.ExistingChildren.Children[1].FirstName.Should().Be("c2 first name");
             doc.ExistingChildren.Children[1].Surname.Should().Be("c2 last name");
             doc.ExistingChildren.Children[1].DateOfBirth.Should().Be(new DateTime(2004, 03, 02));
-            doc.ExistingChildren.Children[1].RelationshipToChild.Should().Be("c2 relationship");
+            doc.ExistingChildren.Children[1].Relationship.Should().Be(Relationship.KinshipCarer);
             doc.ExistingChildren.Children[1].ChildBenefit.Should().BeFalse();
             doc.ExistingChildren.Children[1].NoChildBenefitReason.Should().Be("reason text");
             doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();

@@ -32,7 +32,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 FirstName = $"child {index + 1} first name",
                 Surname = $"child {index + 1} surname",
                 DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-(10 + index * 2)),
-                RelationshipToChild = "guardian",
+                Relationship = Relationship.Parent,
                 ChildBenefit = false,
                 NoChildBenefitReason = $"unit test reason {index + 1}",
                 FormalKinshipCare = false,

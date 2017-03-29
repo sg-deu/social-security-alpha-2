@@ -28,7 +28,7 @@
                 @form.Html.LabelledInputText(m => m.Children[i].FirstName).Mandatory()
                 @form.Html.LabelledInputText(m => m.Children[i].Surname).Mandatory()
                 @form.Html.LabelledInputDate(m => m.Children[i].DateOfBirth).Mandatory()
-                @form.Html.LabelledInputText(m => m.Children[i].RelationshipToChild).Mandatory()
+                @form.Html.LabelledRadio(m => m.Children[i].Relationship).Mandatory()
                 @form.Html.LabelledRadioYesNo(m => m.Children[i].ChildBenefit).Mandatory()
 
                 using (form.Html.ShowWhenNo(m => m.Children[i].ChildBenefit, t => t.Id($"child{i}-reason")))

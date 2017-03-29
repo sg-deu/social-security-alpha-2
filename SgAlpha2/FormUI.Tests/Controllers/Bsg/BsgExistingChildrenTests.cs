@@ -60,14 +60,14 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SetText(m => m.Children[0].FirstName, "child 0 first name")
                     .SetText(m => m.Children[0].Surname, "child 0 surname")
                     .SetDate(m => m.Children[0].DateOfBirth, "03", "04", "2005")
-                    .SetText(m => m.Children[0].RelationshipToChild, "child 0 relationship")
+                    .SetText(m => m.Children[0].Relationship, Relationship.KinshipCarer.ToString())
                     .SelectYes(m => m.Children[0].ChildBenefit)
                     .SelectYes(m => m.Children[0].FormalKinshipCare)
                     .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
                     .SetText(m => m.Children[1].FirstName, "child 1 first name")
                     .SetText(m => m.Children[1].Surname, "child 1 surname")
                     .SetDate(m => m.Children[1].DateOfBirth, "02", "03", "2004")
-                    .SetText(m => m.Children[1].RelationshipToChild, "child 1 relationship")
+                    .SetText(m => m.Children[1].Relationship, Relationship.Parent.ToString())
                     // leave child benefit as null/empty
                     .SelectNo(m => m.Children[1].FormalKinshipCare)
                     .SubmitName("", client);
@@ -84,7 +84,7 @@ namespace FormUI.Tests.Controllers.Bsg
                                 FirstName = "child 0 first name",
                                 Surname = "child 0 surname",
                                 DateOfBirth = new DateTime(2005, 04, 03),
-                                RelationshipToChild = "child 0 relationship",
+                                Relationship = Relationship.KinshipCarer,
                                 ChildBenefit = true,
                                 FormalKinshipCare = true,
                             },
@@ -93,7 +93,7 @@ namespace FormUI.Tests.Controllers.Bsg
                                 FirstName = "child 1 first name",
                                 Surname = "child 1 surname",
                                 DateOfBirth = new DateTime(2004, 03, 02),
-                                RelationshipToChild = "child 1 relationship",
+                                Relationship = Relationship.Parent,
                                 ChildBenefit = null,
                                 FormalKinshipCare = false,
                             },
