@@ -62,14 +62,12 @@ namespace FormUI.Tests.Controllers.Bsg
                     .SetDate(m => m.Children[0].DateOfBirth, "03", "04", "2005")
                     .SetText(m => m.Children[0].Relationship, Relationship.KinshipCarer.ToString())
                     .SelectYes(m => m.Children[0].ChildBenefit)
-                    .SelectYes(m => m.Children[0].FormalKinshipCare)
                     .SubmitName(BsgButtons.AddChild, client, r => r.SetExpectedResponse(HttpStatusCode.OK)).Form<ExistingChildren>(1) // add a second child
                     .SetText(m => m.Children[1].FirstName, "child 1 first name")
                     .SetText(m => m.Children[1].Surname, "child 1 surname")
                     .SetDate(m => m.Children[1].DateOfBirth, "02", "03", "2004")
                     .SetText(m => m.Children[1].Relationship, Relationship.Parent.ToString())
                     // leave child benefit as null/empty
-                    .SelectNo(m => m.Children[1].FormalKinshipCare)
                     .SubmitName("", client);
 
                 ExecutorStub.Executed<AddExistingChildren>(0).ShouldBeEquivalentTo(new AddExistingChildren
@@ -86,7 +84,6 @@ namespace FormUI.Tests.Controllers.Bsg
                                 DateOfBirth = new DateTime(2005, 04, 03),
                                 Relationship = Relationship.KinshipCarer,
                                 ChildBenefit = true,
-                                FormalKinshipCare = true,
                             },
                             new ExistingChild
                             {
@@ -95,7 +92,6 @@ namespace FormUI.Tests.Controllers.Bsg
                                 DateOfBirth = new DateTime(2004, 03, 02),
                                 Relationship = Relationship.Parent,
                                 ChildBenefit = null,
-                                FormalKinshipCare = false,
                             },
                         },
                     },

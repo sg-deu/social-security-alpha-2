@@ -35,14 +35,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 Relationship = Relationship.Parent,
                 ChildBenefit = false,
                 NoChildBenefitReason = $"unit test reason {index + 1}",
-                FormalKinshipCare = false,
             };
         }
 
         public static ExistingChildren LastNotKinshipCare(this ExistingChildren existingChildren)
         {
             for (var i = 0; i < existingChildren.Children.Count; i++)
-                existingChildren.Children[i].FormalKinshipCare = i != existingChildren.Children.Count - 1;
+                existingChildren.Children[i].Relationship = (i != existingChildren.Children.Count - 1) ? Relationship.KinshipCarer : Relationship.Parent;
 
             return existingChildren;
         }
@@ -50,7 +49,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
         public static ExistingChildren AllKinshipCare(this ExistingChildren existingChildren)
         {
             for (var i = 0; i < existingChildren.Children.Count; i++)
-                existingChildren.Children[i].FormalKinshipCare = true;
+                existingChildren.Children[i].Relationship = Relationship.KinshipCarer;
 
             return existingChildren;
         }

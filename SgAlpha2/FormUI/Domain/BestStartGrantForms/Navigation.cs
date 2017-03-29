@@ -241,7 +241,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (existingChildren != null && existingChildren.Children != null)
                 if (existingChildren.Children.Count > 0)
-                    return existingChildren.Children.All(c => c.FormalKinshipCare == true);
+                    return existingChildren.Children.All(c => c.Relationship == Relationship.KinshipCarer);
 
             return false;
         }

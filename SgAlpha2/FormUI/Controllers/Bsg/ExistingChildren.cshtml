@@ -36,8 +36,6 @@
                     @form.Html.LabelledTextArea(m => m.Children[i].NoChildBenefitReason).Mandatory()
                 }
 
-                @form.Html.LabelledRadioYesNo(m => m.Children[i].FormalKinshipCare).Mandatory()
-
                 @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}")
             }
 

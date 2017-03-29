@@ -25,8 +25,5 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Please explain why you are not getting child benefit")]
         [UiLength(400)]
         public string           NoChildBenefitReason    { get; set; }
-
-        [DisplayName("Do you have formal kinship care of this child?")]
-        public bool?            FormalKinshipCare       { get; set; }
     }
 }

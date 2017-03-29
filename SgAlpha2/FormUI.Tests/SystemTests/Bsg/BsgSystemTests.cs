@@ -265,7 +265,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeDate(m => m.Children[0].DateOfBirth, "01", "02", "2003");
             form.SelectRadio(m => m.Children[0].Relationship, Relationship.Parent);
             form.SelectRadio(m => m.Children[0].ChildBenefit, true);
-            form.SelectRadio(m => m.Children[0].FormalKinshipCare, false);
 
             form.TypeText(m => m.Children[1].FirstName, "c2 first name");
             form.TypeText(m => m.Children[1].Surname, "c2 last name");
@@ -273,7 +272,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.SelectRadio(m => m.Children[1].Relationship, Relationship.KinshipCarer);
             form.SelectRadio(m => m.Children[1].ChildBenefit, false);
             form.TypeTextArea(m => m.Children[1].NoChildBenefitReason, "reason text");
-            form.SelectRadio(m => m.Children[1].FormalKinshipCare, true);
         }
 
         private void VerifyExistingChildren(BestStartGrant doc)
@@ -285,7 +283,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ExistingChildren.Children[0].DateOfBirth.Should().Be(new DateTime(2003, 02, 01));
             doc.ExistingChildren.Children[0].Relationship.Should().Be(Relationship.Parent);
             doc.ExistingChildren.Children[0].ChildBenefit.Should().BeTrue();
-            doc.ExistingChildren.Children[0].FormalKinshipCare.Should().BeFalse();
 
             doc.ExistingChildren.Children[1].FirstName.Should().Be("c2 first name");
             doc.ExistingChildren.Children[1].Surname.Should().Be("c2 last name");
@@ -293,7 +290,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.ExistingChildren.Children[1].Relationship.Should().Be(Relationship.KinshipCarer);
             doc.ExistingChildren.Children[1].ChildBenefit.Should().BeFalse();
             doc.ExistingChildren.Children[1].NoChildBenefitReason.Should().Be("reason text");
-            doc.ExistingChildren.Children[1].FormalKinshipCare.Should().BeTrue();
             _verifiedSections.Add(Sections.ExistingChildren);
         }
 

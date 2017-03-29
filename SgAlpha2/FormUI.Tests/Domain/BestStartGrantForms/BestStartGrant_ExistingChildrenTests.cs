@@ -27,7 +27,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].Relationship = null);
             ExistingChildrenShouldBeInvalid(form, m => m.Children[0].ChildBenefit = null);
             ExistingChildrenShouldBeInvalid(form, m => { m.Children[0].ChildBenefit = false; m.Children[0].NoChildBenefitReason = null; });
-            ExistingChildrenShouldBeInvalid(form, m => m.Children[0].FormalKinshipCare = null);
         }
 
         protected void ExistingChildrenShouldBeValid(BestStartGrant form, Action<ExistingChildren> mutator)

@@ -410,8 +410,6 @@ namespace FormUI.Domain.BestStartGrantForms
 
                 if (existingChildren.Children[i].ChildBenefit == false)
                     ctx.Required(c => c.Children[i].NoChildBenefitReason, "Please supply a reason why child benefit is not received");
-
-                ctx.Required(c => c.Children[i].FormalKinshipCare, "Please indicate is their is formal kinship care");
             }
 
             ctx.ThrowIfError();
