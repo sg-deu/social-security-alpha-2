@@ -1,0 +1,2 @@
+-[App_Web*]__ASP.FastObjectFactory*
+-[Common.Logging*]*

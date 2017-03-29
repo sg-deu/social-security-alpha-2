@@ -20,6 +20,9 @@ namespace FormUI.Tests.Controllers.Shared
 
             foreach (var packageFile in packageFiles)
             {
+                if (packageFile.ToLower().Contains("\\packages\\"))
+                    continue;
+
                 var doc = new XmlDocument();
                 doc.Load(packageFile);
 

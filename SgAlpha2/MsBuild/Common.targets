@@ -22,6 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <CoverFilter Include="-[Microsoft.$(Asterisk)]$(Asterisk)" />
     <CoverFilter Include="-[FluentAssertions$(Asterisk)]$(Asterisk)" />
     <CoverFilter Include="-[FluentMigrator$(Asterisk)]$(Asterisk)" />
     <CoverFilter Include="+[$(Asterisk)]$(Asterisk)" />
@@ -46,7 +47,7 @@
     <RemoveDir Directories="$(OutDir)\CoverageReport" />
     <Exec Command="$(ReportGeneratorExe) -reports:$(CoverageOutput) -targetdir:$(OutDir)\CoverageReport -verbosity:Error -ReportTypes:Html;XmlSummary" />
     <Exec Command="CScript //NoLogo $(VerifyCoverageJs) $(CoverageTarget) $(OutDir)\CoverageReport\Summary.xml" />
-    <Error Text="got to here" />
-  </Target>
+    <Touch Files="$(TestSuccessFlag)" AlwaysCreate="true" />
+ </Target>
 
 </Project>
