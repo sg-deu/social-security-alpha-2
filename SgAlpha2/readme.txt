@@ -14,3 +14,4 @@ Build commands:
 b = msbuild SgAlpha2.proj           : build and test locally
 b /t:RestorePackages                : Restore NuGet packages
 bPackage                            : packages the project for deployment to Azure
+b /p:WithCoverage=true              : run local unit-test coverage report
