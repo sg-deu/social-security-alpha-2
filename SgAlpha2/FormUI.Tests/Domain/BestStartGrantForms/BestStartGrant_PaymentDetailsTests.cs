@@ -36,6 +36,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             PaymentDetailsShouldBeValid(form, m => m.SortCode = "01-02-03");
 
+            PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01-02-033");
             PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01 02-03");
             PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "01-02.03");
             PaymentDetailsShouldBeInvalid(form, m => m.SortCode = "x1-02-03");

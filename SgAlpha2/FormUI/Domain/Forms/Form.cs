@@ -7,8 +7,6 @@ namespace FormUI.Domain.Forms
 {
     public abstract class Form : IDocument
     {
-        protected Form() { }
-
         protected Form(string id)
         {
             Id = id;

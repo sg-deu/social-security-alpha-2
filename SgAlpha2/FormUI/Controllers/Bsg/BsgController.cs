@@ -20,7 +20,6 @@ namespace FormUI.Controllers.Bsg
     public static class BsgActions
     {
         public static string    Overview()                              { return $"~/bsg/overview"; }
-        public static string    Start()                                 { return $"~/bsg/start"; }
         public static string    Consent(string formId)                  { return $"~/bsg/consent/{formId}"; }
         public static string    UKVerify(string formId)                 { return $"~/bsg/ukverify/{formId}"; }
         public static string    ApplicantDetails(string formId)         { return $"~/bsg/applicantDetails/{formId}"; }
@@ -712,9 +711,7 @@ namespace FormUI.Controllers.Bsg
                 model.PreviousAction = SectionActionStrategy.For(previousSection.Value).Action(formId);
 
             model.IsFinalPage = form.IsFinalSection;
-
-            if (mutator != null)
-                mutator(model, form);
+            mutator(model, form);
 
             return View(view, model);
         }

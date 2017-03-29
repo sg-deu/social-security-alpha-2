@@ -51,7 +51,6 @@ namespace FormUI.Domain.BestStartGrantForms
 
         private class UKVerify : SectionStrategy
         {
-            public override void SkipSection(BestStartGrant form) { form.OnSkipUKVerify(); }
         }
 
         private class ApplicantDetails : SectionStrategy

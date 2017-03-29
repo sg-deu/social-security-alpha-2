@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace FormUI.Domain.Util
@@ -28,14 +27,5 @@ namespace FormUI.Domain.Util
 
         public IEnumerable<string>                      Messages        { get; protected set; }
         public IDictionary<LambdaExpression, string>    PropertyErrors  { get; protected set; }
-
-        public override string ToString()
-        {
-            var allMessages = Messages.Union(PropertyErrors.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
-            var messages = string.Join("\n", allMessages);
-            return messages;
-        }
-
-        public override string Message { get { return ToString(); } }
     }
 }

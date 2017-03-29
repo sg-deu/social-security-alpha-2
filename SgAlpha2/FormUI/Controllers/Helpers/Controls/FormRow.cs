@@ -19,7 +19,6 @@ namespace FormUI.Controllers.Helpers.Controls
         private TControl        _control;
         private string          _hintHtml;
         private bool            _mandatory;
-        private string          _beforeControlHtml;
         private ControlWidth?   _controlWidth;
         private bool            _initiallyHidden;
         private string          _ajaxOnChangeAction;
@@ -46,12 +45,6 @@ namespace FormUI.Controllers.Helpers.Controls
         public FormRow<TControl> Mandatory(bool mandatory = true)
         {
             _mandatory = mandatory;
-            return this;
-        }
-
-        public FormRow<TControl> BeforeControl(string beforeControlHtml)
-        {
-            _beforeControlHtml = beforeControlHtml;
             return this;
         }
 
@@ -101,12 +94,6 @@ namespace FormUI.Controllers.Helpers.Controls
             {
                 var hint = new HtmlTag("p").AddClasses("help-block").AppendHtml(_hintHtml);
                 label.Append(hint);
-            }
-
-            if (!string.IsNullOrWhiteSpace(_beforeControlHtml))
-            {
-                var beforeControl = new HtmlTag("span").AppendHtml(_beforeControlHtml);
-                label.Append(beforeControl);
             }
 
             if (_controlWidth.HasValue && _controlWidth.Value != ControlWidth.Max)

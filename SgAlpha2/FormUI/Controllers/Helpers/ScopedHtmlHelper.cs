@@ -10,8 +10,6 @@ namespace FormUI.Controllers.Helpers
 
         public HtmlHelper<T> Html { get { return _html; } }
 
-        public ScopedHtmlHelper(HtmlHelper<T> html) : this(html, null) { }
-
         public ScopedHtmlHelper(HtmlHelper<T> html, Action onDispose)
         {
             _html = html;

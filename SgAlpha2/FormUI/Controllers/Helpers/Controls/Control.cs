@@ -17,7 +17,6 @@ namespace FormUI.Controllers.Helpers.Controls
             _urlHelper = new Lazy<UrlHelper>(() => new UrlHelper(_helper.ViewContext.RequestContext));
         }
 
-        protected HtmlHelper    Helper      { get { return _helper; } }
         protected UrlHelper     UrlHelper   { get { return _urlHelper.Value; } }
 
         public string ToHtmlString()

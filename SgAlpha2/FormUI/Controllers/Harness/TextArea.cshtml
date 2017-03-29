@@ -7,7 +7,7 @@
 
         <form>
 
-            @Html.LabelledTextArea(m => m.Text1)
+            @Html.LabelledTextArea(m => m.Text1).Control(c => c.MaxLength(100))
 
 
             @Html.ButtonSubmit()

@@ -258,8 +258,6 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.Declaration);
         }
 
-        internal void OnSkipUKVerify() { UKVerify = null; }
-
         internal void OnSkipApplicantBenefits()         { ApplicantBenefits = null;         }
         internal void OnSkipPartnerBenefits()           { PartnerBenefits = null;           }
         internal void OnSkipGuardianBenefits()          { GuardianBenefits = null;          }
