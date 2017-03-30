@@ -8,12 +8,14 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Consent</h1>
+        <h1>Privacy Notice</h1>
 
         @using (var form = Html.FormFor(Model.Consent))
         {
 
             @form.Html.ValidationSummary()
+
+            <h2>You agree that:</h2>
 
             <p>
                 The Social Security Agency is an agency of the Scottish Government responsible for
@@ -26,8 +28,7 @@
 
             <p>
                 If you agree that the Social Security Agency can use the data you have provided
-                in your BSG/Change of Circumstances application for the purposes described above,
-                please tick the box below.
+                in your BSG/Change of Circumstances application for the purposes described above, please tick the box below.
             </p>
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToConsent).Control(c => c.Emphasise(true)).Mandatory()
