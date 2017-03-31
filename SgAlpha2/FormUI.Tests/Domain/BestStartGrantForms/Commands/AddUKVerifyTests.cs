@@ -28,9 +28,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
 
             var updatedForm = Repository.Load<BestStartGrant>("form123");
             updatedForm.UKVerify.Should().NotBeNull();
-
-            //AgreedToConsent no longer needed...so, what to test?
-            updatedForm.UKVerify.AgreedToConsent.Should().Be(cmd.UKVerify.AgreedToConsent);
         }
     }
 }

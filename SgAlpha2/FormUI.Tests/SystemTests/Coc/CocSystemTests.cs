@@ -66,7 +66,7 @@ namespace FormUI.Tests.SystemTests.Coc
             });
 
             App.GoTo(FormUI.Controllers.Home.HomeActions.Index());
-            App.VerifyCanSeeText("Choose");
+            App.VerifyCanSeeText("Tell us if something has changed");
 
             App.Submit();
 

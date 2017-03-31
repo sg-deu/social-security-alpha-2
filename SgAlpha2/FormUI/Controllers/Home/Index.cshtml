@@ -7,27 +7,60 @@
 <div class="grid"><!--
     --><div class="grid__item large--eight-twelfths">
 
-           <h1>What do you want to do?</h1>
+        <h1>Apply for Best Start Grant</h1>
 
-           <h2>Choose one of the following options</h2>
+        <h2>Start a new application for the Best Start Grant</h2>
 
-           <div class="form-group">
-               <label>
-                   <span>Start a new application</span>
-                   <p class="help-block">Choose this option to start a new form - select the Start button to get going</p>
-               </label>
-               @Html.ButtonLink(BsgActions.Overview(), "Start")
-           </div>
+        <p>
+            The Best Start Grant gives payments and vouchers to families and carers during a child’s early years.
+        </p>
 
-           <form method="post" action="@Url.Content(CocActions.Overview())">
-               <div class="form-group">
-                   <label>
-                       <span>Change or update your details</span>
-                       <p class="help-block">Choose this option to update your details - select Continue to carry on</p>
-                   </label>
-                   @Html.ButtonSubmit("Continue")
-               </div>
-           </form>
+        <div class="form-group">
+            <p>
+                The grant has 2 parts:
+                <ul>
+                    <li>
+                        3 payments to parents or carers from:
+                        <ul class="overview-list">
+                            <li>- 11 weeks before the child’s birth to when the child is 6 months old</li>
+                            <li>- when the child is aged 2 to aged 3 and a half</li>
+                            <li>- when the child is aged 4 to aged 5 and a half</li>
+                        </ul>
+                    </li>
+                    <li>vouchers for certain foods, milk or milk formula for pregnant women and families</li>
+                </ul>
+            </p>
+
+            @Html.ButtonLink(BsgActions.BeforeYouApply(), "Start >")
+
+        </div>
+
+        <form method="post" action="@Url.Content(CocActions.Overview())">
+            <div class="form-group">
+
+                <h2>Tell us if something has changed</h2>
+
+                <p>
+                    If something has changed since you applied for Best Start Grant you must let us know by clicking on the ‘make a change’ button.
+                </p>
+
+                <p>
+                    You can change your:
+                </p>
+
+                <ul>
+                    <li>personal details     (for example a change of name or address)</li>
+                    <li>partner details      (for example a change of name or address)</li>
+                    <li>children’s details   (for example you've had a baby)</li>
+                    <li>payment details      (for example you've recently switched bank accounts)</li>
+                </ul>
+
+                <p>
+                    For any other changes click make a change and add in the 'anything else' section.
+                </p>
+                @Html.ButtonSubmit("Make a Change >")
+            </div>
+        </form>
 
     </div><!--
 --></div>

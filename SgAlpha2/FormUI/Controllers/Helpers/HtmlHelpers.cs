@@ -25,22 +25,14 @@ namespace FormUI.Controllers.Helpers
 
             var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
 
-            //not too pretty but will do for now...
-            if (System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope] != null)
-            {
-                var actionUrl = System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope];
+            var actionUrl = System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope];
 
-                var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
-                    .AddClasses("button", "button--primary")
-                    .Title(text)
-                    .Append(linkText);
+            var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
+                .AddClasses("button", "button--primary")
+                .Title(text)
+                .Append(linkText);
 
-                return anchor;
-            }
-            else
-            {
-                return new LinkTag(null, string.Empty);
-            }
+            return anchor;
         }
 
         public static IHtmlString ButtonLink<T>(this HtmlHelper<T> helper, string actionUrl, string text)

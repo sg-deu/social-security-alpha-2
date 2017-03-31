@@ -33,6 +33,10 @@
                 @form.Html.LabelledInputText(m => m.RollNumber)
             }
 
+            using (form.Html.ShowWhenNo(m => m.HasBankAccount, t => t.Id("no-ba")))
+            {
+                <div class="info-note note">If you don't have a bank account we will contact you to arrange payment<br/>if you qualify.</div>
+            }
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

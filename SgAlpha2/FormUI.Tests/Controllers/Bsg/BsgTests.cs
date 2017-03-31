@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
+using FormUI.Controllers.Home;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
@@ -17,18 +18,7 @@ namespace FormUI.Tests.Controllers.Bsg
     public class BsgTests : WebTest
     {
         [Test]
-        public void Overview_GET()
-        {
-            WebAppTest(client =>
-            {
-                var response = client.Get(BsgActions.Overview());
-
-                response.Doc.Document.Body.TextContent.Should().Contain("Overview");
-            });
-        }
-
-        [Test]
-        public void Overview_POST_StartsForm()
+        public void BeforeYouApply_POST_StartsForm()
         {
             WebAppTest(client =>
             {
@@ -38,7 +28,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     Section = Sections.Consent,
                 });
 
-                var response = client.Get(BsgActions.Overview()).Form<object>(1)
+                var response = client.Get(BsgActions.BeforeYouApply()).Form<object>(1)
                     .Submit(client);
 
                 ExecutorStub.Executed<StartBestStartGrant>().Length.Should().Be(1);
@@ -119,6 +109,17 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.Complete());
 
                 response.Text.ToLower().Should().Contain("received");
+            });
+        }
+
+        [Test]
+        public void BeforeYouApply_GET()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.BeforeYouApply());
+
+                response.Text.ToLower().Should().Contain("before you apply");
             });
         }
     }

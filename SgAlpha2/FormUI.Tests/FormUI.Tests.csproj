@@ -207,6 +207,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddUKVerifyTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\UKVerifyBuilder.cs" />

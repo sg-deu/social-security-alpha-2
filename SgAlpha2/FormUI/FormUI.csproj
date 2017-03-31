@@ -225,6 +225,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Relationship.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\BeforeYouApply.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\UKVerify.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\NextType.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetails.cs" />
@@ -354,7 +355,6 @@
     <Content Include="ApplicationInsights.config" />
     <Content Include="Controllers\Home\Password.cshtml" />
     <Content Include="Controllers\Bsg\Web.config" />
-    <Content Include="Controllers\Bsg\Overview.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -393,6 +393,7 @@
     <Content Include="Controllers\Coc\Declaration.cshtml" />
     <Content Include="Controllers\Shared\LegalStatement.cshtml" />
     <Content Include="Controllers\Bsg\Ineligible.cshtml" />
+    <Content Include="Controllers\Bsg\BeforeYouApply.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

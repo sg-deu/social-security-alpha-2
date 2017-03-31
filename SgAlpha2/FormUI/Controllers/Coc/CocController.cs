@@ -72,12 +72,26 @@ namespace FormUI.Controllers.Coc
         [HttpGet]
         public ActionResult Identity(string id)
         {
+            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             return Identity_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult Identity(string id, IdentityModel model)
         {
+            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
+            if (Request.Cookies["formId"] != null && id == null)
+            {
+                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
+                id = aCookie.Value;
+            }
+
             var cmd = new AddIdentity
             {
                 FormId = id,
@@ -94,7 +108,7 @@ namespace FormUI.Controllers.Coc
             //Save the formid (session identifier) prior to leaving BSG and entering GOV.UKVerify site
             System.Web.HttpCookie aCookie = new System.Web.HttpCookie("formId");
             aCookie.Value = formId;
-            aCookie.Expires = DateTime.Now.AddHours(1);
+            aCookie.Expires = DateTime.UtcNow.AddHours(1);
             Response.Cookies.Add(aCookie);
 
             return NavigableView<IdentityModel>(formId, Sections.Identity, (m, f) =>
@@ -106,26 +120,12 @@ namespace FormUI.Controllers.Coc
         [HttpGet]
         public ActionResult Options(string id)
         {
-            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
-            if (Request.Cookies["formId"] != null && id == null)
-            {
-                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
-                id = aCookie.Value;
-            }
-
             return Options_Render(id, null);
         }
 
         [HttpPost]
         public ActionResult Options(string id, Options options)
         {
-            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
-            if (Request.Cookies["formId"] != null && id == null)
-            {
-                System.Web.HttpCookie aCookie = Request.Cookies["formId"];
-                id = aCookie.Value;
-            }
-
             var cmd = new AddOptions
             {
                 FormId = id,

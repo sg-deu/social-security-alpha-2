@@ -44,8 +44,8 @@ namespace FormUI.Tests.SystemTests.Bsg
         [Test]
         public void CompleteApplication()
         {
-            App.GoTo(BsgActions.Overview());
-            App.VerifyCanSeeText("Overview");
+            App.GoTo(BsgActions.BeforeYouApply());
+            App.VerifyCanSeeText("Before You Apply");
             App.Submit();
 
             FillInConsent();
@@ -111,8 +111,8 @@ namespace FormUI.Tests.SystemTests.Bsg
         [Test]
         public void IncludingGuardianDetails()
         {
-            App.GoTo(BsgActions.Overview());
-            App.VerifyCanSeeText("Overview");
+            App.GoTo(BsgActions.BeforeYouApply());
+            App.VerifyCanSeeText("Before You Apply");
             App.Submit();
 
             FillInConsent();

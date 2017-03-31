@@ -19,7 +19,7 @@ namespace FormUI.Controllers.Bsg
 
     public static class BsgActions
     {
-        public static string    Overview()                              { return $"~/bsg/overview"; }
+        public static string    BeforeYouApply()                        { return $"~/bsg/beforeYouApply"; }
         public static string    Consent(string formId)                  { return $"~/bsg/consent/{formId}"; }
         public static string    UKVerify(string formId)                 { return $"~/bsg/ukverify/{formId}"; }
         public static string    ApplicantDetails(string formId)         { return $"~/bsg/applicantDetails/{formId}"; }
@@ -53,13 +53,13 @@ namespace FormUI.Controllers.Bsg
     public class BsgController : FormController
     {
         [HttpGet]
-        public ActionResult Overview()
+        public ActionResult BeforeYouApply()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Overview(object notUsed)
+        public ActionResult BeforeYouApply(object notUsed)
         {
             var cmd = new StartBestStartGrant();
 
@@ -121,7 +121,7 @@ namespace FormUI.Controllers.Bsg
             //Save the formid (session identifier) prior to leaving BSG and entering GOV.UKVerify site
             System.Web.HttpCookie aCookie = new System.Web.HttpCookie("formId");
             aCookie.Value = formId;
-            aCookie.Expires = DateTime.Now.AddHours(1);
+            aCookie.Expires = DateTime.UtcNow.AddHours(1);
             Response.Cookies.Add(aCookie);
 
             return NavigableView<UKVerifyModel>(formId, Sections.UKVerify, (m, f) =>

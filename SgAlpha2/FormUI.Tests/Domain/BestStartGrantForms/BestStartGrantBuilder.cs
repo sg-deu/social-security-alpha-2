@@ -73,18 +73,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             doc.Started.Should().NotBe(DateTime.MinValue);
         }
 
-
-        public static void VerifyUKVerify(BestStartGrant doc)
-        {
-            //if (!string.IsNullOrWhiteSpace(doc.ApplicantDetails?.EmailAddress))
-            //    doc.UserId.Should().Be(doc.ApplicantDetails.EmailAddress, "Where an e-mail address has been supplied, the UserId should reflect this {0}", doc.Id);
-
-            //if (doc.Declaration?.AgreedToLegalStatement == true)
-            //    doc.Completed.Should().NotBeNull("When UKVerify has been filled in, expect a Completed date {0}", doc.Id);
-
-            //doc.Started.Should().NotBe(DateTime.MinValue);
-        }
-
         public BestStartGrantBuilder PreviousApplicationFor(string userId)
         {
             WithCompletedSections();

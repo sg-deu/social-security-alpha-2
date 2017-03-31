@@ -19,7 +19,7 @@ namespace FormUI.Tests.Controllers.Home
             {
                 var response = client.Get(HomeActions.Index());
 
-                response.Doc.Document.Body.TextContent.Should().Contain("Choose one");
+                response.Doc.Document.Body.TextContent.Should().Contain("Start a new application");
             });
         }
 
