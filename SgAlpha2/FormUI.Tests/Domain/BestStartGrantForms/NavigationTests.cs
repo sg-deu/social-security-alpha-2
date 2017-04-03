@@ -379,8 +379,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             Navigation.IsIneligible(form(f => { }), lastChildSection - 1).Should().BeFalse("ineligibility is not determined until both children sections are complete");
             Navigation.IsIneligible(form(f => { }), lastChildSection - 1).Should().BeFalse("ineligibility is not determined until both children sections are complete");
-            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectancyDate = TestNowUtc.Value), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
-            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectedBabyCount = 2), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
+            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectedBabyCount(1)), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
+            Navigation.IsIneligible(form(f => f.ExpectedChildren.ExpectedBabyCount(2)), lastChildSection).Should().BeFalse("not ineligible if you are due a baby");
             Navigation.IsIneligible(form(f => f.ExistingChildren.AddChild()), lastChildSection).Should().BeFalse("potentially not ineligible if you have an existing child");
         }
 

@@ -162,7 +162,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
-        public void MultipleExistingChildren_AllKinshipCare_AtLEastOneBabyExpected()
+        public void MultipleExistingChildren_AllKinshipCare_AtLeastOneBabyExpected()
         {
             var next = new StartBestStartGrant().Execute();
             var formId = next.Id;

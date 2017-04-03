@@ -10,7 +10,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
         {
             var value = new ExpectedChildren
             {
+                IsBabyExpected = true,
                 ExpectancyDate = DomainRegistry.NowUtc().Date + TimeSpan.FromDays(100),
+                IsMoreThan1BabyExpected = true,
                 ExpectedBabyCount = 2,
             };
 
@@ -22,6 +24,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
         public static ExpectedChildren NoBabyExpected(this ExpectedChildren expectedChildren)
         {
+            expectedChildren.IsBabyExpected = false;
             expectedChildren.ExpectancyDate = null;
             expectedChildren.ExpectedBabyCount = null;
             return expectedChildren;
@@ -29,8 +32,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
         public static ExpectedChildren ExpectedBabyCount(this ExpectedChildren expectedChildren, int? babyCount)
         {
+            expectedChildren.IsBabyExpected = babyCount > 0;
             expectedChildren.ExpectancyDate = DomainRegistry.NowUtc().Date.AddDays(100);
-            expectedChildren.ExpectedBabyCount = babyCount;
+            expectedChildren.IsMoreThan1BabyExpected = babyCount > 1;
+            expectedChildren.ExpectedBabyCount = babyCount > 1 ? babyCount.Value : (int?)null;
             return expectedChildren;
         }
     }

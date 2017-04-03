@@ -19,7 +19,11 @@
 
             <h2>Pregnancy details</h2>
 
+            @form.Html.LabelledRadioYesNo(m => m.IsBabyExpected).Mandatory()
+
             @form.Html.LabelledInputDate(m => m.ExpectancyDate)
+
+            @form.Html.LabelledRadioYesNo(m => m.IsMoreThan1BabyExpected)
 
             @form.Html.LabelledInputInt(m => m.ExpectedBabyCount)
 

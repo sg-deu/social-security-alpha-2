@@ -103,9 +103,7 @@ namespace FormUI.Domain.BestStartGrantForms
             if (expectedChildren == null || existingChildren == null)
                 return false; // can't know
 
-            var hasExpectedChildren = expectedChildren.ExpectancyDate.HasValue
-                || (expectedChildren.ExpectedBabyCount.HasValue && expectedChildren.ExpectedBabyCount > 0);
-
+            var hasExpectedChildren = expectedChildren.IsBabyExpected == true;
             var hasExistingChildren = existingChildren.Children.Count > 0;
 
             return !hasExpectedChildren && !hasExistingChildren;

@@ -358,15 +358,37 @@ namespace FormUI.Domain.BestStartGrantForms
         {
             var ctx = new ValidationContext<ExpectedChildren>(expectedChildren);
 
-            ctx.InFuture(m => m.ExpectancyDate, "Please supply an expectancy date in the future");
+            ctx.Required(c => c.IsBabyExpected, "Please indicate if you are expecting a baby");
 
-            ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
-                babyCount.HasValue && (babyCount.Value < 1 || babyCount.Value > 10)
-                    ? "Please supply a number of babies between 1 and 10"
-                    : null);
+            if (expectedChildren.IsBabyExpected == false)
+            {
+                expectedChildren.ExpectancyDate = null;
+                expectedChildren.IsMoreThan1BabyExpected = null;
+                expectedChildren.ExpectedBabyCount = null;
+            }
 
-            if (ctx.IsValid() && expectedChildren.ExpectedBabyCount.HasValue && !expectedChildren.ExpectancyDate.HasValue)
-                ctx.AddError(m => m.ExpectancyDate, "Please supply the expectancy date");
+            if (expectedChildren.IsBabyExpected == true)
+            {
+                ctx.Required(m => m.ExpectancyDate, "Please supply the date the baby is due");
+
+                if (expectedChildren.ExpectancyDate.HasValue)
+                    ctx.InFuture(m => m.ExpectancyDate, "Please supply a due date in the future");
+
+                ctx.Required(m => m.IsMoreThan1BabyExpected, "Please indicate if more than one baby is expected");
+
+                if (expectedChildren.IsMoreThan1BabyExpected == false)
+                    expectedChildren.ExpectedBabyCount = null;
+
+                if (expectedChildren.IsMoreThan1BabyExpected == true)
+                {
+                    ctx.Required(m => m.ExpectedBabyCount, "Please supply how mnay babies are expected");
+
+                    ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
+                        babyCount.HasValue && (babyCount.Value < 2 || babyCount.Value > 10)
+                            ? "Please supply a number of babies between 2 and 10"
+                            : null);
+                }
+            }
 
             ctx.ThrowIfError();
         }

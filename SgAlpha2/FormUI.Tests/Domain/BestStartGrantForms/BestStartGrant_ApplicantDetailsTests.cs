@@ -127,9 +127,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var applicantDetails = ApplicantDetailsBuilder.NewValid(mutator);
             ShouldBeValid(() => form.AddApplicantDetails(applicantDetails));
-
-            if (postVerify != null)
-                postVerify(applicantDetails);
+            postVerify?.Invoke(applicantDetails);
         }
 
         protected void ApplicantDetailsShouldBeInvalid(BestStartGrant form, Action<ApplicantDetails> mutator)

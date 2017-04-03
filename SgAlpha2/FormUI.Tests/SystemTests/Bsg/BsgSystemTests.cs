@@ -235,7 +235,9 @@ namespace FormUI.Tests.SystemTests.Bsg
         private void FillInExpectedChildren(DateTime expectancyDate)
         {
             var form = App.FormForModel<ExpectedChildren>();
+            form.SelectRadio(m => m.IsBabyExpected, true);
             form.TypeDate(m => m.ExpectancyDate, expectancyDate);
+            form.SelectRadio(m => m.IsMoreThan1BabyExpected, true);
             form.TypeText(m => m.ExpectedBabyCount, "3");
         }
 
