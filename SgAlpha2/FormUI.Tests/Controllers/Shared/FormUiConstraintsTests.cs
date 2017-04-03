@@ -67,8 +67,14 @@ namespace FormUI.Tests.Controllers.Shared
         [Test]
         public void All_files_in_web_should_be_in_csproj()
         {
+            VerifyFilesInCsProj(@"..\..\..\FormUI\FormUI.csproj", @"..\..\..\FormUI");
+            VerifyFilesInCsProj(@"..\..\..\FormUI.Tests\FormUI.Tests.csproj", @"..\..\..\FormUI.Tests");
+        }
+
+        private void VerifyFilesInCsProj(string csProjFile, string folder)
+        {
             var csproj = new XmlDocument();
-            csproj.Load(@"..\..\..\FormUI\FormUI.csproj");
+            csproj.Load(csProjFile);
 
             var fileAttributes = csproj.SelectNodes("//*[@Include]");
 
@@ -81,8 +87,8 @@ namespace FormUI.Tests.Controllers.Shared
                 .Select(f => f.Replace("%40", "@"))
                 .ToList();
 
-            var filesOnDisk = Directory.GetFiles(@"..\..\..\FormUI", "*.*", SearchOption.AllDirectories)
-                .Select(f => f.Remove(0, @"..\..\..\FormUI\".Length))
+            var filesOnDisk = Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories)
+                .Select(f => f.Remove(0, (folder + @"\").Length))
                 .Where(f => !f.StartsWith(@"bin\") && !f.StartsWith(@"obj\") && !f.Contains(".csproj"))
                 .ToList();
 
@@ -90,6 +96,7 @@ namespace FormUI.Tests.Controllers.Shared
 
             // We have observed that the packaging that MSBuild uses on the CI server will not package css files (for example) that
             // are in source-control, but not in the .csproj.  This test ensures we don't accidentally miss some.
+            // (and also checks we didn't forget to add come .cs files to the project)
 
             if (filesMissingFromCsproj.Count > 0)
                 Assert.Fail($"The following files are on disk, but not in the .csproj:  {string.Join(", ", filesMissingFromCsproj)}\n\nPlease add them to the csproj to ensure they are packaged and deployed correctly");
