@@ -21,11 +21,22 @@
 
             @form.Html.LabelledRadioYesNo(m => m.IsBabyExpected).Mandatory()
 
-            @form.Html.LabelledInputDate(m => m.ExpectancyDate)
+            using (form.Html.ShowWhenYes(m => m.IsBabyExpected, t => t.Id("due-details")))
+            {
 
-            @form.Html.LabelledRadioYesNo(m => m.IsMoreThan1BabyExpected)
+                @form.Html.LabelledInputDate(m => m.ExpectancyDate)
 
-            @form.Html.LabelledInputInt(m => m.ExpectedBabyCount)
+                @form.Html.LabelledRadioYesNo(m => m.IsMoreThan1BabyExpected)
+
+
+                using (form.Html.ShowWhenYes(m => m.IsMoreThan1BabyExpected, t => t.Id("baby-count")))
+                {
+
+                    @form.Html.LabelledInputInt(m => m.ExpectedBabyCount)
+
+                }
+
+            }
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

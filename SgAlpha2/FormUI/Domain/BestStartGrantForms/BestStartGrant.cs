@@ -381,7 +381,7 @@ namespace FormUI.Domain.BestStartGrantForms
 
                 if (expectedChildren.IsMoreThan1BabyExpected == true)
                 {
-                    ctx.Required(m => m.ExpectedBabyCount, "Please supply how mnay babies are expected");
+                    ctx.Required(m => m.ExpectedBabyCount, "Please supply how many babies are expected");
 
                     ctx.Custom(m => m.ExpectedBabyCount, babyCount =>
                         babyCount.HasValue && (babyCount.Value < 2 || babyCount.Value > 10)

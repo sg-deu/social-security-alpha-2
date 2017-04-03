@@ -34,6 +34,30 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void ExpectedChildren_DoesNotAskForDetails_WhenNoBabyDue()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExpectedChildren("form"));
+                var form = response.Form<ExpectedChildren>(1);
+
+                form.RadioShows(m => m.IsBabyExpected, true, "due-details");
+            });
+        }
+
+        [Test]
+        public void ExpectedChildren_DoesNotAskForCount_WhenNotMoreThanOneChild()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.ExpectedChildren("form"));
+                var form = response.Form<ExpectedChildren>(1);
+
+                form.RadioShows(m => m.IsMoreThan1BabyExpected, true, "baby-count");
+            });
+        }
+
+        [Test]
         public void ExpectedChildren_POST_StoresData()
         {
             WebAppTest(client =>
