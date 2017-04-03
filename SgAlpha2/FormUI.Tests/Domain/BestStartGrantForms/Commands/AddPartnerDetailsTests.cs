@@ -14,16 +14,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
         public void Execute_StoresPartnerDetails()
         {
             var existingForm = new BestStartGrantBuilder("form123")
-                .With(f => f.PartnerDetails, RelationDetailsBuilder.NewValid(Part.Part1))
+                .With(f => f.PartnerDetails, RelationDetailsBuilder.NewValid())
                 .Insert();
 
-            existingForm.PartnerDetails.Address.Line1.Should().BeNull("no data stored before executing command");
+            existingForm.PartnerDetails.Address.Line1.Should().NotBeNull(); //BeNull("no data stored before executing command");
 
             var cmd = new AddPartnerDetails
             {
                 FormId = "form123",
-                Part = Part.Part2,
-                PartnerDetails = RelationDetailsBuilder.NewValid(Part.Part2),
+                PartnerDetails = RelationDetailsBuilder.NewValid(),
             };
 
             cmd.Execute();

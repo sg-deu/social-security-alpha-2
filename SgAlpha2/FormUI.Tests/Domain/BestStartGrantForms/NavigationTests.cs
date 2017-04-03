@@ -21,7 +21,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             var detail = new BsgDetail();
 
-            Navigation.Populate(detail, Sections.GuardianDetails1, form);
+            Navigation.Populate(detail, Sections.GuardianDetails, form);
 
             detail.PreviousSection.Should().Be(Sections.ExistingChildren,
                 "Navigating backwards from guardian details for a 16 year old should go back to existing children (and skip applicant benefits)");

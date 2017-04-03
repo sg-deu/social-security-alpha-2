@@ -73,10 +73,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             var partnerDob = DateTime.Now.Date.AddYears(-21);
-            FillInPartnerDetails1(partnerDob);
-            App.Submit();
-
-            FillInPartnerDetails2();
+            FillInPartnerDetails(partnerDob);
             App.Submit();
 
             FillInHealthProfessional();
@@ -142,17 +139,11 @@ namespace FormUI.Tests.SystemTests.Bsg
             App.Submit();
 
             var guardianDob = DateTime.Now.Date.AddYears(-39);
-            FillInGuardianDetails1(guardianDob);
-            App.Submit();
-
-            FillInGuardianDetails2();
+            FillInGuardianDetails(guardianDob);
             App.Submit();
 
             var guardianPartnerDob = DateTime.Now.Date.AddYears(-38);
-            FillInGuardianPartnerDetails1(guardianPartnerDob);
-            App.Submit();
-
-            FillInGuardianPartnerDetails2();
+            FillInGuardianPartnerDetails(guardianPartnerDob);
             App.Submit();
 
             Db(r =>
@@ -364,7 +355,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.GuardianPartnerBenefits);
         }
 
-        private void FillInPartnerDetails1(DateTime partnerDob)
+        private void FillInPartnerDetails(DateTime partnerDob)
         {
             var form = App.FormForModel<RelationDetails>();
 
@@ -372,11 +363,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeText(m => m.FullName, "p.fullname");
             form.TypeDate(m => m.DateOfBirth, partnerDob);
             form.TypeText(m => m.NationalInsuranceNumber, "EF234567G");
-        }
-
-        private void FillInPartnerDetails2()
-        {
-            var form = App.FormForModel<RelationDetails>();
 
             form.TypeText(m => m.Address.Line1, "p.line1");
             form.TypeText(m => m.Address.Line2, "p.line2");
@@ -390,16 +376,16 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.PartnerDetails.FullName.Should().Be("p.fullname");
             doc.PartnerDetails.DateOfBirth.Should().Be(partnerDob);
             doc.PartnerDetails.NationalInsuranceNumber.Should().Be("EF 23 45 67 G");
-            _verifiedSections.Add(Sections.PartnerDetails1);
 
             doc.PartnerDetails.Address.Line1.Should().Be("p.line1");
             doc.PartnerDetails.Address.Line2.Should().Be("p.line2");
             doc.PartnerDetails.Address.Line3.Should().Be("p.line3");
             doc.PartnerDetails.Address.Postcode.Should().Be("p.postcode");
-            _verifiedSections.Add(Sections.PartnerDetails2);
+
+            _verifiedSections.Add(Sections.PartnerDetails);
         }
 
-        private void FillInGuardianDetails1(DateTime guardianDob)
+        private void FillInGuardianDetails(DateTime guardianDob)
         {
             var form = App.FormForModel<RelationDetails>();
 
@@ -408,11 +394,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeDate(m => m.DateOfBirth, guardianDob);
             form.TypeText(m => m.NationalInsuranceNumber, "BC234567D");
             form.TypeText(m => m.RelationshipToApplicant, "ga.parent");
-        }
-
-        private void FillInGuardianDetails2()
-        {
-            var form = App.FormForModel<RelationDetails>();
 
             form.TypeText(m => m.Address.Line1, "ga.line1");
             form.TypeText(m => m.Address.Line2, "ga.line2");
@@ -427,16 +408,15 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.GuardianDetails.DateOfBirth.Should().Be(guardianDob);
             doc.GuardianDetails.NationalInsuranceNumber.Should().Be("BC 23 45 67 D");
             doc.GuardianDetails.RelationshipToApplicant.Should().Be("ga.parent");
-            _verifiedSections.Add(Sections.GuardianDetails1);
 
             doc.GuardianDetails.Address.Line1.Should().Be("ga.line1");
             doc.GuardianDetails.Address.Line2.Should().Be("ga.line2");
             doc.GuardianDetails.Address.Line3.Should().Be("ga.line3");
             doc.GuardianDetails.Address.Postcode.Should().Be("ga.postcode");
-            _verifiedSections.Add(Sections.GuardianDetails2);
+            _verifiedSections.Add(Sections.GuardianDetails);
         }
 
-        private void FillInGuardianPartnerDetails1(DateTime guardianPartnerDob)
+        private void FillInGuardianPartnerDetails(DateTime guardianPartnerDob)
         {
             var form = App.FormForModel<RelationDetails>();
 
@@ -445,11 +425,6 @@ namespace FormUI.Tests.SystemTests.Bsg
             form.TypeDate(m => m.DateOfBirth, guardianPartnerDob);
             form.TypeText(m => m.NationalInsuranceNumber, "CD234567E");
             form.TypeText(m => m.RelationshipToApplicant, "gp.parent");
-        }
-
-        private void FillInGuardianPartnerDetails2()
-        {
-            var form = App.FormForModel<RelationDetails>();
 
             form.TypeText(m => m.Address.Line1, "gp.line1");
             form.TypeText(m => m.Address.Line2, "gp.line2");
@@ -464,13 +439,12 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.GuardianPartnerDetails.DateOfBirth.Should().Be(guardianPartnerDob);
             doc.GuardianPartnerDetails.NationalInsuranceNumber.Should().Be("CD 23 45 67 E");
             doc.GuardianPartnerDetails.RelationshipToApplicant.Should().Be("gp.parent");
-            _verifiedSections.Add(Sections.GuardianPartnerDetails1);
 
             doc.GuardianPartnerDetails.Address.Line1.Should().Be("gp.line1");
             doc.GuardianPartnerDetails.Address.Line2.Should().Be("gp.line2");
             doc.GuardianPartnerDetails.Address.Line3.Should().Be("gp.line3");
             doc.GuardianPartnerDetails.Address.Postcode.Should().Be("gp.postcode");
-            _verifiedSections.Add(Sections.GuardianPartnerDetails2);
+            _verifiedSections.Add(Sections.GuardianPartnerDetails);
         }
 
         private void FillInHealthProfessional()

@@ -36,26 +36,16 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 
         public Address      Address                 { get; set; }
 
-        public void CopyTo(RelationDetails dest, Part part)
+        public void CopyTo(RelationDetails dest)
         {
-            switch (part)
-            {
-                case Part.Part1:
-                    dest.Title = Title;
-                    dest.FullName = FullName;
-                    dest.DateOfBirth = DateOfBirth;
-                    dest.NationalInsuranceNumber = NationalInsuranceNumber;
-                    dest.RelationshipToApplicant = RelationshipToApplicant;
-                    break;
+            dest.Title = Title;
+            dest.FullName = FullName;
+            dest.DateOfBirth = DateOfBirth;
+            dest.NationalInsuranceNumber = NationalInsuranceNumber;
+            dest.RelationshipToApplicant = RelationshipToApplicant;
 
-                case Part.Part2:
-                    dest.InheritAddress = InheritAddress;
-                    dest.Address = !InheritAddress ? Address.Copy(Address) : null;
-                    break;
-
-                default:
-                    throw new Exception("Unhandled part : " + part);
-            }
+            dest.InheritAddress = InheritAddress;
+            dest.Address = !InheritAddress ? Address.Copy(Address) : null;
         }
     }
 }

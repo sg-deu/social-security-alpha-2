@@ -8,17 +8,17 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
     public class RelationDetailsBuilder
     {
-        public static RelationDetails NewValid(Part part)
+        public static RelationDetails NewValid()
         {
-            return NewValid(part, "relation");
+            return NewValid("relation");
         }
 
-        public static RelationDetails NewValid(Part part, Action<RelationDetails> mutator = null)
+        public static RelationDetails NewValid(Action<RelationDetails> mutator = null)
         {
-            return NewValid(part, "relation", mutator);
+            return NewValid("relation", mutator);
         }
 
-        public static RelationDetails NewValid(Part part, string relation = "relation ", Action<RelationDetails> mutator = null)
+        public static RelationDetails NewValid(string relation = "relation ", Action<RelationDetails> mutator = null)
         {
             var value = new RelationDetails
             {
@@ -27,13 +27,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
                 DateOfBirth = DomainRegistry.NowUtc().Date.AddYears(-45),
                 NationalInsuranceNumber = "BC123456D",
                 RelationshipToApplicant = "Parent",
-            };
 
-            if (part == Part.Part2)
-            {
-                value.InheritAddress = false;
-                value.Address = AddressBuilder.NewValid(relation);
-            }
+                InheritAddress = false,
+                Address = AddressBuilder.NewValid(relation),
+            };
 
             if (mutator != null)
                 mutator(value);

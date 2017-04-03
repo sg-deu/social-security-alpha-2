@@ -17,11 +17,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            PartnerDetailsShouldBeValid(form, Part.Part1, m => { });
-            PartnerDetailsShouldBeValid(form, Part.Part2, m => { });
+            PartnerDetailsShouldBeValid(form, m => { });
 
-            PartnerDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
-            PartnerDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
+            PartnerDetailsShouldBeInvalid(form, m => m.FullName = null);
+            PartnerDetailsShouldBeInvalid(form, m => m.Address.Line1 = null);
         }
 
         [Test]
@@ -29,7 +28,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            form.AddPartnerDetails(Part.Part1, RelationDetailsBuilder.NewValid(Part.Part1, rd => rd.RelationshipToApplicant = null));
+            form.AddPartnerDetails(RelationDetailsBuilder.NewValid(rd => rd.RelationshipToApplicant = null));
 
             form.PartnerDetails.RelationshipToApplicant.Should().Be("Partner");
         }
@@ -38,29 +37,29 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public void AddPartnerDetails_AllowsAddressToBeInherited()
         {
             var form = new BestStartGrantBuilder("form")
-                .With(f => f.PartnerDetails, RelationDetailsBuilder.NewValid(Part.Part1))
+                .With(f => f.PartnerDetails, RelationDetailsBuilder.NewValid())
                 .Insert();
 
-            var inheritedDetails = RelationDetailsBuilder.NewValid(Part.Part2, rd =>
+            var inheritedDetails = RelationDetailsBuilder.NewValid(rd =>
             {
                 rd.InheritAddress = true;
                 rd.Address = null;
             });
 
-            form.AddPartnerDetails(Part.Part2, inheritedDetails);
+            form.AddPartnerDetails(inheritedDetails);
 
             form.PartnerDetails.InheritAddress.Should().BeTrue();
             form.PartnerDetails.Address.Should().BeNull();
         }
 
-        protected void PartnerDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void PartnerDetailsShouldBeValid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeValid(() => form.AddPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeValid(() => form.AddPartnerDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
 
-        protected void PartnerDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void PartnerDetailsShouldBeInvalid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeInvalid(() => form.AddPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeInvalid(() => form.AddPartnerDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
     }
 }

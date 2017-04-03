@@ -7,24 +7,21 @@ namespace FormUI.Domain.BestStartGrantForms
     {
         private static IDictionary<Sections, Func<SectionStrategy>> _strategies = new Dictionary<Sections, Func<SectionStrategy>>
         {
-            { Sections.Consent,                 () => new SectionStrategy.Consent() },
-            { Sections.UKVerify,                () => new SectionStrategy.UKVerify() },
-            { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails() },
-            { Sections.ExpectedChildren,        () => new SectionStrategy.ExpectedChildren() },
-            { Sections.ExistingChildren,        () => new SectionStrategy.ExistingChildren() },
-            { Sections.ApplicantBenefits,       () => new SectionStrategy.ApplicantBenefits() },
-            { Sections.PartnerBenefits,         () => new SectionStrategy.PartnerBenefits() },
-            { Sections.GuardianBenefits,        () => new SectionStrategy.GuardianBenefits() },
+            { Sections.Consent,                 () => new SectionStrategy.Consent()                 },
+            { Sections.UKVerify,                () => new SectionStrategy.UKVerify()                },
+            { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails()        },
+            { Sections.ExpectedChildren,        () => new SectionStrategy.ExpectedChildren()        },
+            { Sections.ExistingChildren,        () => new SectionStrategy.ExistingChildren()        },
+            { Sections.ApplicantBenefits,       () => new SectionStrategy.ApplicantBenefits()       },
+            { Sections.PartnerBenefits,         () => new SectionStrategy.PartnerBenefits()         },
+            { Sections.GuardianBenefits,        () => new SectionStrategy.GuardianBenefits()        },
             { Sections.GuardianPartnerBenefits, () => new SectionStrategy.GuardianPartnerBenefits() },
-            { Sections.PartnerDetails1,         () => new SectionStrategy.PartnerDetails1() },
-            { Sections.PartnerDetails2,         () => new SectionStrategy.PartnerDetails2() },
-            { Sections.GuardianDetails1,        () => new SectionStrategy.GuardianDetails1() },
-            { Sections.GuardianDetails2,        () => new SectionStrategy.GuardianDetails2() },
-            { Sections.GuardianPartnerDetails1, () => new SectionStrategy.GuardianPartnerDetails1() },
-            { Sections.GuardianPartnerDetails2, () => new SectionStrategy.GuardianPartnerDetails2() },
-            { Sections.HealthProfessional,      () => new SectionStrategy.HealthProfessional() },
-            { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails() },
-            { Sections.Declaration,             () => new SectionStrategy.Declaration() },
+            { Sections.PartnerDetails,          () => new SectionStrategy.PartnerDetails()          },
+            { Sections.GuardianDetails,         () => new SectionStrategy.GuardianDetails()         },
+            { Sections.GuardianPartnerDetails,  () => new SectionStrategy.GuardianPartnerDetails()  },
+            { Sections.HealthProfessional,      () => new SectionStrategy.HealthProfessional()      },
+            { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails()          },
+            { Sections.Declaration,             () => new SectionStrategy.Declaration()             },
         };
 
         public static SectionStrategy For(Sections section)
@@ -89,40 +86,22 @@ namespace FormUI.Domain.BestStartGrantForms
             public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianPartnerBenefits(); }
         }
 
-        private class PartnerDetails1 : SectionStrategy
+        private class PartnerDetails : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
             public override void SkipSection(BestStartGrant form) { form.OnSkipPartnerDetails(); }
         }
 
-        private class PartnerDetails2 : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresPartnerDetails(form); }
-            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
-        }
-
-        private class GuardianDetails1 : SectionStrategy
+        private class GuardianDetails : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
             public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianDetails(); }
         }
 
-        private class GuardianDetails2 : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianDetails(form); }
-            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
-        }
-
-        private class GuardianPartnerDetails1 : SectionStrategy
+        private class GuardianPartnerDetails : SectionStrategy
         {
             public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
             public override void SkipSection(BestStartGrant form) { form.OnSkipGuardianPartnerDetails(); }
-        }
-
-        private class GuardianPartnerDetails2 : SectionStrategy
-        {
-            public override bool Required(BestStartGrant form) { return Navigation.RequiresGuardianPartnerDetails(form); }
-            public override void SkipSection(BestStartGrant form) { /* already skipped */ }
         }
 
         private class HealthProfessional : SectionStrategy

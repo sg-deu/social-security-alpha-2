@@ -27,16 +27,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.PartnerBenefits,            BenefitsBuilder.NewWithBenefit());
             With(f => f.GuardianBenefits,           BenefitsBuilder.NewWithBenefit());
             With(f => f.GuardianPartnerBenefits,    BenefitsBuilder.NewWithBenefit());
-            With(f => f.PartnerDetails,             RelationDetailsBuilder.NewValid(Part.Part2, "partner"));
-            With(f => f.GuardianDetails,            RelationDetailsBuilder.NewValid(Part.Part2, "guardian"));
-            With(f => f.GuardianPartnerDetails,     RelationDetailsBuilder.NewValid(Part.Part2, "guardian partner"));
+            With(f => f.PartnerDetails,             RelationDetailsBuilder.NewValid("partner"));
+            With(f => f.GuardianDetails,            RelationDetailsBuilder.NewValid("guardian"));
+            With(f => f.GuardianPartnerDetails,     RelationDetailsBuilder.NewValid("guardian partner"));
             With(f => f.HealthProfessional,         HealthProfessionalBuilder.NewValid());
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
 
-            With(f => f.Started, DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
-            With(f => f.Completed, DomainRegistry.NowUtc());
-            With(f => f.UserId, _instance.ApplicantDetails?.EmailAddress);
+            With(f => f.Started,                    DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
+            With(f => f.Completed,                  DomainRegistry.NowUtc());
+            With(f => f.UserId,                     _instance.ApplicantDetails?.EmailAddress);
             VerifyConsistent(_instance);
             return this;
         }

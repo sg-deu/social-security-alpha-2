@@ -17,19 +17,18 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            GuardianDetailsShouldBeValid(form, Part.Part1, m => { });
-            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Title = null);
-            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line2 = null);
-            GuardianDetailsShouldBeValid(form, Part.Part1, m => m.Address.Line3 = null);
-            GuardianDetailsShouldBeValid(form, Part.Part2, m => { });
+            GuardianDetailsShouldBeValid(form, m => { });
+            GuardianDetailsShouldBeValid(form, m => m.Title = null);
+            GuardianDetailsShouldBeValid(form, m => m.Address.Line2 = null);
+            GuardianDetailsShouldBeValid(form, m => m.Address.Line3 = null);
 
-            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.DateOfBirth = TestNowUtc);
-            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.NationalInsuranceNumber = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part1, m => m.RelationshipToApplicant = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
-            GuardianDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Postcode = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.FullName = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.DateOfBirth = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.DateOfBirth = TestNowUtc);
+            GuardianDetailsShouldBeInvalid(form, m => m.NationalInsuranceNumber = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.RelationshipToApplicant = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.Address.Line1 = null);
+            GuardianDetailsShouldBeInvalid(form, m => m.Address.Postcode = null);
         }
 
         [Test]
@@ -37,20 +36,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            var details = RelationDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
-            form.AddGuardianDetails(Part.Part1, details);
+            var details = RelationDetailsBuilder.NewValid(d => d.NationalInsuranceNumber = "AB123456C");
+            form.AddGuardianDetails(details);
 
             form.GuardianDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
         }
 
-        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void GuardianDetailsShouldBeValid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeValid(() => form.AddGuardianDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeValid(() => form.AddGuardianDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
 
-        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void GuardianDetailsShouldBeInvalid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeInvalid(() => form.AddGuardianDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeInvalid(() => form.AddGuardianDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
     }
 }

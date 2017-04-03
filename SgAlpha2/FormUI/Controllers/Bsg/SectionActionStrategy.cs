@@ -17,12 +17,9 @@ namespace FormUI.Controllers.Bsg
             { Sections.PartnerBenefits,         () => new PartnerBenefitsActions() },
             { Sections.GuardianBenefits,        () => new GuardianBenefitsActions() },
             { Sections.GuardianPartnerBenefits, () => new GuardianPartnerBenefitsActions() },
-            { Sections.PartnerDetails1,         () => new PartnerDetails1Actions() },
-            { Sections.PartnerDetails2,         () => new PartnerDetails2Actions() },
-            { Sections.GuardianDetails1,        () => new GuardianDetails1Actions() },
-            { Sections.GuardianDetails2,        () => new GuardianDetails2Actions() },
-            { Sections.GuardianPartnerDetails1, () => new GuardianPartnerDetails1Actions() },
-            { Sections.GuardianPartnerDetails2, () => new GuardianPartnerDetails2Actions() },
+            { Sections.PartnerDetails,          () => new PartnerDetailsActions() },
+            { Sections.GuardianDetails,         () => new GuardianDetailsActions() },
+            { Sections.GuardianPartnerDetails,  () => new GuardianPartnerDetailsActions() },
             { Sections.HealthProfessional,      () => new HealthProfessionalActions() },
             { Sections.PaymentDetails,          () => new PaymentDetailsActions() },
             { Sections.Declaration,             () => new DeclarationActions() },
@@ -83,34 +80,19 @@ namespace FormUI.Controllers.Bsg
             public override string Action(string formId) { return BsgActions.GuardianPartnerBenefits(formId); }
         }
 
-        private class PartnerDetails1Actions : SectionActionStrategy
+        private class PartnerDetailsActions : SectionActionStrategy
         {
-            public override string Action(string formId) { return BsgActions.PartnerDetails1(formId); }
+            public override string Action(string formId) { return BsgActions.PartnerDetails(formId); }
         }
 
-        private class PartnerDetails2Actions : SectionActionStrategy
+        private class GuardianDetailsActions : SectionActionStrategy
         {
-            public override string Action(string formId) { return BsgActions.PartnerDetails2(formId); }
+            public override string Action(string formId) { return BsgActions.GuardianDetails(formId); }
         }
 
-        private class GuardianDetails1Actions : SectionActionStrategy
+        private class GuardianPartnerDetailsActions : SectionActionStrategy
         {
-            public override string Action(string formId) { return BsgActions.GuardianDetails1(formId); }
-        }
-
-        private class GuardianDetails2Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.GuardianDetails2(formId); }
-        }
-
-        private class GuardianPartnerDetails1Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.GuardianPartnerDetails1(formId); }
-        }
-
-        private class GuardianPartnerDetails2Actions : SectionActionStrategy
-        {
-            public override string Action(string formId) { return BsgActions.GuardianPartnerDetails2(formId); }
+            public override string Action(string formId) { return BsgActions.GuardianPartnerDetails(formId); }
         }
 
         private class HealthProfessionalActions : SectionActionStrategy

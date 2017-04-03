@@ -93,8 +93,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddExistingChildren(next);
             next = AddApplicantBenefits(next, b => b.None());
             next = AddPartnerBenefits(next, b => b.WithBenefit());
-            next = AddPartnerDetails1(next);
-            next = AddPartnerDetails2(next);
+            next = AddPartnerDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -217,10 +216,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
 
-            next.Section.Should().Be(Sections.GuardianDetails1, "under 16 should be prompted for their parent's/guardian's details");
+            next.Section.Should().Be(Sections.GuardianDetails, "under 16 should be prompted for their parent's/guardian's details");
 
-            next = AddGuardianDetails1(next);
-            next = AddGuardianDetails2(next);
+            next = AddGuardianDetails(next);
 
             next.Section.Should().Be(Sections.HealthProfessional, "under 16 should not be prompted for applicant benefits");
 
@@ -269,10 +267,9 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next.Section.Should().Be(Sections.GuardianBenefits, "18/19 should confirm the benefits their guardian's partner is on");
             next = AddGuardianBenefits(next, b => b.WithBenefit());
 
-            next.Section.Should().Be(Sections.GuardianDetails1, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
+            next.Section.Should().Be(Sections.GuardianDetails, "when guardian has a qualifying benefit, should skip guardian's partner's benefits");
 
-            next = AddGuardianDetails1(next);
-            next = AddGuardianDetails2(next);
+            next = AddGuardianDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -299,8 +296,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next.Section.Should().Be(Sections.GuardianPartnerBenefits, "when guardian does not have a qualifying benefit, should be prompted for the guardian's partner's benefits");
             next = AddGuardianPartnerBenefits(next);
 
-            next = AddGuardianPartnerDetails1(next);
-            next = AddGuardianPartnerDetails2(next);
+            next = AddGuardianPartnerDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddDeclaration(next);
@@ -386,40 +382,22 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             return NextSection(current.Section, () => new AddGuardianPartnerBenefits { FormId = current.Id, GuardianPartnerBenefits = BenefitsBuilder.NewWithBenefit(mutator) }.Execute());
         }
 
-        private NextSection AddPartnerDetails1(NextSection current, Action<RelationDetails> mutator = null)
+        private NextSection AddPartnerDetails(NextSection current, Action<RelationDetails> mutator = null)
         {
-            current.Section.Should().Be(Sections.PartnerDetails1);
-            return NextSection(current.Section, () => new AddPartnerDetails { FormId = current.Id, Part = Part.Part1, PartnerDetails = RelationDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
+            current.Section.Should().Be(Sections.PartnerDetails);
+            return NextSection(current.Section, () => new AddPartnerDetails { FormId = current.Id, PartnerDetails = RelationDetailsBuilder.NewValid(mutator) }.Execute());
         }
 
-        private NextSection AddPartnerDetails2(NextSection current, Action<RelationDetails> mutator = null)
+        private NextSection AddGuardianDetails(NextSection current, Action<RelationDetails> mutator = null)
         {
-            current.Section.Should().Be(Sections.PartnerDetails2);
-            return NextSection(current.Section, () => new AddPartnerDetails { FormId = current.Id, Part = Part.Part2, PartnerDetails = RelationDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
+            current.Section.Should().Be(Sections.GuardianDetails);
+            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, GuardianDetails = RelationDetailsBuilder.NewValid(mutator) }.Execute());
         }
 
-        private NextSection AddGuardianDetails1(NextSection current, Action<RelationDetails> mutator = null)
+        private NextSection AddGuardianPartnerDetails(NextSection current, Action<RelationDetails> mutator = null)
         {
-            current.Section.Should().Be(Sections.GuardianDetails1);
-            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part1, GuardianDetails = RelationDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
-        }
-
-        private NextSection AddGuardianDetails2(NextSection current, Action<RelationDetails> mutator = null)
-        {
-            current.Section.Should().Be(Sections.GuardianDetails2);
-            return NextSection(current.Section, () => new AddGuardianDetails { FormId = current.Id, Part = Part.Part2, GuardianDetails = RelationDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
-        }
-
-        private NextSection AddGuardianPartnerDetails1(NextSection current, Action<RelationDetails> mutator = null)
-        {
-            current.Section.Should().Be(Sections.GuardianPartnerDetails1);
-            return NextSection(current.Section, () => new AddGuardianPartnerDetails { FormId = current.Id, Part = Part.Part1, GuardianPartnerDetails = RelationDetailsBuilder.NewValid(Part.Part1, mutator) }.Execute());
-        }
-
-        private NextSection AddGuardianPartnerDetails2(NextSection current, Action<RelationDetails> mutator = null)
-        {
-            current.Section.Should().Be(Sections.GuardianPartnerDetails2);
-            return NextSection(current.Section, () => new AddGuardianPartnerDetails { FormId = current.Id, Part = Part.Part2, GuardianPartnerDetails = RelationDetailsBuilder.NewValid(Part.Part2, mutator) }.Execute());
+            current.Section.Should().Be(Sections.GuardianPartnerDetails);
+            return NextSection(current.Section, () => new AddGuardianPartnerDetails { FormId = current.Id, GuardianPartnerDetails = RelationDetailsBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddHealthProfessional(NextSection current, Action<HealthProfessional> mutator = null)

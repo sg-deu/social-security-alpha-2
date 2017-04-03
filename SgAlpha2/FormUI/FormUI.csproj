@@ -220,7 +220,6 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPaymentDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddUKVerify.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\Part.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddConsent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
@@ -375,8 +374,7 @@
     <Content Include="Controllers\Bsg\Consent.cshtml" />
     <Content Include="Controllers\Shared\SsaContactDetails.cshtml" />
     <Content Include="Controllers\Harness\AjaxForm.cshtml" />
-    <Content Include="Controllers\Bsg\RelationDetails1.cshtml" />
-    <Content Include="Controllers\Bsg\RelationDetails2.cshtml" />
+    <Content Include="Controllers\Bsg\RelationDetails.cshtml" />
     <Content Include="Controllers\Shared\Address.cshtml" />
     <Content Include="Controllers\Harness\ShowHideCheckbox.cshtml" />
     <Content Include="Controllers\Harness\TextArea.cshtml" />

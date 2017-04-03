@@ -30,12 +30,9 @@ namespace FormUI.Controllers.Bsg
         public static string    PartnerBenefits(string formId)          { return $"~/bsg/partnerBenefits/{formId}"; }
         public static string    GuardianBenefits(string formId)         { return $"~/bsg/guardianBenefits/{formId}"; }
         public static string    GuardianPartnerBenefits(string formId)  { return $"~/bsg/guardianPartnerBenefits/{formId}"; }
-        public static string    PartnerDetails1(string formId)          { return $"~/bsg/partnerDetails1/{formId}"; }
-        public static string    PartnerDetails2(string formId)          { return $"~/bsg/partnerDetails2/{formId}"; }
-        public static string    GuardianDetails1(string formId)         { return $"~/bsg/guardianDetails1/{formId}"; }
-        public static string    GuardianDetails2(string formId)         { return $"~/bsg/guardianDetails2/{formId}"; }
-        public static string    GuardianPartnerDetails1(string formId)  { return $"~/bsg/guardianPartnerDetails1/{formId}"; }
-        public static string    GuardianPartnerDetails2(string formId)  { return $"~/bsg/guardianPartnerDetails2/{formId}"; }
+        public static string    PartnerDetails(string formId)           { return $"~/bsg/partnerDetails/{formId}"; }
+        public static string    GuardianDetails(string formId)          { return $"~/bsg/guardianDetails/{formId}"; }
+        public static string    GuardianPartnerDetails(string formId)   { return $"~/bsg/guardianPartnerDetails/{formId}"; }
         public static string    HealthProfessional(string formId)       { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    PaymentDetails(string formId)           { return $"~/bsg/paymentDetails/{formId}"; }
         public static string    Declaration(string formId)              { return $"~/bsg/declaration/{formId}"; }
@@ -46,8 +43,7 @@ namespace FormUI.Controllers.Bsg
     public class BsgViews
     {
         public const string Benefits            = "Benefits";
-        public const string RelationDetails1    = "RelationDetails1";
-        public const string RelationDetails2    = "RelationDetails2";
+        public const string RelationDetails    = "RelationDetails";
     }
 
     public class BsgController : FormController
@@ -381,192 +377,96 @@ namespace FormUI.Controllers.Bsg
         }
 
         [HttpGet]
-        public ActionResult PartnerDetails1(string id)
+        public ActionResult PartnerDetails(string id)
         {
-            return PartnerDetails1_Render(id, null);
+            return PartnerDetails_Render(id, null);
         }
 
         [HttpPost]
-        public ActionResult PartnerDetails1(string id, RelationDetails partnerDetails)
+        public ActionResult PartnerDetails(string id, RelationDetails partnerDetails)
         {
             var cmd = new AddPartnerDetails
             {
                 FormId = id,
-                Part = Part.Part1,
                 PartnerDetails = partnerDetails,
             };
 
             return Exec(cmd,
                 success: next => RedirectNext(next),
-                failure: () => PartnerDetails1_Render(id, partnerDetails));
+                failure: () => PartnerDetails_Render(id, partnerDetails));
         }
 
-        private ActionResult PartnerDetails1_Render(string formId, RelationDetails details)
+        private ActionResult PartnerDetails_Render(string formId, RelationDetails details)
         {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.PartnerDetails1, (m, f) =>
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.PartnerDetails, (m, f) =>
             {
-                m.Title = "Your Partner part 1";
+                m.Title = "Your Partner";
                 m.Heading = "Your Partner";
                 m.HideRelationship = true;
-                m.RelationDetails = details ?? f.PartnerDetails;
-            });
-        }
-
-        [HttpGet]
-        public ActionResult PartnerDetails2(string id)
-        {
-            return PartnerDetails2_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult PartnerDetails2(string id, RelationDetails partnerDetails)
-        {
-            var cmd = new AddPartnerDetails
-            {
-                FormId = id,
-                Part = Part.Part2,
-                PartnerDetails = partnerDetails,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => PartnerDetails2_Render(id, partnerDetails));
-        }
-
-        private ActionResult PartnerDetails2_Render(string formId, RelationDetails details)
-        {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.PartnerDetails2, (m, f) =>
-            {
-                m.Title = "Your Partner part 2";
-                m.Heading = "Your Partner's address";
                 m.RelationDetails = details ?? f.PartnerDetails;
                 m.InheritedAddress = f.ApplicantDetails?.CurrentAddress;
             });
         }
 
         [HttpGet]
-        public ActionResult GuardianDetails1(string id)
+        public ActionResult GuardianDetails(string id)
         {
-            return GuardianDetails1_Render(id, null);
+            return GuardianDetails_Render(id, null);
         }
 
         [HttpPost]
-        public ActionResult GuardianDetails1(string id, RelationDetails guardianDetails)
+        public ActionResult GuardianDetails(string id, RelationDetails guardianDetails)
         {
             var cmd = new AddGuardianDetails
             {
                 FormId = id,
-                Part = Part.Part1,
                 GuardianDetails = guardianDetails,
             };
 
             return Exec(cmd,
                 success: next => RedirectNext(next),
-                failure: () => GuardianDetails1_Render(id, guardianDetails));
+                failure: () => GuardianDetails_Render(id, guardianDetails));
         }
 
-        private ActionResult GuardianDetails1_Render(string formId, RelationDetails details)
+        private ActionResult GuardianDetails_Render(string formId, RelationDetails details)
         {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.GuardianDetails1, (m, f) =>
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianDetails, (m, f) =>
             {
-                m.Title = "Your Parent/Legal Guardian part 1";
+                m.Title = "Your Parent/Legal Guardian";
                 m.Heading = "Your Parent/Legal Guardian";
                 m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
 
         [HttpGet]
-        public ActionResult GuardianDetails2(string id)
+        public ActionResult GuardianPartnerDetails(string id)
         {
-            return GuardianDetails2_Render(id, null);
+            return GuardianPartnerDetails_Render(id, null);
         }
 
         [HttpPost]
-        public ActionResult GuardianDetails2(string id, RelationDetails guardianDetails)
-        {
-            var cmd = new AddGuardianDetails
-            {
-                FormId = id,
-                Part = Part.Part2,
-                GuardianDetails = guardianDetails,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => GuardianDetails2_Render(id, guardianDetails));
-        }
-
-        private ActionResult GuardianDetails2_Render(string formId, RelationDetails details)
-        {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.GuardianDetails2, (m, f) =>
-            {
-                m.Title = "Your Parent/Legal Guardian part 2";
-                m.Heading = "Your Parent/Legal Guardian's address";
-                m.RelationDetails = details ?? f.GuardianDetails;
-            });
-        }
-
-        [HttpGet]
-        public ActionResult GuardianPartnerDetails1(string id)
-        {
-            return GuardianPartnerDetails1_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult GuardianPartnerDetails1(string id, RelationDetails guardianPartnerDetails)
+        public ActionResult GuardianPartnerDetails(string id, RelationDetails guardianPartnerDetails)
         {
             var cmd = new AddGuardianPartnerDetails
             {
                 FormId = id,
-                Part = Part.Part1,
                 GuardianPartnerDetails = guardianPartnerDetails,
             };
 
             return Exec(cmd,
                 success: next => RedirectNext(next),
-                failure: () => GuardianPartnerDetails1_Render(id, guardianPartnerDetails));
+                failure: () => GuardianPartnerDetails_Render(id, guardianPartnerDetails));
         }
 
-        private ActionResult GuardianPartnerDetails1_Render(string formId, RelationDetails details)
+        private ActionResult GuardianPartnerDetails_Render(string formId, RelationDetails details)
         {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails1, Sections.GuardianPartnerDetails1, (m, f) =>
+            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianPartnerDetails, (m, f) =>
             {
-                m.Title = "Your Parent/Legal Guardian's Partner part 1";
+                m.Title = "Your Parent/Legal Guardian's Partner";
                 m.Heading = "Your Parent/Legal Guardian's Partner";
                 m.RelationDetails = details ?? f.GuardianPartnerDetails;
             });
-        }
-
-        [HttpGet]
-        public ActionResult GuardianPartnerDetails2(string id)
-        {
-            return GuardianPartnerDetails2_Render(id, null);
-        }
-
-        [HttpPost]
-        public ActionResult GuardianPartnerDetails2(string id, RelationDetails guardianPartnerDetails)
-        {
-            var cmd = new AddGuardianPartnerDetails
-            {
-                FormId = id,
-                Part = Part.Part2,
-                GuardianPartnerDetails = guardianPartnerDetails,
-            };
-
-            return Exec(cmd,
-                success: next => RedirectNext(next),
-                failure: () => GuardianDetails2_Render(id, guardianPartnerDetails));
-        }
-
-        private ActionResult GuardianPartnerDetails2_Render(string formId, RelationDetails details)
-        {
-            return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails2, Sections.GuardianPartnerDetails2, (m, f) =>
-            {
-                m.Title = "Your Parent/Legal Guardian's Partner part 2";
-                m.Heading = "Your Parent/Legal Guardian's Partner's address";
-                m.RelationDetails = details ?? f.GuardianPartnerDetails;
-            });
-        }
+        }        
 
         [HttpGet]
         public ActionResult HealthProfessional(string id)

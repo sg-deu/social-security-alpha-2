@@ -190,48 +190,30 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.GuardianPartnerBenefits);
         }
 
-        public NextSection AddPartnerDetails(Part part, RelationDetails partnerDetails)
+        public NextSection AddPartnerDetails(RelationDetails partnerDetails)
         {
             partnerDetails.RelationshipToApplicant = "Partner";
 
-            Validate(part, partnerDetails);
+            Validate(partnerDetails);
 
-            PartnerDetails = PartnerDetails ?? new RelationDetails();
-            partnerDetails.CopyTo(PartnerDetails, part);
-
-            var section = part == Part.Part1
-                ? Sections.PartnerDetails1
-                : Sections.PartnerDetails2;
-
-            return OnSectionCompleted(section);
+            PartnerDetails = partnerDetails;
+            return OnSectionCompleted(Sections.PartnerDetails);
         }
 
-        public NextSection AddGuardianDetails(Part part, RelationDetails guardianDetails)
+        public NextSection AddGuardianDetails(RelationDetails guardianDetails)
         {
-            Validate(part, guardianDetails);
+            Validate(guardianDetails);
 
-            GuardianDetails = GuardianDetails ?? new RelationDetails();
-            guardianDetails.CopyTo(GuardianDetails, part);
-
-            var section = part == Part.Part1
-                ? Sections.GuardianDetails1
-                : Sections.GuardianDetails2;
-
-            return OnSectionCompleted(section);
+            GuardianDetails = guardianDetails;
+            return OnSectionCompleted(Sections.GuardianDetails);
         }
 
-        public NextSection AddGuardianPartnerDetails(Part part, RelationDetails guardianPartnerDetails)
+        public NextSection AddGuardianPartnerDetails(RelationDetails guardianPartnerDetails)
         {
-            Validate(part, guardianPartnerDetails);
+            Validate(guardianPartnerDetails);
 
-            GuardianPartnerDetails = GuardianPartnerDetails ?? new RelationDetails();
-            guardianPartnerDetails.CopyTo(GuardianPartnerDetails, part);
-
-            var section = part == Part.Part1
-                ? Sections.GuardianPartnerDetails1
-                : Sections.GuardianPartnerDetails2;
-
-            return OnSectionCompleted(section);
+            GuardianPartnerDetails = guardianPartnerDetails;
+            return OnSectionCompleted(Sections.GuardianPartnerDetails);
         }
 
         public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
@@ -440,26 +422,20 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static void Validate(Part part, RelationDetails relationDetails)
+        private static void Validate(RelationDetails relationDetails)
         {
             var ctx = new ValidationContext<RelationDetails>(relationDetails);
 
-            if (part == Part.Part1)
-            {
-                ctx.Required(m => m.FullName, "Please supply a Full name");
-                ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
-                ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
-                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(relationDetails));
-                ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
-            }
+            ctx.Required(m => m.FullName, "Please supply a Full name");
+            ctx.Required(m => m.DateOfBirth, "Please supply a Date of Birth");
+            ctx.InPast(m => m.DateOfBirth, "Please supply a Date of Birth in the past");
+            ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(relationDetails));
+            ctx.Required(m => m.RelationshipToApplicant, "Please supply your Relationship to the applicant");
 
-            if (part == Part.Part2)
+            if (!relationDetails.InheritAddress)
             {
-                if (!relationDetails.InheritAddress)
-                {
-                    ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
-                    ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
-                }
+                ctx.Required(m => m.Address.Line1, "Please supply an Address line 1");
+                ctx.Required(m => m.Address.Postcode, "Please supply a Postcode");
             }
 
             ctx.ThrowIfError();

@@ -17,10 +17,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            GuardianPartnerDetailsShouldBeValid(form, Part.Part1, m => { });
+            GuardianPartnerDetailsShouldBeValid(form, m => { });
 
-            GuardianPartnerDetailsShouldBeInvalid(form, Part.Part1, m => m.FullName = null);
-            GuardianPartnerDetailsShouldBeInvalid(form, Part.Part2, m => m.Address.Line1 = null);
+            GuardianPartnerDetailsShouldBeInvalid(form, m => m.FullName = null);
+            GuardianPartnerDetailsShouldBeInvalid(form, m => m.Address.Line1 = null);
         }
 
         [Test]
@@ -28,20 +28,20 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             var form = new BestStartGrantBuilder("form").Insert();
 
-            var details = RelationDetailsBuilder.NewValid(Part.Part1, d => d.NationalInsuranceNumber = "AB123456C");
-            form.AddGuardianPartnerDetails(Part.Part1, details);
+            var details = RelationDetailsBuilder.NewValid(d => d.NationalInsuranceNumber = "AB123456C");
+            form.AddGuardianPartnerDetails(details);
 
             form.GuardianPartnerDetails.NationalInsuranceNumber.Should().Be("AB 12 34 56 C");
         }
 
-        protected void GuardianPartnerDetailsShouldBeValid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void GuardianPartnerDetailsShouldBeValid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeValid(() => form.AddGuardianPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeValid(() => form.AddGuardianPartnerDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
 
-        protected void GuardianPartnerDetailsShouldBeInvalid(BestStartGrant form, Part part, Action<RelationDetails> mutator)
+        protected void GuardianPartnerDetailsShouldBeInvalid(BestStartGrant form, Action<RelationDetails> mutator)
         {
-            ShouldBeInvalid(() => form.AddGuardianPartnerDetails(part, RelationDetailsBuilder.NewValid(part, mutator)));
+            ShouldBeInvalid(() => form.AddGuardianPartnerDetails(RelationDetailsBuilder.NewValid(mutator)));
         }
     }
 }
