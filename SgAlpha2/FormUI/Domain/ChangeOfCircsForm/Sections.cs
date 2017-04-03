@@ -6,6 +6,7 @@
         Identity,
         Options,
         ApplicantDetails,
+        PaymentDetails,
         Evidence,
         Declaration,
     }

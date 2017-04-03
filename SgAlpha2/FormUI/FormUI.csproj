@@ -165,6 +165,7 @@
     <Compile Include="Controllers\Coc\DeclarationModel.cs" />
     <Compile Include="Controllers\Coc\EvidenceModel.cs" />
     <Compile Include="Controllers\Coc\OptionsModel.cs" />
+    <Compile Include="Controllers\Coc\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Shared\AddressModel.cs" />
     <Compile Include="Controllers\Bsg\BenefitsModel.cs" />
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
@@ -392,6 +393,7 @@
     <Content Include="Controllers\Shared\LegalStatement.cshtml" />
     <Content Include="Controllers\Bsg\Ineligible.cshtml" />
     <Content Include="Controllers\Bsg\BeforeYouApply.cshtml" />
+    <Content Include="Controllers\Coc\PaymentDetails.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

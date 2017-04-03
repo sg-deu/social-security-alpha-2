@@ -24,6 +24,7 @@ namespace FormUI.Controllers.Coc
         public static string Identity(string id)            { return $"~/coc/identity/{id}"; }
         public static string Options(string id)             { return $"~/coc/options/{id}"; }
         public static string ApplicantDetails(string id)    { return $"~/coc/applicantDetails/{id}"; }
+        public static string PaymentDetails(string id)      { return $"~/coc/paymentDetails/{id}"; }
         public static string Evidence(string id)            { return $"~/coc/evidence/{id}"; }
         public static string Declaration(string id)         { return $"~/coc/declaration/{id}"; }
         public static string Complete()                     { return $"~/coc/complete"; }
@@ -147,7 +148,7 @@ namespace FormUI.Controllers.Coc
 
         [HttpGet]
         public ActionResult ApplicantDetails(string id)
-        { 
+        {
             return ApplicantDetails_Render(id, null);
         }
 
@@ -171,6 +172,12 @@ namespace FormUI.Controllers.Coc
             {
                 m.ApplicantDetails = details ?? f.ApplicantDetails;
             });
+        }
+
+        [HttpGet]
+        public ActionResult PaymentDetails(string id)
+        {
+            return View(new PaymentDetailsModel());
         }
 
         [HttpGet]

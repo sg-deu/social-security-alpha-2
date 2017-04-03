@@ -11,6 +11,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             { Sections.Identity,                () => new SectionStrategy.Identity()            },
             { Sections.Options,                 () => new SectionStrategy.Options()             },
             { Sections.ApplicantDetails,        () => new SectionStrategy.ApplicantDetails()    },
+            { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails()      },
             { Sections.Evidence,                () => new SectionStrategy.Evidence()            },
             { Sections.Declaration,             () => new SectionStrategy.Declaration()         },
         };
@@ -49,6 +50,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             public override bool Required(ChangeOfCircs form) { return Navigation.RequiresApplicantDetails(form); }
             public override void SkipSection(ChangeOfCircs form) { form.OnSkipApplicantDetails(); }
+        }
+
+        private class PaymentDetails : SectionStrategy
+        {
+            public override bool Required(ChangeOfCircs form) { return false; }
+            public override void SkipSection(ChangeOfCircs form) { form.OnSkipPaymentDetails(); }
         }
 
         private class Evidence : SectionStrategy

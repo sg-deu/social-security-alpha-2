@@ -20,6 +20,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
+        public object               PaymentDetails              { get; protected set; }
         public Evidence             Evidence                    { get; protected set; }
         public Declaration          Declaration                 { get; protected set; }
 
@@ -145,7 +146,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.Declaration);
         }
 
-        internal void OnSkipApplicantDetails() { ApplicantDetails = null; }
+        internal void OnSkipApplicantDetails()  { ApplicantDetails = null;  }
+        internal void OnSkipPaymentDetails()    { PaymentDetails = null;    }
 
         private NextSection OnSectionCompleted(Sections section)
         {

@@ -1,0 +1,30 @@
+﻿@inherits WebViewPage<PaymentDetailsModel>
+@{
+    ViewBag.Title = "Change of Circumstances - Payment Details";
+}
+
+<div class="grid"><!--
+    --><div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Payment details</h1>
+
+        <p>You must fill in all fields marked with an (*)</p>
+
+        @using (var form = Html.FormFor(Model.PaymentDetails))
+        {
+            @form.Html.ValidationSummary()
+
+            <h2>How we pay you</h2>
+
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>
