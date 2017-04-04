@@ -225,6 +225,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\OptionsBuilder.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\PaymentDetailsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\NavigationTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ScenarioTests.cs" />
     <Compile Include="Domain\Forms\Dto\AddressBuilder.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\StartChangeOfCircsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ConsentBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Queries\FindCocSectionTests.cs" />
+    <Compile Include="Domain\Forms\Dto\BankDetailsBuilder.cs" />
     <Compile Include="Domain\Util\CloudStoreTests.cs" />
     <Compile Include="Domain\Util\Builder.cs" />
     <Compile Include="Domain\Util\BuilderExtensions.cs" />

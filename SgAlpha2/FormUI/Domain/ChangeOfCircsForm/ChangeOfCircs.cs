@@ -20,7 +20,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
-        public object               PaymentDetails              { get; protected set; }
+        public PaymentDetails       PaymentDetails              { get; protected set; }
         public Evidence             Evidence                    { get; protected set; }
         public Declaration          Declaration                 { get; protected set; }
 
@@ -32,6 +32,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Identity            = UserId,
                 Options             = Options,
                 ApplicantDetails    = ApplicantDetails,
+                PaymentDetails      = PaymentDetails,
                 Evidence            = Evidence,
                 Declaration         = Declaration,
             };

@@ -238,6 +238,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Evidence.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceFile.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Options.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\PaymentDetails.cs" />
     <Compile Include="Domain\Forms\Dto\Address.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\AddressStatus.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Sections.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\SectionStrategy.cs" />
     <Compile Include="Domain\FeatureToggles.cs" />
+    <Compile Include="Domain\Forms\Dto\BankDetails.cs" />
     <Compile Include="Domain\Forms\Form.cs" />
     <Compile Include="Domain\Util\Attributes\UiInputMaskAttribute.cs" />
     <Compile Include="Domain\Util\Attributes\InputMasks.cs" />
@@ -394,6 +396,7 @@
     <Content Include="Controllers\Bsg\Ineligible.cshtml" />
     <Content Include="Controllers\Bsg\BeforeYouApply.cshtml" />
     <Content Include="Controllers\Coc\PaymentDetails.cshtml" />
+    <Content Include="Controllers\Shared\BankDetails.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

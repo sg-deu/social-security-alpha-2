@@ -16,27 +16,8 @@
         {
             @form.Html.ValidationSummary()
 
-            <h2>How we pay you</h2>
+            @form.Html.Partial(SharedViews.BankDetails, Model.PaymentDetails)
 
-            @form.Html.LabelledRadioYesNo(m => m.HasBankAccount).Mandatory()
-
-            using (form.Html.ShowWhenYes(m => m.HasBankAccount, t => t.Id("ba-details")))
-            {
-                @form.Html.LabelledInputText(m => m.NameOfAccountHolder).Mandatory()
-
-                @form.Html.LabelledInputText(m => m.NameOfBank).Mandatory()
-
-                @form.Html.LabelledInputText(m => m.SortCode).Mandatory()
-
-                @form.Html.LabelledInputText(m => m.AccountNumber).Mandatory()
-
-                @form.Html.LabelledInputText(m => m.RollNumber)
-            }
-
-            using (form.Html.ShowWhenNo(m => m.HasBankAccount, t => t.Id("no-ba")))
-            {
-                <div class="info-note note">If you don't have a bank account we will contact you to arrange payment if you qualify.</div>
-            }
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 

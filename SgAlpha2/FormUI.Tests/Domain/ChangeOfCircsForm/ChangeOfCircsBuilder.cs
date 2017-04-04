@@ -23,6 +23,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.ExistingApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Address = AddressBuilder.NewValid("existing")));
             With(f => f.Options, OptionsBuilder.NewValid());
             With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
+            With(f => f.PaymentDetails, PaymentDetailsBuilder.NewValid());
             With(f => f.Evidence, EvidenceBuilder.NewValid());
             With(f => f.Declaration, DeclarationBuilder.NewValid());
 
@@ -38,6 +39,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             detail.Identity = form.UserId;
             detail.Options = form.Options;
             detail.ApplicantDetails = form.ApplicantDetails;
+            detail.PaymentDetails = form.PaymentDetails;
             detail.Evidence = form.Evidence;
             detail.Declaration = form.Declaration;
         }

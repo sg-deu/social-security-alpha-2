@@ -16,7 +16,7 @@
         {
             @form.Html.ValidationSummary()
 
-            <h2>How we pay you</h2>
+            @form.Html.Partial(SharedViews.BankDetails, Model.PaymentDetails)
 
 
             @form.Html.ButtonSubmitNext(Model.IsFinalPage)

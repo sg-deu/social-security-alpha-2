@@ -6,5 +6,6 @@
         public const string MyGovScotLogo       = "_mygovscotlogo";
         public const string Address             = "Address";
         public const string LegalStatement      = "LegalStatement";
+        public const string BankDetails         = "BankDetails";
     }
 }

@@ -10,6 +10,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Responses
         public string           Identity;
         public Options          Options;
         public ApplicantDetails ApplicantDetails;
+        public PaymentDetails   PaymentDetails;
         public Evidence         Evidence;
         public Declaration      Declaration;
 

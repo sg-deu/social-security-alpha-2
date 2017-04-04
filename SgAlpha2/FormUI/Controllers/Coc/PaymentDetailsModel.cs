@@ -1,8 +1,10 @@
-﻿namespace FormUI.Controllers.Coc
+﻿using FormUI.Domain.ChangeOfCircsForm.Dto;
+
+namespace FormUI.Controllers.Coc
 {
     public class PaymentDetailsModel : NavigableModel
     {
         // POST
-        public object PaymentDetails;
+        public PaymentDetails PaymentDetails;
     }
 }

@@ -1,0 +1,23 @@
+﻿@inherits WebViewPage<BankDetails>
+@using FormUI.Domain.Forms.Dto
+<h2>How we pay you</h2>
+
+@Html.LabelledRadioYesNo(m => m.HasBankAccount).Mandatory()
+
+@using (Html.ShowWhenYes(m => m.HasBankAccount, t => t.Id("ba-details")))
+{
+    @Html.LabelledInputText(m => m.NameOfAccountHolder).Mandatory()
+
+    @Html.LabelledInputText(m => m.NameOfBank).Mandatory()
+
+    @Html.LabelledInputText(m => m.SortCode).Mandatory()
+
+    @Html.LabelledInputText(m => m.AccountNumber).Mandatory()
+
+    @Html.LabelledInputText(m => m.RollNumber)
+}
+
+@using (Html.ShowWhenNo(m => m.HasBankAccount, t => t.Id("no-ba")))
+{
+    <div class="info-note note">If you don't have a bank account we will contact you to arrange payment if you qualify.</div>
+}
