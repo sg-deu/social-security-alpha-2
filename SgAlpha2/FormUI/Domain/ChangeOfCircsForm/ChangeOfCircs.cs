@@ -120,6 +120,12 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
+        public NextSection AddPaymentDetails(PaymentDetails paymentDetails)
+        {
+            PaymentDetails = paymentDetails;
+            return OnSectionCompleted(Sections.PaymentDetails);
+        }
+
         public void AddEvidenceFile(string filename, byte[] content)
         {
             var cloudName = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(filename).ToLower();

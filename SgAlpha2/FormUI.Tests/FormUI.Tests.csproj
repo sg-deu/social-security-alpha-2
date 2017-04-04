@@ -220,6 +220,7 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidenceFileTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidenceTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddOptionsTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddPaymentDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\ApplicantDetailsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\DeclarationBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceBuilder.cs" />
