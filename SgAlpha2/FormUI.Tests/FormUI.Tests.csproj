@@ -151,6 +151,7 @@
     <Compile Include="Controllers\Coc\CocEvidenceTests.cs" />
     <Compile Include="Controllers\Coc\CocIdentityTests.cs" />
     <Compile Include="Controllers\Coc\CocOptionsTests.cs" />
+    <Compile Include="Controllers\Coc\CocPaymentDetailsTests.cs" />
     <Compile Include="Controllers\Coc\CocSectionTest.cs" />
     <Compile Include="Controllers\Coc\CocTests.cs" />
     <Compile Include="Controllers\Coc\SectionActionStrategyTests.cs" />

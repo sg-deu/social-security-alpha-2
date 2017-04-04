@@ -177,7 +177,29 @@ namespace FormUI.Controllers.Coc
         [HttpGet]
         public ActionResult PaymentDetails(string id)
         {
-            return View(new PaymentDetailsModel());
+            return PaymentDetails_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult PaymentDetails(string id, PaymentDetails paymentDetails)
+        {
+            var cmd = new AddPaymentDetails
+            {
+                FormId = id,
+                PaymentDetails = paymentDetails,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => PaymentDetails_Render(id, paymentDetails));
+        }
+
+        private ActionResult PaymentDetails_Render(string formId, PaymentDetails details)
+        {
+            return NavigableView<PaymentDetailsModel>(formId, Sections.PaymentDetails, (m, f) =>
+            {
+                m.PaymentDetails = details ?? f.PaymentDetails;
+            });
         }
 
         [HttpGet]
