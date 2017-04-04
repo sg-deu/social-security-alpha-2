@@ -43,13 +43,9 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             coc.ExistingApplicantDetails.HomePhoneNumer.Should().Be("234");
             coc.ExistingApplicantDetails.EmailAddress.Should().Be("t.t@t.t");
 
-            coc.ExistingApplicantDetails.ShouldBeEquivalentTo(coc.ApplicantDetails);
-
             coc.ExistingPaymentDetails.HasBankAccount.Should().BeTrue();
             coc.ExistingPaymentDetails.AccountNumber.Should().BeNull();
             coc.ExistingPaymentDetails.SortCode.Should().BeNull();
-
-            coc.ExistingPaymentDetails.ShouldBeEquivalentTo(coc.PaymentDetails);
         }
 
         [Test]

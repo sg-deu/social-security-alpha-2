@@ -14,7 +14,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Queries
         public void Find_PopulatesDetail()
         {
             var existingForm = new ChangeOfCircsBuilder("form123")
-                .WithCompletedSections()
+                .WithCompletedSections(markAsCompleted: false)
                 .Insert();
 
             var query = new FindCocSection
@@ -29,6 +29,27 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Queries
             ChangeOfCircsBuilder.CopySectionsFrom(existingForm, expectedDetail);
 
             detail.ShouldBeEquivalentTo(expectedDetail);
+        }
+
+        [Test]
+        public void Find_PopulatesExistingDetail_IfCurrentDetailDoesNotExist()
+        {
+            var existingForm = new ChangeOfCircsBuilder("form123")
+                .WithCompletedSections(excludeOptionalSections: true)
+                .Insert();
+
+            var query = new FindCocSection
+            {
+                FormId = "form123",
+                Section = Sections.Consent,
+            };
+
+            var details = query.Find();
+
+            var expectedDetail = new CocDetail { PreviousSection = null };
+            ChangeOfCircsBuilder.CopySectionsFrom(existingForm, expectedDetail, useExisting: true);
+
+            details.ShouldBeEquivalentTo(expectedDetail);
         }
     }
 }

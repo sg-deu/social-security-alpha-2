@@ -16,15 +16,20 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.Id, formId);
         }
 
-        public ChangeOfCircsBuilder WithCompletedSections(bool markAsCompleted = true)
+        public ChangeOfCircsBuilder WithCompletedSections(bool markAsCompleted = true, bool excludeOptionalSections = false)
         {
             With(f => f.Consent, ConsentBuilder.NewValid());
             With(f => f.UserId, "existing.user@known.com");
             With(f => f.ExistingApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Address = AddressBuilder.NewValid("existing")));
             With(f => f.ExistingPaymentDetails, PaymentDetailsBuilder.NewValid());
             With(f => f.Options, OptionsBuilder.NewValid());
-            With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
-            With(f => f.PaymentDetails, PaymentDetailsBuilder.NewValid());
+
+            if (!excludeOptionalSections)
+            {
+                With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
+                With(f => f.PaymentDetails, PaymentDetailsBuilder.NewValid());
+            }
+
             With(f => f.Evidence, EvidenceBuilder.NewValid());
             With(f => f.Declaration, DeclarationBuilder.NewValid());
 
@@ -38,13 +43,13 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             return this;
         }
 
-        public static void CopySectionsFrom(ChangeOfCircs form, CocDetail detail)
+        public static void CopySectionsFrom(ChangeOfCircs form, CocDetail detail, bool useExisting = false)
         {
             detail.Consent = form.Consent;
             detail.Identity = form.UserId;
             detail.Options = form.Options;
-            detail.ApplicantDetails = form.ApplicantDetails;
-            detail.PaymentDetails = form.PaymentDetails;
+            detail.ApplicantDetails = useExisting ? form.ExistingApplicantDetails : form.ApplicantDetails;
+            detail.PaymentDetails = useExisting ? form.ExistingPaymentDetails : form.PaymentDetails;
             detail.Evidence = form.Evidence;
             detail.Declaration = form.Declaration;
         }

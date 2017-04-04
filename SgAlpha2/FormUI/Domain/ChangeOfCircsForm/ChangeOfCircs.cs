@@ -32,8 +32,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Consent             = Consent,
                 Identity            = UserId,
                 Options             = Options,
-                ApplicantDetails    = ApplicantDetails,
-                PaymentDetails      = PaymentDetails,
+                ApplicantDetails    = ApplicantDetails ?? ExistingApplicantDetails,
+                PaymentDetails      = PaymentDetails ?? ExistingPaymentDetails,
                 Evidence            = Evidence,
                 Declaration         = Declaration,
             };
@@ -92,14 +92,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 EmailAddress = existingForm.ApplicantDetails.EmailAddress,
             };
 
-            ApplicantDetails = ExistingApplicantDetails;
-
             ExistingPaymentDetails = new PaymentDetails
             {
                 HasBankAccount = existingForm.PaymentDetails.HasBankAccount,
             };
-
-            PaymentDetails = ExistingPaymentDetails;
 
             return OnSectionCompleted(Sections.Identity);
         }
