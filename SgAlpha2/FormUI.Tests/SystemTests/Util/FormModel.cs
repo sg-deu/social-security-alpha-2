@@ -31,6 +31,12 @@ namespace FormUI.Tests.SystemTests.Util
             _app.GetText(testText, name, verify);
         }
 
+        public void GetRadio<TValue>(string testText, Expression<Func<T, TValue>> property, Action<string> verify)
+        {
+            var name = property.GetExpressionText();
+            _app.GetRadio(testText, name, verify);
+        }
+
         public void TypeDate(Expression<Func<T, object>> property, string dayText, string monthText, string yearText)
         {
             var name = property.GetExpressionText();

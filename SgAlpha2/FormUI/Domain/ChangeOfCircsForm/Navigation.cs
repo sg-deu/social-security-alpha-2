@@ -72,5 +72,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             return form.Options?.ChangePersonalDetails == true;
         }
+
+        public static bool RequiresPaymentDetails(ChangeOfCircs form)
+        {
+            return form.Options?.ChangePaymentDetails == true;
+        }
     }
 }

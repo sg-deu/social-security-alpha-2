@@ -54,7 +54,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         private class PaymentDetails : SectionStrategy
         {
-            public override bool Required(ChangeOfCircs form) { return false; }
+            public override bool Required(ChangeOfCircs form) { return Navigation.RequiresPaymentDetails(form); }
             public override void SkipSection(ChangeOfCircs form) { form.OnSkipPaymentDetails(); }
         }
 

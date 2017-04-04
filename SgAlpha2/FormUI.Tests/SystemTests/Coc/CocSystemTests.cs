@@ -82,6 +82,9 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInApplicantDetails(bsg);
             App.Submit();
 
+            FillInPaymentDetails(bsg);
+            App.Submit();
+
             var filename = FillInEvidence();
             App.ClickButton("");
 
@@ -98,6 +101,7 @@ namespace FormUI.Tests.SystemTests.Coc
                 VerifyIdentity(doc, userId);
                 VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
+                VerifyPaymentDetails(doc);
                 VerifyEvidence(doc, filename);
                 VerifyDeclaration(doc);
             });
@@ -131,6 +135,7 @@ namespace FormUI.Tests.SystemTests.Coc
         {
             var form = App.FormForModel<Options>();
             form.Check(m => m.ChangePersonalDetails, true);
+            form.Check(m => m.ChangePaymentDetails, true);
             form.Check(m => m.Other, true);
             form.TypeTextArea(m => m.OtherDetails, "system test details");
         }
@@ -177,6 +182,31 @@ namespace FormUI.Tests.SystemTests.Coc
             doc.ApplicantDetails.HomePhoneNumer.Should().Be("2345678");
             doc.ApplicantDetails.EmailAddress.Should().Be("coc.test@coc.com");
             _verifiedSections.Add(Sections.ApplicantDetails);
+        }
+
+        private void FillInPaymentDetails(BsgForm bsg)
+        {
+            var form = App.FormForModel<PaymentDetails>();
+
+            form.GetRadio("Verify existing HasBankAccount populated", m => m.HasBankAccount, t => t.Should().Be(bsg.PaymentDetails.HasBankAccount.ToString()));
+
+            form.SelectRadio(m => m.HasBankAccount, true);
+            form.TypeText(m => m.NameOfAccountHolder, "coc account holder");
+            form.TypeText(m => m.NameOfBank, "coc bank name");
+            form.TypeText(m => m.SortCode, "02-03-04");
+            form.TypeText(m => m.AccountNumber, "12345678");
+            form.TypeText(m => m.RollNumber, "coc_roll_number");
+        }
+
+        private void VerifyPaymentDetails(ChangeOfCircs doc)
+        {
+            doc.PaymentDetails.HasBankAccount.Should().BeTrue();
+            doc.PaymentDetails.NameOfAccountHolder.Should().Be("coc account holder");
+            doc.PaymentDetails.NameOfBank.Should().Be("coc bank name");
+            doc.PaymentDetails.SortCode.Should().Be("02-03-04");
+            doc.PaymentDetails.AccountNumber.Should().Be("12345678");
+            doc.PaymentDetails.RollNumber.Should().Be("coc_roll_number");
+            _verifiedSections.Add(Sections.PaymentDetails);
         }
 
         private string FillInEvidence()

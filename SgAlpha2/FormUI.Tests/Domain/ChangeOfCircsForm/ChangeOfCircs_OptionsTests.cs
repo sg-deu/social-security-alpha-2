@@ -24,7 +24,6 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             // until the following sections are implemented, they are invalid selections
             OptionsShouldBeInvalid(form, m => m.ChangePartnerDetails = true);
             OptionsShouldBeInvalid(form, m => m.ChangeChildrenDetails = true);
-            OptionsShouldBeInvalid(form, m => m.ChangePaymentDetails = true);
         }
 
         protected void OptionsShouldBeValid(ChangeOfCircs form, Action<Options> mutator)

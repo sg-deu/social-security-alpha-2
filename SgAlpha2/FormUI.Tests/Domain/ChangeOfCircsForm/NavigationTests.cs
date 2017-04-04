@@ -24,5 +24,21 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
 
             Navigation.RequiresApplicantDetails(form).Should().BeTrue();
         }
+
+        [Test]
+        public void RequiresPaymentDetails()
+        {
+            var form = new ChangeOfCircsBuilder("form")
+                .With(f => f.Options, OptionsBuilder.NewValid())
+                .Value();
+
+            form.Options.ChangePaymentDetails = false;
+
+            Navigation.RequiresPaymentDetails(form).Should().BeFalse();
+
+            form.Options.ChangePaymentDetails = true;
+
+            Navigation.RequiresPaymentDetails(form).Should().BeTrue();
+        }
     }
 }

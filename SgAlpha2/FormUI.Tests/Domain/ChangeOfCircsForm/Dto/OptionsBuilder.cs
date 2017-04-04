@@ -10,6 +10,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
             var value = new Options
             {
                 ChangePersonalDetails = true,
+                ChangePaymentDetails = true,
                 Other = true,
                 OtherDetails = "some other details to change",
             };

@@ -186,6 +186,18 @@ namespace FormUI.Tests.SystemTests.Util
             });
         }
 
+        public void GetRadio(string testText, string name, Action<string> verify)
+        {
+            Console.WriteLine(testText);
+            Wait.For(_browser, () =>
+            {
+                var radios = _browser.FindElements(By.CssSelector($"input[name='{name}']"));
+                var selectedRadio = radios.Where(r => r.Selected).SingleOrDefault();
+                var value = selectedRadio?.GetAttribute("value");
+                verify(value);
+            });
+        }
+
         public void SelectRadio(string name, string value)
         {
             Console.WriteLine("Select '{0}' for '{1}'", value, name);
@@ -224,6 +236,11 @@ namespace FormUI.Tests.SystemTests.Util
                 {
                     after = "already unchecked";
                 }
+            });
+            Wait.For(_browser, () =>
+            {
+                var checkbox = _browser.FindElement(By.Name(name));
+                checkbox.Selected.Should().Be(check, "checkbox {0} should be {1}", name, check ? "checked" : "unchecked");
             });
             Console.WriteLine(after);
         }

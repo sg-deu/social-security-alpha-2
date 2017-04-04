@@ -23,7 +23,7 @@
             @form.Html.LabelledConfirmCheckBox(m => m.ChangePersonalDetails)
             @form.Html.LabelledConfirmCheckBox(m => m.ChangePartnerDetails).Control(c => c.Disabled())
             @form.Html.LabelledConfirmCheckBox(m => m.ChangeChildrenDetails).Control(c => c.Disabled())
-            @form.Html.LabelledConfirmCheckBox(m => m.ChangePaymentDetails).Control(c => c.Disabled())
+            @form.Html.LabelledConfirmCheckBox(m => m.ChangePaymentDetails)
             @form.Html.LabelledConfirmCheckBox(m => m.Other)
 
             using (form.Html.ShowWhenChecked(m => m.Other, t => t.Id("other-detail")))
