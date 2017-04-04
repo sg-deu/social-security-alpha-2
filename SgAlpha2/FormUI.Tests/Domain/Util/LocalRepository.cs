@@ -5,9 +5,9 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
-using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.ChangeOfCircsForm;
 using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
+using FormUI.Tests.Domain.Forms.Dto;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Domain.Util
@@ -93,9 +93,8 @@ namespace FormUI.Tests.Domain.Util
                 return;
 
             new BestStartGrantBuilder(formId)
-                .WithCompletedSections()
+                .WithCompletedSections(markAsCompleted: false)
                 .With(f => f.Declaration, null)
-                .With(f => f.Completed, null)
                 .Insert(mutator);
         }
 
@@ -110,9 +109,12 @@ namespace FormUI.Tests.Domain.Util
                 return existingForm;
 
             return new ChangeOfCircsBuilder(formId)
-                .WithCompletedSections()
-                .With(f => f.Completed, null)
-                .Insert(f => f.Evidence.AddFiles(f, 2));
+                .WithCompletedSections(markAsCompleted: false)
+                .Insert(f =>
+                {
+                    f.ExistingPaymentDetails.WithoutAccount();
+                    f.Evidence.AddFiles(f, 2);
+                });
         }
 
         private LocalRepository(bool deleteAllDocuments) : base(NewClient())

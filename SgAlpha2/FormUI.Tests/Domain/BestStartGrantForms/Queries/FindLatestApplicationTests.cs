@@ -34,9 +34,8 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
             var userId = "existing.user@known.com";
 
             var existingForm1 = new BestStartGrantBuilder("form1")
-                .WithCompletedSections()
+                .WithCompletedSections(markAsCompleted: false)
                 .With(f => f.UserId, userId)
-                .With(f => f.Completed, null)
                 .With(f => f.Declaration, null)
                 .Insert();
 

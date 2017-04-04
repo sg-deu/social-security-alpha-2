@@ -14,6 +14,7 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Commands
         public void Execute_StoresPaymentDetails()
         {
             var existingForm = new ChangeOfCircsBuilder("form123")
+                .With(f => f.ExistingPaymentDetails, PaymentDetailsBuilder.NewValid())
                 .Insert();
 
             existingForm.PaymentDetails.Should().BeNull("no data stored before executing command");

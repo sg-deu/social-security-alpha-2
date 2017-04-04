@@ -122,6 +122,11 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddPaymentDetails(PaymentDetails paymentDetails)
         {
+            Validate(paymentDetails);
+
+            if (ExistingPaymentDetails.HasBankAccount == false && paymentDetails.HasBankAccount == false)
+                throw new DomainException("Please indicate your new bank account details");
+
             PaymentDetails = paymentDetails;
             return OnSectionCompleted(Sections.PaymentDetails);
         }

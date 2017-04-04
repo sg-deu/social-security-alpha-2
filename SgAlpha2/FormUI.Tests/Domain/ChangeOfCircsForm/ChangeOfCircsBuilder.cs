@@ -16,11 +16,12 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.Id, formId);
         }
 
-        public ChangeOfCircsBuilder WithCompletedSections()
+        public ChangeOfCircsBuilder WithCompletedSections(bool markAsCompleted = true)
         {
             With(f => f.Consent, ConsentBuilder.NewValid());
             With(f => f.UserId, "existing.user@known.com");
             With(f => f.ExistingApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Address = AddressBuilder.NewValid("existing")));
+            With(f => f.ExistingPaymentDetails, PaymentDetailsBuilder.NewValid());
             With(f => f.Options, OptionsBuilder.NewValid());
             With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
             With(f => f.PaymentDetails, PaymentDetailsBuilder.NewValid());
@@ -30,6 +31,10 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             With(f => f.Started, DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
             With(f => f.Completed, DomainRegistry.NowUtc());
             VerifyConsistent(_instance);
+
+            if (!markAsCompleted)
+                With(f => f.Completed, null);
+
             return this;
         }
 

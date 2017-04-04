@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
-using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -16,7 +15,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.Id, formId);
         }
 
-        public BestStartGrantBuilder WithCompletedSections()
+        public BestStartGrantBuilder WithCompletedSections(bool markAsCompleted = true)
         {
             With(f => f.Consent,                    ConsentBuilder.NewValid());
             With(f => f.UKVerify,                   UKVerifyBuilder.NewValid());
@@ -38,6 +37,10 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.Completed,                  DomainRegistry.NowUtc());
             With(f => f.UserId,                     _instance.ApplicantDetails?.EmailAddress);
             VerifyConsistent(_instance);
+
+            if (!markAsCompleted)
+                With(f => f.Completed, null);
+
             return this;
         }
 

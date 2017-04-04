@@ -15,9 +15,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         public void Complete_SetsCompletionDate()
         {
             var form = new ChangeOfCircsBuilder("form")
-                .WithCompletedSections()
+                .WithCompletedSections(markAsCompleted: false)
                 .With(f => f.Declaration, null)
-                .With(f => f.Completed, null)
                 .Insert();
 
             var next = form.AddDeclaration(DeclarationBuilder.NewValid());
