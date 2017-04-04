@@ -9,7 +9,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         [DisplayName("Is a baby expected?")]
         public bool?        IsBabyExpected          { get; set; }
 
-        [DisplayName("What date is the baby due?")]
+        [DisplayName("When is the baby due?")]
         [HintText("For example 01 03 2017")]
         public DateTime?    ExpectancyDate          { get; set; }
 
