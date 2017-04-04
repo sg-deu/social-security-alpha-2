@@ -18,6 +18,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public Consent              Consent                     { get; protected set; }
         public ApplicantDetails     ExistingApplicantDetails    { get; protected set; }
+        public PaymentDetails       ExistingPaymentDetails      { get; protected set; }
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
         public PaymentDetails       PaymentDetails              { get; protected set; }
@@ -92,6 +93,13 @@ namespace FormUI.Domain.ChangeOfCircsForm
             };
 
             ApplicantDetails = ExistingApplicantDetails;
+
+            ExistingPaymentDetails = new PaymentDetails
+            {
+                HasBankAccount = existingForm.PaymentDetails.HasBankAccount,
+            };
+
+            PaymentDetails = ExistingPaymentDetails;
 
             return OnSectionCompleted(Sections.Identity);
         }

@@ -26,6 +26,10 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
                     f.ApplicantDetails.MobilePhoneNumber = "123";
                     f.ApplicantDetails.PhoneNumer = "234";
                     f.ApplicantDetails.EmailAddress = "t.t@t.t";
+
+                    f.PaymentDetails.HasBankAccount = true;
+                    f.PaymentDetails.AccountNumber = "12345";
+                    f.PaymentDetails.SortCode = "12-34-56";
                 });
 
             var coc = new ChangeOfCircsBuilder("form").Insert();
@@ -40,6 +44,12 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             coc.ExistingApplicantDetails.EmailAddress.Should().Be("t.t@t.t");
 
             coc.ExistingApplicantDetails.ShouldBeEquivalentTo(coc.ApplicantDetails);
+
+            coc.ExistingPaymentDetails.HasBankAccount.Should().BeTrue();
+            coc.ExistingPaymentDetails.AccountNumber.Should().BeNull();
+            coc.ExistingPaymentDetails.SortCode.Should().BeNull();
+
+            coc.ExistingPaymentDetails.ShouldBeEquivalentTo(coc.PaymentDetails);
         }
 
         [Test]
