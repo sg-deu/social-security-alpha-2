@@ -73,6 +73,23 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             if (doc.Declaration?.AgreedToLegalStatement == true)
                 doc.Completed.Should().NotBeNull("When consent has been filled in, expect a Completed date {0}", doc.Id);
 
+            if (doc.PaymentDetails != null && doc.PaymentDetails.HasBankAccount == null)
+                doc.PaymentDetails.HasBankAccount.Should().NotBeNull("When payment has been filled in, then HasBankAccount should be set {0}", doc.Id);
+
+            if (doc.ExpectedChildren != null)
+            {
+                if (doc.ExpectedChildren.IsBabyExpected == null)
+                    doc.ExpectedChildren.IsBabyExpected.Should().NotBeNull("When ExpectedChildren has been filled in, then IsBabyExpected should be set {0}", doc.Id);
+
+                if (doc.ExpectedChildren.ExpectedBabyCount.HasValue)
+                {
+                    if (doc.ExpectedChildren.ExpectedBabyCount < 2)
+                        doc.ExpectedChildren.ExpectedBabyCount.Value.Should().BeGreaterThan(1, "Expected baby count should be greater than 1 {0}", doc.Id);
+
+                    doc.ExpectedChildren.IsMoreThan1BabyExpected.Should().HaveValue("When ExpectedBabyCount has been filled in, then IsMoreThan1BabyExpected should be set {0}", doc.Id);
+                }
+            }
+
             doc.Started.Should().NotBe(DateTime.MinValue);
         }
 

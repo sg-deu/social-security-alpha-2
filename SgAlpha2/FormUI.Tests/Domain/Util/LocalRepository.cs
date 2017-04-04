@@ -60,6 +60,11 @@ namespace FormUI.Tests.Domain.Util
             if (!_isSetup)
                 return; // DB wasn't touched, so nothing to do here
 
+            var dbUri = VstsSettings.GetSetting("dbUri", DefaultDbUri);
+
+            if (dbUri != DefaultDbUri)
+                return; // this data is only to help local devs - don't put on live site
+
             using (var repository = New(deleteAllDocuments: false).Register())
             {
                 DomainRegistry.ValidationContext = new ValidationContext(true);
