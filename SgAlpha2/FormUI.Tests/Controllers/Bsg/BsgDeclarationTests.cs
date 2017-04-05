@@ -88,6 +88,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 var namesToIgnore = new List<string>
                 {
                     "Id",
+                    "Consent.",
                     "Declaration.",
                     "PreviousSection",
                     "IsFinalSection",
