@@ -184,6 +184,7 @@
     <Compile Include="Controllers\Util\Http\SimulatedWorkerRequest.cs" />
     <Compile Include="Controllers\Util\Http\UnexpectedStatusCodeException.cs" />
     <Compile Include="Controllers\Util\It.cs" />
+    <Compile Include="Controllers\Util\MemberVisitor.cs" />
     <Compile Include="Controllers\Util\TestExtensions.cs" />
     <Compile Include="Controllers\Util\WebTest.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_ApplicantBenefitsTests.cs" />

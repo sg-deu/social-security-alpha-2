@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -83,7 +81,8 @@ namespace FormUI.Tests.Controllers.Bsg
                 var detail = NewBsgDetail("form123");
                 ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
 
-                var expectedAnswers = FindAllExpectedAnswers(detail);
+                var expectedAnswers = new List<string>();
+                MemberVisitor.Visit(detail, (name, member, type, value) => expectedAnswers.Add(name));
 
                 var namesToIgnore = new List<string>
                 {
@@ -109,78 +108,5 @@ namespace FormUI.Tests.Controllers.Bsg
             });
         }
 
-        private IList<string> FindAllExpectedAnswers(object source)
-        {
-            var expectedAnswers = new List<string>();
-            AddNames(expectedAnswers, source, "");
-            return expectedAnswers;
-        }
-
-        private void AddNames(IList<string> names, object source, string prefix)
-        {
-            if (source == null)
-                return;
-
-            var type = source.GetType();
-
-            if (IsList(type))
-            {
-                AddList(names, source, prefix);
-                return;
-            }
-        
-            var props = type.GetProperties();
-
-            foreach (var prop in props)
-                AddName(names, prop.PropertyType, prop.Name, () => prop.GetValue(source, null), prefix);
-
-            var fields = type.GetFields();
-
-            foreach (var field in fields)
-                AddName(names, field.FieldType, field.Name, () => field.GetValue(source), prefix);
-        }
-
-        private void AddName(IList<string> names, Type type, string name, Func<object> value, string prefix)
-        {
-            if (IsCompound(type))
-                AddNames(names, value(), PrefixFor(prefix, name));
-            else
-                names.Add(PrefixFor(prefix, name));
-        }
-
-        private void AddList(IList<string> names, object source, string prefix)
-        {
-            var enumerable = (IEnumerable)source;
-            var index = 0;
-
-            foreach (var item in enumerable)
-                AddNames(names, item, prefix + $"[{index++}]");
-        }
-
-        private bool IsList(Type type)
-        {
-            if (type == typeof(string))
-                return false;
-
-            return typeof(IEnumerable).IsAssignableFrom(type);
-        }
-
-        private bool IsCompound(Type type)
-        {
-            if (type.IsValueType || type == typeof(string))
-                return false;
-
-            if (type.FullName.Contains("FormUI.Domain."))
-                return true;
-
-            throw new Exception("Unhandled type: " + type);
-        }
-
-        private string PrefixFor(string existingPrefix, string name)
-        {
-            return string.IsNullOrWhiteSpace(existingPrefix)
-                ? name
-                : existingPrefix + "." + name;
-        }
     }
 }
