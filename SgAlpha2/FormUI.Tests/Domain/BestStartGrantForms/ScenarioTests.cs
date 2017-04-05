@@ -337,7 +337,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         private NextSection AddUKVerify(NextSection current, Action<UKVerify> mutator = null)
         {
             current.Section.Should().Be(Sections.UKVerify);
-            return NextSection(current.Section, () => new AddUKVerify { FormId = current.Id, UKVerify = UKVerifyBuilder.NewValid(mutator) }.Execute());
+            return NextSection(current.Section, () => new AddUKVerify { FormId = current.Id }.Execute());
         }
 
         private NextSection AddApplicantDetails(NextSection current, Action<ApplicantDetails> mutator = null)

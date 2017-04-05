@@ -26,7 +26,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string               SurnameOrFamilyName     { get; set; }
 
         [DisplayName("Date of Birth")]
-        [HintText("For example 01 03 1980")]
+        [HintText("For example 01 03 1980.")]
         public DateTime?            DateOfBirth             { get; set; }
 
         [DisplayName("Have you previously been in looked after care?")]
@@ -36,7 +36,7 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public bool?                FullTimeEducation       { get; set; }
 
         [DisplayName("National Insurance number")]
-        [HintText("You can find this on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'")]
+        [HintText("You can find this on your National Insurance Card, benefit letter, payslip or P60.<br/>For example, 'VO 12 34 56 D'.")]
         [UiInputMask(InputMasks.NationalInsuranceNumber)]
         public string               NationalInsuranceNumber { get; set; }
 

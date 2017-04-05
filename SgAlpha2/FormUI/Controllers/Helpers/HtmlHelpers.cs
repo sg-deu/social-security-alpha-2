@@ -25,6 +25,7 @@ namespace FormUI.Controllers.Helpers
 
             var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
 
+            // Fix this re: code review comments - add to controller
             var actionUrl = System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope];
 
             var anchor = new LinkTag(null, urlHelper.Content(actionUrl))

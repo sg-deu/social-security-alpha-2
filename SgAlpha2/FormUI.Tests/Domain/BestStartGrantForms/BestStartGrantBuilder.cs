@@ -18,7 +18,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         public BestStartGrantBuilder WithCompletedSections(bool markAsCompleted = true)
         {
             With(f => f.Consent,                    ConsentBuilder.NewValid());
-            With(f => f.UKVerify,                   UKVerifyBuilder.NewValid());
             With(f => f.ApplicantDetails,           ApplicantDetailsBuilder.NewValid());
             With(f => f.ExpectedChildren,           ExpectedChildrenBuilder.NewValid());
             With(f => f.ExistingChildren,           ExistingChildrenBuilder.NewValid());

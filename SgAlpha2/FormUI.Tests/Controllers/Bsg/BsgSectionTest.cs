@@ -14,7 +14,6 @@ namespace FormUI.Tests.Controllers.Bsg
                 Id = formId,
 
                 Consent                 = ConsentBuilder.NewValid(),
-                UKVerify                = UKVerifyBuilder.NewValid(),
                 ApplicantDetails        = ApplicantDetailsBuilder.NewValid(),
                 ExpectedChildren        = ExpectedChildrenBuilder.NewValid(),
                 ExistingChildren        = ExistingChildrenBuilder.NewValid(childCount),

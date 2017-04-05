@@ -39,11 +39,11 @@
 
             @form.Html.PartialFor(m => m.CurrentAddress, SharedViews.Address, a => new AddressModel { Address = a })
 
-            <div class="info-note note">Enter your phone number and/or your email address so that we can contact you regarding the progress of your application</div>
-
-            @form.Html.LabelledInputText(m => m.PhoneNumer)
+            <div class="info-note note">Enter your phone number and/or your email address so that we can contact you regarding the progress of your application.</div>
 
             @form.Html.LabelledInputText(m => m.MobilePhoneNumber)
+
+            @form.Html.LabelledInputText(m => m.PhoneNumer)
 
             @form.Html.LabelledInputText(m => m.EmailAddress)
 

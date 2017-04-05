@@ -90,6 +90,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 MobilePhoneNumber = existingForm.ApplicantDetails.MobilePhoneNumber,
                 HomePhoneNumer = existingForm.ApplicantDetails.PhoneNumer,
                 EmailAddress = existingForm.ApplicantDetails.EmailAddress,
+                Age = existingForm.ApplicantDetails.Age(),
             };
 
             ExistingPaymentDetails = new PaymentDetails

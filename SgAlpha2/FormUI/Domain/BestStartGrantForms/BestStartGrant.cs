@@ -124,11 +124,8 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.Consent);
         }
 
-        public NextSection AddUKVerify(UKVerify ukverify)
+        public NextSection AddUKVerify()
         {
-           // Validate(ukverify);
-
-            UKVerify = ukverify;
             return OnSectionCompleted(Sections.UKVerify);
         }
 

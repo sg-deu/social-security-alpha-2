@@ -17,7 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
                 .With(f => f.GuardianPartnerDetails, RelationDetailsBuilder.NewValid())
                 .Insert();
 
-            existingForm.GuardianPartnerDetails.Address.Line1.Should().NotBeNull(); //BeNull("no data stored before executing command");
+            existingForm.GuardianPartnerDetails.Address.Line1.Should().NotBeNull();
 
             var cmd = new AddGuardianPartnerDetails
             {

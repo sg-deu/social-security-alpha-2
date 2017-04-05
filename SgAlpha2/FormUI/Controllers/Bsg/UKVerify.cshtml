@@ -9,37 +9,35 @@
 
         <h1>We need to confirm who you are</h1>
 
-        @using (var form = Html.FormFor(Model.UKVerify))
-        {
-            @form.Html.ValidationSummary()
+           <form method="post" class="sg-form">
 
-            <h3>You have 2 options to confirm who you are:</h3>
+               @Html.ValidationSummary()
 
-            <h2>1. Confirm who you are with the Social Security Agency:</h2>
+               <h3>You have 2 options to confirm who you are:</h3>
 
-            <p>
-                You can continue your application without confirming who you are. The Social Security Agency will confirm this for you. This may delay your application as we may have to contact you.
-            </p>
+               <h2>1. Confirm who you are with the Social Security Agency:</h2>
 
-            <p>
-                @form.Html.ButtonSubmit("Start Option 1 >")
-            </p>
+               <p>
+                   You can continue your application without confirming who you are. The Social Security Agency will confirm this for you. This may delay your application as we may have to contact you.
+               </p>
+
+               @Html.ButtonSubmit("Start Option 1 >")
+
+            </form>
 
             <h2>2. Confirm who you are with Verify:</h2>
 
-           <p>
-               To continue your application we need to confirm who you are now with Verify.
-           </p>
+            <p>
+                To confirm who you are now you need to use Verify. This should mean your application is processed quicker.
+            </p>
 
-           <p>
-               @form.Html.ButtonLinkExternal("gov.ukverifyapply", "Start Option 2 >")
-           </p>
+            @Html.ButtonLinkExternal("gov.ukverifyapply", "Start Option 2 >")
 
             <h3>Before you start:</h3>
 
             <h3>If you've not used Verify before</h3>
             <p>
-                To confirm who you are you'll need:
+                You need to have 1 or more of the following to use this:
                 <ul>
                     <li>your passport number</li>
                     <li>drivers licence</li>
@@ -52,15 +50,15 @@
             <p>
                 If you've used Verify before, you'll need to know:
                 <ul>
-                    <li>what company you used to confirm who you are, for example Post Office, Experis</li>
+                    <li>what service you used to confirm who you are, for example Post Office</li>
                     <li>your login details</li>
                 </ul>
                 Check the email you were sent when you registered. If you can't find the information, contact XXXXX.
             </p>
 
-        }
+            }
 
-        @Html.BackLink(Model.PreviousAction)
+            @Html.BackLink(Model.PreviousAction)
 
-</div><!--
+    </div><!--
 --></div>

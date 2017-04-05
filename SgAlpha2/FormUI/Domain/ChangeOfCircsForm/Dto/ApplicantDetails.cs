@@ -26,5 +26,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Dto
 
         [DisplayName("Email address")]
         public string               EmailAddress            { get; set; }
+
+        public int?                 Age                     { get; set; }
     }
 }

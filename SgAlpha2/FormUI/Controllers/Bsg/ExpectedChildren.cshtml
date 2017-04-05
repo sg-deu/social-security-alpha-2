@@ -24,15 +24,15 @@
             using (form.Html.ShowWhenYes(m => m.IsBabyExpected, t => t.Id("due-details")))
             {
 
-                @form.Html.LabelledInputDate(m => m.ExpectancyDate)
+                @form.Html.LabelledInputDate(m => m.ExpectancyDate).Mandatory()
 
-                @form.Html.LabelledRadioYesNo(m => m.IsMoreThan1BabyExpected)
+                @form.Html.LabelledRadioYesNo(m => m.IsMoreThan1BabyExpected).Mandatory()
 
 
                 using (form.Html.ShowWhenYes(m => m.IsMoreThan1BabyExpected, t => t.Id("baby-count")))
                 {
 
-                    @form.Html.LabelledInputInt(m => m.ExpectedBabyCount)
+                    @form.Html.LabelledInputInt(m => m.ExpectedBabyCount).Mandatory()
 
                 }
 

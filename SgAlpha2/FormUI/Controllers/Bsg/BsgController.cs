@@ -104,7 +104,6 @@ namespace FormUI.Controllers.Bsg
             var cmd = new AddUKVerify
             {
                 FormId = id,
-                UKVerify = ukverify,
             };
 
             return Exec(cmd,
@@ -142,7 +141,7 @@ namespace FormUI.Controllers.Bsg
         [HttpPost]
         public ActionResult ApplicantDetails(string id, ApplicantDetails applicantDetails)
         {
-            //Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
+            // Retrieve the formid (session identifier) that we saved prior to leaving BSG and entering GOV.UKVerify site
             if (Request.Cookies["formId"] != null && id == null)
             {
                 System.Web.HttpCookie aCookie = Request.Cookies["formId"];
@@ -310,7 +309,7 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.PartnerBenefits, (m, f) =>
             {
-                m.Title     = "Your Partner's benefits";
+                m.Title     = "Your partner's benefits";
                 m.Question  = "Tick all the benefits your partner is currently receiving";
                 m.Benefits  = details ?? f.PartnerBenefits;
             });
@@ -340,7 +339,7 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianBenefits, (m, f) =>
             {
-                m.Title     = "Your Parent/Legal Guardian's benefits";
+                m.Title     = "Your parent/legal guardian's benefits";
                 m.Question  = "Tick all benefits your parent/legal guardian is currently receiving";
                 m.Benefits  = details ?? f.GuardianBenefits;
             });
@@ -370,8 +369,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianPartnerBenefits, (m, f) =>
             {
-                m.Title     = "Your Parent/Legal Guardian's Partner's benefits";
-                m.Question  = "Tick all benefits your Parent/Legal Guardian's Partner is currently receiving";
+                m.Title     = "Your parent/legal guardian's partner's benefits";
+                m.Question  = "Tick all benefits your parent/legal guardian's partner is currently receiving";
                 m.Benefits  = details ?? f.GuardianPartnerBenefits;
             });
         }
@@ -400,8 +399,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.PartnerDetails, (m, f) =>
             {
-                m.Title = "Your Partner";
-                m.Heading = "Your Partner";
+                m.Title = "About Your partner";
+                m.Heading = "Your partner's details";
                 m.HideRelationship = true;
                 m.RelationDetails = details ?? f.PartnerDetails;
                 m.InheritedAddress = f.ApplicantDetails?.CurrentAddress;
@@ -432,8 +431,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianDetails, (m, f) =>
             {
-                m.Title = "Your Parent/Legal Guardian";
-                m.Heading = "Your Parent/Legal Guardian";
+                m.Title = "About your parent/legal guardian";
+                m.Heading = "Your parent/legal guardian's details";
                 m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
@@ -462,8 +461,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianPartnerDetails, (m, f) =>
             {
-                m.Title = "Your Parent/Legal Guardian's Partner";
-                m.Heading = "Your Parent/Legal Guardian's Partner";
+                m.Title = "About your parent/legal guardian's partner";
+                m.Heading = "Your parent/legal guardian's partner's details";
                 m.RelationDetails = details ?? f.GuardianPartnerDetails;
             });
         }        
@@ -549,6 +548,9 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
             {
                 m.Declaration = details ?? f.Declaration;
+                
+                // TODO: test failing - investigate
+                //m.RequiresGuardianDeclaration = f.ApplicantDetails.Age() < 16;
             });
         }
 

@@ -298,6 +298,8 @@ namespace FormUI.Controllers.Coc
             return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
             {
                 m.Declaration = details ?? f.Declaration;
+                // TODO: test failing - investigate
+                //m.RequiresGuardianDeclaration = f.ApplicantDetails.Age < 16;
             });
         }
 

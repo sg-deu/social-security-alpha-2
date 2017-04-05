@@ -22,7 +22,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Dto
         public bool     Other                   { get; set; }
 
         [DisplayName("Anything else")]
-        [UIHint("If your choice isn't listed above please enter the details below")]
+        [UIHint("If your choice isn't listed above please enter the details below.")]
         [UiLength(400)]
         public string   OtherDetails            { get; set; }
     }

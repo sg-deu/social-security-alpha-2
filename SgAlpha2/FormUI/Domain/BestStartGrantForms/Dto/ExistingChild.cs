@@ -13,16 +13,16 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
         public string           Surname                 { get; set; }
 
         [DisplayName("Child's date of birth")]
-        [HintText("For example 01 03 2010")]
+        [HintText("For example 01 03 2010.")]
         public DateTime?        DateOfBirth             { get; set; }
 
-        [DisplayName("Your relationship to  the child")]
+        [DisplayName("Your relationship to the child")]
         public Relationship?    Relationship            { get; set; }
 
         [DisplayName("Do you receive Child Benefit for this child?")]
         public bool?            ChildBenefit            { get; set; }
 
-        [DisplayName("Please explain why you are not getting child benefit")]
+        [DisplayName("Explain why you are not getting child benefit")]
         [UiLength(400)]
         public string           NoChildBenefitReason    { get; set; }
     }

@@ -6,7 +6,6 @@ namespace FormUI.Domain.BestStartGrantForms.Responses
     {
         public string Id;
 
-        public BeforeYouApply       BeforeYouApply;
         public Consent              Consent;
         public UKVerify             UKVerify;
         public ApplicantDetails     ApplicantDetails;

@@ -28,35 +28,33 @@
 
             @Html.ButtonSubmitNext(Model.IsFinalPage)
 
-            <h2>Before you start:</h2>
-            <p>To continue your application we need to confirm who you are. This will be done with GOV.UK Verify.</p>
-
-            <h2>If you've not used Verify before</h2>
-            <p>
-                To confirm who you are you'll need:
-                <ul>
-                    <li>your passport number</li>
-                    <li>drivers licence</li>
-                    <li>mobile phone</li>
-                    <li>bank details</li>
-                </ul>
-            </p>
-
-            <h2>Already registered with Verify</h2>
-            <p>
-                If you've used Verify before, you'll need to know:
-                <ul>
-                    <li>what company you used to confirm who you are, for example Post Office, Experis</li>
-                    <li>your login details</li>
-                </ul>
-                Check the email you were sent when you registered. If you can't find the information, contact XXXXX.
-            </p>
-
-            <p>
-                @Html.ButtonLinkExternal("gov.ukverifylogin", "Verify Now >")
-            </p>
-
         </form>
+
+        <h2>Before you start:</h2>
+        <p>To continue your application we need to confirm who you are. This will be done with GOV.UK Verify.</p>
+
+        <h2>If you've not used Verify before</h2>
+        <p>
+            To confirm who you are you'll need:
+            <ul>
+                <li>your passport number</li>
+                <li>drivers licence</li>
+                <li>mobile phone</li>
+                <li>bank details</li>
+            </ul>
+        </p>
+
+        <h2>Already registered with Verify</h2>
+        <p>
+            If you've used Verify before, you'll need to know:
+            <ul>
+                <li>what service you used to confirm who you are, for example Post Office</li>
+                <li>your login details</li>
+            </ul>
+            Check the email you were sent when you registered. If you can't find the information, contact XXXXX.
+        </p>
+
+        @Html.ButtonLinkExternal("gov.ukverifylogin", "Verify Now >")
 
         @Html.BackLink(Model.PreviousAction)
 

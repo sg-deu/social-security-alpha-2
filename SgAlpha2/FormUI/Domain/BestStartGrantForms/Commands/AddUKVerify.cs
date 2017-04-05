@@ -7,12 +7,11 @@ namespace FormUI.Domain.BestStartGrantForms.Commands
     public class AddUKVerify : Command<NextSection>
     {
         public string   FormId;
-        public UKVerify UKVerify;
 
         public override NextSection Execute()
         {
             var form = Repository.Load<BestStartGrant>(FormId);
-            return form.AddUKVerify(UKVerify);
+            return form.AddUKVerify();
         }
     }
 }

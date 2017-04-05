@@ -143,7 +143,6 @@
     <Compile Include="Controllers\Bsg\BsgPaymentDetailsTests.cs" />
     <Compile Include="Controllers\Bsg\BsgSectionTest.cs" />
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
-    <Compile Include="Controllers\Bsg\BsgUKVerifyTests.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategyTests.cs" />
     <Compile Include="Controllers\Coc\CocApplicantDetailsTests.cs" />
     <Compile Include="Controllers\Coc\CocConsentTests.cs" />
@@ -201,17 +200,14 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PaymentDetailsTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\BestStartGrant_UKVerifyTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Commands\AddUKVerifyTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsTests.cs" />
-    <Compile Include="Domain\BestStartGrantForms\Dto\UKVerifyBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_DeclarationTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_EvidenceTests.cs" />

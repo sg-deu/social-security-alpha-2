@@ -51,7 +51,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
-            FillInUKVerify();
+            App.VerifyCanSeeText("need to confirm who you are");
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-19);
@@ -68,7 +68,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInApplicantBenefits();
             App.Submit();
 
-            App.VerifyCanSeeText("Partner's benefits");
+            App.VerifyCanSeeText("partner's benefits");
             FillInPartnerBenefits();
             App.Submit();
 
@@ -92,7 +92,6 @@ namespace FormUI.Tests.SystemTests.Bsg
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyConsent(doc);
-                VerifyUKVerify(doc);
                 VerifyApplicantDetails(doc, dob, false, false);
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
@@ -115,7 +114,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
-            FillInUKVerify();
+            App.VerifyCanSeeText("need to confirm who you are");
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-18);
@@ -130,11 +129,11 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInNoExistingChildren();
             App.ClickButton("");
 
-            App.VerifyCanSeeText("Guardian's benefits");
+            App.VerifyCanSeeText("guardian's benefits");
             FillInGuardianBenefits();
             App.Submit();
 
-            App.VerifyCanSeeText("Guardian's Partner's benefits");
+            App.VerifyCanSeeText("guardian's partner's benefits");
             FillInGuardianPartnerBenefits();
             App.Submit();
 
@@ -167,18 +166,6 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.Consent.AgreedToConsent.Should().BeTrue();
             _verifiedSections.Add(Sections.Consent);
-        }
-
-        private void FillInUKVerify()
-        {
-            //var form = App.FormForModel<UKVerify>();
-            //form.Check(m => m.AgreedToConsent, true);
-        }
-
-        private void VerifyUKVerify(BestStartGrant doc)
-        {
-            //doc.UKVerify.AgreedToConsent.Should().BeTrue();
-            _verifiedSections.Add(Sections.UKVerify);
         }
 
         private void FillInApplicantDetails(DateTime dob, bool? previouslyLookedAfter, bool? fullTimeEducation)

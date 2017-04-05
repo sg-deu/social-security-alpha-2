@@ -12,6 +12,13 @@ namespace FormUI.Controllers.Helpers
 {
     public static class FormHelpers
     {
+        public enum BsgButtonType
+        {
+            Primary = 1,
+            Error,
+            Success
+        }
+
         public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel, Action<FormTag> mutator = null)
         {
             var form = new FormTag();
@@ -163,15 +170,18 @@ namespace FormUI.Controllers.Helpers
                 new ConfirmCheckBox(helper, controlContext, labelText));
         }
 
-        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label)
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label, BsgButtonType buttonType = BsgButtonType.Primary)
         {
-            return helper.FormButton(name, null, label);
+            return helper.FormButton(name, null, label, buttonType);
         }
 
-        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string value, string label)
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string value, string label, BsgButtonType buttonType = BsgButtonType.Primary)
         {
+            // Could use a DescriptionAttribute on the enum but this will do for now...
+            string className = String.Format("button--{0}", Enum.GetName(typeof(BsgButtonType), buttonType).ToLower());
+
             var div = new DivTag().AddClasses("form-group");
-            var button = new HtmlTag("button").AddClasses("button", "button--primary").Text(label);
+            var button = new HtmlTag("button").AddClasses("button", className).Text(label);
 
             if (!string.IsNullOrWhiteSpace(name))
                 button.Name(name);

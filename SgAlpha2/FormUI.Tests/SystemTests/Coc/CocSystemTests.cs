@@ -67,10 +67,12 @@ namespace FormUI.Tests.SystemTests.Coc
 
             App.GoTo(FormUI.Controllers.Home.HomeActions.Index());
             App.VerifyCanSeeText("Tell us if something has changed");
-
             App.Submit();
 
             FillInConsent();
+            App.Submit();
+
+            App.VerifyCanSeeText("need to confirm who you are");
             App.Submit();
 
             FillInIdentity(userId);

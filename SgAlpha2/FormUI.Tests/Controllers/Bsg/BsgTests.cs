@@ -97,7 +97,7 @@ namespace FormUI.Tests.Controllers.Bsg
             {
                 var response = client.Get(BsgActions.Ineligible("form"));
 
-                response.Text.ToLower().Should().Contain("based on your answers");
+                response.Text.ToLower().Should().Contain("you don't seem to qualify");
             });
         }
 
@@ -120,6 +120,17 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.BeforeYouApply());
 
                 response.Text.ToLower().Should().Contain("before you apply");
+            });
+        }
+
+        [Test]
+        public void UKVerify_GET()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(BsgActions.UKVerify("form123"));
+
+                response.Text.ToLower().Should().Contain("confirm who you are");
             });
         }
     }
