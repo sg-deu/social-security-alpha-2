@@ -15,6 +15,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MsBuild", "MsBuild", "{8DF9BD53-F6CE-4992-91D5-AAE75E7F21CA}"
 	ProjectSection(SolutionItems) = preProject
 		MsBuild\Common.targets = MsBuild\Common.targets
+		MsBuild\VerifyCoverage.js = MsBuild\VerifyCoverage.js
+		MsBuild\VerifyPass.js = MsBuild\VerifyPass.js
 	EndProjectSection
 EndProject
 Global

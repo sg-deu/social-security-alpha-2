@@ -10,6 +10,7 @@
     <OpenCoverExe>$(MSBuildThisFileDirectory)\..\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe</OpenCoverExe>
     <ReportGeneratorExe>$(MSBuildThisFileDirectory)\..\packages\ReportGenerator.2.5.6\tools\ReportGenerator.exe</ReportGeneratorExe>
     <VerifyCoverageJs>$(MSBuildThisFileDirectory)\VerifyCoverage.js</VerifyCoverageJs>
+    <VerifyPassJs>$(MSBuildThisFileDirectory)\VerifyPass.js</VerifyPassJs>
 
     <Asterisk>%2A</Asterisk>
     <TestAssembly>$(AssemblyName).dll</TestAssembly>
@@ -39,11 +40,13 @@
 
   <Target Name="RunTestsWithoutCoverage">
     <Exec Command="$(NUnitExe) $(OutDir)$(TestAssembly) /result=$(OutDir)$(TestOutput)" />
+    <Exec Command="CScript //NoLogo $(VerifyPassJs) $(OutDir)\$(TestOutput)" />
     <Touch Files="$(TestSuccessFlag)" AlwaysCreate="true" />
   </Target>
 
   <Target Name="RunTestsWithCoverage" Condition="'$(RunTests)'=='true' and '$(WithCoverage)'=='true'" Inputs="@(TestDependencies)" Outputs="$(TestSuccessFlag)">
     <Exec Command="$(OpenCoverExe) -targetdir:$(OutDir) -target:$(NUnitExe) -targetargs:&quot;$(TestAssembly) /result=$(TestOutput)&quot; -register:user -output:$(CoverageOutput) -returntargetcode -filter:&quot;@(CoverFilter, ' ')&quot; $(CoverFilterFileOption)" />
+    <Exec Command="CScript //NoLogo $(VerifyPassJs) $(OutDir)\$(TestOutput)" />
     <RemoveDir Directories="$(OutDir)\CoverageReport" />
     <Exec Command="$(ReportGeneratorExe) -reports:$(CoverageOutput) -targetdir:$(OutDir)\CoverageReport -verbosity:Error -ReportTypes:Html;XmlSummary" />
     <Exec Command="CScript //NoLogo $(VerifyCoverageJs) $(CoverageTarget) $(OutDir)\CoverageReport\Summary.xml" />

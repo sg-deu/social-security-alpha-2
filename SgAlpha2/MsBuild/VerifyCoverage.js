@@ -5,7 +5,7 @@
 var args = WScript.Arguments;
 
 if (args.length != 2)
-    throw "Usage: VerifyCoverage.js <target percentage> <coverage summary file>";
+    throw new Error("Usage: VerifyCoverage.js <target percentage> <coverage summary file>");
 
 var target = args(0);
 var summaryFilename = args(1);
