@@ -92,6 +92,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 var doc = r.Query<BestStartGrant>().ToList().Single();
 
                 VerifyConsent(doc);
+                VerifyUKVerify(doc);
                 VerifyApplicantDetails(doc, dob, false, false);
                 VerifyExpectedChildren(doc, expectancyDate);
                 VerifyExistingChildren(doc);
@@ -481,6 +482,11 @@ namespace FormUI.Tests.SystemTests.Bsg
         {
             doc.Declaration.AgreedToLegalStatement.Should().BeTrue();
             _verifiedSections.Add(Sections.Declaration);
+        }
+
+        private void VerifyUKVerify(BestStartGrant doc)
+        {
+            _verifiedSections.Add(Sections.UKVerify);
         }
     }
 }

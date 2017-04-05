@@ -72,10 +72,8 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInConsent();
             App.Submit();
 
-            App.VerifyCanSeeText("need to confirm who you are");
-            App.Submit();
-
             FillInIdentity(userId);
+            App.VerifyCanSeeText("need to confirm who you are");
             App.Submit();
 
             FillInOptions();
