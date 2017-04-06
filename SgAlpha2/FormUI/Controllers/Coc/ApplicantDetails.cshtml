@@ -10,15 +10,15 @@
 
            <h1>About You</h1>
 
-           <p>Please complete all the details below to register for the Sure Start Maternity Grant.</p>
+           <p>You must fill in all fields marked with an (*)</p>
 
            @using (var form = Html.FormFor(Model.ApplicantDetails))
            {
 
                @form.Html.ValidationSummary()
 
-               <h2>Details about you that we currently hold</h2>
-               <p>Please edit the details below if you would like to update your information</p>
+               <h2>Your details</h2>
+               <hint>You can change any of the details to update your information</hint>
 
                @form.Html.LabelledInputText(m => m.Title)
 
@@ -33,7 +33,7 @@
                @form.Html.LabelledInputText(m => m.EmailAddress)
 
 
-               @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+               @form.Html.ButtonSubmit("Save & Continue >")
 
            }
 

@@ -15,29 +15,43 @@
             @Html.ValidationSummary()
 
             <h3>Tell us who you are</h3>
+
+            <p>You have 2 options to tell us who you are:</p>
+
+            <h2>1. Confirm who you are with your email address:</h2>
+
             <p>
-                Enter your email address to receive a unique link
+                You can continue your application now by entering your email address.
             </p>
 
             @Html.LabelledInputText(m => m.Email).Mandatory()
 
             <p>
-                If you do not have an email address please contact us on 01010 101 010 
+                If you do not have an email address, contact us on 01010 101 010 
                 or arrange for us to <a href="#">call you back</a>
             </p>
 
-            @Html.ButtonSubmitNext(Model.IsFinalPage)
+            @Html.ButtonSubmit("Start Option 1 >")
 
         </form>
 
-        <h2>Before you start:</h2>
-        <p>To continue your application we need to confirm who you are. This will be done with GOV.UK Verify.</p>
+        <br/>
+
+        <h2>2. Confirm who you are with Verify:</h2>
+
+        <p>To confirm who you are now you need to use Verify. This should mean your application is processed quicker.</p>
+
+        @Html.ButtonLinkExternal("gov.ukverifylogin", "Verify Now >")
+        
+        <br/>
+
+        <h3>Before you start:</h3>
 
         <h2>If you've not used Verify before</h2>
         <p>
-            To confirm who you are you'll need:
+            You need to have 1 or more of the following to use this:
             <ul>
-                <li>your passport number</li>
+                <li>passport number</li>
                 <li>drivers licence</li>
                 <li>mobile phone</li>
                 <li>bank details</li>
@@ -51,11 +65,9 @@
                 <li>what service you used to confirm who you are, for example Post Office</li>
                 <li>your login details</li>
             </ul>
-            Check the email you were sent when you registered. If you can't find the information, contact 01010 101 010.
         </p>
 
-        @Html.ButtonLinkExternal("gov.ukverifylogin", "Verify Now >")
-
+    
         @Html.BackLink(Model.PreviousAction)
 
     </div><!--

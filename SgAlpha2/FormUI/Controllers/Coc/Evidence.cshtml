@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<EvidenceModel>
 @{
-    ViewBag.Title = "Change of Circumstances - Documents to validate change of circumstances";
+    ViewBag.Title = "Change of Circumstances - Documents showing that something has changed";
 }
 
 <div class="grid"><!--
@@ -8,35 +8,36 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Documents to validate change of circumstances</h1>
+        <h1>Documents showing that something has changed</h1>
 
         @using (var form = Html.FormFor(Model.Evidence, f => f.Attr("enctype", "multipart/form-data")))
         {
 
             @form.Html.ValidationSummary()
 
-            <h2>Your need to give us documents showing your change of circumstances</h2>
+            <h1>Your Personal details</h1>
 
-            <h3>You can send us the following to show a change to your name:</h3>
+            <h2>You may need to give us documents showing your change of circumstances</h2>
+
+            <p>You’ll need to send us documents if you’ve changed your name or address. You don't need to send any documents if you've changed your phone number or email.</p>
+
+            <h3>Documents you can send us if you've changed your name:</h3>
             <ul>
                 <li>a marriage certificate</li>
                 <li>a bank statement</li>
             </ul>
 
-            <h3>You can send us the following to show a change to your address:</h3>
+            <h3>Documents you can send us if you've changed your address:</h3>
             <ul>
                 <li>utility bill</li>
                 <li>a bank statement</li>
             </ul>
 
-            <p>
-                You don't need to send any documents if you have changed your phone number
-                or email address.
-            </p>
-
-            <h3>Supporting documents (relevant material) should meet the following standards:</h3>
+            <h3>Documents should be:</h3>
             <ul>
-                <li>the maximum allowable size per document may not be more than 2MB</li>
+                <li>this kind of format: pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif</li>
+                <li>no more than 2MB</li>
+                <li>no more than 20 documents may be uploaded</li>
             </ul>
 
             <br/>
@@ -68,7 +69,7 @@
             <br/>
 
             <p>
-                If you do not have the facilities to upload documents please post them to the address below
+                If you can't upload the documents post them to the address below:
             </p>
 
             @form.Html.Partial(SharedViews.SsaContactDetails, true)

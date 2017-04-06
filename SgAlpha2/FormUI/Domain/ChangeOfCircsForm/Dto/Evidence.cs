@@ -5,7 +5,7 @@ namespace FormUI.Domain.ChangeOfCircsForm.Dto
 {
     public class Evidence
     {
-        [DisplayName("I confirm that I am sending documents by post")]
+        [DisplayName("I confirm I’m posting the document(s) to the Social Security Agency address")]
         public bool                 SendingByPost   { get; set; }
 
         public IList<EvidenceFile> Files = new List<EvidenceFile>();
