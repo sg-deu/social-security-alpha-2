@@ -230,8 +230,6 @@ namespace FormUI.Domain.BestStartGrantForms
 
         public NextSection AddDeclaration(Declaration declaration)
         {
-            declaration.RequiresGuardianDeclaration = false;
-
             Validate(declaration);
 
             Declaration = declaration;

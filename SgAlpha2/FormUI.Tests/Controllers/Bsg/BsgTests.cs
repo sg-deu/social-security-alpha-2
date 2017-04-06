@@ -9,7 +9,10 @@ using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Domain.Util;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
+using FormUI.Tests.Domain.BestStartGrantForms;
 using FormUI.Tests.Controllers.Util;
+using FormUI.Tests.Domain.Util;
 using NUnit.Framework;
 
 namespace FormUI.Tests.Controllers.Bsg
@@ -131,6 +134,36 @@ namespace FormUI.Tests.Controllers.Bsg
                 var response = client.Get(BsgActions.UKVerify("form123"));
 
                 response.Text.ToLower().Should().Contain("confirm who you are");
+            });
+        }
+
+        [Test]
+        [Ignore]
+        public void DeclarationU16_GET()
+        {
+            WebAppTest(client =>
+            {
+                var form = new BestStartGrantBuilder("form123")
+                    .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Under16(System.DateTime.UtcNow)))
+                    .Insert();
+
+                var response = client.Get(BsgActions.Declaration(form.Id));
+                response.Text.ToLower().Should().Contain("you are under the age of 16");
+            });
+        }
+
+        [Test]
+        [Ignore]
+        public void Declaration_GET()
+        {
+            WebAppTest(client =>
+            {
+                //var form = new BestStartGrantBuilder("form123")
+                //    .With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid(ad => ad.Over25(System.DateTime.UtcNow)))
+                //    .Insert();
+
+                var response = client.Get(BsgActions.Declaration("form123"));
+                response.Text.ToLower().Should().Contain("the information you've given");
             });
         }
     }

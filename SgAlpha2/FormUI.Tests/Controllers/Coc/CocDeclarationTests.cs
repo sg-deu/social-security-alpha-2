@@ -37,14 +37,17 @@ namespace FormUI.Tests.Controllers.Coc
         {
             WebAppTest(client =>
             {
-                var response = client.Get(CocActions.Declaration("form123")).Form<Declaration>(1)
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                var detail = NewCocDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindCocSection>(), detail);
+                var response = client.Get(CocActions.Declaration(detail.Id)).Form<Declaration>(1)
                     .SelectConfirm(m => m.AgreedToLegalStatement, true)
                     .Submit(client);
 
                 ExecutorStub.Executed<AddDeclaration>(0).ShouldBeEquivalentTo(new AddDeclaration
                 {
                     FormId = "form123",
-                    Declaration = new Declaration { AgreedToLegalStatement = true, RequiresGuardianDeclaration = false, },
+                    Declaration = new Declaration { AgreedToLegalStatement = true },
                 });
 
                 response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
@@ -56,6 +59,10 @@ namespace FormUI.Tests.Controllers.Coc
         {
             WebAppTest(client =>
             {
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                // even if the form is not queried such as this test, the browser cannot render the page without ApplicantDetails
+                var detail = NewCocDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindCocSection>(), detail);
                 ExecutorStub.SetupCommand<AddDeclaration, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
                 var response = client.Get(CocActions.Declaration("form123")).Form<Declaration>(1)

@@ -60,6 +60,19 @@ namespace FormUI.Controllers.Helpers
             return new LinkTag("Back", urlHelper.Content(actionUrl));
         }
 
+        // TODO: Appreciate this is not he right place for this (or if can use 'PartialFor<>' below) but will do in short term
+        public static IHtmlString PartialDeclarationForGuardian<T>(this HtmlHelper<T> helper, bool property)
+        {
+            if (property)
+            {
+                return helper.Partial(FormUI.Controllers.Shared.SharedViews.LegalStatementU16);
+            }
+            else
+            {
+                return helper.Partial(FormUI.Controllers.Shared.SharedViews.LegalStatement);
+            }
+        }
+
         public static IHtmlString PartialFor<T, TViewModel>(this HtmlHelper<T> helper, Expression<Func<T, TViewModel>> property, string view, Func<TViewModel, object> modelFactory = null)
             where TViewModel : class
         {

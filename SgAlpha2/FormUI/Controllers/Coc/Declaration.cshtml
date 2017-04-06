@@ -15,7 +15,7 @@
 
             @form.Html.ValidationSummary()
 
-            @form.Html.Partial(SharedViews.LegalStatement)
+            @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()
 

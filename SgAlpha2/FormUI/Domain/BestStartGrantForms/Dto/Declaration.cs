@@ -6,7 +6,5 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
     {
         [DisplayName("I agree with the 4 statements.")]
         public bool AgreedToLegalStatement { get; set; }
-
-        public bool RequiresGuardianDeclaration { get; set; }
     }
 }

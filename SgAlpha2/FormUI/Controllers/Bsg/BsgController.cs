@@ -547,6 +547,7 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
             {
+                m.RequiresGuardianDeclaration = f.ApplicantDetails.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });
         }

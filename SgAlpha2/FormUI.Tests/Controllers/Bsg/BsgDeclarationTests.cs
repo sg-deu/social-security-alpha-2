@@ -41,9 +41,12 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
                 ExecutorStub.SetupCommand(It.IsAny<AddDeclaration>(), new NextSection { Type = NextType.Complete });
 
-                var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
+                var response = client.Get(BsgActions.Declaration(detail.Id)).Form<Declaration>(1)
                     .SelectConfirm(m => m.AgreedToLegalStatement, true)
                     .Submit(client);
 
@@ -53,7 +56,6 @@ namespace FormUI.Tests.Controllers.Bsg
                     Declaration = new Declaration
                     {
                         AgreedToLegalStatement = true,
-                        RequiresGuardianDeclaration = false,
                     },
                 });
 
@@ -66,9 +68,13 @@ namespace FormUI.Tests.Controllers.Bsg
         {
             WebAppTest(client =>
             {
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                // even if the form is not queried such as this test, the browser cannot render the page without ApplicantDetails
+                var detail = NewBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
                 ExecutorStub.SetupCommand<AddDeclaration, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
 
-                var response = client.Get(BsgActions.Declaration("form123")).Form<Declaration>(1)
+                var response = client.Get(BsgActions.Declaration(detail.Id)).Form<Declaration>(1)
                     .SubmitName("", client, r => r.SetExpectedResponse(HttpStatusCode.OK));
 
                 response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
