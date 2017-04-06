@@ -12,6 +12,13 @@
 
         <p>You must fill in all fields marked with an (*)</p>
 
+        <p>You can add/update/remove your payment details:</p>
+        <ul>
+            <li>if you wish to update existing payment details, enter them below</li>
+            <li>if you no longer have a bank account, change your answer to 'No'</li>
+            <li>if you previously didn't have a bank account and wish to add one, select 'Yes' and enter your payment details</li>
+        </ul>
+
         @using (var form = Html.FormFor(Model.PaymentDetails))
         {
             @form.Html.ValidationSummary()
