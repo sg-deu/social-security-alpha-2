@@ -12,26 +12,26 @@ namespace FormUI.Domain.Forms.Dto
         public bool?    HasBankAccount      { get; set; }
 
         [DisplayName("Name of the Account Holder")]
-        [HintText("Write the name exactly as it appears on the bank card or on a letter from the bank")]
+        [HintText("Write the name exactly as it appears on the bank card or on a letter from the bank.")]
         public string   NameOfAccountHolder { get; set; }
 
         [DisplayName("Full name of bank or building society")]
         public string   NameOfBank          { get; set; }
 
         [DisplayName("Sort Code")]
-        [HintText("Tell us all 6 numbers for example 12-34-56")]
+        [HintText("Tell us all 6 numbers for example 12-34-56.")]
         [UiLength(8)]
         [UiInputMask(InputMasks.SortCode)]
         public string   SortCode            { get; set; }
 
         [DisplayName("Account number")]
-        [HintText("Most account numbers are 8 numbers long")]
+        [HintText("Most account numbers are 8 numbers long.")]
         [UiLength(10)]
         [UiInputMask(InputMasks.AccountNumber)]
         public string   AccountNumber       { get; set; }
 
         [DisplayName("Building Society roll or reference number")]
-        [HintText("Most roll or reference numbers are made up of letters and numbers and are up to 18 characters long. If you’re not sure if the account has a roll or reference number, ask the building society")]
+        [HintText("Most roll or reference numbers are made up of letters and numbers and are up to 18 characters long. If you’re not sure if the account has a roll or reference number, ask the building society.")]
         [UiLength(18)]
         public string   RollNumber          { get; set; }
     }

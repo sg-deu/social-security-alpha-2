@@ -399,7 +399,7 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.PartnerDetails, (m, f) =>
             {
-                m.Title = "About Your partner";
+                m.Title = "About your partner";
                 m.Heading = "Your partner's details";
                 m.HideRelationship = true;
                 m.RelationDetails = details ?? f.PartnerDetails;
@@ -548,9 +548,6 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
             {
                 m.Declaration = details ?? f.Declaration;
-                
-                // TODO: test failing - investigate
-                //m.RequiresGuardianDeclaration = f.ApplicantDetails.Age() < 16;
             });
         }
 

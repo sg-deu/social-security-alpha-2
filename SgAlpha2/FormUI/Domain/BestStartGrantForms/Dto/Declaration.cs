@@ -4,7 +4,9 @@ namespace FormUI.Domain.BestStartGrantForms.Dto
 {
     public class Declaration
     {
-        [DisplayName("I agree that the information I’ve given is complete and correct, the Social Security Agency can check my information with other government departments.")]
+        [DisplayName("I agree with the 4 statements.")]
         public bool AgreedToLegalStatement { get; set; }
+
+        public bool RequiresGuardianDeclaration { get; set; }
     }
 }

@@ -9,6 +9,8 @@ using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.BestStartGrantForms.Responses;
+using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
@@ -51,6 +53,7 @@ namespace FormUI.Tests.Controllers.Bsg
                     Declaration = new Declaration
                     {
                         AgreedToLegalStatement = true,
+                        RequiresGuardianDeclaration = false,
                     },
                 });
 

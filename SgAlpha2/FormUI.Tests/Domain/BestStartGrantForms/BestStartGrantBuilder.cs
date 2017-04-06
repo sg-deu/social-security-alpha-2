@@ -48,7 +48,6 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             detail.Id = form.Id;
 
             detail.Consent = form.Consent;
-            detail.UKVerify = form.UKVerify;
             detail.ApplicantDetails = form.ApplicantDetails;
             detail.ExpectedChildren = form.ExpectedChildren;
             detail.ExistingChildren = form.ExistingChildren;

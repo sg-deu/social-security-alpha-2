@@ -44,7 +44,7 @@ namespace FormUI.Tests.Controllers.Coc
                 ExecutorStub.Executed<AddDeclaration>(0).ShouldBeEquivalentTo(new AddDeclaration
                 {
                     FormId = "form123",
-                    Declaration = new Declaration { AgreedToLegalStatement = true },
+                    Declaration = new Declaration { AgreedToLegalStatement = true, RequiresGuardianDeclaration = false, },
                 });
 
                 response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
