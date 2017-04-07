@@ -29,13 +29,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
         [Test]
         public void HasExistingBenefit_ReturnsDk_WhenDontKnown()
         {
-            BenefitsBuilder.NewEmpty(b => b.Unknown = true).HasExistingBenefit().Should().Be(YesNoDk.DontKnow);
+            BenefitsBuilder.NewEmpty(b => b.Unknown()).HasExistingBenefit().Should().Be(YesNoDk.DontKnow);
         }
 
         [Test]
         public void HasExistingBenefit_ReturnsNo_WhenNoSelected()
         {
-            BenefitsBuilder.NewEmpty(b => b.None = true).HasExistingBenefit().Should().Be(YesNoDk.No);
+            BenefitsBuilder.NewEmpty(b => b.None()).HasExistingBenefit().Should().Be(YesNoDk.No);
         }
 
         [Test]

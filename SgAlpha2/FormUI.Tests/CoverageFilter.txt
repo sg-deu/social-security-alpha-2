@@ -1,2 +1,6 @@
 -[App_Web*]__ASP.FastObjectFactory*
 -[Common.Logging*]*
+-[FormUI.Tests]FormUI.Tests.Controllers.Util.*
+-[FormUI.Tests]FormUI.Tests.Domain.Util.Builder
+-[FormUI.Tests]FormUI.Tests.Domain.Util.DataUpdates
+-[FormUI.Tests]FormUI.Tests.Domain.Util.LocalRepositoryUtil
