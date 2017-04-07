@@ -73,7 +73,7 @@ namespace FormUI.Tests.SystemTests.Coc
             App.Submit();
 
             FillInIdentity(userId);
-            App.VerifyCanSeeText("need to confirm who you are");
+            App.VerifyCanSeeText("confirm who you are");
             App.Submit();
 
             FillInOptions();

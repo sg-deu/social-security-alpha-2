@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -8,6 +9,10 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
+using FormUI.Domain.Util;
+using System.Text;
+using FormUI.Tests.Domain.Util;
+using OpenQA.Selenium;
 
 namespace FormUI.Tests.SystemTests.Bsg
 {
@@ -51,7 +56,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
-            App.VerifyCanSeeText("need to confirm who you are");
+            App.VerifyCanSeeText("confirm who you are");
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-19);
@@ -82,6 +87,9 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInPaymentDetails();
             App.Submit();
 
+            //var filename = FillInEvidence();
+            //App.ClickButton("");
+
             FillInDeclaration();
             App.Submit();
 
@@ -101,6 +109,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyPartnerDetails(doc, partnerDob);
                 VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
+                //VerifyEvidence(doc, filename);
                 VerifyDeclaration(doc);
             });
         }
@@ -115,7 +124,7 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInConsent();
             App.Submit();
 
-            App.VerifyCanSeeText("need to confirm who you are");
+            App.VerifyCanSeeText("confirm who you are");
             App.Submit();
 
             var dob = DateTime.Now.Date.AddYears(-18);
@@ -154,6 +163,8 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyGuardianPartnerBenefits(doc);
                 VerifyGuardianDetails(doc, guardianDob);
                 VerifyGuardianPartnerDetails(doc, guardianPartnerDob);
+
+                //TODO: Presume we should be including Evidence tests here also?
             });
         }
 
@@ -470,6 +481,33 @@ namespace FormUI.Tests.SystemTests.Bsg
             doc.PaymentDetails.RollNumber.Should().Be("roll_number");
             _verifiedSections.Add(Sections.PaymentDetails);
         }
+
+        //private string FillInEvidence()
+        //{
+        //    var tempFile = Path.GetTempFileName();
+        //    File.WriteAllText(tempFile, "some test content");
+        //    App.FindElement($"select file {tempFile}", By.Name("file"), e => e.SendKeys(tempFile));
+        //    App.ClickButton(BsgButtons.UploadFile);
+
+        //    var form = App.FormForModel<Evidence>();
+        //    form.Check(m => m.SendingByPost, true);
+
+        //    File.Delete(tempFile);
+        //    return Path.GetFileName(tempFile);
+        //}
+
+        //private void VerifyEvidence(BestStartGrant doc, string filename)
+        //{
+        //    doc.Evidence.Files.Count.Should().Be(1);
+        //    doc.Evidence.Files[0].Name.Should().Be(filename);
+
+        //    var cloudStore = DomainRegistry.CloudStore as LocalCloudStore;
+        //    var storedContent = cloudStore.Retrieve("bsg-" + doc.Id, doc.Evidence.Files[0].CloudName);
+        //    Encoding.ASCII.GetString(storedContent).Should().Be("some test content");
+
+        //    doc.Evidence.SendingByPost.Should().BeTrue();
+        //    _verifiedSections.Add(Sections.Evidence);
+        //}
 
         private void FillInDeclaration()
         {

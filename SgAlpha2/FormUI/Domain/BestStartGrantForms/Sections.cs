@@ -16,6 +16,7 @@
         GuardianPartnerDetails,
         HealthProfessional,
         PaymentDetails,
+        //Evidence,
         Declaration,
     }
 }

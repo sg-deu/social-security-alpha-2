@@ -143,6 +143,7 @@
     <Compile Include="Controllers\Bsg\BsgPaymentDetailsTests.cs" />
     <Compile Include="Controllers\Bsg\BsgSectionTest.cs" />
     <Compile Include="Controllers\Bsg\BsgTests.cs" />
+    <Compile Include="Controllers\Bsg\BsgEvidenceTests.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategyTests.cs" />
     <Compile Include="Controllers\Coc\CocApplicantDetailsTests.cs" />
     <Compile Include="Controllers\Coc\CocConsentTests.cs" />
@@ -201,6 +202,8 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PaymentDetailsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidenceFileTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidenceTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianPartnerBenefitsTests.cs" />
