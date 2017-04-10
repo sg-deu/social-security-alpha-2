@@ -14,6 +14,16 @@
         {
             @form.Html.ValidationSummary()
 
+            <h2>Review your answers below:</h2>
+
+            if (Model.ApplicantDetails != null)
+            {
+                <h3>About You</h3>
+                <dl>
+                    @Html.AnswerFor(m => m.ApplicantDetails.Title)
+                </dl>
+            }
+
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()

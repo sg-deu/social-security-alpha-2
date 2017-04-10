@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using FormUI.Controllers.Helpers.Controls;
 using HtmlTags;
 
 namespace FormUI.Controllers.Helpers
@@ -167,6 +168,16 @@ namespace FormUI.Controllers.Helpers
         public static ScopedHtmlHelper<T> ShowWhenNo<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property, Action<HtmlTag> mutator = null)
         {
             return helper.VisibleWhenValue(property, false.ToString(), mutator);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, string>> property)
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, string>> property)
+        {
+            return Answer.For(helper, null, property, p => p);
         }
     }
 }

@@ -166,6 +166,7 @@
     <Compile Include="Controllers\Coc\EvidenceModel.cs" />
     <Compile Include="Controllers\Coc\OptionsModel.cs" />
     <Compile Include="Controllers\Coc\PaymentDetailsModel.cs" />
+    <Compile Include="Controllers\Helpers\Controls\Answer.cs" />
     <Compile Include="Controllers\Shared\AddressModel.cs" />
     <Compile Include="Controllers\Bsg\BenefitsModel.cs" />
     <Compile Include="Controllers\Bsg\ApplicantDetailsModel.cs" />
