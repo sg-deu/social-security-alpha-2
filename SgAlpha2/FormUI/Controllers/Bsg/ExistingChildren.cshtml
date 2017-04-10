@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<ExistingChildrenModel>
 @{
-    ViewBag.Title = "Best Start Grant - Existing Children";
+    ViewBag.Title = "Best Start Grant - " + BsgText.ExistingChildrenTitle();
 }
 
 <div class="grid"><!--
@@ -8,7 +8,7 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Children in the household</h1>
+        <h1>@BsgText.ExistingChildrenTitle()</h1>
 
         <p>You must fill in all fields marked with an (*)</p>
 
@@ -30,7 +30,7 @@
             {
                 for (var i = 0; i < Model.ExistingChildren.Children.Count; i++)
                 {
-                    <h3 class="existing-child">Child @(i + 1)</h3>
+                    <h3 class="existing-child">@BsgText.ExistsingChildTitle(i)</h3>
 
                     @form.Html.LabelledInputText(m => m.Children[i].FirstName).Mandatory()
                     @form.Html.LabelledInputText(m => m.Children[i].Surname).Mandatory()

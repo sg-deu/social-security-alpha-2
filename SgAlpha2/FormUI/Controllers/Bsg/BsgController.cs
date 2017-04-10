@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
@@ -45,7 +47,36 @@ namespace FormUI.Controllers.Bsg
     public class BsgViews
     {
         public const string Benefits            = "Benefits";
-        public const string RelationDetails    = "RelationDetails";
+        public const string RelationDetails     = "RelationDetails";
+    }
+
+    public class BsgText
+    {
+        public static string ApplicantDetailsTitle()                { return "About You"; }
+        public static string ExpectedChildrenTitle()                { return "If a baby is expected"; }
+        public static string ExistingChildrenTitle()                { return "Children in the household"; }
+        public static string ExistsingChildTitle(int childIndex)    { return $"Child {childIndex + 1}"; }
+
+        public static string ApplicantBenefitsTitle()               { return "Your benefits"; }
+        public static string ApplicantBenefitsQuestion()            { return "Tick all benefits you are currently receiving"; }
+
+        public static string PartnerBenefitsTitle()                 { return "Your partner's benefits"; }
+        public static string PartnerBenefitsQuestion()              { return "Tick all the benefits your partner is currently receiving"; }
+
+        public static string GuardianBenefitsTitle()                { return "Your parent/legal guardian's benefits"; }
+        public static string GuardianBenefitsQuestion()             { return "Tick all benefits your parent/legal guardian is currently receiving"; }
+
+        public static string GuardianPartnerBenefitsTitle()         { return "Your parent/legal guardian's partner's benefits"; }
+        public static string GuardianPartnerBenefitsQuestion()      { return "Tick all benefits your parent/legal guardian's partner is currently receiving"; }
+
+        public static string PartnerDetailsTitle()                  { return "About your partner"; }
+        public static string PartnerDetailsHeading()                { return "Your partner's details"; }
+
+        public static string GuardianDetailsTitle()                 { return "About your parent/legal guardian"; }
+        public static string GuardianDetailsHeading()               { return "Your parent/legal guardian's details"; }
+
+        public static string GuardianPartnerDetailsTitle()          { return "About your parent/legal guardian's partner"; }
+        public static string GuardianPartnerDetailsHeading()        { return "Your parent/legal guardian's partner's details"; }
     }
 
     public class BsgController : FormController
@@ -284,8 +315,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.ApplicantBenefits, (m, f) =>
             {
-                m.Title     = "Your benefits";
-                m.Question  = "Tick all benefits you are currently receiving";
+                m.Title     = BsgText.ApplicantBenefitsTitle();
+                m.Question  = BsgText.ApplicantBenefitsQuestion();
                 m.Benefits  = details ?? f.ApplicantBenefits;
             });
         }
@@ -314,8 +345,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.PartnerBenefits, (m, f) =>
             {
-                m.Title     = "Your partner's benefits";
-                m.Question  = "Tick all the benefits your partner is currently receiving";
+                m.Title     = BsgText.PartnerBenefitsTitle();
+                m.Question  = BsgText.PartnerBenefitsQuestion();
                 m.Benefits  = details ?? f.PartnerBenefits;
             });
         }
@@ -344,8 +375,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianBenefits, (m, f) =>
             {
-                m.Title     = "Your parent/legal guardian's benefits";
-                m.Question  = "Tick all benefits your parent/legal guardian is currently receiving";
+                m.Title     = BsgText.GuardianBenefitsTitle();
+                m.Question  = BsgText.GuardianBenefitsQuestion();
                 m.Benefits  = details ?? f.GuardianBenefits;
             });
         }
@@ -374,8 +405,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<BenefitsModel>(formId, BsgViews.Benefits, Sections.GuardianPartnerBenefits, (m, f) =>
             {
-                m.Title     = "Your parent/legal guardian's partner's benefits";
-                m.Question  = "Tick all benefits your parent/legal guardian's partner is currently receiving";
+                m.Title     = BsgText.GuardianPartnerBenefitsTitle();
+                m.Question  = BsgText.GuardianPartnerBenefitsQuestion();
                 m.Benefits  = details ?? f.GuardianPartnerBenefits;
             });
         }
@@ -404,8 +435,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.PartnerDetails, (m, f) =>
             {
-                m.Title = "About your partner";
-                m.Heading = "Your partner's details";
+                m.Title = BsgText.PartnerDetailsTitle();
+                m.Heading = BsgText.PartnerDetailsHeading();
                 m.HideRelationship = true;
                 m.RelationDetails = details ?? f.PartnerDetails;
                 m.InheritedAddress = f.ApplicantDetails?.CurrentAddress;
@@ -436,8 +467,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianDetails, (m, f) =>
             {
-                m.Title = "About your parent/legal guardian";
-                m.Heading = "Your parent/legal guardian's details";
+                m.Title = BsgText.GuardianDetailsTitle();
+                m.Heading = BsgText.GuardianDetailsHeading();
                 m.RelationDetails = details ?? f.GuardianDetails;
             });
         }
@@ -466,11 +497,11 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<RelationDetailsModel>(formId, BsgViews.RelationDetails, Sections.GuardianPartnerDetails, (m, f) =>
             {
-                m.Title = "About your parent/legal guardian's partner";
-                m.Heading = "Your parent/legal guardian's partner's details";
+                m.Title = BsgText.GuardianPartnerDetailsTitle();
+                m.Heading = BsgText.GuardianPartnerDetailsHeading();
                 m.RelationDetails = details ?? f.GuardianPartnerDetails;
             });
-        }        
+        }
 
         [HttpGet]
         public ActionResult HealthProfessional(string id)

@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<ApplicantDetailsModel>
 @{
-    ViewBag.Title = "Best Start Grant - About You";
+    ViewBag.Title = "Best Start Grant - " + BsgText.ApplicantDetailsTitle();
 }
 
 <div class="grid"><!--
@@ -8,7 +8,7 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>About You</h1>
+        <h1>@BsgText.ApplicantDetailsTitle()</h1>
 
         <p>You must fill in all fields marked with an (*)</p>
 

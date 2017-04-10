@@ -18,7 +18,7 @@
 
             if (Model.ApplicantDetails != null)
             {
-                <h3>About You</h3>
+                <h3>@BsgText.ApplicantDetailsTitle()</h3>
                 <dl>
                     @Html.AnswerFor(m => m.ApplicantDetails.Title)
                     @Html.AnswerFor(m => m.ApplicantDetails.FirstName)
@@ -40,7 +40,7 @@
 
             if (Model.ExpectedChildren != null)
             {
-                <h3>If a baby is expected</h3>
+                <h3>@BsgText.ExpectedChildrenTitle()</h3>
                 <dl>
                     @Html.AnswerFor(m => m.ExpectedChildren.IsBabyExpected)
                     @Html.AnswerFor(m => m.ExpectedChildren.ExpectancyDate)
@@ -51,12 +51,12 @@
 
             if (Model.ExistingChildren != null)
             {
-                <h3>Children in the household</h3>
+                <h3>@BsgText.ExistingChildrenTitle()</h3>
                 <dl>
                     @Html.AnswerFor(m => m.ExistingChildren.AnyExistingChildren)
                     @for (var i = 0; i < Model.ExistingChildren.Children.Count; i++)
                     {
-                        <dt>Child @(i + 1)</dt>
+                        <dt>@BsgText.ExistsingChildTitle(i)</dt>
                         @Html.AnswerFor(m => m.ExistingChildren.Children[i].FirstName)
                         @Html.AnswerFor(m => m.ExistingChildren.Children[i].Surname)
                         @Html.AnswerFor(m => m.ExistingChildren.Children[i].DateOfBirth)
@@ -69,7 +69,7 @@
 
             if (Model.ApplicantBenefits != null)
             {
-                <h3>Your benefits</h3>
+                <h3>@BsgText.ApplicantBenefitsTitle()</h3>
                 <dl>
                     @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeSupport)
                     @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeBasedJobseekersAllowance)
