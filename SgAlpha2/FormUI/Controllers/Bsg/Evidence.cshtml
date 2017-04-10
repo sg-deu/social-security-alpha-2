@@ -1,0 +1,82 @@
+﻿@inherits WebViewPage<EvidenceModel>
+@{
+    ViewBag.Title = "Best Start Grant - Documents in support of your application";
+}
+
+<div class="grid">
+    <!--
+    -->
+    <div class="grid__item large--eight-twelfths">
+
+        @Html.BackLink(Model.PreviousAction)
+
+        <h1>Documents supporting your application</h1>
+
+        @using (var form = Html.FormFor(Model.Evidence, f => f.Attr("enctype", "multipart/form-data")))
+        {
+
+            @form.Html.ValidationSummary()
+
+            <h2>You may need to give us documents in support of your application</h2>
+
+            <p>You’ll need to send us documents to support your relationship to any children in this application.</p>
+
+            <h3>Documents you can send us:</h3>
+            <ul>
+                <li>a marriage certificate</li>
+                <li>adoption certificate</li>
+                <li>birth certificate</li>
+            </ul>
+
+            <h3>Documents should be:</h3>
+            <ul>
+                <li>this kind of format: pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif</li>
+                <li>no more than 2MB</li>
+                <li>no more than 20 documents may be uploaded</li>
+            </ul>
+
+            <br />
+
+            if (Model.UploadedFiles.Count == 0)
+            {
+                <h3>No files uploaded</h3>
+            }
+            else
+            {
+                <p>Currently uploaded files:</p>
+                <ul id="uploadedFiles">
+                    @foreach (var file in Model.UploadedFiles)
+                    {
+                        <li>@file</li>
+                    }
+                </ul>
+            }
+
+            <br />
+            <p>Upload a file</p>
+
+            <input type="file" name="file" />
+
+            <br /><br />
+
+            @form.Html.FormButton(BsgButtons.UploadFile, "Upload selected file")
+
+            <br />
+
+            <p>
+                If you can't upload the documents post them to the address below:
+            </p>
+
+            @form.Html.Partial(SharedViews.SsaContactDetails, true)
+
+            @form.Html.LabelledConfirmCheckBox(m => m.SendingByPost).Control(c => c.Emphasise())
+
+
+            @form.Html.ButtonSubmitNext(Model.IsFinalPage)
+
+        }
+
+        @Html.BackLink(Model.PreviousAction)
+
+    </div><!--
+--></div>

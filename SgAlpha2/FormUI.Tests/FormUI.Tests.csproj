@@ -202,6 +202,7 @@
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\BestStartGrant_PaymentDetailsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\BestStartGrant_EvidenceTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidenceFileTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidenceTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefitsTests.cs" />
@@ -212,6 +213,8 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceBuilder.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_DeclarationTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_EvidenceTests.cs" />

@@ -159,6 +159,7 @@
     <Compile Include="App_Start\MetadataProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\EvidenceModel.cs" />
     <Compile Include="Controllers\Bsg\IneligibleModel.cs" />
     <Compile Include="Controllers\Bsg\UKVerifyModel.cs" />
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
@@ -211,6 +212,8 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddDeclaration.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidence.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\AddEvidenceFile.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExistingChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddExpectedChildren.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddGuardianBenefits.cs" />
@@ -225,6 +228,8 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddConsent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\Evidence.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceFile.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Relationship.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\UKVerify.cs" />
     <Compile Include="Domain\BestStartGrantForms\Responses\NextType.cs" />
@@ -399,6 +404,7 @@
     <Content Include="Controllers\Coc\PaymentDetails.cshtml" />
     <Content Include="Controllers\Shared\LegalStatementU16.cshtml" />
     <Content Include="Controllers\Shared\BankDetails.cshtml" />
+    <Content Include="Controllers\Bsg\Evidence.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

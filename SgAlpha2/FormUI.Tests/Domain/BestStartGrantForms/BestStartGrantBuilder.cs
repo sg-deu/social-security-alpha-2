@@ -30,6 +30,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             With(f => f.GuardianPartnerDetails,     RelationDetailsBuilder.NewValid("guardian partner"));
             With(f => f.HealthProfessional,         HealthProfessionalBuilder.NewValid());
             With(f => f.PaymentDetails,             PaymentDetailsBuilder.NewValid());
+            With(f => f.Evidence,                   EvidenceBuilder.NewValid());
             With(f => f.Declaration,                DeclarationBuilder.NewValid());
 
             With(f => f.Started,                    DomainRegistry.NowUtc() - TimeSpan.FromHours(24));
@@ -60,6 +61,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             detail.GuardianPartnerDetails = form.GuardianPartnerDetails;
             detail.HealthProfessional = form.HealthProfessional;
             detail.PaymentDetails = form.PaymentDetails;
+            detail.Evidence = form.Evidence;
             detail.Declaration = form.Declaration;
         }
 

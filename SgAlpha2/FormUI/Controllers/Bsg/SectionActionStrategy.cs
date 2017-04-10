@@ -22,6 +22,7 @@ namespace FormUI.Controllers.Bsg
             { Sections.GuardianPartnerDetails,  () => new GuardianPartnerDetailsActions() },
             { Sections.HealthProfessional,      () => new HealthProfessionalActions() },
             { Sections.PaymentDetails,          () => new PaymentDetailsActions() },
+            { Sections.Evidence,                () => new EvidenceActions() },
             { Sections.Declaration,             () => new DeclarationActions() },
         };
 
@@ -103,6 +104,11 @@ namespace FormUI.Controllers.Bsg
         private class PaymentDetailsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return BsgActions.PaymentDetails(formId); }
+        }
+
+        private class EvidenceActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return BsgActions.Evidence(formId); }
         }
 
         private class DeclarationActions : SectionActionStrategy

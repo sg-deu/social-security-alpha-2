@@ -38,7 +38,7 @@ namespace FormUI.Controllers.Bsg
         public static string    GuardianPartnerDetails(string formId)   { return $"~/bsg/guardianPartnerDetails/{formId}"; }
         public static string    HealthProfessional(string formId)       { return $"~/bsg/healthProfessional/{formId}"; }
         public static string    PaymentDetails(string formId)           { return $"~/bsg/paymentDetails/{formId}"; }
-        //public static string    Evidence(string formId)                 { return $"~/bsg/evidence/{formId}"; }
+        public static string    Evidence(string formId)                 { return $"~/bsg/evidence/{formId}"; }
         public static string    Declaration(string formId)              { return $"~/bsg/declaration/{formId}"; }
         public static string    Ineligible(string formId)               { return $"~/bsg/ineligible/{formId}"; }
         public static string    Complete()                              { return $"~/bsg/complete"; }
@@ -527,76 +527,76 @@ namespace FormUI.Controllers.Bsg
             });
         }
 
-        //[HttpGet]
-        //public ActionResult Evidence(string id)
-        //{
-        //    return Evidence_Render(id, null);
-        //}
+        [HttpGet]
+        public ActionResult Evidence(string id)
+        {
+            return Evidence_Render(id, null);
+        }
 
-        //[HttpPost]
-        //public ActionResult Evidence(string id, Evidence evidence)
-        //{
-        //    if (WasClicked(BsgButtons.UploadFile))
-        //    {
-        //        if (Request.Files.Count == 0)
-        //        {
-        //            ModelState.AddModelError("", "Could not upload file");
-        //            return Evidence_Render(id, evidence);
-        //        }
+        [HttpPost]
+        public ActionResult Evidence(string id, Evidence evidence)
+        {
+            if (WasClicked(BsgButtons.UploadFile))
+            {
+                if (Request.Files.Count == 0)
+                {
+                    ModelState.AddModelError("", "Could not upload file");
+                    return Evidence_Render(id, evidence);
+                }
 
-        //        var file = Request.Files[0];
+                var file = Request.Files[0];
 
-        //        if (string.IsNullOrWhiteSpace(file.FileName))
-        //        {
-        //            ModelState.AddModelError("", "Please select a file to upload");
-        //            return Evidence_Render(id, evidence);
-        //        }
+                if (string.IsNullOrWhiteSpace(file.FileName))
+                {
+                    ModelState.AddModelError("", "Please select a file to upload");
+                    return Evidence_Render(id, evidence);
+                }
 
-        //        const int maxSize = 1024 * 1024 * 2;
+                const int maxSize = 1024 * 1024 * 2;
 
-        //        if (file.ContentLength > maxSize)
-        //        {
-        //            ModelState.AddModelError("", "Please select a file that is smaller than 2MB");
-        //            return Evidence_Render(id, evidence);
-        //        }
+                if (file.ContentLength > maxSize)
+                {
+                    ModelState.AddModelError("", "Please select a file that is smaller than 2MB");
+                    return Evidence_Render(id, evidence);
+                }
 
-        //        using (var br = new BinaryReader(file.InputStream))
-        //        {
-        //            var addFile = new AddEvidenceFile
-        //            {
-        //                FormId = id,
-        //                Filename = file.FileName,
-        //                Content = br.ReadBytes((int)file.InputStream.Length),
-        //            };
+                using (var br = new BinaryReader(file.InputStream))
+                {
+                    var addFile = new AddEvidenceFile
+                    {
+                        FormId = id,
+                        Filename = file.FileName,
+                        Content = br.ReadBytes((int)file.InputStream.Length),
+                    };
 
-        //            return Exec(addFile,
-        //                success: () => Redirect(BsgActions.Evidence(id)),
-        //                failure: () => Evidence_Render(id, evidence));
-        //        }
-        //    }
+                    return Exec(addFile,
+                        success: () => Redirect(BsgActions.Evidence(id)),
+                        failure: () => Evidence_Render(id, evidence));
+                }
+            }
 
-        //    var cmd = new AddEvidence
-        //    {
-        //        FormId = id,
-        //        Evidence = evidence,
-        //    };
+            var cmd = new AddEvidence
+            {
+                FormId = id,
+                Evidence = evidence,
+            };
 
-        //    return Exec(cmd,
-        //        success: next => RedirectNext(next),
-        //        failure: () => Evidence_Render(id, evidence));
-        //}
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => Evidence_Render(id, evidence));
+        }
 
-        //private ActionResult Evidence_Render(string formId, Evidence details)
-        //{
-        //    return NavigableView<EvidenceModel>(formId, Sections.Evidence, (m, f) =>
-        //    {
-        //        m.Evidence = details ?? f.Evidence;
+        private ActionResult Evidence_Render(string formId, Evidence details)
+        {
+            return NavigableView<EvidenceModel>(formId, Sections.Evidence, (m, f) =>
+            {
+                m.Evidence = details ?? f.Evidence;
 
-        //        m.UploadedFiles = f.Evidence != null
-        //            ? f.Evidence.Files.Select(ef => ef.Name).ToList()
-        //            : new List<string>();
-        //    });
-        //}
+                m.UploadedFiles = f.Evidence != null
+                    ? f.Evidence.Files.Select(ef => ef.Name).ToList()
+                    : new List<string>();
+            });
+        }
 
         [HttpGet]
         public ActionResult Declaration(string id)

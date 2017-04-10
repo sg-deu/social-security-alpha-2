@@ -21,7 +21,7 @@ namespace FormUI.Domain.BestStartGrantForms
             { Sections.GuardianPartnerDetails,  () => new SectionStrategy.GuardianPartnerDetails()  },
             { Sections.HealthProfessional,      () => new SectionStrategy.HealthProfessional()      },
             { Sections.PaymentDetails,          () => new SectionStrategy.PaymentDetails()          },
-            //{ Sections.Evidence,                () => new SectionStrategy.Evidence()                },
+            { Sections.Evidence,                () => new SectionStrategy.Evidence()                },
             { Sections.Declaration,             () => new SectionStrategy.Declaration()             },
         };
 
@@ -113,10 +113,9 @@ namespace FormUI.Domain.BestStartGrantForms
         {
         }
 
-
-        //private class Evidence : SectionStrategy
-        //{
-        //}
+        private class Evidence : SectionStrategy
+        {
+        }
 
         private class Declaration : SectionStrategy
         {

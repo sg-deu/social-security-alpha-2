@@ -87,8 +87,8 @@ namespace FormUI.Tests.SystemTests.Bsg
             FillInPaymentDetails();
             App.Submit();
 
-            //var filename = FillInEvidence();
-            //App.ClickButton("");
+            var filename = FillInEvidence();
+            App.ClickButton("");
 
             FillInDeclaration();
             App.Submit();
@@ -109,7 +109,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyPartnerDetails(doc, partnerDob);
                 VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
-                //VerifyEvidence(doc, filename);
+                VerifyEvidence(doc, filename);
                 VerifyDeclaration(doc);
             });
         }
@@ -164,6 +164,7 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyGuardianDetails(doc, guardianDob);
                 VerifyGuardianPartnerDetails(doc, guardianPartnerDob);
 
+                //TODO: Presume we should be including DeclarationU16 tests here also?
                 //TODO: Presume we should be including Evidence tests here also?
             });
         }
@@ -482,32 +483,32 @@ namespace FormUI.Tests.SystemTests.Bsg
             _verifiedSections.Add(Sections.PaymentDetails);
         }
 
-        //private string FillInEvidence()
-        //{
-        //    var tempFile = Path.GetTempFileName();
-        //    File.WriteAllText(tempFile, "some test content");
-        //    App.FindElement($"select file {tempFile}", By.Name("file"), e => e.SendKeys(tempFile));
-        //    App.ClickButton(BsgButtons.UploadFile);
+        private string FillInEvidence()
+        {
+            var tempFile = Path.GetTempFileName();
+            File.WriteAllText(tempFile, "some test content");
+            App.FindElement($"select file {tempFile}", By.Name("file"), e => e.SendKeys(tempFile));
+            App.ClickButton(BsgButtons.UploadFile);
 
-        //    var form = App.FormForModel<Evidence>();
-        //    form.Check(m => m.SendingByPost, true);
+            var form = App.FormForModel<Evidence>();
+            form.Check(m => m.SendingByPost, true);
 
-        //    File.Delete(tempFile);
-        //    return Path.GetFileName(tempFile);
-        //}
+            File.Delete(tempFile);
+            return Path.GetFileName(tempFile);
+        }
 
-        //private void VerifyEvidence(BestStartGrant doc, string filename)
-        //{
-        //    doc.Evidence.Files.Count.Should().Be(1);
-        //    doc.Evidence.Files[0].Name.Should().Be(filename);
+        private void VerifyEvidence(BestStartGrant doc, string filename)
+        {
+            doc.Evidence.Files.Count.Should().Be(1);
+            doc.Evidence.Files[0].Name.Should().Be(filename);
 
-        //    var cloudStore = DomainRegistry.CloudStore as LocalCloudStore;
-        //    var storedContent = cloudStore.Retrieve("bsg-" + doc.Id, doc.Evidence.Files[0].CloudName);
-        //    Encoding.ASCII.GetString(storedContent).Should().Be("some test content");
+            var cloudStore = DomainRegistry.CloudStore as LocalCloudStore;
+            var storedContent = cloudStore.Retrieve("bsg-" + doc.Id, doc.Evidence.Files[0].CloudName);
+            Encoding.ASCII.GetString(storedContent).Should().Be("some test content");
 
-        //    doc.Evidence.SendingByPost.Should().BeTrue();
-        //    _verifiedSections.Add(Sections.Evidence);
-        //}
+            doc.Evidence.SendingByPost.Should().BeTrue();
+            _verifiedSections.Add(Sections.Evidence);
+        }
 
         private void FillInDeclaration()
         {

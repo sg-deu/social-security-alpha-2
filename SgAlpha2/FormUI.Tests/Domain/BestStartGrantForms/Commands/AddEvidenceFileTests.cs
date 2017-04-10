@@ -11,22 +11,21 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Commands
     public class AddEvidenceFileTests : DomainTest
     {
         [Test]
-        [Ignore]
         public void Execute_AddsFile()
         {
-            //var existingForm = new BestStartGrantBuilder("form123").Insert();
+            var existingForm = new BestStartGrantBuilder("form123").Insert();
 
-            //var cmd = new AddEvidenceFile
-            //{
-            //    FormId = "form123",
-            //    Filename = "test.pdf",
-            //    Content = Encoding.ASCII.GetBytes("evidence file"),
-            //};
+            var cmd = new AddEvidenceFile
+            {
+                FormId = "form123",
+                Filename = "test.pdf",
+                Content = Encoding.ASCII.GetBytes("evidence file"),
+            };
 
-            //cmd.Execute();
+            cmd.Execute();
 
-            //var updatedForm = Repository.Load<BestStartGrant>("form123");
-            //updatedForm.Evidence.Files.Count.Should().Be(1);
+            var updatedForm = Repository.Load<BestStartGrant>("form123");
+            updatedForm.Evidence.Files.Count.Should().Be(1);
         }
     }
 }

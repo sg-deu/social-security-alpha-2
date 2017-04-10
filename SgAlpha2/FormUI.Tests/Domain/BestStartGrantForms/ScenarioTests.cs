@@ -75,6 +75,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -96,6 +97,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddPartnerDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -115,6 +117,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -134,6 +137,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -155,6 +159,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -177,6 +182,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddApplicantBenefits(next, b => b.WithBenefit());
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -198,6 +204,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -224,6 +231,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -246,6 +254,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -272,6 +281,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddGuardianDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -299,6 +309,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             next = AddGuardianPartnerDetails(next);
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -321,6 +332,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
+            next = AddEvidence(next);
             next = AddDeclaration(next);
 
             VerifyComplete(next);
@@ -410,6 +422,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         {
             current.Section.Should().Be(Sections.PaymentDetails);
             return NextSection(current.Section, () => new AddPaymentDetails { FormId = current.Id, PaymentDetails = PaymentDetailsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddEvidence(NextSection current, Action<Evidence> mutator = null)
+        {
+            current.Section.Should().Be(Sections.Evidence);
+            return NextSection(current.Section, () => new AddEvidence { FormId = current.Id, Evidence = EvidenceBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddDeclaration(NextSection current, Action<Declaration> mutator = null)

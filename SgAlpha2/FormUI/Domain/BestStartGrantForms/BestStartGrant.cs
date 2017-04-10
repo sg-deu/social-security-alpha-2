@@ -29,7 +29,7 @@ namespace FormUI.Domain.BestStartGrantForms
         public RelationDetails      GuardianPartnerDetails  { get; protected set; }
         public HealthProfessional   HealthProfessional      { get; protected set; }
         public PaymentDetails       PaymentDetails          { get; protected set; }
-        //public Evidence             Evidence                { get; protected set; }
+        public Evidence             Evidence                { get; protected set; }
         public Declaration          Declaration             { get; protected set; }
 
         private BsgDetail NewBsgDetail()
@@ -52,7 +52,7 @@ namespace FormUI.Domain.BestStartGrantForms
                 GuardianPartnerDetails  = GuardianPartnerDetails,
                 HealthProfessional      = HealthProfessional,
                 PaymentDetails          = PaymentDetails,
-                //Evidence                = Evidence,
+                Evidence                = Evidence,
                 Declaration             = Declaration,
             };
         }
@@ -231,32 +231,32 @@ namespace FormUI.Domain.BestStartGrantForms
             return OnSectionCompleted(Sections.PaymentDetails);
         }
 
-        //public void AddEvidenceFile(string filename, byte[] content)
-        //{
-        //    var cloudName = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(filename).ToLower();
-        //    CloudStore.Store("coc-" + Id, cloudName, filename, content);
+        public void AddEvidenceFile(string filename, byte[] content)
+        {
+            var cloudName = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(filename).ToLower();
+            CloudStore.Store("bsg-" + Id, cloudName, filename, content);
 
-        //    Evidence = Evidence ?? new Evidence();
+            Evidence = Evidence ?? new Evidence();
 
-        //    var file = new EvidenceFile
-        //    {
-        //        Name = filename,
-        //        CloudName = cloudName,
-        //    };
+            var file = new EvidenceFile
+            {
+                Name = filename,
+                CloudName = cloudName,
+            };
 
-        //    Evidence.Files.Add(file);
-        //    Repository.Update(this);
-        //}
+            Evidence.Files.Add(file);
+            Repository.Update(this);
+        }
 
-        //public NextSection AddEvidence(Evidence evidence)
-        //{
-        //    Evidence = Evidence ?? evidence;
-        //    evidence.CopyTo(Evidence);
+        public NextSection AddEvidence(Evidence evidence)
+        {
+            Evidence = Evidence ?? evidence;
+            evidence.CopyTo(Evidence);
 
-        //    Validate(Evidence);
+            Validate(Evidence);
 
-        //    return OnSectionCompleted(Sections.Evidence);
-        //}
+            return OnSectionCompleted(Sections.Evidence);
+        }
 
         public NextSection AddDeclaration(Declaration declaration)
         {
@@ -476,11 +476,11 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        //private static void Validate(Evidence evidence)
-        //{
-        //    if (evidence.Files.Count == 0 && !evidence.SendingByPost)
-        //        throw new DomainException("Please either upload evidence, or confirm that you are sending evidence by post");
-        //}
+        private static void Validate(Evidence evidence)
+        {
+            if (evidence.Files.Count == 0 && !evidence.SendingByPost)
+                throw new DomainException("Please either upload evidence, or confirm that you are sending evidence by post");
+        }
 
         private static void Validate(Declaration declaration)
         {

@@ -79,6 +79,36 @@ namespace FormUI.Tests.Controllers.Bsg
             });
         }
 
+
+        [Test]
+        public void DeclarationU16_GET()
+        {
+            WebAppTest(client =>
+            {
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                var detail = NewBsgDetail("form123"); // then ensure under 16...
+                detail.ApplicantDetails.DateOfBirth = System.DateTime.Now.AddYears(-15);
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+                response.Text.ToLower().Should().Contain("you are under the age of 16");
+            });
+        }
+
+        [Test]
+        public void Declaration_GET()
+        {
+            WebAppTest(client =>
+            {
+                // the declaration form is now dependent on a completed ApplicantDetails, so...
+                var detail = NewBsgDetail("form123"); // with default age ...
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+                response.Text.ToLower().Should().Contain("the information you've given");
+            });
+        }
+
         [Test]
         [Explicit("RGB - WIP")]
         public void Declaration_GET_DisplaysAllSectionContent()

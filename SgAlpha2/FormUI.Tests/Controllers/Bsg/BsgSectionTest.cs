@@ -26,6 +26,7 @@ namespace FormUI.Tests.Controllers.Bsg
                 GuardianPartnerDetails  = RelationDetailsBuilder.NewValid("guardian partner"),
                 HealthProfessional      = HealthProfessionalBuilder.NewValid(),
                 PaymentDetails          = PaymentDetailsBuilder.NewValid(),
+                Evidence                = EvidenceBuilder.NewValid(),
                 Declaration             = DeclarationBuilder.NewValid(),
             };
 
