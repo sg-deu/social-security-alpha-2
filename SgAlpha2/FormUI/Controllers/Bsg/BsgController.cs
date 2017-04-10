@@ -49,14 +49,14 @@ namespace FormUI.Controllers.Bsg
         public const string Benefits                    = "Benefits";
         public const string RelationDetails             = "RelationDetails";
 
-        public const string ApplicantDetailsAnswers     = "ApplicantDetailsAnswers";
-        public const string ExpectedChildrenAnswers     = "ExpectedChildrenAnswers";
-        public const string ExistingChildrenAnswers     = "ExistingChildrenAnswers";
-        public const string BenefitsAnswers             = "BenefitsAnswers";
-        public const string RelationDetailsAnswers      = "RelationDetailsAnswers";
-        public const string HealthProfessionalAnswers   = "HealthProfessionalAnswers";
-        public const string PaymentDetailsAnswers       = "PaymentDetailsAnswers";
-        public const string EvidenceAnswers             = "EvidenceAnswers";
+        public const string ApplicantDetailsAnswers     = "Answers/ApplicantDetailsAnswers";
+        public const string ExpectedChildrenAnswers     = "Answers/ExpectedChildrenAnswers";
+        public const string ExistingChildrenAnswers     = "Answers/ExistingChildrenAnswers";
+        public const string BenefitsAnswers             = "Answers/BenefitsAnswers";
+        public const string RelationDetailsAnswers      = "Answers/RelationDetailsAnswers";
+        public const string HealthProfessionalAnswers   = "Answers/HealthProfessionalAnswers";
+        public const string PaymentDetailsAnswers       = "Answers/PaymentDetailsAnswers";
+        public const string EvidenceAnswers             = "Answers/EvidenceAnswers";
     }
 
     public class BsgText

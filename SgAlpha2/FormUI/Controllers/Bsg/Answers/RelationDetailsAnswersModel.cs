@@ -1,6 +1,6 @@
 ﻿using FormUI.Domain.BestStartGrantForms.Dto;
 
-namespace FormUI.Controllers.Bsg
+namespace FormUI.Controllers.Bsg.Answers
 {
     public class RelationDetailsAnswersModel
     {
