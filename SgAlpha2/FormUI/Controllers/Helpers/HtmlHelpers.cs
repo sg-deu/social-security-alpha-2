@@ -179,5 +179,29 @@ namespace FormUI.Controllers.Helpers
         {
             return Answer.For(helper, null, property, p => p);
         }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, DateTime?>> property)
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
+        {
+            return Answer.For(helper, null, property, p => p.HasValue
+                ? p.Value.ToString("dd MM yyyy")
+                : null);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property)
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool?>> property)
+        {
+            return Answer.For(helper, null, property, p => p.HasValue
+                ? p.Value ? "Yes" : "No"
+                : null);
+        }
     }
 }

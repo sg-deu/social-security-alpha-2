@@ -30,9 +30,14 @@ namespace FormUI.Controllers.Helpers.Controls
 
         protected override HtmlTag CreateTag()
         {
+            var container = new HtmlTag("container", t => t.NoTag());
+
+            if (string.IsNullOrWhiteSpace(_value))
+                return container;
+
             var dt = new HtmlTag("dt");
             var dd = new HtmlTag("dd");
-            var container = new HtmlTag("container", t => t.NoTag()).Append(dt).Append(dd);
+            container.Append(dt).Append(dd);
 
             dt.Text(_labelText);
             dd.Attr("data-answer-for", _name).Text(_value);

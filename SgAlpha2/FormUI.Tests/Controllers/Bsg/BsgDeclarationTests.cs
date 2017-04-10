@@ -9,8 +9,6 @@ using FormUI.Domain.BestStartGrantForms.Commands;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Queries;
 using FormUI.Domain.BestStartGrantForms.Responses;
-using FormUI.Tests.Domain.BestStartGrantForms;
-using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
@@ -107,13 +105,18 @@ namespace FormUI.Tests.Controllers.Bsg
                     .ToList();
 
                 var response = client.Get(BsgActions.Declaration(detail.Id));
+                var missingAnswers = new List<string>();
 
                 foreach (var expectedAnswer in expectedAnswers)
                 {
                     var selector = $"[data-answer-for='{expectedAnswer}']";
                     var output = response.Doc.FindAll(selector);
-                    output.Count.Should().Be(1, $"should be able to find answer {selector} in output");
+
+                    if (output.Count != 1)
+                        missingAnswers.Add(expectedAnswer);
                 }
+
+                Assert.Fail("Could not find answers to the following questions:\n{0}", string.Join("\n", missingAnswers));
             });
         }
 
