@@ -142,7 +142,9 @@ namespace FormUI.Tests.Controllers.Bsg
                     var selector = $"[data-answer-for='{expectedAnswer}']";
                     var output = response.Doc.FindAll(selector);
 
-                    if (output.Count != 1)
+                    output.Count.Should().BeLessOrEqualTo(1, "did not expected multiple entries for {0}", expectedAnswer);
+
+                    if (output.Count < 1)
                         missingAnswers.Add(expectedAnswer);
                 }
 

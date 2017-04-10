@@ -16,73 +16,10 @@
 
             <h2>Review your answers below:</h2>
 
-            if (Model.ApplicantDetails != null)
-            {
-                <h3>@BsgText.ApplicantDetailsTitle()</h3>
-                <dl>
-                    @Html.AnswerFor(m => m.ApplicantDetails.Title)
-                    @Html.AnswerFor(m => m.ApplicantDetails.FirstName)
-                    @Html.AnswerFor(m => m.ApplicantDetails.OtherNames)
-                    @Html.AnswerFor(m => m.ApplicantDetails.SurnameOrFamilyName)
-                    @Html.AnswerFor(m => m.ApplicantDetails.DateOfBirth)
-                    @Html.AnswerFor(m => m.ApplicantDetails.PreviouslyLookedAfter)
-                    @Html.AnswerFor(m => m.ApplicantDetails.FullTimeEducation)
-                    @Html.AnswerFor(m => m.ApplicantDetails.NationalInsuranceNumber)
-                    @Html.AnswerFor(m => m.ApplicantDetails.CurrentAddress.Line1)
-                    @Html.AnswerFor(m => m.ApplicantDetails.CurrentAddress.Line2)
-                    @Html.AnswerFor(m => m.ApplicantDetails.CurrentAddress.Line3)
-                    @Html.AnswerFor(m => m.ApplicantDetails.CurrentAddress.Postcode)
-                    @Html.AnswerFor(m => m.ApplicantDetails.EmailAddress)
-                    @Html.AnswerFor(m => m.ApplicantDetails.PhoneNumer)
-                    @Html.AnswerFor(m => m.ApplicantDetails.MobilePhoneNumber)
-                </dl>
-            }
-
-            if (Model.ExpectedChildren != null)
-            {
-                <h3>@BsgText.ExpectedChildrenTitle()</h3>
-                <dl>
-                    @Html.AnswerFor(m => m.ExpectedChildren.IsBabyExpected)
-                    @Html.AnswerFor(m => m.ExpectedChildren.ExpectancyDate)
-                    @Html.AnswerFor(m => m.ExpectedChildren.IsMoreThan1BabyExpected)
-                    @Html.AnswerFor(m => m.ExpectedChildren.ExpectedBabyCount)
-                </dl>
-            }
-
-            if (Model.ExistingChildren != null)
-            {
-                <h3>@BsgText.ExistingChildrenTitle()</h3>
-                <dl>
-                    @Html.AnswerFor(m => m.ExistingChildren.AnyExistingChildren)
-                    @for (var i = 0; i < Model.ExistingChildren.Children.Count; i++)
-                    {
-                        <dt>@BsgText.ExistsingChildTitle(i)</dt>
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].FirstName)
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].Surname)
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].DateOfBirth)
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].Relationship)
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].ChildBenefit)
-                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].NoChildBenefitReason)
-                    }
-                </dl>
-            }
-
-            if (Model.ApplicantBenefits != null)
-            {
-                <h3>@BsgText.ApplicantBenefitsTitle()</h3>
-                <dl>
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeSupport)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeBasedJobseekersAllowance)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeRelatedEmplymentAndSupportAllowance)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasUniversalCredit)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasChildTaxCredit)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasWorkingTextCredit)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasHousingBenefit)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.HasPensionCredit)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.None)
-                    @Html.AnswerFor(m => m.ApplicantBenefits.Unknown)
-                </dl>
-            }
+            @Html.PartialFor(m => m.ApplicantDetails, BsgViews.ApplicantDetailsAnswers)
+            @Html.PartialFor(m => m.ExpectedChildren, BsgViews.ExpectedChildrenAnswers)
+            @Html.PartialFor(m => m.ExistingChildren, BsgViews.ExistingChildrenAnswers)
+            @Html.PartialFor(m => m.ApplicantBenefits, BsgViews.BenefitsAnswers)
 
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 

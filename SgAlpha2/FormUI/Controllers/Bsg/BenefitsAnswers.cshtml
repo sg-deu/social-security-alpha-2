@@ -1,0 +1,14 @@
+﻿@inherits WebViewPage<Benefits>
+<h3>@BsgText.ApplicantBenefitsTitle()</h3>
+<dl>
+    @Html.AnswerFor(m => m.HasIncomeSupport)
+    @Html.AnswerFor(m => m.HasIncomeBasedJobseekersAllowance)
+    @Html.AnswerFor(m => m.HasIncomeRelatedEmplymentAndSupportAllowance)
+    @Html.AnswerFor(m => m.HasUniversalCredit)
+    @Html.AnswerFor(m => m.HasChildTaxCredit)
+    @Html.AnswerFor(m => m.HasWorkingTextCredit)
+    @Html.AnswerFor(m => m.HasHousingBenefit)
+    @Html.AnswerFor(m => m.HasPensionCredit)
+    @Html.AnswerFor(m => m.None)
+    @Html.AnswerFor(m => m.Unknown)
+</dl>

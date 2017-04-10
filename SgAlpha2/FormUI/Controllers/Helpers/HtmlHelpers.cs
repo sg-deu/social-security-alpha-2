@@ -60,10 +60,14 @@ namespace FormUI.Controllers.Helpers
         public static IHtmlString PartialFor<T, TViewModel>(this HtmlHelper<T> helper, Expression<Func<T, TViewModel>> property, string view, Func<TViewModel, object> modelFactory = null)
             where TViewModel : class
         {
-            var prefix = property.GetExpressionText();
-            var templateInfo = new TemplateInfo { HtmlFieldPrefix = prefix };
             var model = (TViewModel)ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model;
             var viewModel = modelFactory != null ? modelFactory(model) : model;
+
+            if (viewModel == null)
+                return null;
+
+            var prefix = property.GetExpressionText();
+            var templateInfo = new TemplateInfo { HtmlFieldPrefix = prefix };
             return helper.Partial(view, viewModel, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
         }
 
@@ -171,7 +175,7 @@ namespace FormUI.Controllers.Helpers
         public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, DateTime?>> property)
         {
             return Answer.For(helper, null, property, p => p.HasValue
-                ? p.Value.ToString("dd MM yyyy")
+                ? p.Value.ToString("dd MMM yyyy")
                 : null);
         }
 

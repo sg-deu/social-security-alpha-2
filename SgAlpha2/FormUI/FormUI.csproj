@@ -405,6 +405,10 @@
     <Content Include="Controllers\Shared\LegalStatementU16.cshtml" />
     <Content Include="Controllers\Shared\BankDetails.cshtml" />
     <Content Include="Controllers\Bsg\Evidence.cshtml" />
+    <Content Include="Controllers\Bsg\ApplicantDetailsAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\ExpectedChildrenAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\ExistingChildrenAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\BenefitsAnswers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

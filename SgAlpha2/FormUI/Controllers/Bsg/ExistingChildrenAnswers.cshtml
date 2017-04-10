@@ -1,0 +1,15 @@
+﻿@inherits WebViewPage<ExistingChildren>
+<h3>@BsgText.ExistingChildrenTitle()</h3>
+<dl>
+    @Html.AnswerFor(m => m.AnyExistingChildren)
+    @for (var i = 0; i < Model.Children.Count; i++)
+    {
+        <dt>@BsgText.ExistsingChildTitle(i)</dt>
+        @Html.AnswerFor(m => m.Children[i].FirstName)
+        @Html.AnswerFor(m => m.Children[i].Surname)
+        @Html.AnswerFor(m => m.Children[i].DateOfBirth)
+        @Html.AnswerFor(m => m.Children[i].Relationship)
+        @Html.AnswerFor(m => m.Children[i].ChildBenefit)
+        @Html.AnswerFor(m => m.Children[i].NoChildBenefitReason)
+    }
+</dl>

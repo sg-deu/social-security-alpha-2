@@ -10,11 +10,12 @@ namespace FormUI.Controllers.Helpers.Controls
         public static Answer For<TModel, TProp>(HtmlHelper<TModel> helper, string labelText, Expression<Func<TModel, TProp>> property, Func<TProp, string> stringValue)
         {
             var propertyName = property.GetExpressionText();
+            var name = helper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName);
             var metaData = ModelMetadata.FromLambdaExpression(property, helper.ViewData);
             labelText = labelText ?? metaData.DisplayName ?? metaData.PropertyName;
             var modelValue = property.Compile()(helper.ViewData.Model);
             var value = stringValue(modelValue);
-            return new Answer(helper, propertyName, labelText, value);
+            return new Answer(helper, name, labelText, value);
         }
 
         private string _name;
