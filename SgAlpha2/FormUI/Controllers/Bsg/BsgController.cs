@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Linq;
 using FormUI.Controllers.Helpers;
 using FormUI.Controllers.Shared;
 using FormUI.Domain.BestStartGrantForms;
@@ -626,7 +624,8 @@ namespace FormUI.Controllers.Bsg
             return NavigableView<DeclarationModel>(formId, Sections.Declaration, (m, f) =>
             {
                 m.ApplicantDetails = f.ApplicantDetails;
-                m.RequiresGuardianDeclaration = f.ApplicantDetails.Age() < 16;
+                m.ExpectedChildren = f.ExpectedChildren;
+                m.RequiresGuardianDeclaration = f?.ApplicantDetails?.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });
         }

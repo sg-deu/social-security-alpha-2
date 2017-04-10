@@ -186,5 +186,17 @@ namespace FormUI.Controllers.Helpers
                 ? p.Value ? "Yes" : "No"
                 : null);
         }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, int?>> property)
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, int?>> property)
+        {
+            return Answer.For(helper, null, property, p => p.HasValue
+                ? p.Value.ToString()
+                : null);
+        }
     }
 }

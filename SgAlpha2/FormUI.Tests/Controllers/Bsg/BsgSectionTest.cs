@@ -1,4 +1,4 @@
-﻿using FormUI.Domain.BestStartGrantForms.Commands;
+﻿using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -28,6 +28,31 @@ namespace FormUI.Tests.Controllers.Bsg
                 PaymentDetails          = PaymentDetailsBuilder.NewValid(),
                 Evidence                = EvidenceBuilder.NewValid(),
                 Declaration             = DeclarationBuilder.NewValid(),
+            };
+
+            return detail;
+        }
+
+        protected static BsgDetail NewMinimalBsgDetail(string formId)
+        {
+            var detail = new BsgDetail
+            {
+                Id = formId,
+
+                Consent                 = new Consent(),
+                ApplicantDetails        = new ApplicantDetails(),
+                ExpectedChildren        = new ExpectedChildren(),
+                ExistingChildren        = new ExistingChildren(),
+                ApplicantBenefits       = new Benefits(),
+                PartnerBenefits         = new Benefits(),
+                GuardianBenefits        = new Benefits(),
+                GuardianPartnerBenefits = new Benefits(),
+                PartnerDetails          = new RelationDetails(),
+                GuardianDetails         = new RelationDetails(),
+                GuardianPartnerDetails  = new RelationDetails(),
+                HealthProfessional      = new HealthProfessional(),
+                PaymentDetails          = new PaymentDetails(),
+                Declaration             = new Declaration(),
             };
 
             return detail;

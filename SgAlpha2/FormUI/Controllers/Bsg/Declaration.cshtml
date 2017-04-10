@@ -38,6 +38,17 @@
                 </dl>
             }
 
+            if (Model.ExpectedChildren != null)
+            {
+                <h3>If a baby is expected</h3>
+                <dl>
+                    @Html.AnswerFor(m => m.ExpectedChildren.IsBabyExpected)
+                    @Html.AnswerFor(m => m.ExpectedChildren.ExpectancyDate)
+                    @Html.AnswerFor(m => m.ExpectedChildren.IsMoreThan1BabyExpected)
+                    @Html.AnswerFor(m => m.ExpectedChildren.ExpectedBabyCount)
+                </dl>
+            }
+
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()

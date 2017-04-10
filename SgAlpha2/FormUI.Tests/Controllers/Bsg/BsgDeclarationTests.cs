@@ -150,5 +150,32 @@ namespace FormUI.Tests.Controllers.Bsg
             });
         }
 
+        [Test]
+        public void Declaration_GET_HandlesMinimalSections()
+        {
+            WebAppTest(client =>
+            {
+                var detail = NewMinimalBsgDetail("form123");
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+
+                response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
+            });
+        }
+
+        [Test]
+        public void Declaration_GET_HandlesMissingSections()
+        {
+            WebAppTest(client =>
+            {
+                var detail = new BsgDetail { Id = "form123" };
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                var response = client.Get(BsgActions.Declaration(detail.Id));
+
+                response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
+            });
+        }
     }
 }

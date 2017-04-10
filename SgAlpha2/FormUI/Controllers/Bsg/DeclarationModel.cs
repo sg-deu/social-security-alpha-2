@@ -6,6 +6,7 @@ namespace FormUI.Controllers.Bsg
     {
         // GET
         public ApplicantDetails ApplicantDetails;
+        public ExpectedChildren ExpectedChildren;
         public bool             RequiresGuardianDeclaration;
 
         // POST
