@@ -12,6 +12,10 @@ namespace FormUI.Controllers.Bsg
         public Benefits         PartnerBenefits;
         public Benefits         GuardianBenefits;
         public Benefits         GuardianPartnerBenefits;
+        public RelationDetails  PartnerDetails;
+        public RelationDetails  GuardianDetails;
+        public RelationDetails  GuardianPartnerDetails;
+
         public bool             RequiresGuardianDeclaration;
 
         // POST

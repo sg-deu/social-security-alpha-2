@@ -162,6 +162,7 @@
     <Compile Include="Controllers\Bsg\BenefitsAnswersModel.cs" />
     <Compile Include="Controllers\Bsg\EvidenceModel.cs" />
     <Compile Include="Controllers\Bsg\IneligibleModel.cs" />
+    <Compile Include="Controllers\Bsg\RelationDetailsAnswersModel.cs" />
     <Compile Include="Controllers\Bsg\UKVerifyModel.cs" />
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Coc\DeclarationModel.cs" />
@@ -410,6 +411,7 @@
     <Content Include="Controllers\Bsg\ExpectedChildrenAnswers.cshtml" />
     <Content Include="Controllers\Bsg\ExistingChildrenAnswers.cshtml" />
     <Content Include="Controllers\Bsg\BenefitsAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\RelationDetailsAnswers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

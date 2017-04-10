@@ -51,6 +51,21 @@
                 @Html.PartialFor(m => m.GuardianPartnerBenefits, BsgViews.BenefitsAnswers, m => new BenefitsAnswersModel { Title = BsgText.GuardianPartnerBenefitsTitle(), Benefits = Model.GuardianPartnerBenefits })
             }
 
+            if (Model.PartnerDetails != null)
+            {
+                @Html.PartialFor(m => m.PartnerDetails, BsgViews.RelationDetailsAnswers, m => new RelationDetailsAnswersModel { Title = BsgText.PartnerDetailsTitle(), RelationDetails = Model.PartnerDetails })
+            }
+
+            if (Model.GuardianDetails != null)
+            {
+                @Html.PartialFor(m => m.GuardianDetails, BsgViews.RelationDetailsAnswers, m => new RelationDetailsAnswersModel { Title = BsgText.GuardianDetailsTitle(), RelationDetails = Model.GuardianDetails })
+            }
+
+            if (Model.GuardianPartnerDetails != null)
+            {
+                @Html.PartialFor(m => m.GuardianPartnerDetails, BsgViews.RelationDetailsAnswers, m => new RelationDetailsAnswersModel { Title = BsgText.GuardianPartnerDetailsTitle(), RelationDetails = Model.GuardianPartnerDetails })
+            }
+
 
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 

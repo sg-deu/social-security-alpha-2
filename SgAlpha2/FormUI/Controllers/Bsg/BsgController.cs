@@ -53,6 +53,7 @@ namespace FormUI.Controllers.Bsg
         public const string ExpectedChildrenAnswers = "ExpectedChildrenAnswers";
         public const string ExistingChildrenAnswers = "ExistingChildrenAnswers";
         public const string BenefitsAnswers         = "BenefitsAnswers";
+        public const string RelationDetailsAnswers  = "RelationDetailsAnswers";
     }
 
     public class BsgText
@@ -666,6 +667,9 @@ namespace FormUI.Controllers.Bsg
                 m.PartnerBenefits = f.PartnerBenefits;
                 m.GuardianBenefits = f.GuardianBenefits;
                 m.GuardianPartnerBenefits = f.GuardianPartnerBenefits;
+                m.PartnerDetails = f.PartnerDetails;
+                m.GuardianDetails = f.GuardianDetails;
+                m.GuardianPartnerDetails = f.GuardianPartnerDetails;
                 m.RequiresGuardianDeclaration = f?.ApplicantDetails?.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });

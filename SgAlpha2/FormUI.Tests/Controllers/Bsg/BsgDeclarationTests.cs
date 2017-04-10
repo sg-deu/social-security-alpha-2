@@ -116,6 +116,7 @@ namespace FormUI.Tests.Controllers.Bsg
             WebAppTest(client =>
             {
                 var detail = NewBsgDetail("form123");
+                detail.PartnerDetails.InheritAddress = true;
                 ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
 
                 var expectedAnswers = new List<string>();
@@ -129,6 +130,11 @@ namespace FormUI.Tests.Controllers.Bsg
                     "PreviousSection",
                     "IsFinalSection",
                 };
+
+                // the partner details inherit the address, and the guardian and guardian's partner have full addresses
+                namesToIgnore.Add("PartnerDetails.Address.");
+                namesToIgnore.Add("GuardianDetails.InheritAddress");
+                namesToIgnore.Add("GuardianPartnerDetails.InheritAddress");
 
                 expectedAnswers = expectedAnswers
                     .Where(ea => !namesToIgnore.Any(i => ea.StartsWith(i)))
