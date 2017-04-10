@@ -8,6 +8,7 @@ namespace FormUI.Controllers.Bsg
         public ApplicantDetails ApplicantDetails;
         public ExpectedChildren ExpectedChildren;
         public ExistingChildren ExistingChildren;
+        public Benefits         ApplicantBenefits;
         public bool             RequiresGuardianDeclaration;
 
         // POST

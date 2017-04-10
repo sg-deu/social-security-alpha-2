@@ -67,6 +67,23 @@
                 </dl>
             }
 
+            if (Model.ApplicantBenefits != null)
+            {
+                <h3>Your benefits</h3>
+                <dl>
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeSupport)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeBasedJobseekersAllowance)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasIncomeRelatedEmplymentAndSupportAllowance)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasUniversalCredit)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasChildTaxCredit)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasWorkingTextCredit)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasHousingBenefit)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.HasPensionCredit)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.None)
+                    @Html.AnswerFor(m => m.ApplicantBenefits.Unknown)
+                </dl>
+            }
+
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()

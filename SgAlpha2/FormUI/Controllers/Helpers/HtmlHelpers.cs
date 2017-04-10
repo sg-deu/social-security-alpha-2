@@ -175,6 +175,16 @@ namespace FormUI.Controllers.Helpers
                 : null);
         }
 
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, bool>> property)
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool>> property)
+        {
+            return Answer.For(helper, null, property, p => p ? "Yes" : "No");
+        }
+
         public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property)
         {
             return helper.AnswerFor(null, property);
