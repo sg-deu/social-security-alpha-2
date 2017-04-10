@@ -20,23 +20,6 @@ namespace FormUI.Controllers.Helpers
             return helper.ButtonLink(actionUrl, "Next");
         }
 
-        public static IHtmlString ButtonLinkExternal<T>(this HtmlHelper<T> helper, string ukVerifyScope, string text)
-        {
-            var urlHelper = helper.UrlHelper();
-
-            var linkText = new HtmlTag("span").AddClasses("link-text").Text(text);
-
-            // Fix this re: code review comments - add to controller
-            var actionUrl = System.Configuration.ConfigurationManager.AppSettings[ukVerifyScope];
-
-            var anchor = new LinkTag(null, urlHelper.Content(actionUrl))
-                .AddClasses("button", "button--primary")
-                .Title(text)
-                .Append(linkText);
-
-            return anchor;
-        }
-
         public static IHtmlString ButtonLink<T>(this HtmlHelper<T> helper, string actionUrl, string text)
         {
             var urlHelper = helper.UrlHelper();
@@ -62,9 +45,9 @@ namespace FormUI.Controllers.Helpers
         }
 
         // TODO: Appreciate this is not he right place for this (or if can use 'PartialFor<>' below) but will do in short term
-        public static IHtmlString PartialDeclarationForGuardian<T>(this HtmlHelper<T> helper, bool property)
+        public static IHtmlString PartialDeclarationForGuardian<T>(this HtmlHelper<T> helper, bool isUnder16)
         {
-            if (property)
+            if (isUnder16)
             {
                 return helper.Partial(FormUI.Controllers.Shared.SharedViews.LegalStatementU16);
             }

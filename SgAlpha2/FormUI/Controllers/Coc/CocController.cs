@@ -114,6 +114,9 @@ namespace FormUI.Controllers.Coc
 
             return NavigableView<IdentityModel>(formId, Sections.Identity, (m, f) =>
             {
+                var actionUrl = System.Configuration.ConfigurationManager.AppSettings["gov.ukverifylogin"];
+
+                m.VerifyPath = actionUrl;
                 m.Email = email ?? f.Identity;
             });
         }

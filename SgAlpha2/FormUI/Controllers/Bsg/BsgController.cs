@@ -125,6 +125,9 @@ namespace FormUI.Controllers.Bsg
 
             return NavigableView<UKVerifyModel>(formId, Sections.UKVerify, (m, f) =>
             {
+                var actionUrl = System.Configuration.ConfigurationManager.AppSettings["gov.ukverifyapply"];
+
+                m.VerifyPath = actionUrl;
                 m.UKVerify = details ?? f.UKVerify;
             });
         }
