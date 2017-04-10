@@ -9,6 +9,9 @@ namespace FormUI.Controllers.Bsg
         public ExpectedChildren ExpectedChildren;
         public ExistingChildren ExistingChildren;
         public Benefits         ApplicantBenefits;
+        public Benefits         PartnerBenefits;
+        public Benefits         GuardianBenefits;
+        public Benefits         GuardianPartnerBenefits;
         public bool             RequiresGuardianDeclaration;
 
         // POST

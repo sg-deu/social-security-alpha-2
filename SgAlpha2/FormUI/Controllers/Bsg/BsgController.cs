@@ -663,6 +663,9 @@ namespace FormUI.Controllers.Bsg
                 m.ExpectedChildren = f.ExpectedChildren;
                 m.ExistingChildren = f.ExistingChildren;
                 m.ApplicantBenefits = f.ApplicantBenefits;
+                m.PartnerBenefits = f.PartnerBenefits;
+                m.GuardianBenefits = f.GuardianBenefits;
+                m.GuardianPartnerBenefits = f.GuardianPartnerBenefits;
                 m.RequiresGuardianDeclaration = f?.ApplicantDetails?.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });

@@ -159,6 +159,7 @@
     <Compile Include="App_Start\MetadataProvider.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\GlobalStartup.cs" />
+    <Compile Include="Controllers\Bsg\BenefitsAnswersModel.cs" />
     <Compile Include="Controllers\Bsg\EvidenceModel.cs" />
     <Compile Include="Controllers\Bsg\IneligibleModel.cs" />
     <Compile Include="Controllers\Bsg\UKVerifyModel.cs" />

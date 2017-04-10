@@ -1,14 +1,17 @@
-﻿@inherits WebViewPage<Benefits>
-<h3>@BsgText.ApplicantBenefitsTitle()</h3>
-<dl>
-    @Html.AnswerFor(m => m.HasIncomeSupport)
-    @Html.AnswerFor(m => m.HasIncomeBasedJobseekersAllowance)
-    @Html.AnswerFor(m => m.HasIncomeRelatedEmplymentAndSupportAllowance)
-    @Html.AnswerFor(m => m.HasUniversalCredit)
-    @Html.AnswerFor(m => m.HasChildTaxCredit)
-    @Html.AnswerFor(m => m.HasWorkingTextCredit)
-    @Html.AnswerFor(m => m.HasHousingBenefit)
-    @Html.AnswerFor(m => m.HasPensionCredit)
-    @Html.AnswerFor(m => m.None)
-    @Html.AnswerFor(m => m.Unknown)
-</dl>
+﻿@inherits WebViewPage<BenefitsAnswersModel>
+@using (var form = Html.ForModel(Model.Benefits))
+{
+    <h3>@Model.Title</h3>
+    <dl>
+        @form.Html.AnswerFor(m => m.HasIncomeSupport)
+        @form.Html.AnswerFor(m => m.HasIncomeBasedJobseekersAllowance)
+        @form.Html.AnswerFor(m => m.HasIncomeRelatedEmplymentAndSupportAllowance)
+        @form.Html.AnswerFor(m => m.HasUniversalCredit)
+        @form.Html.AnswerFor(m => m.HasChildTaxCredit)
+        @form.Html.AnswerFor(m => m.HasWorkingTextCredit)
+        @form.Html.AnswerFor(m => m.HasHousingBenefit)
+        @form.Html.AnswerFor(m => m.HasPensionCredit)
+        @form.Html.AnswerFor(m => m.None)
+        @form.Html.AnswerFor(m => m.Unknown)
+    </dl>
+}

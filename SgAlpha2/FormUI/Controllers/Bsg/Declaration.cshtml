@@ -16,10 +16,41 @@
 
             <h2>Review your answers below:</h2>
 
-            @Html.PartialFor(m => m.ApplicantDetails, BsgViews.ApplicantDetailsAnswers)
-            @Html.PartialFor(m => m.ExpectedChildren, BsgViews.ExpectedChildrenAnswers)
-            @Html.PartialFor(m => m.ExistingChildren, BsgViews.ExistingChildrenAnswers)
-            @Html.PartialFor(m => m.ApplicantBenefits, BsgViews.BenefitsAnswers)
+            if (Model.ApplicantDetails != null)
+            {
+                @Html.PartialFor(m => m.ApplicantDetails, BsgViews.ApplicantDetailsAnswers)
+            }
+
+            if (Model.ExpectedChildren != null)
+            {
+                @Html.PartialFor(m => m.ExpectedChildren, BsgViews.ExpectedChildrenAnswers)
+            }
+
+            if (Model.ExistingChildren != null)
+            {
+                @Html.PartialFor(m => m.ExistingChildren, BsgViews.ExistingChildrenAnswers)
+            }
+
+            if (Model.ApplicantBenefits != null)
+            {
+                @Html.PartialFor(m => m.ApplicantBenefits, BsgViews.BenefitsAnswers, m => new BenefitsAnswersModel { Title = BsgText.ApplicantBenefitsTitle(), Benefits = Model.ApplicantBenefits })
+            }
+
+            if (Model.PartnerBenefits != null)
+            {
+                @Html.PartialFor(m => m.PartnerBenefits, BsgViews.BenefitsAnswers, m => new BenefitsAnswersModel { Title = BsgText.PartnerBenefitsTitle(), Benefits = Model.PartnerBenefits })
+            }
+
+            if (Model.GuardianBenefits != null)
+            {
+                @Html.PartialFor(m => m.GuardianBenefits, BsgViews.BenefitsAnswers, m => new BenefitsAnswersModel { Title = BsgText.GuardianBenefitsTitle(), Benefits = Model.GuardianBenefits })
+            }
+
+            if (Model.GuardianPartnerBenefits != null)
+            {
+                @Html.PartialFor(m => m.GuardianPartnerBenefits, BsgViews.BenefitsAnswers, m => new BenefitsAnswersModel { Title = BsgText.GuardianPartnerBenefitsTitle(), Benefits = Model.GuardianPartnerBenefits })
+            }
+
 
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 

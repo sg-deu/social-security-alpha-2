@@ -62,10 +62,6 @@ namespace FormUI.Controllers.Helpers
         {
             var model = (TViewModel)ModelMetadata.FromLambdaExpression(property, helper.ViewData).Model;
             var viewModel = modelFactory != null ? modelFactory(model) : model;
-
-            if (viewModel == null)
-                return null;
-
             var prefix = property.GetExpressionText();
             var templateInfo = new TemplateInfo { HtmlFieldPrefix = prefix };
             return helper.Partial(view, viewModel, new ViewDataDictionary(helper.ViewData) { TemplateInfo = templateInfo });
