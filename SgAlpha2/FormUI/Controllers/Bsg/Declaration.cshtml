@@ -49,6 +49,24 @@
                 </dl>
             }
 
+            if (Model.ExistingChildren != null)
+            {
+                <h3>Children in the household</h3>
+                <dl>
+                    @Html.AnswerFor(m => m.ExistingChildren.AnyExistingChildren)
+                    @for (var i = 0; i < Model.ExistingChildren.Children.Count; i++)
+                    {
+                        <dt>Child @(i + 1)</dt>
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].FirstName)
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].Surname)
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].DateOfBirth)
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].Relationship)
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].ChildBenefit)
+                        @Html.AnswerFor(m => m.ExistingChildren.Children[i].NoChildBenefitReason)
+                    }
+                </dl>
+            }
+
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 
             @form.Html.LabelledConfirmCheckBox(m => m.AgreedToLegalStatement).Control(c => c.Emphasise(true)).Mandatory()

@@ -198,5 +198,17 @@ namespace FormUI.Controllers.Helpers
                 ? p.Value.ToString()
                 : null);
         }
+
+        public static Answer AnswerFor<T, TEnum>(this HtmlHelper<T> helper, Expression<Func<T, TEnum?>> property)
+            where TEnum : struct
+        {
+            return helper.AnswerFor(null, property);
+        }
+
+        public static Answer AnswerFor<T, TEnum>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, TEnum?>> property)
+            where TEnum : struct
+        {
+            return Answer.For(helper, null, property, p => ReflectHelper.GetEnumDescription(p));
+        }
     }
 }

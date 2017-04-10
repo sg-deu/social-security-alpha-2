@@ -625,6 +625,7 @@ namespace FormUI.Controllers.Bsg
             {
                 m.ApplicantDetails = f.ApplicantDetails;
                 m.ExpectedChildren = f.ExpectedChildren;
+                m.ExistingChildren = f.ExistingChildren;
                 m.RequiresGuardianDeclaration = f?.ApplicantDetails?.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });
