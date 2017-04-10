@@ -46,14 +46,17 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgViews
     {
-        public const string Benefits                = "Benefits";
-        public const string RelationDetails         = "RelationDetails";
+        public const string Benefits                    = "Benefits";
+        public const string RelationDetails             = "RelationDetails";
 
-        public const string ApplicantDetailsAnswers = "ApplicantDetailsAnswers";
-        public const string ExpectedChildrenAnswers = "ExpectedChildrenAnswers";
-        public const string ExistingChildrenAnswers = "ExistingChildrenAnswers";
-        public const string BenefitsAnswers         = "BenefitsAnswers";
-        public const string RelationDetailsAnswers  = "RelationDetailsAnswers";
+        public const string ApplicantDetailsAnswers     = "ApplicantDetailsAnswers";
+        public const string ExpectedChildrenAnswers     = "ExpectedChildrenAnswers";
+        public const string ExistingChildrenAnswers     = "ExistingChildrenAnswers";
+        public const string BenefitsAnswers             = "BenefitsAnswers";
+        public const string RelationDetailsAnswers      = "RelationDetailsAnswers";
+        public const string HealthProfessionalAnswers   = "HealthProfessionalAnswers";
+        public const string PaymentDetailsAnswers       = "PaymentDetailsAnswers";
+        public const string EvidenceAnswers             = "EvidenceAnswers";
     }
 
     public class BsgText
@@ -83,6 +86,10 @@ namespace FormUI.Controllers.Bsg
 
         public static string GuardianPartnerDetailsTitle()          { return "About your parent/legal guardian's partner"; }
         public static string GuardianPartnerDetailsHeading()        { return "Your parent/legal guardian's partner's details"; }
+
+        public static string HealthProfessionalTitle()              { return "Health Professional"; }
+        public static string PaymentDetailsTitle()                  { return "Payment details"; }
+        public static string EvidenceTitle()                        { return "Documents supporting your application"; }
     }
 
     public class BsgController : FormController
@@ -670,6 +677,9 @@ namespace FormUI.Controllers.Bsg
                 m.PartnerDetails = f.PartnerDetails;
                 m.GuardianDetails = f.GuardianDetails;
                 m.GuardianPartnerDetails = f.GuardianPartnerDetails;
+                m.HealthProfessional = f.HealthProfessional;
+                m.PaymentDetails = f.PaymentDetails;
+                m.Evidence = f.Evidence;
                 m.RequiresGuardianDeclaration = f?.ApplicantDetails?.Age() < 16;
                 m.Declaration = details ?? f.Declaration;
             });

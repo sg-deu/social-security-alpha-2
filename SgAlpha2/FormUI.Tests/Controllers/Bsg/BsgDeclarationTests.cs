@@ -110,7 +110,6 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
-        [Explicit("RGB - WIP")]
         public void Declaration_GET_DisplaysAllSectionContent()
         {
             WebAppTest(client =>
@@ -154,7 +153,7 @@ namespace FormUI.Tests.Controllers.Bsg
                         missingAnswers.Add(expectedAnswer);
                 }
 
-                Assert.Fail("Could not find answers to the following questions:\n{0}", string.Join("\n", missingAnswers));
+                missingAnswers.Count.Should().Be(0, "all questions should have an answer; could not find answers to the following questions:\n{0}", string.Join("\n", missingAnswers));
             });
         }
 

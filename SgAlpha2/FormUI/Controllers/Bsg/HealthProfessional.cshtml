@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<HealthProfessionalModel>
 @{
-    ViewBag.Title = "Best Start Grant - Health Professional";
+    ViewBag.Title = "Best Start Grant - " + BsgText.HealthProfessionalTitle();
 }
 
 <div class="grid"><!--
@@ -8,7 +8,7 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Health Professional</h1>
+        <h1>@BsgText.HealthProfessionalTitle()</h1>
 
         <p>You must fill in all fields marked with an (*)</p>
 

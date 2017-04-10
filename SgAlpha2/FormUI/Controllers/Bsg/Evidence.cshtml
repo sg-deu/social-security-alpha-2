@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<EvidenceModel>
 @{
-    ViewBag.Title = "Best Start Grant - Documents in support of your application";
+    ViewBag.Title = "Best Start Grant - " + BsgText.EvidenceTitle();
 }
 
 <div class="grid">
@@ -10,7 +10,7 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Documents supporting your application</h1>
+        <h1>@BsgText.EvidenceTitle()</h1>
 
         @using (var form = Html.FormFor(Model.Evidence, f => f.Attr("enctype", "multipart/form-data")))
         {

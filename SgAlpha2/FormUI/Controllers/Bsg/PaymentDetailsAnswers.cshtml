@@ -1,0 +1,14 @@
+﻿@inherits WebViewPage<PaymentDetails>
+<h3>@BsgText.PaymentDetailsTitle()</h3>
+<dl>
+    @Html.AnswerFor(m => m.HasBankAccount)
+
+    @if (Model.HasBankAccount == true)
+    {
+        @Html.AnswerFor(m => m.NameOfAccountHolder)
+        @Html.AnswerFor(m => m.NameOfBank)
+        @Html.AnswerFor(m => m.SortCode)
+        @Html.AnswerFor(m => m.AccountNumber)
+        @Html.AnswerFor(m => m.RollNumber)
+    }
+</dl>

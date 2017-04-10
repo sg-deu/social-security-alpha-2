@@ -66,6 +66,21 @@
                 @Html.PartialFor(m => m.GuardianPartnerDetails, BsgViews.RelationDetailsAnswers, m => new RelationDetailsAnswersModel { Title = BsgText.GuardianPartnerDetailsTitle(), RelationDetails = Model.GuardianPartnerDetails })
             }
 
+            if (Model.HealthProfessional != null)
+            {
+                @Html.PartialFor(m => m.HealthProfessional, BsgViews.HealthProfessionalAnswers)
+            }
+
+            if (Model.PaymentDetails != null)
+            {
+                @Html.PartialFor(m => m.PaymentDetails, BsgViews.PaymentDetailsAnswers)
+            }
+
+            if (Model.Evidence != null)
+            {
+                @Html.PartialFor(m => m.Evidence, BsgViews.EvidenceAnswers)
+            }
+
 
             @form.Html.PartialDeclarationForGuardian(Model.RequiresGuardianDeclaration)
 

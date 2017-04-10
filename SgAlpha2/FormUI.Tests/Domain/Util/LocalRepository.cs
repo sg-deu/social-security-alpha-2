@@ -5,6 +5,7 @@ using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.ChangeOfCircsForm;
 using FormUI.Domain.Util;
 using FormUI.Tests.Domain.BestStartGrantForms;
+using FormUI.Tests.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.ChangeOfCircsForm;
 using FormUI.Tests.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Tests.Domain.Forms.Dto;
@@ -100,7 +101,11 @@ namespace FormUI.Tests.Domain.Util
             new BestStartGrantBuilder(formId)
                 .WithCompletedSections(markAsCompleted: false)
                 .With(f => f.Declaration, null)
-                .Insert(mutator);
+                .Insert(f =>
+                {
+                    f.Evidence.AddFiles(f, 2);
+                    mutator?.Invoke(f);
+                });
         }
 
         private static ChangeOfCircs AddTestCoc(LocalRepository repository, string formId)

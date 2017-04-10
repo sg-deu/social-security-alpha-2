@@ -412,6 +412,9 @@
     <Content Include="Controllers\Bsg\ExistingChildrenAnswers.cshtml" />
     <Content Include="Controllers\Bsg\BenefitsAnswers.cshtml" />
     <Content Include="Controllers\Bsg\RelationDetailsAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\HealthProfessionalAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\PaymentDetailsAnswers.cshtml" />
+    <Content Include="Controllers\Bsg\EvidenceAnswers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\formui.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

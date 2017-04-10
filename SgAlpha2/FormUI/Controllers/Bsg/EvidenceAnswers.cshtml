@@ -1,0 +1,14 @@
+﻿@inherits WebViewPage<Evidence>
+<h3>@BsgText.EvidenceTitle()</h3>
+<dl>
+    @if (Model.Files != null && Model.Files.Count > 0)
+    {
+        for (var i = 0; i < Model.Files.Count; i++)
+        {
+            <dd>Uploaded file @(i + 1)</dd>
+            <dt>@Model.Files[i].Name</dt>
+        }
+    }
+
+    @Html.AnswerFor(m => m.SendingByPost)
+</dl>
