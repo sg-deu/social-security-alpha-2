@@ -25,6 +25,8 @@ namespace FormUI.Controllers.Coc
         public static string Identity(string id)            { return $"~/coc/identity/{id}"; }
         public static string Options(string id)             { return $"~/coc/options/{id}"; }
         public static string ApplicantDetails(string id)    { return $"~/coc/applicantDetails/{id}"; }
+        public static string ExpectedChildren(string id)    { return $"~/coc/expectedChildren/{id}"; }
+        public static string HealthProfessional(string id)  { return $"~/coc/healthProfessional/{id}"; }
         public static string PaymentDetails(string id)      { return $"~/coc/paymentDetails/{id}"; }
         public static string Evidence(string id)            { return $"~/coc/evidence/{id}"; }
         public static string Declaration(string id)         { return $"~/coc/declaration/{id}"; }

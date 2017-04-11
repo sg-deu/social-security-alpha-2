@@ -8,13 +8,15 @@ namespace FormUI.Controllers.Coc
     {
         private static IDictionary<Sections, Func<SectionActionStrategy>> _strategies = new Dictionary<Sections, Func<SectionActionStrategy>>
         {
-            { Sections.Consent,                 () => new ConsentActions()          },
-            { Sections.Identity,                () => new IdentityActions()         },
-            { Sections.Options,                 () => new OptionsActions()          },
-            { Sections.ApplicantDetails,        () => new ApplicantDetailsActions() },
-            { Sections.PaymentDetails,          () => new PaymentDetailsActions()   },
-            { Sections.Evidence,                () => new EvidenceActions()         },
-            { Sections.Declaration,             () => new DeclarationActions()      },
+            { Sections.Consent,                 () => new ConsentActions()              },
+            { Sections.Identity,                () => new IdentityActions()             },
+            { Sections.Options,                 () => new OptionsActions()              },
+            { Sections.ApplicantDetails,        () => new ApplicantDetailsActions()     },
+            { Sections.ExpectedChildren,        () => new ExpectedChildrenActions()     },
+            { Sections.HealthProfessional,      () => new HealthProfessionalActions()   },
+            { Sections.PaymentDetails,          () => new PaymentDetailsActions()       },
+            { Sections.Evidence,                () => new EvidenceActions()             },
+            { Sections.Declaration,             () => new DeclarationActions()          },
         };
 
         public static SectionActionStrategy For(Sections section)
@@ -45,6 +47,16 @@ namespace FormUI.Controllers.Coc
         private class ApplicantDetailsActions : SectionActionStrategy
         {
             public override string Action(string formId) { return CocActions.ApplicantDetails(formId); }
+        }
+
+        private class ExpectedChildrenActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return CocActions.ExpectedChildren(formId); }
+        }
+
+        private class HealthProfessionalActions : SectionActionStrategy
+        {
+            public override string Action(string formId) { return CocActions.HealthProfessional(formId); }
         }
 
         private class PaymentDetailsActions : SectionActionStrategy

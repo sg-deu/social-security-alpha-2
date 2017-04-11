@@ -15,6 +15,9 @@ namespace FormUI.Domain.ChangeOfCircsForm.Dto
         [DisplayName("Children's details")]
         public bool     ChangeChildrenDetails   { get; set; }
 
+        [DisplayName("Add expected baby")]
+        public bool     AddExpectedBaby         { get; set; }
+
         [DisplayName("Payment details")]
         public bool     ChangePaymentDetails    { get; set; }
 

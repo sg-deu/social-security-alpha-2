@@ -6,6 +6,8 @@
         Identity,
         Options,
         ApplicantDetails,
+        ExpectedChildren,
+        HealthProfessional,
         PaymentDetails,
         Evidence,
         Declaration,
