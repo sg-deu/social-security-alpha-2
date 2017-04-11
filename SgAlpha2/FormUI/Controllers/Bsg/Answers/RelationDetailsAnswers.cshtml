@@ -1,24 +1,26 @@
 ﻿@inherits WebViewPage<RelationDetailsAnswersModel>
 @using (var form = Html.ForModel(Model.RelationDetails))
 {
-    <h3>@Model.Title</h3>
-    <dl>
-        @form.Html.AnswerFor(m => m.Title)
-        @form.Html.AnswerFor(m => m.FullName)
-        @form.Html.AnswerFor(m => m.DateOfBirth)
-        @form.Html.AnswerFor(m => m.NationalInsuranceNumber)
-        @form.Html.AnswerFor(m => m.RelationshipToApplicant)
+    <div class="answers-section">
+        <h3>@Model.Title</h3>
+        <dl>
+            @form.Html.AnswerFor(m => m.Title)
+            @form.Html.AnswerFor(m => m.FullName)
+            @form.Html.AnswerFor(m => m.DateOfBirth)
+            @form.Html.AnswerFor(m => m.NationalInsuranceNumber)
+            @form.Html.AnswerFor(m => m.RelationshipToApplicant)
 
-        @if (Model.RelationDetails.InheritAddress)
-        {
-            @form.Html.AnswerFor(m => m.InheritAddress)
-        }
-        else
-        {
-            @form.Html.AnswerFor(m => m.Address.Line1)
-            @form.Html.AnswerFor(m => m.Address.Line2)
-            @form.Html.AnswerFor(m => m.Address.Line3)
-            @form.Html.AnswerFor(m => m.Address.Postcode)
-        }
-    </dl>
+            @if (Model.RelationDetails.InheritAddress)
+            {
+                @form.Html.AnswerFor(m => m.InheritAddress)
+            }
+            else
+            {
+                @form.Html.AnswerFor(m => m.Address.Line1)
+                @form.Html.AnswerFor(m => m.Address.Line2)
+                @form.Html.AnswerFor(m => m.Address.Line3)
+                @form.Html.AnswerFor(m => m.Address.Postcode)
+            }
+        </dl>
+    </div>
 }

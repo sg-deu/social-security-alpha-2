@@ -1,8 +1,10 @@
 ﻿@inherits WebViewPage<ExpectedChildren>
-<h3>@BsgText.ExpectedChildrenTitle()</h3>
-<dl>
-    @Html.AnswerFor(m => m.IsBabyExpected)
-    @Html.AnswerFor(m => m.ExpectancyDate)
-    @Html.AnswerFor(m => m.IsMoreThan1BabyExpected)
-    @Html.AnswerFor(m => m.ExpectedBabyCount)
-</dl>
+<div class="answers-section">
+    <h3>@BsgText.ExpectedChildrenTitle()</h3>
+    <dl>
+        @Html.AnswerFor(m => m.IsBabyExpected)
+        @Html.AnswerFor(m => m.ExpectancyDate)
+        @Html.AnswerFor(m => m.IsMoreThan1BabyExpected)
+        @Html.AnswerFor(m => m.ExpectedBabyCount)
+    </dl>
+</div>

@@ -1,5 +1,7 @@
 ﻿@inherits WebViewPage<HealthProfessional>
-<h3>@BsgText.HealthProfessionalTitle()</h3>
-<dl>
-    @Html.AnswerFor(m => m.Pin)
-</dl>
+<div class="answers-section">
+    <h3>@BsgText.HealthProfessionalTitle()</h3>
+    <dl>
+        @Html.AnswerFor(m => m.Pin)
+    </dl>
+</div>

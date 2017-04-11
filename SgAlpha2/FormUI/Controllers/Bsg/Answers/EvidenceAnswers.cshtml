@@ -1,14 +1,16 @@
 ﻿@inherits WebViewPage<Evidence>
-<h3>@BsgText.EvidenceTitle()</h3>
-<dl>
-    @if (Model.Files != null && Model.Files.Count > 0)
-    {
-        for (var i = 0; i < Model.Files.Count; i++)
+<div class="answers-section">
+    <h3>@BsgText.EvidenceTitle()</h3>
+    <dl>
+        @if (Model.Files != null && Model.Files.Count > 0)
         {
-            <dd>Uploaded file @(i + 1)</dd>
-            <dt>@Model.Files[i].Name</dt>
+            for (var i = 0; i < Model.Files.Count; i++)
+            {
+                <dt>Uploaded file @(i + 1)</dt>
+                <dd>@Model.Files[i].Name</dd>
+            }
         }
-    }
 
-    @Html.AnswerFor(m => m.SendingByPost)
-</dl>
+        @Html.AnswerFor(m => m.SendingByPost)
+    </dl>
+</div>

@@ -1,19 +1,21 @@
 ﻿@inherits WebViewPage<ApplicantDetails>
-<h3>@BsgText.ApplicantDetailsTitle()</h3>
-<dl>
-    @Html.AnswerFor(m => m.Title)
-    @Html.AnswerFor(m => m.FirstName)
-    @Html.AnswerFor(m => m.OtherNames)
-    @Html.AnswerFor(m => m.SurnameOrFamilyName)
-    @Html.AnswerFor(m => m.DateOfBirth)
-    @Html.AnswerFor(m => m.PreviouslyLookedAfter)
-    @Html.AnswerFor(m => m.FullTimeEducation)
-    @Html.AnswerFor(m => m.NationalInsuranceNumber)
-    @Html.AnswerFor(m => m.CurrentAddress.Line1)
-    @Html.AnswerFor(m => m.CurrentAddress.Line2)
-    @Html.AnswerFor(m => m.CurrentAddress.Line3)
-    @Html.AnswerFor(m => m.CurrentAddress.Postcode)
-    @Html.AnswerFor(m => m.EmailAddress)
-    @Html.AnswerFor(m => m.PhoneNumer)
-    @Html.AnswerFor(m => m.MobilePhoneNumber)
-</dl>
+<div class="answers-section">
+    <h3>@BsgText.ApplicantDetailsTitle()</h3>
+    <dl>
+        @Html.AnswerFor(m => m.Title)
+        @Html.AnswerFor(m => m.FirstName)
+        @Html.AnswerFor(m => m.OtherNames)
+        @Html.AnswerFor(m => m.SurnameOrFamilyName)
+        @Html.AnswerFor(m => m.DateOfBirth)
+        @Html.AnswerFor(m => m.PreviouslyLookedAfter)
+        @Html.AnswerFor(m => m.FullTimeEducation)
+        @Html.AnswerFor(m => m.NationalInsuranceNumber)
+        @Html.AnswerFor(m => m.CurrentAddress.Line1)
+        @Html.AnswerFor(m => m.CurrentAddress.Line2)
+        @Html.AnswerFor(m => m.CurrentAddress.Line3)
+        @Html.AnswerFor(m => m.CurrentAddress.Postcode)
+        @Html.AnswerFor(m => m.EmailAddress)
+        @Html.AnswerFor(m => m.PhoneNumer)
+        @Html.AnswerFor(m => m.MobilePhoneNumber)
+    </dl>
+</div>

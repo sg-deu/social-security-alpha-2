@@ -1,5 +1,33 @@
 ﻿.sg {
 
+    .answers-section {
+        background: #e5f0f8;
+        padding: 10px;
+        margin-bottom: 40px;
+
+        dt {
+            width: 50%;
+            float: left;
+        }
+
+        .dt-heading {
+            float: none;
+            font-style: italic;
+        }
+
+        dd {
+            width: 50%;
+            margin-left: 50%;
+            padding-left: 8px;
+        }
+
+        dd:after {
+            clear: both;
+            display: block;
+            content: ' ';
+        }
+    }
+
     input {
         padding: 6px 12px;
     }
