@@ -182,7 +182,7 @@ namespace FormUI.Controllers.Helpers
 
         public static Answer AnswerFor<T>(this HtmlHelper<T> helper, string labelText, Expression<Func<T, bool>> property)
         {
-            return Answer.For(helper, null, property, p => p ? "Yes" : "No");
+            return Answer.For(helper, null, property, p => "", p => p ? new[] { "fa", "fa-check-square-o" } : null).AlwaysShow();
         }
 
         public static Answer AnswerFor<T>(this HtmlHelper<T> helper, Expression<Func<T, bool?>> property)
