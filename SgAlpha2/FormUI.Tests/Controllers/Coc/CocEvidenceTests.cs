@@ -75,6 +75,34 @@ namespace FormUI.Tests.Controllers.Coc
         }
 
         [Test]
+        public void Evidence_POST_RemoveFile()
+        {
+            WebAppTest(client =>
+            {
+                // prep this test by adding a file to remove    
+                var cloudName = System.Guid.NewGuid().ToString();
+                var detail = NewCocDetail("form123");
+
+                detail.Evidence.Files.Add(new EvidenceFile { Name = "UploadedFile.pdf", CloudName = cloudName });
+                ExecutorStub.SetupQuery(It.IsAny<FindCocSection>(), detail);
+
+                // now remove it
+                var response = client.Get(CocActions.Evidence(detail.Id))
+                    .Form<EvidenceFile>(1)
+                    .RemoveFile(cloudName)
+                    .SubmitName(CocButtons.RemoveFile, client);
+
+                ExecutorStub.Executed<RemoveEvidenceFile>(0).ShouldBeEquivalentTo(new RemoveEvidenceFile
+                {
+                    FormId = "form123",
+                    CloudName = cloudName,
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(CocActions.Evidence("form123"));
+            });
+        }
+
+        [Test]
         public void Evidence_POST_PopulatesEvidence()
         {
             WebAppTest(client =>

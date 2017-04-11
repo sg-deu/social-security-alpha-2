@@ -145,6 +145,29 @@ namespace FormUI.Domain.ChangeOfCircsForm
             Repository.Update(this);
         }
 
+        public void RemoveEvidenceFile(string cloudName)
+        {
+            Evidence = Evidence ?? new Evidence();
+
+            int? index = null;
+
+            for (int fileIndex = 0; fileIndex < Evidence.Files.Count; fileIndex++)
+            {
+                if (Evidence.Files[fileIndex].CloudName == cloudName)
+                {
+                    index = fileIndex;
+                }
+            }
+
+            if (index.HasValue)
+            {
+                CloudStore.Remove("coc-" + Id, cloudName);
+
+                Evidence.Files.RemoveAt(index.Value);
+                Repository.Update(this);
+            }
+        }
+
         public NextSection AddEvidence(Evidence evidence)
         {
             Evidence = Evidence ?? evidence;

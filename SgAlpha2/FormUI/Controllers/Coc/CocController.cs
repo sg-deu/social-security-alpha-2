@@ -15,6 +15,7 @@ namespace FormUI.Controllers.Coc
     public static class CocButtons
     {
         public const string UploadFile = "UploadFile";
+        public const string RemoveFile = "RemoveFile";
     }
 
     public static class CocActions
@@ -238,6 +239,8 @@ namespace FormUI.Controllers.Coc
                     return Evidence_Render(id, evidence);
                 }
 
+                // TODO: Add remaining validation - ie: filetype and max 20 files
+
                 using (var br = new BinaryReader(file.InputStream))
                 {
                     var addFile = new AddEvidenceFile
@@ -251,6 +254,20 @@ namespace FormUI.Controllers.Coc
                         success: () => Redirect(CocActions.Evidence(id)),
                         failure: () => Evidence_Render(id, evidence));
                 }
+            }
+            else if (WasClicked(CocButtons.RemoveFile))
+            {
+                var cloudName = Request.Form[CocButtons.RemoveFile];
+
+                var delFile = new RemoveEvidenceFile
+                {
+                    FormId = id,
+                    CloudName = cloudName,
+                };
+
+                return Exec(delFile,
+                    success: () => Redirect(CocActions.Evidence(id)),
+                    failure: () => Evidence_Render(id, evidence));
             }
 
             var cmd = new AddEvidence

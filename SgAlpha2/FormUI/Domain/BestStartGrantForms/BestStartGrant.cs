@@ -248,6 +248,30 @@ namespace FormUI.Domain.BestStartGrantForms
             Repository.Update(this);
         }
 
+        public void RemoveEvidenceFile(string cloudName)
+        {
+            Evidence = Evidence ?? new Evidence();
+
+            int? index = null;
+
+            for (int fileIndex = 0; fileIndex < Evidence.Files.Count; fileIndex++)
+            {
+                if (Evidence.Files[fileIndex].CloudName == cloudName)
+                {
+                    index = fileIndex;
+                    cloudName = Evidence.Files[fileIndex].CloudName;
+                }
+            }
+
+            if (index.HasValue)
+            {
+                CloudStore.Remove("bsg-" + Id, cloudName);
+
+                Evidence.Files.RemoveAt(index.Value);
+                Repository.Update(this);
+            }
+        }
+
         public NextSection AddEvidence(Evidence evidence)
         {
             Evidence = Evidence ?? evidence;

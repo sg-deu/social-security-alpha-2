@@ -76,6 +76,34 @@ namespace FormUI.Tests.Controllers.Bsg
         }
 
         [Test]
+        public void Evidence_POST_RemoveFile()
+        {
+            WebAppTest(client =>
+            {
+                // prep this test by adding a file to remove    
+                var cloudName = System.Guid.NewGuid().ToString();
+                var detail = NewBsgDetail("form123");
+
+                detail.Evidence.Files.Add(new EvidenceFile { Name = "UploadedFile.pdf", CloudName = cloudName });
+                ExecutorStub.SetupQuery(It.IsAny<FindBsgSection>(), detail);
+
+                // now remove it
+                var response = client.Get(BsgActions.Evidence(detail.Id))
+                    .Form<EvidenceFile>(1)
+                    .RemoveFile(cloudName)
+                    .SubmitName(BsgButtons.RemoveFile, client);
+
+                ExecutorStub.Executed<RemoveEvidenceFile>(0).ShouldBeEquivalentTo(new RemoveEvidenceFile
+                {
+                    FormId = detail.Id,
+                    CloudName = cloudName,
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().Be(BsgActions.Evidence(detail.Id));
+            });
+        }
+
+        [Test]
         public void Evidence_POST_PopulatesEvidence()
         {
             WebAppTest(client =>

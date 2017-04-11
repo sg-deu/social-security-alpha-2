@@ -19,18 +19,9 @@
 
             <h2>You may need to give us documents in support of your application</h2>
 
-            <p>You’ll need to send us documents to support your relationship to any children in this application.</p>
-
-            <h3>Documents you can send us:</h3>
-            <ul>
-                <li>a marriage certificate</li>
-                <li>adoption certificate</li>
-                <li>birth certificate</li>
-            </ul>
-
             <h3>Documents should be:</h3>
             <ul>
-                <li>this kind of format: pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif</li>
+                <li>this kind of format: .pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif</li>
                 <li>no more than 2MB</li>
                 <li>no more than 20 documents may be uploaded</li>
             </ul>
@@ -44,10 +35,10 @@
             else
             {
                 <p>Currently uploaded files:</p>
-                <ul id="uploadedFiles">
-                    @foreach (var file in Model.UploadedFiles)
+                <ul id="uploadedFiles" style="width:75%">
+                    @foreach (var file in Model.Evidence.Files)
                     {
-                        <li>@file</li>
+                        <li>@file.Name @form.Html.FormButtonSmall(BsgButtons.RemoveFile, @file.CloudName, $"Remove", FormHelpers.BsgButtonType.Error)</li>
                     }
                 </ul>
             }

@@ -32,6 +32,29 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         }
 
         [Test]
+        public void RemoveEvidenceFile()
+        {
+            var form = new ChangeOfCircsBuilder("form").Insert();
+
+            // prep the form by adding a file
+            var fileBytes = Encoding.ASCII.GetBytes("some content");
+            form.AddEvidenceFile("FileName1.txt", fileBytes);
+
+            var storedForm = Repository.Load<ChangeOfCircs>(form.Id);
+            storedForm.Evidence.Files.Count.Should().Be(1);
+
+            var file = storedForm.Evidence.Files[0];
+            CloudStore.List("coc-" + form.Id).Should().Contain(file.CloudName);
+
+            // now remove the file
+            storedForm.RemoveEvidenceFile(file.CloudName);
+            storedForm = Repository.Load<ChangeOfCircs>(form.Id);
+
+            storedForm.Evidence.Files.Count.Should().Be(0);
+            CloudStore.List("coc-" + form.Id).Should().NotContain(file.CloudName);
+        }
+
+        [Test]
         public void AddEvidenceFile_HandlesTwoFilesWithSameName()
         {
             var form = new ChangeOfCircsBuilder("form").Insert();

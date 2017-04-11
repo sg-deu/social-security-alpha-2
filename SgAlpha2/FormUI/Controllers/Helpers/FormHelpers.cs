@@ -16,7 +16,10 @@ namespace FormUI.Controllers.Helpers
         {
             Primary = 1,
             Error,
-            Success
+            Success,
+            Cancel,
+            Ghost,
+            Small
         }
 
         public static ScopedHtmlHelper<TPostModel> FormFor<TViewModel, TPostModel>(this HtmlHelper<TViewModel> helper, TPostModel postModel, Action<FormTag> mutator = null)
@@ -190,6 +193,27 @@ namespace FormUI.Controllers.Helpers
                 button.Value(value);
 
             return div.Append(button);
+        }
+
+        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        {
+            return helper.FormButtonSmall(name, null, label, buttonType);
+        }
+
+        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string value, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        {
+            // Could use a DescriptionAttribute on the enum but this will do for now...
+            string className = String.Format("button--{0}", Enum.GetName(typeof(BsgButtonType), buttonType).ToLower());
+
+            var button = new HtmlTag("button").AddClasses("smallbutton", className).Text(label);
+
+            if (!string.IsNullOrWhiteSpace(name))
+                button.Name(name);
+
+            if (!string.IsNullOrWhiteSpace(value))
+                button.Value(value);
+
+            return button;
         }
 
         public delegate TControl ControlFactory<TControl>(ControlContext controlContext);

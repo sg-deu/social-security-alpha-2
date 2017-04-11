@@ -2876,6 +2876,43 @@ small,
 .button:focus .icon {
     opacity: 0.65
 }
+
+.smallbutton {
+    background: #727272;
+    border: 0;
+    color: #fff;
+    float: right;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    vertical-align: middle;
+    -moz-transition: background 1s;
+    -o-transition: background 1s;
+    -webkit-transition: background 1s;
+    transition: background 1s
+}
+.smallbutton:hover {
+    text-decoration: none;
+    color: #fff;
+    -moz-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s
+}
+.smallbutton:focus {
+    -moz-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s
+}
+.button:focus .icon {
+    opacity: 0.65
+}
 .button--primary {
     background-color: #0065bd
 }

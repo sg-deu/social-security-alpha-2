@@ -73,6 +73,14 @@ namespace FormUI.Domain.Util
             block.UploadFromByteArray(content, 0, content.Length);
         }
 
+        public void Remove(string folder, string cloudFilename)
+        {
+            var fullName = $"{folder}/{cloudFilename}";
+            var block = _container.Value.GetBlockBlobReference(fullName);
+
+            block.DeleteIfExists();
+        }
+
         public IList<string> List(string folder)
         {
             var block = _container.Value.GetDirectoryReference(folder);

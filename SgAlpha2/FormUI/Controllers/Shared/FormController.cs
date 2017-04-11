@@ -69,6 +69,20 @@ namespace FormUI.Controllers.Shared
             }
         }
 
+        protected void RemoveModelStateArray<T>(Expression<Func<T, object>> property, string nameToDelete)
+        {
+            var name = property.GetExpressionText();
+            var keys = ModelState.Keys.ToList();
+
+            foreach (var key in keys)
+            {
+                if (!key.StartsWith(nameToDelete))
+                    continue;
+
+                ModelState.Remove(key);
+            }
+        }
+
         protected JsonResult AjaxActions(AjaxAction[] actions)
         {
             return Json(actions);

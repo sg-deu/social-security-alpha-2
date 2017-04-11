@@ -18,6 +18,7 @@ namespace FormUI.Controllers.Bsg
         public const string AddChild    = "AddChild";
         public const string RemoveChild = "RemoveChild";
         public const string UploadFile = "UploadFile";
+        public const string RemoveFile = "RemoveFile";
     }
 
     public static class BsgActions
@@ -605,6 +606,13 @@ namespace FormUI.Controllers.Bsg
                     return Evidence_Render(id, evidence);
                 }
 
+                // TODO: Add remaining validation - ie: filetype and max 20 files
+                //if (!file.PermittedExtension())
+                //{
+                //    ModelState.AddModelError("", "Please select a file of type '.pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif'");
+                //    return Evidence_Render(id, evidence);
+                //}
+
                 using (var br = new BinaryReader(file.InputStream))
                 {
                     var addFile = new AddEvidenceFile
@@ -618,6 +626,20 @@ namespace FormUI.Controllers.Bsg
                         success: () => Redirect(BsgActions.Evidence(id)),
                         failure: () => Evidence_Render(id, evidence));
                 }
+            }
+            else if (WasClicked(BsgButtons.RemoveFile))
+            {
+                var cloudName = Request.Form[BsgButtons.RemoveFile];
+
+                var delFile = new RemoveEvidenceFile
+                {
+                    FormId = id,
+                    CloudName = cloudName,
+                };
+
+                return Exec(delFile,
+                    success: () => Redirect(BsgActions.Evidence(id)),
+                    failure: () => Evidence_Render(id, evidence));
             }
 
             var cmd = new AddEvidence
