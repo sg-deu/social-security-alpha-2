@@ -53,6 +53,15 @@ namespace FormUI.Domain.Forms
 
             ctx.Required(m => m.HasBankAccount, "Please indicate if you have a bank account");
 
+            if (bankDetails.HasBankAccount == false)
+            {
+                bankDetails.NameOfAccountHolder = null;
+                bankDetails.NameOfBank = null;
+                bankDetails.SortCode = null;
+                bankDetails.AccountNumber = null;
+                bankDetails.RollNumber = null;
+            }
+
             if (bankDetails.HasBankAccount == true)
             {
                 ctx.Required(m => m.NameOfAccountHolder, "Please supply the name of the account holder");

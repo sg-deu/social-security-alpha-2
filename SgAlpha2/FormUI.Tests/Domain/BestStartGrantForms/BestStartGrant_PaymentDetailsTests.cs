@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Tests.Domain.BestStartGrantForms.Dto;
@@ -21,6 +22,15 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.NameOfBank = null; });
             PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.SortCode = null; });
             PaymentDetailsShouldBeValid(form, m => { m.HasBankAccount = false; m.AccountNumber = null; });
+
+            PaymentDetailsShouldBeValid(form, m => m.HasBankAccount = false, m =>
+            {
+                m.NameOfAccountHolder.Should().BeNull();
+                m.NameOfBank.Should().BeNull();
+                m.SortCode.Should().BeNull();
+                m.AccountNumber.Should().BeNull();
+                m.RollNumber.Should().BeNull();
+            });
 
             PaymentDetailsShouldBeInvalid(form, m => m.HasBankAccount = null);
             PaymentDetailsShouldBeInvalid(form, m => { m.HasBankAccount = true; m.NameOfAccountHolder = null; });
@@ -56,9 +66,11 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             PaymentDetailsShouldBeInvalid(form, m => m.AccountNumber = " 1 ");
         }
 
-        protected void PaymentDetailsShouldBeValid(BestStartGrant form, Action<PaymentDetails> mutator)
+        protected void PaymentDetailsShouldBeValid(BestStartGrant form, Action<PaymentDetails> mutator, Action<PaymentDetails> postVerify = null)
         {
-            ShouldBeValid(() => form.AddPaymentDetails(PaymentDetailsBuilder.NewValid(mutator)));
+            var paymentDetails = PaymentDetailsBuilder.NewValid(mutator);
+            ShouldBeValid(() => form.AddPaymentDetails(paymentDetails));
+            postVerify?.Invoke(paymentDetails);
         }
 
         protected void PaymentDetailsShouldBeInvalid(BestStartGrant form, Action<PaymentDetails> mutator)
