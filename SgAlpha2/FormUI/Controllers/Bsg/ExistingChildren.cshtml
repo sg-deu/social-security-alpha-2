@@ -45,11 +45,11 @@
 
                     if (Model.ExistingChildren.Children.Count > 1)
                     {
-                        @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}", FormHelpers.BsgButtonType.Error)
+                        @form.Html.FormButton(BsgButtons.RemoveChild, i.ToString(), $"Remove Child {i + 1}", FormHelpers.ButtonType.Error)
                     }
                 }
                 
-                @form.Html.FormButton(BsgButtons.AddChild, "Add Another Child", FormHelpers.BsgButtonType.Success)
+                @form.Html.FormButton(BsgButtons.AddChild, "Add Another Child", FormHelpers.ButtonType.Success)
             }
 
 

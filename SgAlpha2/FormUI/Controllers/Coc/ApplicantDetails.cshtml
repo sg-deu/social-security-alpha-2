@@ -19,7 +19,7 @@
 
                <h2>Your details</h2>
 
-               <p>You can change any of the details to update your information</p>
+               <p>You can change any of the details to update your information.</p>
 
                @form.Html.LabelledInputText(m => m.Title)
 
@@ -34,7 +34,7 @@
                @form.Html.LabelledInputText(m => m.EmailAddress)
 
 
-               @form.Html.ButtonSubmit("Save & Continue >")
+               @form.Html.ButtonSubmitNext(Model.IsFinalPage)
 
            }
 

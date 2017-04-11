@@ -15,9 +15,9 @@
 
             @form.Html.ValidationSummary()
 
-            <h1>Your Personal details</h1>
-
             <h2>You may need to give us documents showing your change of circumstances</h2>
+
+            <h1>Your Personal details</h1>
 
             <p>You’ll need to send us documents if you’ve changed your name or address. You don't need to send any documents if you've changed your phone number or email.</p>
 
@@ -52,7 +52,7 @@
                 <ul id="uploadedFiles" style="width:75%">
                     @foreach (var file in Model.Evidence.Files)
                     {
-                        <li>@file.Name @form.Html.FormButtonSmall(CocButtons.RemoveFile, @file.CloudName, $"Remove", FormHelpers.BsgButtonType.Error)</li>
+                        <li>@file.Name @form.Html.FormButtonSmall(CocButtons.RemoveFile, @file.CloudName, $"Remove", FormHelpers.ButtonType.Error)</li>
                     }
                 </ul>
             }

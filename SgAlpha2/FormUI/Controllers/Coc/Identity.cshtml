@@ -8,13 +8,11 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>Authentication</h1>
+        <h1>Tell us who you are</h1>
 
         <form method="post" class="sg-form">
 
             @Html.ValidationSummary()
-
-            <h3>Tell us who you are</h3>
 
             <p>You have 2 options to tell us who you are:</p>
 
@@ -41,7 +39,7 @@
 
         <p>To confirm who you are now you need to use Verify. This should mean your application is processed quicker.</p>
 
-        @Html.ButtonLink(Model.VerifyPath, "Verify Now >")
+        @Html.ButtonLink(Model.VerifyPath, "Start Option 2 >")
         
         <br/>
 

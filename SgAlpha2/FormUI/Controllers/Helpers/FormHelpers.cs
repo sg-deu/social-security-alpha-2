@@ -12,7 +12,7 @@ namespace FormUI.Controllers.Helpers
 {
     public static class FormHelpers
     {
-        public enum BsgButtonType
+        public enum ButtonType
         {
             Primary = 1,
             Error,
@@ -173,15 +173,15 @@ namespace FormUI.Controllers.Helpers
                 new ConfirmCheckBox(helper, controlContext, labelText));
         }
 
-        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string label, ButtonType buttonType = ButtonType.Primary)
         {
             return helper.FormButton(name, null, label, buttonType);
         }
 
-        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string value, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        public static HtmlTag FormButton<T>(this HtmlHelper<T> helper, string name, string value, string label, ButtonType buttonType = ButtonType.Primary)
         {
             // Could use a DescriptionAttribute on the enum but this will do for now...
-            string className = String.Format("button--{0}", Enum.GetName(typeof(BsgButtonType), buttonType).ToLower());
+            string className = String.Format("button--{0}", Enum.GetName(typeof(ButtonType), buttonType).ToLower());
 
             var div = new DivTag().AddClasses("form-group");
             var button = new HtmlTag("button").AddClasses("button", className).Text(label);
@@ -195,15 +195,15 @@ namespace FormUI.Controllers.Helpers
             return div.Append(button);
         }
 
-        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string label, ButtonType buttonType = ButtonType.Primary)
         {
             return helper.FormButtonSmall(name, null, label, buttonType);
         }
 
-        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string value, string label, BsgButtonType buttonType = BsgButtonType.Primary)
+        public static HtmlTag FormButtonSmall<T>(this HtmlHelper<T> helper, string name, string value, string label, ButtonType buttonType = ButtonType.Primary)
         {
             // Could use a DescriptionAttribute on the enum but this will do for now...
-            string className = String.Format("button--{0}", Enum.GetName(typeof(BsgButtonType), buttonType).ToLower());
+            string className = String.Format("button--{0}", Enum.GetName(typeof(ButtonType), buttonType).ToLower());
 
             var button = new HtmlTag("button").AddClasses("smallbutton", className).Text(label);
 
