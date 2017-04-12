@@ -77,5 +77,15 @@ namespace FormUI.Domain.ChangeOfCircsForm
         {
             return form.Options?.ChangePaymentDetails == true;
         }
+
+        public static bool RequiresExpectedChildren(ChangeOfCircs form)
+        {
+            return form.Options?.AddExpectedBaby == true;
+        }
+
+        public static bool RequiresHealthProfessional(ChangeOfCircs form)
+        {
+            return form.Options?.AddExpectedBaby == true;
+        }
     }
 }

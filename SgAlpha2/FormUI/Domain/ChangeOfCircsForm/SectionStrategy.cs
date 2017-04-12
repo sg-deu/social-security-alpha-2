@@ -56,10 +56,14 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         private class ExpectedChildren : SectionStrategy
         {
+            public override bool Required(ChangeOfCircs form) { return Navigation.RequiresExpectedChildren(form); }
+            public override void SkipSection(ChangeOfCircs form) { form.OnSkipExpectedChildren(); }
         }
 
         private class HealthProfessional : SectionStrategy
         {
+            public override bool Required(ChangeOfCircs form) { return Navigation.RequiresHealthProfessional(form); }
+            public override void SkipSection(ChangeOfCircs form) { form.OnSkipHealthProfessional(); }
         }
 
         private class PaymentDetails : SectionStrategy

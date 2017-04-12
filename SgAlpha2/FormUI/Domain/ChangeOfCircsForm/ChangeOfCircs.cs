@@ -209,8 +209,10 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.Declaration);
         }
 
-        internal void OnSkipApplicantDetails()  { ApplicantDetails = null;  }
-        internal void OnSkipPaymentDetails()    { PaymentDetails = null;    }
+        internal void OnSkipApplicantDetails()      { ApplicantDetails = null;      }
+        internal void OnSkipExpectedChildren()      { ExpectedChildren = null;      }
+        internal void OnSkipHealthProfessional()    { HealthProfessional = null;    }
+        internal void OnSkipPaymentDetails()        { PaymentDetails = null;        }
 
         private NextSection OnSectionCompleted(Sections section)
         {
