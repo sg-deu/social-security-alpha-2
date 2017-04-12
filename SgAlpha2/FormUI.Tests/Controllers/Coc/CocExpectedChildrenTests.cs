@@ -39,7 +39,7 @@ namespace FormUI.Tests.Controllers.Coc
                 var response = client.Get(CocActions.ExpectedChildren(detail.Id));
 
                 response.Doc.Form<ExpectedChildren>(1).GetText(m => m.IsBabyExpected).Should().Be(true.ToString());
-                response.Doc.Find("#IsBabyExpected_FormGroup").Attribute("style").Should().Be("display:none");
+                response.Doc.Find("#IsBabyExpected_FormGroup").ShouldBeHidden();
             });
         }
     }
