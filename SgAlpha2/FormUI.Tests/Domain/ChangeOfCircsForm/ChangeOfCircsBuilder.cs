@@ -27,6 +27,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             if (!excludeOptionalSections)
             {
                 With(f => f.ApplicantDetails, ApplicantDetailsBuilder.NewValid());
+                With(f => f.ExpectedChildren, ExpectedChildrenBuilder.NewValid());
+                With(f => f.HealthProfessional, HealthProfessionalBuilder.NewValid());
                 With(f => f.PaymentDetails, PaymentDetailsBuilder.NewValid());
             }
 
@@ -49,6 +51,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             detail.Identity = form.UserId;
             detail.Options = form.Options;
             detail.ApplicantDetails = useExisting ? form.ExistingApplicantDetails : form.ApplicantDetails;
+            detail.ExpectedChildren = form.ExpectedChildren;
+            detail.HealthProfessional = form.HealthProfessional;
             detail.PaymentDetails = useExisting ? form.ExistingPaymentDetails : form.PaymentDetails;
             detail.Evidence = form.Evidence;
             detail.Declaration = form.Declaration;

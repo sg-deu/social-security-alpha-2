@@ -21,6 +21,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
         public PaymentDetails       ExistingPaymentDetails      { get; protected set; }
         public Options              Options                     { get; protected set; }
         public ApplicantDetails     ApplicantDetails            { get; protected set; }
+        public ExpectedChildren     ExpectedChildren            { get; protected set; }
+        public HealthProfessional   HealthProfessional          { get; protected set; }
         public PaymentDetails       PaymentDetails              { get; protected set; }
         public Evidence             Evidence                    { get; protected set; }
         public Declaration          Declaration                 { get; protected set; }
@@ -33,6 +35,8 @@ namespace FormUI.Domain.ChangeOfCircsForm
                 Identity            = UserId,
                 Options             = Options,
                 ApplicantDetails    = ApplicantDetails ?? ExistingApplicantDetails,
+                ExpectedChildren    = ExpectedChildren,
+                HealthProfessional  = HealthProfessional,
                 PaymentDetails      = PaymentDetails ?? ExistingPaymentDetails,
                 Evidence            = Evidence,
                 Declaration         = Declaration,

@@ -232,6 +232,8 @@
     <Compile Include="Domain\ChangeOfCircsForm\Dto\DeclarationBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\ExpectedChildrenBuilder.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\HealthProfessionalBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\OptionsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\PaymentDetailsBuilder.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\NavigationTests.cs" />
