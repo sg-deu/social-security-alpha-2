@@ -121,6 +121,18 @@ namespace FormUI.Domain.ChangeOfCircsForm
             return OnSectionCompleted(Sections.ApplicantDetails);
         }
 
+        public NextSection AddExpectedChildren(ExpectedChildren expectedChildren)
+        {
+            ExpectedChildren = expectedChildren;
+            return OnSectionCompleted(Sections.ExpectedChildren);
+        }
+
+        public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
+        {
+            HealthProfessional = healthProfessional;
+            return OnSectionCompleted(Sections.HealthProfessional);
+        }
+
         public NextSection AddPaymentDetails(PaymentDetails paymentDetails)
         {
             Validate(paymentDetails);

@@ -241,6 +241,8 @@
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddDeclaration.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidence.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddEvidenceFile.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddExpectedChildren.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Commands\AddHealthProfessional.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddOptions.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddPaymentDetails.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\RemoveEvidenceFile.cs" />
