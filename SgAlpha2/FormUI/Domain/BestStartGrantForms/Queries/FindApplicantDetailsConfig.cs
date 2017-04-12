@@ -12,8 +12,9 @@ namespace FormUI.Domain.BestStartGrantForms.Queries
         {
             return new ApplicantDetailsConfig
             {
-                ShouldAskCareQuestion       = BestStartGrant.ShouldAskCareQuestion(ApplicantDetails),
-                ShouldAskEducationQuestion  = BestStartGrant.ShouldAskEducationQuestion(ApplicantDetails),
+                ShouldAskCareQuestion               = BestStartGrant.ShouldAskCareQuestion(ApplicantDetails),
+                ShouldAskEducationQuestion          = BestStartGrant.ShouldAskEducationQuestion(ApplicantDetails),
+                ShouldAskForNationalInsuranceNumber = BestStartGrant.ShouldAskForNationalInsuranceNumber(ApplicantDetails),
             };
         }
     }

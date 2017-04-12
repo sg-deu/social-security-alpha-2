@@ -10,7 +10,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
     public class FindApplicantDetailsConfigTests : DomainTest
     {
         [Test]
-        public void Find_BothQuestionsAsked()
+        public void Find_AllCareQuestionsAsked()
         {
             var query = new FindApplicantDetailsConfig
             {
@@ -21,6 +21,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             detail.ShouldAskCareQuestion.Should().BeTrue();
             detail.ShouldAskEducationQuestion.Should().BeTrue();
+            detail.ShouldAskForNationalInsuranceNumber.Should().BeTrue();
         }
 
         [Test]
@@ -35,6 +36,19 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Queries
 
             detail.ShouldAskCareQuestion.Should().BeTrue();
             detail.ShouldAskEducationQuestion.Should().BeFalse();
+        }
+
+        [Test]
+        public void Find_NoNationalInsuranceNumber()
+        {
+            var query = new FindApplicantDetailsConfig
+            {
+                ApplicantDetails = ApplicantDetailsBuilder.NewValid(ad => ad.Under16(TestNowUtc.Value)),
+            };
+
+            var detail = query.Find();
+
+            detail.ShouldAskForNationalInsuranceNumber.Should().BeFalse();
         }
     }
 }

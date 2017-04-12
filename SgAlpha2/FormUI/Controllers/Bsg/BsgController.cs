@@ -229,6 +229,7 @@ namespace FormUI.Controllers.Bsg
             {
                 AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.PreviouslyLookedAfter, config.ShouldAskCareQuestion),
                 AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.FullTimeEducation, config.ShouldAskEducationQuestion),
+                AjaxAction.ShowHideFormGroup<ApplicantDetails>(m => m.NationalInsuranceNumber, config.ShouldAskForNationalInsuranceNumber),
             });
         }
 

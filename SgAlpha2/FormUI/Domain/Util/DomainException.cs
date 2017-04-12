@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace FormUI.Domain.Util
@@ -27,5 +28,16 @@ namespace FormUI.Domain.Util
 
         public IEnumerable<string>                      Messages        { get; protected set; }
         public IDictionary<LambdaExpression, string>    PropertyErrors  { get; protected set; }
+
+        public override string ToString()
+        {
+            return string.Join("; ", new string[]
+                {
+                    string.Join("; ", Messages),
+                    string.Join("; ", PropertyErrors.Select(pe => $"{pe.Key.ToString()}:{pe.Value}")),
+                }.Where(e => !string.IsNullOrWhiteSpace(e)));
+        }
+
+        public override string Message { get { return ToString(); } }
     }
 }

@@ -99,6 +99,16 @@ namespace FormUI.Domain.BestStartGrantForms
             return age == 18 || age == 19;
         }
 
+        public static bool ShouldAskForNationalInsuranceNumber(ApplicantDetails applicantDetails)
+        {
+            var age = applicantDetails.Age();
+
+            if (age < 16)
+                return false;
+
+            return true;
+        }
+
         public static BsgDetail FindLatest(string userId)
         {
             var userForms = Repository.Query<BestStartGrant>()
@@ -329,11 +339,19 @@ namespace FormUI.Domain.BestStartGrantForms
 
             if (ShouldAskCareQuestion(applicantDetails))
                 ctx.Required(m => m.PreviouslyLookedAfter, "Please indicate if you have previously been looked after");
+            else
+                applicantDetails.PreviouslyLookedAfter = null;
 
             if (ShouldAskEducationQuestion(applicantDetails))
                 ctx.Required(m => m.FullTimeEducation, "Please indicate if you are 18/19 in full time education and part of your parents' or guardians' benefit claim");
+            else
+                applicantDetails.FullTimeEducation = null;
 
-            ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
+            if (ShouldAskForNationalInsuranceNumber(applicantDetails))
+                ctx.Custom(m => m.NationalInsuranceNumber, ni => ValidateNationalInsuranceNumber(applicantDetails));
+            else
+                applicantDetails.NationalInsuranceNumber = null;
+
             ctx.Required(m => m.CurrentAddress.Line1, "Please supply an Address line 1");
             ctx.Required(m => m.CurrentAddress.Postcode, "Please supply a Postcode");
 

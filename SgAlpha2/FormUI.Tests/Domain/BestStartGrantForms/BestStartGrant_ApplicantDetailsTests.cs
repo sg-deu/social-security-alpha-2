@@ -79,6 +79,26 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
         }
 
         [Test]
+        public void ApplicantDetails_RequiresNationalInsuranceNumber()
+        {
+            TestNowUtc = new DateTime(2009, 08, 07, 06, 05, 04);
+            var applicantDetails = ApplicantDetailsBuilder.NewValid();
+
+            BestStartGrant.ShouldAskForNationalInsuranceNumber(applicantDetails).Should().BeTrue("default builder should ask question");
+
+            applicantDetails.DateOfBirth = null;
+            BestStartGrant.ShouldAskForNationalInsuranceNumber(applicantDetails).Should().BeTrue("should ask by default");
+
+            // applicant is 16 today
+            applicantDetails.DateOfBirth = new DateTime(1993, 08, 07);
+            BestStartGrant.ShouldAskForNationalInsuranceNumber(applicantDetails).Should().BeTrue("ask for NINO if >= 16");
+
+            // applicant is 16 tomorrow (still 15)
+            applicantDetails.DateOfBirth = new DateTime(1993, 08, 08);
+            BestStartGrant.ShouldAskForNationalInsuranceNumber(applicantDetails).Should().BeFalse("under 16 does not have NINO");
+        }
+
+        [Test]
         public void AddApplicantDetails_Validation()
         {
             var form = new BestStartGrantBuilder("form").Insert();
@@ -89,8 +109,13 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line2 = null);
             ApplicantDetailsShouldBeValid(form, m => m.CurrentAddress.Line3 = null);
             ApplicantDetailsShouldBeValid(form, m => m.DateOfBirth = TestNowUtc - TimeSpan.FromDays(1));
-            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.PreviouslyLookedAfter = null; });
-            ApplicantDetailsShouldBeValid(form, m => { m.DateOfBirth = TestNowUtc.Value.AddYears(-30); m.FullTimeEducation = null; });
+            ApplicantDetailsShouldBeValid(form, m => { m.Over25(TestNowUtc.Value); m.PreviouslyLookedAfter = null; });
+            ApplicantDetailsShouldBeValid(form, m => { m.Over25(TestNowUtc.Value); m.FullTimeEducation = null; });
+            ApplicantDetailsShouldBeValid(form, m => { m.Under16(TestNowUtc.Value); m.NationalInsuranceNumber = null; });
+
+            ApplicantDetailsShouldBeValid(form, m => { m.Over25(TestNowUtc.Value); m.PreviouslyLookedAfter = true; }, m => m.PreviouslyLookedAfter.Should().BeNull());
+            ApplicantDetailsShouldBeValid(form, m => { m.Over25(TestNowUtc.Value); m.FullTimeEducation = true; }, m => m.FullTimeEducation.Should().BeNull());
+            ApplicantDetailsShouldBeValid(form, m => { m.Under16(TestNowUtc.Value); m.NationalInsuranceNumber = "AB 12 34 56 C"; }, m => m.NationalInsuranceNumber.Should().BeNull());
 
             ApplicantDetailsShouldBeInvalid(form, m => m.FirstName = null);
             ApplicantDetailsShouldBeInvalid(form, m => m.SurnameOrFamilyName = null);

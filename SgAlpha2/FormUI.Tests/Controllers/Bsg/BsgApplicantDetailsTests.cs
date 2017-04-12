@@ -76,16 +76,18 @@ namespace FormUI.Tests.Controllers.Bsg
                 {
                     ShouldAskCareQuestion = true,
                     ShouldAskEducationQuestion = false,
+                    ShouldAskForNationalInsuranceNumber = true,
                 });
 
                 var ajaxActions = response.Form<ApplicantDetails>(1)
                     .OnChange(f => f.DateOfBirth, client);
 
                 ajaxActions.Should().NotBeNull();
-                ajaxActions.Length.Should().Be(2);
+                ajaxActions.Length.Should().Be(3);
 
                 ajaxActions.ForFormGroup<ApplicantDetails>(f => f.PreviouslyLookedAfter).ShouldShowHide(response.Doc, true);
                 ajaxActions.ForFormGroup<ApplicantDetails>(f => f.FullTimeEducation).ShouldShowHide(response.Doc, false);
+                ajaxActions.ForFormGroup<ApplicantDetails>(f => f.NationalInsuranceNumber).ShouldShowHide(response.Doc, true);
             });
         }
     }
