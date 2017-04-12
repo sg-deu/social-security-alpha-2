@@ -90,7 +90,6 @@ namespace FormUI.Tests.Controllers.Bsg
                 // now remove it
                 var response = client.Get(BsgActions.Evidence(detail.Id))
                     .Form<EvidenceFile>(1)
-                    .RemoveFile(cloudName)
                     .SubmitName(BsgButtons.RemoveFile, client);
 
                 ExecutorStub.Executed<RemoveEvidenceFile>(0).ShouldBeEquivalentTo(new RemoveEvidenceFile

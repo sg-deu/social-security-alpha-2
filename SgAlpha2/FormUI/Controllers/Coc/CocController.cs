@@ -307,8 +307,6 @@ namespace FormUI.Controllers.Coc
                     return Evidence_Render(id, evidence);
                 }
 
-                // TODO: Add remaining validation - ie: filetype and max 20 files
-
                 using (var br = new BinaryReader(file.InputStream))
                 {
                     var addFile = new AddEvidenceFile

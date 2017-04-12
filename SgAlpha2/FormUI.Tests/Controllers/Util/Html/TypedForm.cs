@@ -62,29 +62,6 @@ namespace FormUI.Tests.Controllers.Util.Html
             return this;
         }
 
-        public TypedForm<T> RemoveFile(string fileName)
-        {
-            // HACK: CJM having issues POSTing during ADD, so can subsequently remove - so, add here prior to RemoveFormFile
-            return AddFile(fileName, null).RemoveFormFile(new RequestFile(fileName, null));
-        }
-
-        public TypedForm<T> RemoveFormFile(RequestFile formFile)
-        {
-            int? formFileIndex = null;
-            for (var index = 0; index < _formFiles.Count; index++)
-            {
-                if (_formFiles[index].FileName == formFile.FileName)
-                {
-                    formFileIndex = index;
-                }
-            }
-
-            if (formFileIndex.HasValue)
-                _formFiles.RemoveAt(formFileIndex.Value);
-
-            return this;
-        }
-
         public FormValue[] Get(string name)
         {
             return _formValues.Where(fv => fv.Name == name).ToArray();

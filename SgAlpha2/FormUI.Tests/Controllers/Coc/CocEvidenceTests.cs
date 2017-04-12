@@ -89,7 +89,6 @@ namespace FormUI.Tests.Controllers.Coc
                 // now remove it
                 var response = client.Get(CocActions.Evidence(detail.Id))
                     .Form<EvidenceFile>(1)
-                    .RemoveFile(cloudName)
                     .SubmitName(CocButtons.RemoveFile, client);
 
                 ExecutorStub.Executed<RemoveEvidenceFile>(0).ShouldBeEquivalentTo(new RemoveEvidenceFile

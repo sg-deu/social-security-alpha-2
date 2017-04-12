@@ -613,13 +613,6 @@ namespace FormUI.Controllers.Bsg
                     return Evidence_Render(id, evidence);
                 }
 
-                // TODO: Add remaining validation - ie: filetype and max 20 files
-                //if (!file.PermittedExtension())
-                //{
-                //    ModelState.AddModelError("", "Please select a file of type '.pdf, .doc, .docx, .xls, .xlsx, .jpg or .gif'");
-                //    return Evidence_Render(id, evidence);
-                //}
-
                 using (var br = new BinaryReader(file.InputStream))
                 {
                     var addFile = new AddEvidenceFile
