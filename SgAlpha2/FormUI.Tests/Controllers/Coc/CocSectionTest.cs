@@ -16,6 +16,8 @@ namespace FormUI.Tests.Controllers.Coc
                 Identity            = "test.email@example.com",
                 Options             = OptionsBuilder.NewValid(),
                 ApplicantDetails    = ApplicantDetailsBuilder.NewValid(),
+                ExpectedChildren    = ExpectedChildrenBuilder.NewValid(),
+                HealthProfessional  = HealthProfessionalBuilder.NewValid(),
                 PaymentDetails      = PaymentDetailsBuilder.NewValid(),
                 Evidence            = EvidenceBuilder.NewValid(),
                 Declaration         = DeclarationBuilder.NewValid(),

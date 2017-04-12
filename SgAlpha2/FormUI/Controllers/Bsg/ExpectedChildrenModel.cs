@@ -5,8 +5,9 @@ namespace FormUI.Controllers.Bsg
 {
     public class ExpectedChildrenModel : NavigableModel
     {
-        public string TitlePrefix;
-        public string Title;
+        public string   TitlePrefix;
+        public string   Title;
+        public bool     HideIsBabyExpected;
 
         // POST
         public ExpectedChildren ExpectedChildren;

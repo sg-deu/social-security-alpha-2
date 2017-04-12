@@ -19,7 +19,7 @@
 
             <h2>Pregnancy details</h2>
 
-            @form.Html.LabelledRadioYesNo(m => m.IsBabyExpected).Mandatory()
+            @form.Html.LabelledRadioYesNo(m => m.IsBabyExpected).Mandatory().Visible(!Model.HideIsBabyExpected)
 
             using (form.Html.ShowWhenYes(m => m.IsBabyExpected, t => t.Id("due-details")))
             {

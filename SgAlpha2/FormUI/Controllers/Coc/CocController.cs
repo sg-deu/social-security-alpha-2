@@ -197,7 +197,9 @@ namespace FormUI.Controllers.Coc
             {
                 m.TitlePrefix = CocText.TitlePrefix();
                 m.Title = "Expected baby";
-                m.ExpectedChildren = details ?? f.ExpectedChildren;
+                m.ExpectedChildren = details ?? f.ExpectedChildren ?? new ExpectedChildren();
+                m.ExpectedChildren.IsBabyExpected = true;
+                m.HideIsBabyExpected = true;
             });
         }
 
