@@ -33,6 +33,11 @@ namespace FormUI.Controllers.Coc
         public static string Complete()                     { return $"~/coc/complete"; }
     }
 
+    public class CocText
+    {
+        public static string TitlePrefix() { return "Change of Circumstances - "; }
+    }
+
     public class CocController : FormController
     {
         [HttpPost]
@@ -177,6 +182,37 @@ namespace FormUI.Controllers.Coc
             return NavigableView<ApplicantDetailsModel>(formId, Sections.ApplicantDetails, (m, f) =>
             {
                 m.ApplicantDetails = details ?? f.ApplicantDetails;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult ExpectedChildren(string id)
+        {
+            return ExpectedChildren_Render(id, null);
+        }
+
+        private ActionResult ExpectedChildren_Render(string formId, ExpectedChildren details)
+        {
+            return NavigableView<ExpectedChildrenModel>(formId, Bsg.BsgViews.ExpectedChildren, Sections.ExpectedChildren, (m, f) =>
+            {
+                m.TitlePrefix = CocText.TitlePrefix();
+                m.Title = "Expected baby";
+                m.ExpectedChildren = details ?? f.ExpectedChildren;
+            });
+        }
+
+        [HttpGet]
+        public ActionResult HealthProfessional(string id)
+        {
+            return HealthProfessional_Render(id, null);
+        }
+
+        private ActionResult HealthProfessional_Render(string formId, HealthProfessional details)
+        {
+            return NavigableView<HealthProfessionalModel>(formId, Bsg.BsgViews.HealthProfessional, Sections.HealthProfessional, (m, f) =>
+            {
+                m.TitlePrefix = CocText.TitlePrefix();
+                m.HealthProfessional = details ?? f.HealthProfessional;
             });
         }
 

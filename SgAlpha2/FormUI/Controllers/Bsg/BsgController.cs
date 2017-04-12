@@ -47,8 +47,10 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgViews
     {
-        public const string Benefits                    = "Benefits";
-        public const string RelationDetails             = "RelationDetails";
+        public const string Benefits                    = "~/Controllers/Bsg/Benefits.cshtml";
+        public const string RelationDetails             = "~/Controllers/Bsg/RelationDetails.cshtml";
+        public const string ExpectedChildren            = "~/Controllers/Bsg/ExpectedChildren.cshtml";
+        public const string HealthProfessional          = "~/Controllers/Bsg/HealthProfessional.cshtml";
 
         public const string ApplicantDetailsAnswers     = "Answers/ApplicantDetailsAnswers";
         public const string ExpectedChildrenAnswers     = "Answers/ExpectedChildrenAnswers";
@@ -62,6 +64,7 @@ namespace FormUI.Controllers.Bsg
 
     public class BsgText
     {
+        public static string TitlePrefix()                          { return "Best Start Grant - "; }
         public static string ApplicantDetailsTitle()                { return "About You"; }
         public static string ExpectedChildrenTitle()                { return "If a baby is expected"; }
         public static string ExistingChildrenTitle()                { return "Children in the household"; }
@@ -253,6 +256,8 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<ExpectedChildrenModel>(formId, Sections.ExpectedChildren, (m, f) =>
             {
+                m.TitlePrefix = BsgText.TitlePrefix();
+                m.Title = BsgText.ExpectedChildrenTitle();
                 m.ExpectedChildren = details ?? f.ExpectedChildren;
             });
         }
@@ -541,6 +546,7 @@ namespace FormUI.Controllers.Bsg
         {
             return NavigableView<HealthProfessionalModel>(formId, Sections.HealthProfessional, (m, f) =>
             {
+                m.TitlePrefix = BsgText.TitlePrefix();
                 m.HealthProfessional = details ?? f.HealthProfessional;
             });
         }

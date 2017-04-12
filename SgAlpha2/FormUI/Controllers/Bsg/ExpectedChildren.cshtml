@@ -1,6 +1,6 @@
 ﻿@inherits WebViewPage<ExpectedChildrenModel>
 @{
-    ViewBag.Title = "Best Start Grant - " + BsgText.ExpectedChildrenTitle();
+    ViewBag.Title = Model.TitlePrefix + Model.Title;
 }
 
 <div class="grid"><!--
@@ -8,7 +8,7 @@
 
         @Html.BackLink(Model.PreviousAction)
 
-        <h1>@BsgText.ExpectedChildrenTitle()</h1>
+        <h1>@Model.Title</h1>
 
         <p>You must fill in all fields marked with an (*)</p>
 

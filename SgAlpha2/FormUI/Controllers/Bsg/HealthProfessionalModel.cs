@@ -5,6 +5,9 @@ namespace FormUI.Controllers.Bsg
 {
     public class HealthProfessionalModel : NavigableModel
     {
+        // GET
+        public string TitlePrefix;
+
         // POST
         public HealthProfessional HealthProfessional;
     }

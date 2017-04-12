@@ -167,6 +167,8 @@
     <Compile Include="Controllers\Coc\ApplicantDetailsModel.cs" />
     <Compile Include="Controllers\Coc\DeclarationModel.cs" />
     <Compile Include="Controllers\Coc\EvidenceModel.cs" />
+    <Compile Include="Controllers\Coc\ExpectedChildrenModel.cs" />
+    <Compile Include="Controllers\Coc\HealthProfessionalModel.cs" />
     <Compile Include="Controllers\Coc\OptionsModel.cs" />
     <Compile Include="Controllers\Coc\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Helpers\Controls\Answer.cs" />
@@ -246,6 +248,8 @@
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Declaration.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Evidence.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\EvidenceFile.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\ExpectedChildren.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\Dto\HealthProfessional.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\Options.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Dto\PaymentDetails.cs" />
     <Compile Include="Domain\Forms\Dto\Address.cs" />
