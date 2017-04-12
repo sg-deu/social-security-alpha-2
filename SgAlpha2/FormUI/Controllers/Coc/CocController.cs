@@ -191,6 +191,20 @@ namespace FormUI.Controllers.Coc
             return ExpectedChildren_Render(id, null);
         }
 
+        [HttpPost]
+        public ActionResult ExpectedChildren(string id, ExpectedChildren expectedChildren)
+        {
+            var cmd = new AddExpectedChildren
+            {
+                FormId = id,
+                ExpectedChildren = expectedChildren,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => ExpectedChildren_Render(id, expectedChildren));
+        }
+
         private ActionResult ExpectedChildren_Render(string formId, ExpectedChildren details)
         {
             return NavigableView<ExpectedChildrenModel>(formId, Bsg.BsgViews.ExpectedChildren, Sections.ExpectedChildren, (m, f) =>
@@ -207,6 +221,20 @@ namespace FormUI.Controllers.Coc
         public ActionResult HealthProfessional(string id)
         {
             return HealthProfessional_Render(id, null);
+        }
+
+        [HttpPost]
+        public ActionResult HealthProfessional(string id, HealthProfessional healthProfessional)
+        {
+            var cmd = new AddHealthProfessional
+            {
+                FormId = id,
+                HealthProfessional = healthProfessional,
+            };
+
+            return Exec(cmd,
+                success: next => RedirectNext(next),
+                failure: () => HealthProfessional_Render(id, healthProfessional));
         }
 
         private ActionResult HealthProfessional_Render(string formId, HealthProfessional details)

@@ -1,8 +1,13 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using System.Web.Mvc;
+using FluentAssertions;
 using FormUI.Controllers.Coc;
 using FormUI.Domain.ChangeOfCircsForm;
+using FormUI.Domain.ChangeOfCircsForm.Commands;
 using FormUI.Domain.ChangeOfCircsForm.Dto;
 using FormUI.Domain.ChangeOfCircsForm.Queries;
+using FormUI.Domain.ChangeOfCircsForm.Responses;
+using FormUI.Domain.Util;
 using FormUI.Tests.Controllers.Util;
 using FormUI.Tests.Controllers.Util.Html;
 using NUnit.Framework;
@@ -40,6 +45,39 @@ namespace FormUI.Tests.Controllers.Coc
 
                 response.Doc.Form<ExpectedChildren>(1).GetText(m => m.IsBabyExpected).Should().Be(true.ToString());
                 response.Doc.Find("#IsBabyExpected_FormGroup").ShouldBeHidden();
+            });
+        }
+
+        [Test]
+        public void ExpectedChildren_POST_PopulatesExpectedChildren()
+        {
+            WebAppTest(client =>
+            {
+                var response = client.Get(CocActions.ExpectedChildren("form123")).Form<ExpectedChildren>(1)
+                    .SetText(m => m.ExpectedBabyCount, "2")
+                    .Submit(client);
+
+                ExecutorStub.Executed<AddExpectedChildren>(0).ShouldBeEquivalentTo(new AddExpectedChildren
+                {
+                    FormId = "form123",
+                    ExpectedChildren = new ExpectedChildren { IsBabyExpected = true, ExpectedBabyCount = 2 },
+                });
+
+                response.ActionResultOf<RedirectResult>().Url.Should().NotBeNullOrWhiteSpace();
+            });
+        }
+
+        [Test]
+        public void ExpectedChildren_POST_ErrorsAreDisplayed()
+        {
+            WebAppTest(client =>
+            {
+                ExecutorStub.SetupCommand<AddExpectedChildren, NextSection>((cmd, def) => { throw new DomainException("simulated logic error"); });
+
+                var response = client.Get(CocActions.ExpectedChildren("form123")).Form<ExpectedChildren>(1)
+                    .Submit(client, r => r.SetExpectedResponse(HttpStatusCode.OK));
+
+                response.Doc.Find(".validation-summary-errors").Should().NotBeNull();
             });
         }
     }

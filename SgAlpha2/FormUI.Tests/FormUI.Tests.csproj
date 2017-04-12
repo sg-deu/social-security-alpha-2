@@ -150,6 +150,7 @@
     <Compile Include="Controllers\Coc\CocDeclarationTests.cs" />
     <Compile Include="Controllers\Coc\CocEvidenceTests.cs" />
     <Compile Include="Controllers\Coc\CocExpectedChildrenTests.cs" />
+    <Compile Include="Controllers\Coc\CocHealthProfessionalTests.cs" />
     <Compile Include="Controllers\Coc\CocIdentityTests.cs" />
     <Compile Include="Controllers\Coc\CocOptionsTests.cs" />
     <Compile Include="Controllers\Coc\CocPaymentDetailsTests.cs" />
