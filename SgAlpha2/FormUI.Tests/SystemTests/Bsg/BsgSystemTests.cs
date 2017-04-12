@@ -1,17 +1,17 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using FluentAssertions;
 using FormUI.Controllers.Bsg;
 using FormUI.Domain;
 using FormUI.Domain.BestStartGrantForms;
 using FormUI.Domain.BestStartGrantForms.Dto;
+using FormUI.Domain.Util;
+using FormUI.Tests.Domain.Util;
 using FormUI.Tests.SystemTests.Util;
 using NUnit.Framework;
-using FormUI.Domain.Util;
-using System.Text;
-using FormUI.Tests.Domain.Util;
 using OpenQA.Selenium;
 
 namespace FormUI.Tests.SystemTests.Bsg
@@ -163,9 +163,6 @@ namespace FormUI.Tests.SystemTests.Bsg
                 VerifyGuardianPartnerBenefits(doc);
                 VerifyGuardianDetails(doc, guardianDob);
                 VerifyGuardianPartnerDetails(doc, guardianPartnerDob);
-
-                //TODO: Presume we should be including DeclarationU16 tests here also?
-                //TODO: Presume we should be including Evidence tests here also?
             });
         }
 

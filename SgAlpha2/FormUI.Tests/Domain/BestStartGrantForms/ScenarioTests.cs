@@ -219,7 +219,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             next = AddConsent(next);
             next = AddUKVerify(next);
-            next = AddApplicantDetails(next, ad => ad.Under16(TestNowUtc.Value));
+            next = AddApplicantDetails(next, ad => { ad.Under16(TestNowUtc.Value); ad.NationalInsuranceNumber = null; });
             next = AddExpectedChildren(next);
             next = AddExistingChildren(next);
 
