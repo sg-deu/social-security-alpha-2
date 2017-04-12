@@ -34,6 +34,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 2);
             ExpectedChildrenShouldBeValid(form, m => m.ExpectedBabyCount = 10);
 
+            ExpectedChildrenShouldBeInvalid(form, m => m.Invalid());
             ExpectedChildrenShouldBeInvalid(form, m => { m.IsBabyExpected = true; m.ExpectancyDate = null; });
             ExpectedChildrenShouldBeInvalid(form, m => { m.IsBabyExpected = true; m.IsMoreThan1BabyExpected = null; });
             ExpectedChildrenShouldBeInvalid(form, m => { m.IsMoreThan1BabyExpected = true; m.ExpectedBabyCount = null; });

@@ -23,6 +23,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
             return expectedChildren;
         }
 
+        public static ExpectedChildren Invalid(this ExpectedChildren expectedChildren)
+        {
+            expectedChildren.IsBabyExpected = null;
+            return expectedChildren;
+        }
+
         public static ExpectedChildren NoBabyExpected(this ExpectedChildren expectedChildren)
         {
             expectedChildren.IsBabyExpected = false;

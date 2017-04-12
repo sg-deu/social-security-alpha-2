@@ -231,6 +231,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddUKVerify.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddConsent.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrant.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\Validate.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\ApplicantDetails.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\Evidence.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceFile.cs" />

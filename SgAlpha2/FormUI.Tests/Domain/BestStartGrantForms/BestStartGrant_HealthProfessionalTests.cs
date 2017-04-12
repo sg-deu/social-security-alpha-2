@@ -17,6 +17,7 @@ namespace FormUI.Tests.Domain.BestStartGrantForms
 
             HealthProfessionalShouldBeValid(form, m => { });
 
+            HealthProfessionalShouldBeInvalid(form, m => m.Invalid());
             HealthProfessionalShouldBeInvalid(form, m => m.Pin = null);
         }
 

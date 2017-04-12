@@ -3,7 +3,7 @@ using FormUI.Domain.BestStartGrantForms.Dto;
 
 namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 {
-    public class HealthProfessionalBuilder
+    public static class HealthProfessionalBuilder
     {
         public static HealthProfessional NewValid(Action<HealthProfessional> mutator = null)
         {
@@ -16,6 +16,12 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
 
             mutator?.Invoke(healthProfessional);
 
+            return healthProfessional;
+        }
+
+        public static HealthProfessional Invalid(this HealthProfessional healthProfessional)
+        {
+            healthProfessional.Pin = null;
             return healthProfessional;
         }
     }

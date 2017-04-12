@@ -215,6 +215,7 @@
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerBenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddPartnerDetailsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\StartBestStartGrantTests.cs" />
+    <Compile Include="Domain\BestStartGrantForms\Commands\ValidateTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\BenefitsTests.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceBuilder.cs" />
     <Compile Include="Domain\BestStartGrantForms\Dto\EvidenceTests.cs" />

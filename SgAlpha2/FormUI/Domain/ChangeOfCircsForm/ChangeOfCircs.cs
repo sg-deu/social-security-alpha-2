@@ -126,7 +126,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             if (expectedChildren.IsBabyExpected == false)
                 throw new DomainException("Must indicate having a baby in Change of Circumstances");
 
-            BestStartGrantForms.BestStartGrant.Validate(expectedChildren);
+            new BestStartGrantForms.Commands.Validate { ExpectedChildren = expectedChildren }.Execute();
 
             ExpectedChildren = expectedChildren;
             return OnSectionCompleted(Sections.ExpectedChildren);
@@ -134,7 +134,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
         {
-            BestStartGrantForms.BestStartGrant.Validate(healthProfessional);
+            new BestStartGrantForms.Commands.Validate { HealthProfessional = healthProfessional }.Execute();
 
             HealthProfessional = healthProfessional;
             return OnSectionCompleted(Sections.HealthProfessional);
