@@ -39,6 +39,64 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         }
 
         [Test]
+        public void ChangeOnlyApplicantDetails()
+        {
+            var userId = "test.identity@test.site";
+            new BestStartGrantBuilder("existingForm").PreviousApplicationFor(userId).Insert();
+
+            var next = new StartChangeOfCircs().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddIdentity(next, userId);
+            next = AddOptions(next, o => { o.AllUnselected(); o.ChangePersonalDetails = true; });
+            next = AddApplicantDetails(next);
+            next = AddEvidence(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void ChangeOnlyAddBaby()
+        {
+            var userId = "test.identity@test.site";
+            new BestStartGrantBuilder("existingForm").PreviousApplicationFor(userId).Insert();
+
+            var next = new StartChangeOfCircs().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddIdentity(next, userId);
+            next = AddOptions(next, o => { o.AllUnselected(); o.AddExpectedBaby = true; });
+            next = AddExpectedChildren(next);
+            next = AddHealthProfessional(next);
+            next = AddEvidence(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
+        public void ChangeOnlyPaymentDetails()
+        {
+            var userId = "test.identity@test.site";
+            new BestStartGrantBuilder("existingForm").PreviousApplicationFor(userId).Insert();
+
+            var next = new StartChangeOfCircs().Execute();
+            var formId = next.Id;
+
+            next = AddConsent(next);
+            next = AddIdentity(next, userId);
+            next = AddOptions(next, o => { o.AllUnselected(); o.ChangePaymentDetails = true; });
+            next = AddPaymentDetails(next);
+            next = AddEvidence(next);
+            next = AddDeclaration(next);
+
+            next.Section.Should().BeNull();
+        }
+
+        [Test]
         public void ChangeOnlyOther()
         {
             var userId = "test.identity@test.site";

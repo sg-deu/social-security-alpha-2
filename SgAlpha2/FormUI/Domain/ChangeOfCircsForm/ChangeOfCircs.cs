@@ -248,6 +248,7 @@ namespace FormUI.Domain.ChangeOfCircsForm
             var anyChanged = options.ChangePersonalDetails
                 || options.ChangePartnerDetails
                 || options.ChangeChildrenDetails
+                || options.AddExpectedBaby
                 || options.ChangePaymentDetails
                 || options.Other;
 
