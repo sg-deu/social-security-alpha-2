@@ -29,6 +29,8 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
             next = AddIdentity(next, userId);
             next = AddOptions(next);
             next = AddApplicantDetails(next);
+            next = AddExpectedChildren(next);
+            next = AddHealthProfessional(next);
             next = AddPaymentDetails(next);
             next = AddEvidence(next);
             next = AddDeclaration(next);
@@ -83,6 +85,18 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm
         {
             current.Section.Should().Be(Sections.ApplicantDetails);
             return NextSection(current.Section, () => new AddApplicantDetails { FormId = current.Id, ApplicantDetails = ApplicantDetailsBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddExpectedChildren(NextSection current, Action<ExpectedChildren> mutator = null)
+        {
+            current.Section.Should().Be(Sections.ExpectedChildren);
+            return NextSection(current.Section, () => new AddExpectedChildren { FormId = current.Id, ExpectedChildren = ExpectedChildrenBuilder.NewValid(mutator) }.Execute());
+        }
+
+        private NextSection AddHealthProfessional(NextSection current, Action<HealthProfessional> mutator = null)
+        {
+            current.Section.Should().Be(Sections.HealthProfessional);
+            return NextSection(current.Section, () => new AddHealthProfessional { FormId = current.Id, HealthProfessional = HealthProfessionalBuilder.NewValid(mutator) }.Execute());
         }
 
         private NextSection AddPaymentDetails(NextSection current, Action<PaymentDetails> mutator = null)

@@ -9,11 +9,10 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
         {
             var value = new Options
             {
-                ChangePersonalDetails = true,
-                ChangePaymentDetails = true,
-                Other = true,
                 OtherDetails = "some other details to change",
             };
+
+            SetAllBool(value, true);
 
             if (mutator != null)
                 mutator(value);
@@ -23,12 +22,25 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
 
         public static Options AllUnselected(this Options options)
         {
-            options.ChangePersonalDetails = false;
-            options.ChangePartnerDetails = false;
-            options.ChangeChildrenDetails = false;
-            options.ChangePaymentDetails = false;
-            options.Other = false;
+            SetAllBool(options, false);
+            options.OtherDetails = null;
             return options;
+        }
+
+        private static void SetAllBool(Options options, bool set)
+        {
+            foreach (var prop in typeof(Options).GetProperties())
+            {
+                if (prop.PropertyType == typeof(bool))
+                    prop.SetValue(options, set);
+            }
+
+            if (set)
+            {
+                // until these are implemented, they cannot be set to true
+                options.ChangePartnerDetails = false;
+                options.ChangeChildrenDetails = false;
+            }
         }
     }
 }

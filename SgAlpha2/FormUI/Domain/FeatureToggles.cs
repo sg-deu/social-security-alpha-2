@@ -9,12 +9,7 @@
 
         public static bool SkipWorkInProgressSection(ChangeOfCircsForm.Sections section)
         {
-            return WorkingOnExpectedChildren(section);
-        }
-
-        public static bool WorkingOnExpectedChildren(ChangeOfCircsForm.Sections section)
-        {
-            return section == ChangeOfCircsForm.Sections.ExpectedChildren || section == ChangeOfCircsForm.Sections.HealthProfessional;
+            return false;
         }
     }
 }

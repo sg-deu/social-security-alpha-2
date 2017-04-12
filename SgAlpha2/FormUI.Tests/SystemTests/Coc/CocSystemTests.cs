@@ -82,6 +82,13 @@ namespace FormUI.Tests.SystemTests.Coc
             FillInApplicantDetails(bsg);
             App.Submit();
 
+            var expectancyDate = DateTime.UtcNow.Date.AddDays(100);
+            FillInExpectedChildren(expectancyDate);
+            App.Submit();
+
+            FillInHealthProfessional();
+            App.Submit();
+
             FillInPaymentDetails(bsg);
             App.Submit();
 
@@ -101,6 +108,8 @@ namespace FormUI.Tests.SystemTests.Coc
                 VerifyIdentity(doc, userId);
                 VerifyOptions(doc);
                 VerifyApplicantDetails(doc);
+                VerifyExpectedChildren(doc, expectancyDate);
+                VerifyHealthProfessional(doc);
                 VerifyPaymentDetails(doc);
                 VerifyEvidence(doc, filename);
                 VerifyDeclaration(doc);
@@ -135,6 +144,7 @@ namespace FormUI.Tests.SystemTests.Coc
         {
             var form = App.FormForModel<Options>();
             form.Check(m => m.ChangePersonalDetails, true);
+            form.Check(m => m.AddExpectedBaby, true);
             form.Check(m => m.ChangePaymentDetails, true);
             form.Check(m => m.Other, true);
             form.TypeTextArea(m => m.OtherDetails, "system test details");
@@ -182,6 +192,35 @@ namespace FormUI.Tests.SystemTests.Coc
             doc.ApplicantDetails.HomePhoneNumer.Should().Be("2345678");
             doc.ApplicantDetails.EmailAddress.Should().Be("coc.test@coc.com");
             _verifiedSections.Add(Sections.ApplicantDetails);
+        }
+
+        private void FillInExpectedChildren(DateTime expectancyDate)
+        {
+            var form = App.FormForModel<ExpectedChildren>();
+
+            form.TypeDate(m => m.ExpectancyDate, expectancyDate);
+            form.SelectRadio(m => m.IsMoreThan1BabyExpected, true);
+            form.TypeText(m => m.ExpectedBabyCount, "2");
+        }
+
+        private void VerifyExpectedChildren(ChangeOfCircs doc, DateTime expectancyDate)
+        {
+            doc.ExpectedChildren.ExpectancyDate.Should().Be(expectancyDate);
+            doc.ExpectedChildren.ExpectedBabyCount.Should().Be(2);
+            _verifiedSections.Add(Sections.ExpectedChildren);
+        }
+
+        private void FillInHealthProfessional()
+        {
+            var form = App.FormForModel<HealthProfessional>();
+
+            form.TypeText(m => m.Pin, "XYZ54321");
+        }
+
+        private void VerifyHealthProfessional(ChangeOfCircs doc)
+        {
+            doc.HealthProfessional.Pin.Should().Be("XYZ54321");
+            _verifiedSections.Add(Sections.HealthProfessional);
         }
 
         private void FillInPaymentDetails(BsgForm bsg)
