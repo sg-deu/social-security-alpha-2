@@ -180,13 +180,11 @@
     <Compile Include="Controllers\Bsg\ExpectedChildrenModel.cs" />
     <Compile Include="Controllers\Bsg\RelationDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\HealthProfessionalModel.cs" />
-    <Compile Include="Controllers\Bsg\NavigableModel.cs" />
     <Compile Include="Controllers\Bsg\PaymentDetailsModel.cs" />
     <Compile Include="Controllers\Bsg\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Coc\CocController.cs" />
     <Compile Include="Controllers\Coc\ConsentModel.cs" />
     <Compile Include="Controllers\Coc\IdentityModel.cs" />
-    <Compile Include="Controllers\Coc\NavigableModel.cs" />
     <Compile Include="Controllers\Coc\SectionActionStrategy.cs" />
     <Compile Include="Controllers\Harness\AjaxFormModel.cs" />
     <Compile Include="Controllers\Harness\HarnessController.cs" />
@@ -209,6 +207,7 @@
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Home\PasswordPostModel.cs" />
     <Compile Include="Controllers\Shared\FormController.cs" />
+    <Compile Include="Controllers\Shared\NavigableModel.cs" />
     <Compile Include="Controllers\Shared\PresentationRegistry.cs" />
     <Compile Include="Controllers\Shared\SharedViews.cs" />
     <Compile Include="Domain\BestStartGrantForms\Commands\AddApplicantBenefits.cs" />

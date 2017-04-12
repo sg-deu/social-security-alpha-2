@@ -1,4 +1,4 @@
-﻿namespace FormUI.Controllers.Coc
+﻿namespace FormUI.Controllers.Shared
 {
     public class NavigableModel
     {
