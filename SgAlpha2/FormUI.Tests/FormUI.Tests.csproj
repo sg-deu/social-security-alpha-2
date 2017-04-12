@@ -221,6 +221,8 @@
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ApplicantDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_DeclarationTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_EvidenceTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_ExpectedChildrenTests.cs" />
+    <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_HealthProfessionalTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_OptionsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\ChangeOfCircs_PaymentDetailsTests.cs" />
     <Compile Include="Domain\ChangeOfCircsForm\Commands\AddApplicantDetailsTests.cs" />

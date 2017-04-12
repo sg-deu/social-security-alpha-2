@@ -123,12 +123,19 @@ namespace FormUI.Domain.ChangeOfCircsForm
 
         public NextSection AddExpectedChildren(ExpectedChildren expectedChildren)
         {
+            if (expectedChildren.IsBabyExpected == false)
+                throw new DomainException("Must indicate having a baby in Change of Circumstances");
+
+            BestStartGrantForms.BestStartGrant.Validate(expectedChildren);
+
             ExpectedChildren = expectedChildren;
             return OnSectionCompleted(Sections.ExpectedChildren);
         }
 
         public NextSection AddHealthProfessional(HealthProfessional healthProfessional)
         {
+            BestStartGrantForms.BestStartGrant.Validate(healthProfessional);
+
             HealthProfessional = healthProfessional;
             return OnSectionCompleted(Sections.HealthProfessional);
         }

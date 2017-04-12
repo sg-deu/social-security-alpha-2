@@ -8,18 +8,19 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
     {
         public static ExpectedChildren NewValid(Action<ExpectedChildren> mutator = null)
         {
-            var value = new ExpectedChildren
-            {
-                IsBabyExpected = true,
-                ExpectancyDate = DomainRegistry.NowUtc().Date + TimeSpan.FromDays(100),
-                IsMoreThan1BabyExpected = true,
-                ExpectedBabyCount = 2,
-            };
+            return Populate(new ExpectedChildren(), mutator);
+        }
 
-            if (mutator != null)
-                mutator(value);
+        public static ExpectedChildren Populate(ExpectedChildren expectedChildren, Action<ExpectedChildren> mutator = null)
+        {
+            expectedChildren.IsBabyExpected = true;
+            expectedChildren.ExpectancyDate = DomainRegistry.NowUtc().Date + TimeSpan.FromDays(100);
+            expectedChildren.IsMoreThan1BabyExpected = true;
+            expectedChildren.ExpectedBabyCount = 2;
 
-            return value;
+            mutator?.Invoke(expectedChildren);
+
+            return expectedChildren;
         }
 
         public static ExpectedChildren NoBabyExpected(this ExpectedChildren expectedChildren)

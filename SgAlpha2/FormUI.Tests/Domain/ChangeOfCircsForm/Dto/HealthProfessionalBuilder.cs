@@ -7,15 +7,10 @@ namespace FormUI.Tests.Domain.ChangeOfCircsForm.Dto
     {
         public static HealthProfessional NewValid(Action<HealthProfessional> mutator = null)
         {
-            var value = new HealthProfessional
-            {
-                Pin = "GMC12345",
-            };
-
-            if (mutator != null)
-                mutator(value);
-
-            return value;
+            var healthProfessional = new HealthProfessional();
+            BestStartGrantForms.Dto.HealthProfessionalBuilder.Populate(healthProfessional);
+            mutator?.Invoke(healthProfessional);
+            return healthProfessional;
         }
     }
 }

@@ -7,15 +7,16 @@ namespace FormUI.Tests.Domain.BestStartGrantForms.Dto
     {
         public static HealthProfessional NewValid(Action<HealthProfessional> mutator = null)
         {
-            var value = new HealthProfessional
-            {
-                Pin = "GMC12345",
-            };
+            return Populate(new HealthProfessional(), mutator);
+        }
 
-            if (mutator != null)
-                mutator(value);
+        public static HealthProfessional Populate(HealthProfessional healthProfessional, Action<HealthProfessional> mutator = null)
+        {
+            healthProfessional.Pin = "GMC12345";
 
-            return value;
+            mutator?.Invoke(healthProfessional);
+
+            return healthProfessional;
         }
     }
 }

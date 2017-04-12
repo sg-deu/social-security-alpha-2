@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FormUI.Domain.BestStartGrantForms.Dto;
 using FormUI.Domain.BestStartGrantForms.Responses;
@@ -386,7 +386,7 @@ namespace FormUI.Domain.BestStartGrantForms
             return null;
         }
 
-        private static void Validate(ExpectedChildren expectedChildren)
+        internal static void Validate(ExpectedChildren expectedChildren)
         {
             var ctx = new ValidationContext<ExpectedChildren>(expectedChildren);
 
@@ -491,7 +491,7 @@ namespace FormUI.Domain.BestStartGrantForms
             ctx.ThrowIfError();
         }
 
-        private static void Validate(HealthProfessional healthProfessional)
+        internal static void Validate(HealthProfessional healthProfessional)
         {
             var ctx = new ValidationContext<HealthProfessional>(healthProfessional);
 
